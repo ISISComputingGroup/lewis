@@ -1,0 +1,30 @@
+
+
+``lewis.utils.byte_conversions``
+================================
+        
+        
+        
+        
+
+.. automodule:: lewis.utils.byte_conversions
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        float_to_raw_bytes
+        int_to_raw_bytes
+        raw_bytes_to_float
+        raw_bytes_to_int
+    
+    
