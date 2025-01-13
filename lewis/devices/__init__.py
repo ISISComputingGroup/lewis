@@ -148,7 +148,7 @@ class StateMachineDevice(DeviceBase, CanProcessComposite):
         """
         raise NotImplementedError("_get_initial_state must be implemented in a StateMachineDevice.")
 
-    def _get_transition_handlers(self) -> dict[tuple[State, State], Callable[[], bool]]:
+    def _get_transition_handlers(self) -> dict[tuple[str, str], Callable[[], bool]]:
         """
         Implement this method to return transition handlers for the internal state machine.
         The keys should be (state, state)-tuples and the values functions that return true
