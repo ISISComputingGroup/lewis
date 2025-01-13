@@ -139,7 +139,7 @@ class StateMachineDevice(DeviceBase, CanProcessComposite):
             "_get_state_handlers must be implemented in a StateMachineDevice."
         )
 
-    def _get_initial_state(self) -> State:
+    def _get_initial_state(self) -> str:
         """
         Implement this method to return the initial state of the internal state machine.
         The default implementation raises a ``NotImplementedError``.
