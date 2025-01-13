@@ -139,7 +139,7 @@ class StateMachineDevice(DeviceBase, CanProcessComposite):
             "_get_state_handlers must be implemented in a StateMachineDevice."
         )
 
-    def _get_initial_state(self) -> State:
+    def _get_initial_state(self) -> str:
         """
         Implement this method to return the initial state of the internal state machine.
         The default implementation raises a ``NotImplementedError``.
@@ -198,7 +198,7 @@ class StateMachineDevice(DeviceBase, CanProcessComposite):
                 self.log.debug("Trying to override initial data (%s=%s)", name, val)
                 if name not in dir(self):
                     raise AttributeError(
-                        "Can not override non-existing attribute" "'{}' of class '{}'.".format(
+                        "Can not override non-existing attribute'{}' of class '{}'.".format(
                             name, type(self).__name__
                         )
                     )
