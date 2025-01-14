@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name="lewis"
 description="Lewis - Let's write intricate simulators!"
@@ -70,4 +74,4 @@ lewis-control = "lewis.scripts.control:control_simulation"
 exclude=["tests", "tests.*"]
 
 [tool.setuptools_scm]
-version_file = "src/lewis/_version.py"
+version_file = "lewis/_version.py"

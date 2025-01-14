@@ -12,3 +12,5 @@ lewis.egg-info
 doc/generated
 _build
 .approval_tests_temp
+# setuptools_scm-generated file
+lewis/_version.py
