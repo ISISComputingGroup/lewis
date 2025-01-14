@@ -41,7 +41,9 @@ def _get_device_from(instance: StreamInterface):
     return device
 
 
-def conditional_reply(property_name: str, reply: str | None = None) -> Callable[P, T]:
+def conditional_reply(
+    property_name: str, reply: str | None = None
+) -> Callable[[Callable[P, T]], Callable[P, T]]:
     """
     Decorator that executes the command and replies if the device has a member called
     'property name' and it is True in a boolean context.
