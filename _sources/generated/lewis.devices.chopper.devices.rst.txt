@@ -1,0 +1,27 @@
+
+
+``lewis.devices.chopper.devices``
+=================================
+
+.. automodule:: lewis.devices.chopper.devices
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        bearings
+        device
+        states
+    
+    
+
+    
+    
+    

@@ -1,0 +1,34 @@
+
+
+``lewis.scripts.control``
+=========================
+        
+        
+        
+        
+        
+        
+
+.. automodule:: lewis.scripts.control
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        call_method
+        control_simulation
+        convert_type
+        is_remote_method
+        list_objects
+        show_api
+    
+    

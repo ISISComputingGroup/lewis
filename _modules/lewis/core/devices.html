@@ -1,0 +1,631 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.devices &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.core.devices</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.core.devices</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains :class:`DeviceBase` as a base class for other device classes and</span>
+<span class="sd">infrastructure that can import devices from a module (:class:`DeviceRegistry`). The latter also</span>
+<span class="sd">produces factory-like objects that create device instances and interfaces based on setups</span>
+<span class="sd">(:class:`DeviceBuilder`).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LewisException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_members</span><span class="p">,</span> <span class="n">get_submodules</span>
+
+
+<div class="viewcode-block" id="DeviceBase">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceBase">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeviceBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is a common base for :class:`~lewis.devices.Device` and</span>
+<span class="sd">    :class:`~lewis.devices.StateMachineDevice`. It is mainly used in the device</span>
+<span class="sd">    discovery process.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="InterfaceBase">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.InterfaceBase">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InterfaceBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is a common base for protocol specific interfaces that are exposed by a subclass of</span>
+<span class="sd">    :class:`~lewis.core.adapters.Adapter`. This base class is not meant to be used directly in</span>
+<span class="sd">    a device package - this is what the interfaces in :mod:`lewis.adapters` are for.</span>
+
+<span class="sd">    There is a 1:1 correspondence between device and interface, where the interface holds a</span>
+<span class="sd">    reference to the device. It can be changed through the ``device``-property.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">protocol</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InterfaceBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adapter type that is required to process and expose interfaces of this type. Must be</span>
+<span class="sd">        implemented in subclasses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;An interface type must specify which adapter it is compatible &quot;</span>
+            <span class="s2">&quot;with. Please implement the adapter-property.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The device this interface is bound to. When a new device is set, :meth:`_bind_device` is</span>
+<span class="sd">        called, where the interface can react to the device change if necessary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span>
+
+    <span class="nd">@device</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">new_device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bind_device</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bind_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method should perform any binding steps between device and interface. The result</span>
+<span class="sd">        of this binding step is generally used by the adapter to process network traffic.</span>
+
+<span class="sd">        The default implementation does nothing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="is_device">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.is_device">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_device</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if obj is a device type (derived from DeviceBase), but not defined in</span>
+<span class="sd">    :mod:`lewis.core.devices` or :mod:`lewis.devices`.</span>
+
+<span class="sd">    :param obj: Object to test.</span>
+<span class="sd">    :return: True if obj is a device type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DeviceBase</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;lewis.devices&quot;</span><span class="p">,</span> <span class="s2">&quot;lewis.core.devices&quot;</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_interface">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.is_interface">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_interface</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if obj is an interface (derived from :class:`InterfaceBase`), but not defined in</span>
+<span class="sd">    :mod:`lewis.adapters`, where concrete interfaces for protocols are defined.</span>
+
+<span class="sd">    :param obj: Object to test.</span>
+<span class="sd">    :return: True if obj is an interface type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">InterfaceBase</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;lewis.core.devices&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;lewis.adapters&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DeviceBuilder">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceBuilder">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeviceBuilder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class takes a module object (for example imported via importlib.import_module or via the</span>
+<span class="sd">    :class:`DeviceRegistry`) and inspects it so that it&#39;s possible to construct devices and</span>
+<span class="sd">    interfaces.</span>
+
+<span class="sd">    In order for the class to work properly, the device module has to adhere to a few rules.</span>
+<span class="sd">    Device types, which means classes inheriting from :class:`DeviceBase`, are imported directly</span>
+<span class="sd">    from the device module, equivalent to the following:</span>
+
+<span class="sd">    .. sourcecode :: Python</span>
+
+<span class="sd">        from device_name import SimulatedDeviceType</span>
+
+<span class="sd">    If ``SimulatedDeviceType`` is defined in the ``__init__.py``, there&#39;s nothing else to do. If</span>
+<span class="sd">    the device class is defined elsewhere, it must be imported in the ``__init__.py`` file as</span>
+<span class="sd">    written above. If there is only one device type (which is probably the most common case), it is</span>
+<span class="sd">    assumed to be default device type.</span>
+
+<span class="sd">    Setups are discovered in two locations, the first one is a dict called ``setups`` in the device</span>
+<span class="sd">    module, which must contain setup names as keys and as values again a dict. This inner dict has</span>
+<span class="sd">    one mandatory key called ``device_type`` and one optional key ``parameters`` containing the</span>
+<span class="sd">    constructor arguments for the specified device type:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        setups = dict(</span>
+<span class="sd">            broken=dict(</span>
+<span class="sd">                device_type=SimulatedDeviceType,</span>
+<span class="sd">                parameters=dict(</span>
+<span class="sd">                    override_initial_state=&quot;error&quot;,</span>
+<span class="sd">                    override_initial_data=dict(target=-10, position=-20.0),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )</span>
+<span class="sd">        )</span>
+
+<span class="sd">    The other location is a sub-package called `setups`, which should in turn contain modules. Each</span>
+<span class="sd">    module must contain a variable ``device_type`` and a variable ``parameters`` which are</span>
+<span class="sd">    analogous to the keys in the dict described above. This allows for more complex setups which</span>
+<span class="sd">    define additional classes and so on.</span>
+
+<span class="sd">    The ``default`` setup is special, it is used when no setup is supplied to</span>
+<span class="sd">    :meth:`create_device`. If the setup ``default`` is not defined, one is created with the default</span>
+<span class="sd">    device type. This has two consequences, no setups need to be defined for very simple devices,</span>
+<span class="sd">    but if multiple device types are defined, a ``default`` setup must be defined.</span>
+
+<span class="sd">    A setup can be supplied to the :meth:`create_device`.</span>
+
+<span class="sd">    Lastly, the builder tries to discover device interfaces, which are currently classes based on</span>
+<span class="sd">    :class:`lewis.adapters.InterfaceBase`. These are looked for in the module and in a sub-package</span>
+<span class="sd">    called ``interfaces`` (which should contain modules with adapters like the ``setups`` package).</span>
+
+<span class="sd">    Each interface has a protocol, if a protocol occurs more than once in a device module,</span>
+<span class="sd">    a RuntimeError is raised.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_module</span> <span class="o">=</span> <span class="n">module</span>
+
+        <span class="n">submodules</span> <span class="o">=</span> <span class="n">get_submodules</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discover_devices</span><span class="p">(</span><span class="n">submodules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;devices&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discover_setups</span><span class="p">(</span><span class="n">submodules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;setups&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interfaces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_discover_interfaces</span><span class="p">(</span><span class="n">submodules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;interfaces&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Discovered the following items in &#39;</span><span class="si">%s</span><span class="s2">&#39;: Devices: </span><span class="si">%s</span><span class="s2">; Setups: </span><span class="si">%s</span><span class="s2">; Interfaces: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">device_t</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">device_t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_types</span><span class="p">),</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setups</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interfaces</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_discover_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">devices_package</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_members</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">,</span> <span class="n">is_device</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">devices_package</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">devices</span>
+
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">get_submodules</span><span class="p">(</span><span class="n">devices_package</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">devices</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_members</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">is_device</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">devices</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_discover_setups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setups_package</span><span class="p">):</span>
+        <span class="n">setups</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">,</span> <span class="s2">&quot;setups&quot;</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="n">all_setups</span> <span class="o">=</span> <span class="n">setups</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">setups</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">setups_package</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">setup_module</span> <span class="ow">in</span> <span class="n">get_submodules</span><span class="p">(</span><span class="n">setups_package</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">existing_setup</span> <span class="o">=</span> <span class="n">all_setups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">existing_setup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;The setup &#39;</span><span class="si">{}</span><span class="s2">&#39; is defined twice in device &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">existing_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="n">all_setups</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;device_type&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">setup_module</span><span class="p">,</span> <span class="s2">&quot;device_type&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_device_type</span><span class="p">),</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">setup_module</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+                <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">&quot;default&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_setups</span><span class="p">:</span>
+            <span class="n">all_setups</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device_type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_device_type</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">all_setups</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_discover_interfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_package</span><span class="p">):</span>
+        <span class="n">all_interfaces</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">interface_package</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">interface_module</span> <span class="ow">in</span> <span class="n">get_submodules</span><span class="p">(</span><span class="n">interface_package</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">all_interfaces</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_members</span><span class="p">(</span><span class="n">interface_module</span><span class="p">,</span> <span class="n">is_interface</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="n">all_interfaces</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_members</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">,</span> <span class="n">is_interface</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">interface</span> <span class="ow">in</span> <span class="n">all_interfaces</span><span class="p">:</span>
+            <span class="n">existing_interface</span> <span class="o">=</span> <span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">existing_interface</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;The protocol &#39;</span><span class="si">{}</span><span class="s2">&#39; is defined in two interfaces for device &#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;    </span><span class="si">{}</span><span class="s2"> (in </span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;    </span><span class="si">{}</span><span class="s2"> (in </span><span class="si">{}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;One of the protocol names needs to be changed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">interface</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">existing_interface</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                        <span class="n">existing_interface</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+                        <span class="n">interface</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                        <span class="n">interface</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="n">interfaces</span><span class="p">[</span><span class="n">interface</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">interface</span>
+
+        <span class="k">return</span> <span class="n">interfaces</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">framework_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">,</span> <span class="s2">&quot;framework_version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The name of the device, which is also the name of the device module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This property contains a dict of all device types in the device module. The keys are</span>
+<span class="sd">        type names, the values are the types themselves.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_types</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_device_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If the module only defines one device type, it is the default device type. It is used</span>
+<span class="sd">        whenever a setup does not provide a ``device_type``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This property contains a map with protocols as keys and interface types as values.</span>
+<span class="sd">        The types are imported from the ``interfaces`` sub-module and from the device module</span>
+<span class="sd">        itself. If two interfaces with the same protocol are discovered, a RuntimeError is raiesed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interfaces</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protocols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;All available protocols for this device.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_protocol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;In case only one protocol exists for the device, this is the default protocol.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A map with all available setups. Setups are imported from the ``setups`` dictionary</span>
+<span class="sd">        in a device module and from the ``setups`` sub-module. If no ``default``-setup exists,</span>
+<span class="sd">        one is created using the default_device_type. If there are several device types in</span>
+<span class="sd">        the module, the default setup must be provided explicitly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setups</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_device_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">device_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_types</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can not create instance of non-device type.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">device_type</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeviceBuilder.create_device">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceBuilder.create_device">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a device object according to the provided setup. If no setup is provided,</span>
+<span class="sd">        the default setup is used. If the setup can&#39;t be found, a LewisException is raised.</span>
+<span class="sd">        This can also happen if the device type specified in the setup is invalid.</span>
+
+<span class="sd">        :param setup: Name of the setup from which to create device.</span>
+<span class="sd">        :return: Device object initialized according to the provided setup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">setup_name</span> <span class="o">=</span> <span class="n">setup</span> <span class="k">if</span> <span class="n">setup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;default&quot;</span>
+
+        <span class="k">if</span> <span class="n">setup_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">setups</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to find setup &#39;</span><span class="si">{}</span><span class="s2">&#39; for device &#39;</span><span class="si">{}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;Available setups are:</span><span class="se">\n</span><span class="s2">    </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">setup_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setups</span><span class="p">[</span><span class="n">setup_name</span><span class="p">]</span>
+        <span class="n">device_type</span> <span class="o">=</span> <span class="n">setup_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;device_type&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_device_type</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Trying to create device &#39;</span><span class="si">%s</span><span class="s2">&#39; (setup: </span><span class="si">%s</span><span class="s2">, device type: </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">setup_name</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="n">device_type</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_device_instance</span><span class="p">(</span><span class="n">device_type</span><span class="p">,</span> <span class="o">**</span><span class="n">setup_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parameters&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;The setup &#39;</span><span class="si">{}</span><span class="s2">&#39; you tried to load does not specify a valid device type, but the &quot;</span>
+                <span class="s2">&quot;device module &#39;</span><span class="si">{}</span><span class="s2">&#39; provides multiple device types so that no meaningful &quot;</span>
+                <span class="s2">&quot;default can be deduced.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">setup_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_interface_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="p">[</span><span class="n">protocol</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DeviceBuilder.create_interface">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceBuilder.create_interface">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an interface that implements the provided protocol. If the protocol is not</span>
+<span class="sd">        known, a LewisException is raised. All additional arguments are forwarded</span>
+<span class="sd">        to the interface constructor (see :class:`~lewis.adapters.Adapter` for details).</span>
+
+<span class="sd">        :param protocol: Protocol which the interface must implement.</span>
+<span class="sd">        :param args: Positional arguments that are passed on to the interface.</span>
+<span class="sd">        :param kwargs: Keyword arguments that are passed on to the interface.</span>
+<span class="sd">        :return: Instance of the interface type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="n">protocol</span> <span class="k">if</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_protocol</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying to create interface for protocol &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="p">[</span><span class="n">protocol</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not a valid protocol for device &#39;</span><span class="si">{}</span><span class="s2">&#39;, select one via the -p option.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;Available protocols are: </span><span class="se">\n</span><span class="s2">    </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">protocol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DeviceRegistry">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceRegistry">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeviceRegistry</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class takes the name of a module and constructs a :class:`DeviceBuilder` from</span>
+<span class="sd">    each sub-module. The available devices can be queried and a DeviceBuilder can be</span>
+<span class="sd">    obtained for each device:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        from lewis.core.devices import DeviceRegistry</span>
+
+<span class="sd">        registry = DeviceRegistry(&quot;lewis.devices&quot;)</span>
+<span class="sd">        chopper_builder = registry.device_builder(&quot;chopper&quot;)</span>
+
+<span class="sd">        # construct device, interface, ...</span>
+
+<span class="sd">    If the module can not be imported, a LewisException is raised.</span>
+
+<span class="sd">    :param device_module: Name of device module from which devices are loaded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">device_module</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to import module &#39;</span><span class="si">{}</span><span class="s2">&#39; for device discovery. &quot;</span>
+                <span class="s2">&quot;Make sure that it is in the PYTHONPATH.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;See also the -a option of lewis.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">device_module</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">DeviceBuilder</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">get_submodules</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device_module</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Devices loaded from &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">device_module</span><span class="p">,</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_devices</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">devices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;All available device names.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DeviceRegistry.device_builder">
+<a class="viewcode-back" href="../../../generated/lewis.core.devices.html#lewis.core.devices.DeviceRegistry.device_builder">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a :class:`DeviceBuilder` instance that can be used to create device objects</span>
+<span class="sd">        based on setups, as well as device interfaces. If the device name is not stored</span>
+<span class="sd">        in the internal map, a LewisException is raised.</span>
+
+<span class="sd">        Each DeviceBuilder has a ``framework_version``-member, which specifies the version</span>
+<span class="sd">        of Lewis the device has been written for. If the version does not match the current</span>
+<span class="sd">        framework version, it is only possible to obtain those device builders calling the</span>
+<span class="sd">        method with ``strict_versions`` set to ``False``, otherwise a</span>
+<span class="sd">        :class:`~lewis.core.exceptions.LewisException` is raised. A warning message is logged</span>
+<span class="sd">        in all cases. If ``framework_version`` is ``None`` (e.g. not specified at all), it</span>
+<span class="sd">        is accepted unless ``strict_versions`` is set to ``True``.</span>
+
+<span class="sd">        :param name: Name of the device.</span>
+<span class="sd">        :return: :class:`DeviceBuilder`-object for requested device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;No device with the name &#39;</span><span class="si">{}</span><span class="s2">&#39; could be found. &quot;</span>
+                <span class="s2">&quot;Possible names are:</span><span class="se">\n</span><span class="s2">    </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;See also the -k option to add inspect a different module.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

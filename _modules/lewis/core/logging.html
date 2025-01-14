@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.logging &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.core.logging</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.core.logging</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains everything logging-related in Lewis. There is one relevant</span>
+<span class="sd">module level variable that defines the default log format, ``default_log_format``.</span>
+
+<span class="sd">All places that use logging in Lewis prefix their logger names with ``lewis`` so</span>
+<span class="sd">that you can easily control the logs caused by Lewis if you use it as a library.</span>
+<span class="sd">Lewis uses the default settings of the logging module, so if you use Lewis as a</span>
+<span class="sd">library and do not have any logging enabled, messages that are more severe than ``WARNING``</span>
+<span class="sd">are printed to stdout. For details on how to disable that behavior, change levels</span>
+<span class="sd">for certain loggers and so on, please refer to the documentation</span>
+<span class="sd">of the standard `logging`_ library.</span>
+
+<span class="sd">.. _logging: https://docs.python.org/2/library/logging.html</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ParamSpec</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">overload</span>
+
+
+<div class="viewcode-block" id="HasLog">
+<a class="viewcode-back" href="../../../generated/lewis.core.logging.html#lewis.core.logging.HasLog">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HasLog</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span></div>
+
+
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+<span class="n">root_logger_name</span> <span class="o">=</span> <span class="s2">&quot;lewis&quot;</span>
+<span class="n">default_log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(name)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_log</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="o">...</span>
+<span class="nd">@overload</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_log</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span> <span class="o">...</span>
+
+
+<div class="viewcode-block" id="has_log">
+<a class="viewcode-back" href="../../../generated/lewis.core.logging.html#lewis.core.logging.has_log">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_log</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a decorator to add logging functionality to a class or function.</span>
+
+<span class="sd">    Applying this decorator to a class or function will add two new members:</span>
+
+<span class="sd">     - ``log`` is an instance of ``logging.Logger``. The name of the logger is</span>
+<span class="sd">       set to ``lewis.Foo`` for a class named Foo.</span>
+<span class="sd">     - ``_set_logging_context`` is a method that modifies the name of the logger</span>
+<span class="sd">       when the class is used in a certain context.</span>
+
+<span class="sd">    If ``context`` is a string, that string is directly inserted between ``lewis``</span>
+<span class="sd">    and ``Foo``, so that the logger name would be ``lewis.bar.Foo`` if context</span>
+<span class="sd">    was ``&#39;bar&#39;``. The more common case is probably ``context`` being an object of</span>
+<span class="sd">    some class, in which case the class name is inserted. If ``context`` is an object</span>
+<span class="sd">    of type ``Bar``, the logger name of ``Foo`` would be ``lewis.Bar.Foo``.</span>
+
+<span class="sd">    To provide a more concrete example in terms of Lewis, this is used for the state</span>
+<span class="sd">    machine logger in a device. So the logs of the state machine belonging to a certain</span>
+<span class="sd">    device appear in the log as originating from ``lewis.DeviceName.StateMachine``, which</span>
+<span class="sd">    makes it possible to distinguish between messages from different state machines.</span>
+
+<span class="sd">    Example for how to use logging in a class:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        from lewis.core.logging import has_log</span>
+
+
+<span class="sd">        @has_log</span>
+<span class="sd">        class Foo(Base):</span>
+<span class="sd">            def __init__(self):</span>
+<span class="sd">                super(Foo, self).__init__()</span>
+
+<span class="sd">            def bar(self, baz):</span>
+<span class="sd">                self.log.debug(&quot;Called bar with parameter baz=%s&quot;, baz)</span>
+<span class="sd">                return baz is not None</span>
+
+<span class="sd">    It works similarly for free functions, although the actual logging calls are a bit different:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        from lewis.core.logging import has_log</span>
+
+
+<span class="sd">        @has_log</span>
+<span class="sd">        def foo(bar):</span>
+<span class="sd">            foo.log.info(&quot;Called with argument bar=%s&quot;, bar)</span>
+<span class="sd">            return bar</span>
+
+<span class="sd">    The name of the logger is ``lewis.foo``, the context could also be modified by calling</span>
+<span class="sd">    ``foo._set_logging_context``.</span>
+
+<span class="sd">    :param target: Target to decorate with logging functionality.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger_name</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_logger_name</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">log_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">root_logger_name</span><span class="p">,</span> <span class="n">logger_name</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log_names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">context</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">context</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_names</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_logging_context</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">HasLog</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes the logger name of this class using the supplied context</span>
+<span class="sd">        according to the rules described in the documentation of :func:`has_log`. To</span>
+<span class="sd">        clear the context of a class logger, supply ``None`` as the argument.</span>
+
+<span class="sd">        :param context: String or object, ``None`` to clear context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">get_logger_name</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">target</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">get_logger_name</span><span class="p">())</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">_set_logging_context</span> <span class="o">=</span> <span class="n">_set_logging_context</span>
+
+    <span class="k">return</span> <span class="n">target</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
