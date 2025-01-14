@@ -68,3 +68,6 @@ lewis-control = "lewis.scripts.control:control_simulation"
 
 [tool.setuptools.packages.find]
 exclude=["tests", "tests.*"]
+
+[tool.setuptools_scm]
+version_file = "src/lewis/_version.py"

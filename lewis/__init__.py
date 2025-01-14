@@ -18,5 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # *********************************************************************
 
-__version__ = "1.3.3"
+from lewis._version import version
+
+__version__ = version
 __all__ = []
