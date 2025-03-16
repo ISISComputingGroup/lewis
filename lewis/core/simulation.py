@@ -196,6 +196,8 @@ class Simulation:
         while not self._stop_commanded:
             delta = self._process_cycle(delta)
 
+        self._wait_for_control_server_to_stop()
+
         self._running = False
         self._started = False
 
@@ -215,7 +217,7 @@ class Simulation:
             self._control_server_thread = Thread(target=control_server_loop)
             self._control_server_thread.start()
 
-    def _stop_control_server(self) -> None:
+    def _wait_for_control_server_to_stop(self) -> None:
         if self._control_server_thread is not None:
             self._control_server_thread.join(timeout=1.0)
             self._control_server_thread = None
@@ -377,8 +379,6 @@ class Simulation:
             self.log.warning("Stopping simulation")
 
             self._stop_commanded = True
-
-            self._stop_control_server()
             self._adapters.disconnect()
 
     @property
