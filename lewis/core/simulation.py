@@ -22,15 +22,18 @@ A :class:`~Simulation` combines a :mod:`Device <lewis.devices>` and its interfac
 an :mod:`Adapter <lewis.adapters>`).
 """
 
+from collections.abc import Collection, Sequence
 from datetime import datetime
 from threading import Thread
 from time import sleep
+from typing import Any
 
-from lewis.core.adapters import AdapterCollection
+from lewis.core.adapters import Adapter, AdapterCollection
 from lewis.core.control_server import ControlServer, ExposedObject
-from lewis.core.devices import DeviceRegistry
+from lewis.core.devices import DeviceBuilder, DeviceRegistry
 from lewis.core.logging import has_log
 from lewis.core.utils import seconds_since
+from lewis.devices import Device
 
 
 @has_log
@@ -81,7 +84,13 @@ class Simulation:
     :param control_server: 'host:port'-string to construct control server or None.
     """
 
-    def __init__(self, device, adapters=(), device_builder=None, control_server=None) -> None:
+    def __init__(
+        self,
+        device: Device,
+        adapters: Sequence[Adapter] = (),
+        device_builder: DeviceBuilder | None = None,
+        control_server: str | None = None,
+    ) -> None:
         super(Simulation, self).__init__()
 
         self._device_builder = device_builder
@@ -102,7 +111,9 @@ class Simulation:
 
         # Constructing the control server must be deferred until the end,
         # because the construction is not complete at this point
-        self._control_server = None  # Just initialize to None and use property setter afterwards
+        self._control_server: ControlServer | None = (
+            None  # Just initialize to None and use property setter afterwards
+        )
         self._control_server_thread = None
         self.control_server = control_server
 
@@ -115,7 +126,7 @@ class Simulation:
             control_server,
         )
 
-    def _create_control_server(self, control_server):
+    def _create_control_server(self, control_server: str | None) -> ControlServer | None:
         if control_server is None:
             return None
 
@@ -147,14 +158,14 @@ class Simulation:
         )
 
     @property
-    def setups(self):
+    def setups(self) -> list[str]:
         """
         A list of setups that are available. Use :meth:`switch_setup` to
         change the setup.
         """
         return list(self._device_builder.setups.keys()) if self._device_builder is not None else []
 
-    def switch_setup(self, new_setup) -> None:
+    def switch_setup(self, new_setup: str) -> None:
         """
         This method switches the setup, which means that it replaces the currently
         simulated device with a new device, as defined by the setup.
@@ -164,7 +175,7 @@ class Simulation:
         :param new_setup: Name of the new setup to load.
         """
         try:
-            self._device = self._device_builder.create_device(new_setup)
+            self._device = self._device_builder.create_device(new_setup)  # pyright: ignore reportOptionalMemberAccess
             self._adapters.set_device(self._device)
             self.log.info("Switched setup to '%s'", new_setup)
         except Exception as e:
@@ -204,13 +215,14 @@ class Simulation:
         self.log.info("Simulation has ended.")
 
     def _start_control_server(self) -> None:
-        if self._control_server is not None and self._control_server_thread is None:
+        control_server = self._control_server
+        if control_server is not None and self._control_server_thread is None:
 
             def control_server_loop() -> None:
-                self._control_server.start_server()
+                control_server.start_server()
 
                 while not self._stop_commanded:
-                    self._control_server.process(blocking=True)
+                    control_server.process(blocking=True)
 
                 self.log.info("Stopped processing control server commands, ending thread.")
 
@@ -222,7 +234,7 @@ class Simulation:
             self._control_server_thread.join(timeout=1.0)
             self._control_server_thread = None
 
-    def _process_cycle(self, delta):
+    def _process_cycle(self, delta: float) -> float:
         """
         Processes one cycle, which consists of one simulation cycle and processing
         of control server commands. The method measures how long all this takes
@@ -239,7 +251,7 @@ class Simulation:
 
         return delta
 
-    def _process_simulation_cycle(self, delta) -> None:
+    def _process_simulation_cycle(self, delta: float) -> None:
         """
         If the simulation is not paused, the device's process-method is
         called with the supplied delta, multiplied by the simulation speed.
@@ -263,7 +275,7 @@ class Simulation:
             self._runtime += delta_simulation
 
     @property
-    def cycle_delay(self):
+    def cycle_delay(self) -> float:
         """
         Desired time between simulation cycles, this can not be negative.
         Use 0 for highest possible processing rate.
@@ -271,7 +283,7 @@ class Simulation:
         return self._cycle_delay
 
     @cycle_delay.setter
-    def cycle_delay(self, delay) -> None:
+    def cycle_delay(self, delay: float) -> None:
         if delay < 0.0:
             raise ValueError("Cycle delay can not be negative.")
 
@@ -280,14 +292,14 @@ class Simulation:
         self.log.info("Changed cycle delay to %s", self._cycle_delay)
 
     @property
-    def cycles(self):
+    def cycles(self) -> int:
         """
         Simulation cycles processed since start has been called.
         """
         return self._cycles
 
     @property
-    def uptime(self):
+    def uptime(self) -> float:
         """
         Elapsed time in seconds since the simulation has been started.
         """
@@ -296,7 +308,7 @@ class Simulation:
         return seconds_since(self._start_time)
 
     @property
-    def speed(self):
+    def speed(self) -> float:
         """
         Simulation speed. Actual elapsed time is multiplied with this property
         to determine simulated time. Values greater than 1 increase the simulation
@@ -306,7 +318,7 @@ class Simulation:
         return self._speed
 
     @speed.setter
-    def speed(self, new_speed) -> None:
+    def speed(self, new_speed: float) -> None:
         if new_speed < 0:
             raise ValueError("Speed can not be negative.")
 
@@ -315,14 +327,14 @@ class Simulation:
         self.log.info("Changed speed to %s", self._speed)
 
     @property
-    def runtime(self):
+    def runtime(self) -> float:
         """
         The accumulated simulation time. Whenever speed is different from 1, this
         progresses at a different rate than uptime.
         """
         return self._runtime
 
-    def set_device_parameters(self, parameters) -> None:
+    def set_device_parameters(self, parameters: dict[str, Any]) -> None:
         """
         Set multiple parameters of the simulated device "simultaneously". The passed
         parameter is assumed to be device parameter/value dict.
@@ -382,21 +394,21 @@ class Simulation:
             self._adapters.disconnect()
 
     @property
-    def is_started(self):
+    def is_started(self) -> bool:
         """
         This property is true if the simulation has been started.
         """
         return self._started
 
     @property
-    def is_paused(self):
+    def is_paused(self) -> bool:
         """
         True if the simulation is paused (implies that the simulation has been started).
         """
         return self._started and not self._running
 
     @property
-    def control_server(self):
+    def control_server(self) -> ControlServer | None:
         """
         ControlServer-instance that exposes the object to remote machines. Can only
         be set before start has been called or on a running simulation if no
@@ -406,7 +418,7 @@ class Simulation:
         return self._control_server
 
     @control_server.setter
-    def control_server(self, control_server) -> None:
+    def control_server(self, control_server: str | None) -> None:
         if self.is_started and self._control_server:
             raise RuntimeError("Can not replace control server while simulation is running.")
 
@@ -437,19 +449,25 @@ class SimulationFactory:
     .. warning:: This class is meant for internal use at the moment and may change frequently.
     """
 
-    def __init__(self, devices_package) -> None:
+    def __init__(self, devices_package: str) -> None:
         self._reg = DeviceRegistry(devices_package)
 
     @property
-    def devices(self):
+    def devices(self) -> Collection[str]:
         """Names of available devices."""
         return self._reg.devices
 
-    def get_protocols(self, device):
+    def get_protocols(self, device: str) -> list[str]:
         """Returns a list of available protocols for the specified device."""
         return self._reg.device_builder(device).protocols
 
-    def create(self, device, setup=None, protocols=None, control_server=None):
+    def create(
+        self,
+        device: str,
+        setup: str | None = None,
+        protocols: dict[str, dict[str, Any]] | None = None,
+        control_server: str | None = None,
+    ) -> Simulation:
         """
         Creates a :class:`Simulation` according to the supplied parameters.
 
@@ -463,14 +481,14 @@ class SimulationFactory:
         """
 
         device_builder = self._reg.device_builder(device)
-        device = device_builder.create_device(setup)
+        device_instance = device_builder.create_device(setup)
 
         adapters = []
 
         if protocols is not None:
             for protocol, options in protocols.items():
                 interface = device_builder.create_interface(protocol)
-                interface.device = device
+                interface.device = device_instance
 
                 adapter = interface.adapter(options=options or {})
                 adapter.interface = interface
@@ -478,7 +496,7 @@ class SimulationFactory:
                 adapters.append(adapter)
 
         return Simulation(
-            device=device,
+            device=device_instance,
             adapters=adapters,
             device_builder=device_builder,
             control_server=control_server,
