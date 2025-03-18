@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.utils.command_builder &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.utils.constants" href="lewis.utils.constants.html" />
+    <link rel="prev" title="lewis.utils.byte_conversions" href="lewis.utils.byte_conversions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.utils.byte_conversions.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils.byte_conversions</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.utils.command_builder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.utils.constants.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.utils.replies.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils.replies</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.utils.command_builder</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.utils.command_builder.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.utils.command_builder">
+<span id="lewis-utils-command-builder"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.utils.command_builder</span></code><a class="headerlink" href="#module-lewis.utils.command_builder" title="Link to this heading"></a></h1>
+<p>A fluent command builder for lewis.</p>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CmdBuilder</span></code></a></p></td>
+<td><p>Build a command for the stream adapter.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.utils.command_builder.</span></span><span class="sig-name descname"><span class="pre">CmdBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_case</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Build a command for the stream adapter.</p>
+<p>Do this by creating this object, adding the values and then building it (this uses a fluent interface).</p>
+<p>For example to read a pressure the ioc might send “pres?” and when that happens this should call get_pres
+command would be:
+&gt;&gt;&gt; CmdBuilder(“get_pres”).escape(“pres?”).build()
+This will generate the regex needed by Lewis. The escape is just making sure none of the characters are special
+reg ex characters.
+If you wanted to set a pressure the ioc might send “pres &lt;pressure&gt;” where &lt;pressure&gt; is a floating point number,
+the interface should call set_pres with that number. Now use:
+&gt;&gt;&gt; CmdBuilder(“set_pres”).escape(“pres “).float().build()
+this add float as a regularly expression capture group for your argument. It is equivalent to:
+&gt;&gt;&gt; Cmd(“set_pres”, “pres ([+-]?d+.?d*)”)
+There are various arguments like int and digit. Finally some special characters are included so if your protocol
+uses enquirey character ascii 5 you can match is using
+&gt;&gt;&gt; CmdBuilder(“set_pres”).escape(“pres?”).enq().build()</p>
+<p>Create a builder. Use build to create the final object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_method</strong> – name of the method target to call when the reg ex matches</p></li>
+<li><p><strong>arg_sep</strong> – separators between arguments which are next to each other</p></li>
+<li><p><strong>ignore</strong> – set of characters to ignore between text and arguments</p></li>
+<li><p><strong>ignore_case</strong> – ignore the case when matching command</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.ack">
+<span class="sig-name descname"><span class="pre">ack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.ack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.ack" title="Link to this definition"></a></dt>
+<dd><p>Add the ACK character (0x6) to the string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.add_ascii_character">
+<span class="sig-name descname"><span class="pre">add_ascii_character</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.add_ascii_character"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.add_ascii_character" title="Link to this definition"></a></dt>
+<dd><p>Add a single character based on its integer value, e.g. 49 is ‘a’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>char_number</strong> – character number</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.any">
+<span class="sig-name descname"><span class="pre">any</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.any"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.any" title="Link to this definition"></a></dt>
+<dd><p>Add an argument that matches anything.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.any_except">
+<span class="sig-name descname"><span class="pre">any_except</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.any_except"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.any_except" title="Link to this definition"></a></dt>
+<dd><p>Adds an argument that matches anything other than a specified character (useful for commands containing
+delimiters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>char</strong> – the character not to match</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.arg">
+<span class="sig-name descname"><span class="pre">arg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_mapping:</span> <span class="pre">~functools.partial</span> <span class="pre">=</span> <span class="pre">functools.partial(&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding='utf-8')</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.arg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.arg" title="Link to this definition"></a></dt>
+<dd><p>Add an argument to the command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg_regex</strong> – regex for the argument (capture group will be added)</p></li>
+<li><p><strong>argument_mapping</strong> – the type mapping for the argument (default is str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lewis.adapters.stream.html#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><span class="pre">Cmd</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.build" title="Link to this definition"></a></dt>
+<dd><p>Builds the CMd object based on the target and regular expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – arguments to pass to Cmd constructor</p></li>
+<li><p><strong>kwargs</strong> – key word arguments to pass to Cmd constructor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cmd object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.char">
+<span class="sig-name descname"><span class="pre">char</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">not_chars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.char"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.char" title="Link to this definition"></a></dt>
+<dd><p>Add a single character argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>not_chars</strong> – characters that the character can not be; None for can be anything</p></li>
+<li><p><strong>ignore</strong> – True to match with a char but ignore the returned value (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.digit">
+<span class="sig-name descname"><span class="pre">digit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping:</span> <span class="pre">type</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.digit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.digit" title="Link to this definition"></a></dt>
+<dd><p>Add a single digit argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – The type to cast the response to (default: int)</p></li>
+<li><p><strong>ignore</strong> – True to match with a digit but ignore the returned value (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.enq">
+<span class="sig-name descname"><span class="pre">enq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.enq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.enq" title="Link to this definition"></a></dt>
+<dd><p>Add the ENQ character (0x5) to the string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.enum">
+<span class="sig-name descname"><span class="pre">enum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">allowed_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyStr</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.enum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.enum" title="Link to this definition"></a></dt>
+<dd><p>Matches one of a set of specified strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>allowed_values</strong> – the values this function is allowed to match</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.eos">
+<span class="sig-name descname"><span class="pre">eos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.eos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.eos" title="Link to this definition"></a></dt>
+<dd><p>Adds the regex end-of-string character to a command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.eot">
+<span class="sig-name descname"><span class="pre">eot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.eot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.eot" title="Link to this definition"></a></dt>
+<dd><p>Add the EOT character (0x4) to the string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.escape">
+<span class="sig-name descname"><span class="pre">escape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.escape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.escape" title="Link to this definition"></a></dt>
+<dd><p>Add some text to the regex which is escaped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> – text to add</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.etx">
+<span class="sig-name descname"><span class="pre">etx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.etx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.etx" title="Link to this definition"></a></dt>
+<dd><p>Add the ETX character (0x3) to the string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.float">
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping:</span> <span class="pre">type</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.float" title="Link to this definition"></a></dt>
+<dd><p>Add a float argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – The type to cast the response to (default: float)</p></li>
+<li><p><strong>ignore</strong> – True to match with a float but ignore the returned value (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.get_multicommands">
+<span class="sig-name descname"><span class="pre">get_multicommands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyStr</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.get_multicommands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.get_multicommands" title="Link to this definition"></a></dt>
+<dd><p>Allows emulator to split multiple commands separated by a defined command separator, e.g. “;”.
+Must be accompanied by stream device methods. See Keithley 2700 for examples</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command_separator</strong> – Character(s) that separate commands</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.int">
+<span class="sig-name descname"><span class="pre">int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping:</span> <span class="pre">type</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.int" title="Link to this definition"></a></dt>
+<dd><p>Add an integer argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – The type to cast the response to (default: int)</p></li>
+<li><p><strong>ignore</strong> – True to match with a int but ignore the returned value (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.optional">
+<span class="sig-name descname"><span class="pre">optional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.optional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.optional" title="Link to this definition"></a></dt>
+<dd><p>Add some escaped text which does not necessarily need to be there. For commands with optional parameters
+:param text: Text to add
+:return: builder</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.regex">
+<span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_regex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.regex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.regex" title="Link to this definition"></a></dt>
+<dd><p>Add a regex to match but not as an argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_regex</strong> – regex to add</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.spaces">
+<span class="sig-name descname"><span class="pre">spaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">at_least_one</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.spaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.spaces" title="Link to this definition"></a></dt>
+<dd><p>Add a regex for any number of spaces</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>at_least_one</strong> – true there must be at least one space; false there can be any number including zero</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.string">
+<span class="sig-name descname"><span class="pre">string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.string" title="Link to this definition"></a></dt>
+<dd><p>Add an argument which is a string of a given length (if blank string is any length)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>length</strong> – length of string; None for any length</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.utils.command_builder.CmdBuilder.stx">
+<span class="sig-name descname"><span class="pre">stx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.utils.command_builder.CmdBuilder" title="lewis.utils.command_builder.CmdBuilder"><span class="pre">CmdBuilder</span></a></span></span><a class="reference internal" href="../_modules/lewis/utils/command_builder.html#CmdBuilder.stx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.utils.command_builder.CmdBuilder.stx" title="Link to this definition"></a></dt>
+<dd><p>Add the STX character (0x2) to the string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>builder</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.utils.byte_conversions.html" class="btn btn-neutral float-left" title="lewis.utils.byte_conversions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.utils.constants.html" class="btn btn-neutral float-right" title="lewis.utils.constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

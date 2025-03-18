@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release 1.1 &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release 1.1.1" href="release_1_1_1.html" />
+    <link rel="prev" title="Release 1.0.3" href="release_1_0_3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="release_notes.html">Release notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_0.html">Release 1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_1.html">Release 1.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_2.html">Release 1.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_3.html">Release 1.0.3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release 1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes-and-other-improvements">Bug fixes and other improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrade-guide">Upgrade guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_1_1.html">Release 1.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_0.html">Release 1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_1.html">Release 1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_2.html">Release 1.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_0.html">Release 1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_1.html">Release 1.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_2.html">Release 1.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_3.html">Release 1.3.3</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="release_notes.html">Release notes</a></li>
+      <li class="breadcrumb-item active">Release 1.1</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/release_notes/release_1_1_0.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-1-1">
+<h1>Release 1.1<a class="headerlink" href="#release-1-1" title="Link to this heading"></a></h1>
+<p>In this release, some key changes to the core framework have been implemented. It is now possible
+to have more than one communication interface for a device, which enables some interesting use
+cases like partial interfaces, or multiple communication protocols accessing the same device. One
+prerequisite for this feature was running the network services in different threads than the
+device simulation.</p>
+<p>Another key change, one that requires some minor changes to existing devices (see upgrade guide),
+was that the communication interface definition has been completely separate from the network
+services handling the network communication.</p>
+<p>Besides these major improvements, there have been a number of smaller improvements and new
+features, and Lewis now also has a logo (see below).</p>
+<section id="new-features">
+<h2>New features<a class="headerlink" href="#new-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>It is now possible to have devices with more than one communication interface. The <code class="docutils literal notranslate"><span class="pre">-p</span></code>-option
+can be supplied multiple times:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   $ lewis some_device -p protocol1 -p protocol2
+</pre></div>
+</div>
+<p>When no <code class="docutils literal notranslate"><span class="pre">-p</span></code> option is specified, the script behaves as before (use default protocol if
+possible or produce an error message). To start a simulation without any device communication,
+use the new <code class="docutils literal notranslate"><span class="pre">-n</span></code>/<code class="docutils literal notranslate"><span class="pre">--no-interface</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   $ lewis some_device -n
+</pre></div>
+</div>
+<p>It is not possible to use both <code class="docutils literal notranslate"><span class="pre">-p</span></code> and <code class="docutils literal notranslate"><span class="pre">-n</span></code> at the same time, this results in an error
+message.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">epics_device</span></code> example has been renamed to <code class="docutils literal notranslate"><span class="pre">dual_device</span></code> and extended to include a
+second interface definition, so it exposes the device state via two different protocols:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   $ lewis -k lewis.examples dual_device -p epics -p stream
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code> has been extended. Besides regular expressions, it is now
+possible to use <code class="docutils literal notranslate"><span class="pre">scanf</span></code> format specifications to define commands. This makes handling
+of for example floating point numbers much more convenient:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">scanf</span>
+
+   <span class="k">class</span><span class="w"> </span><span class="nc">SomeInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+      <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="n">Cmd</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">scanf</span><span class="p">(</span><span class="s1">&#39;SQ </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">))</span>
+      <span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.scanf</span></code> provides argument mappings for the matched arguments
+automatically, so it is optional to pass them to <code class="docutils literal notranslate"><span class="pre">Cmd</span></code>. In the case outlined above, the
+argument is automatically converted to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+<p>If a string is specified directly (instead of <code class="docutils literal notranslate"><span class="pre">scanf(...)</span></code>), it is treated as a regular
+expression like in earlier versions.</p>
+<p>Internally, the scanf package is used for handling these patterns, please check the package
+documentation for all available format specifiers. Thanks to &#64;joshburnett for accepting
+a small patch to the package that made the package easier to integrate into Lewis.</p>
+<ul class="simple">
+<li><p>The control client, lewis-control, now provides a version argument via <code class="docutils literal notranslate"><span class="pre">--version</span></code> or <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   $ lewis-control -v
+</pre></div>
+</div>
+</section>
+<section id="bug-fixes-and-other-improvements">
+<h2>Bug fixes and other improvements<a class="headerlink" href="#bug-fixes-and-other-improvements" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Lewis now has a logo. It is based on  a state machine with one state that is entered and
+repeated infinitely - like the simulation cycles in Lewis.</p>
+<p>For low-resolution images or settings with little space, there is also a simplified version.</p>
+<p>The logo was made using inkscape, the font used in the logo is Rubik (in the SVG itself,
+the text was converted into a path, so that the font does not need to be installed for the logo
+to render correctly). The two PNGs and also the SVGs are in the source repository, feel
+free to include them in presentations or posters.</p>
+</li>
+<li><p>Adapters now run in a different thread than the simulation itself. The consequence of this is
+that slow network communication or expensive computations in the device do not influence
+one another anymore. Otherwise, communication still works exactly like in previous versions.</p></li>
+<li><p>The behavior of the <code class="docutils literal notranslate"><span class="pre">framework_version</span></code>-variable for devices that was introduced in version
+1.0.3 has been modified to make it easier to convert from older versions of Lewis.</p>
+<p>With the default options of the <code class="docutils literal notranslate"><span class="pre">lewis</span></code>-command, devices that do not specify the variable
+will be loaded after logging a warning. An error message is only displayed when strict
+version checking is enabled through the new <code class="docutils literal notranslate"><span class="pre">-S/--strict-versions</span></code>-flag.</p>
+<p>The option to ignore version mismatches has been renamed to <code class="docutils literal notranslate"><span class="pre">-I/--ignore-versions</span></code>. When
+that flag is specified, any device regardless of the contents of <code class="docutils literal notranslate"><span class="pre">framework_version</span></code> is
+loaded, but a warning is still logged.</p>
+<p>Specifying the <code class="docutils literal notranslate"><span class="pre">framework_version</span></code> variable is still encouraged as it can contribute to
+more certainty on the user side as to whether a device can function with a certain function
+of Lewis.</p>
+</li>
+</ul>
+</section>
+<section id="upgrade-guide">
+<h2>Upgrade guide<a class="headerlink" href="#upgrade-guide" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Due to a change to how Adapters and Devices work together, device interfaces are not
+inheriting from Adapter-classes anymore. Instead, there are dedicated Interface classes.
+They are located in the same modules as the Adapters, so only small changes are necessary:</p>
+<p>Old:</p>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamAdapter</span><span class="p">,</span> <span class="n">Cmd</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">DeviceInterface</span><span class="p">(</span><span class="n">StreamAdapter</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>New:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="n">Cmd</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">DeviceInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>The same goes for <code class="docutils literal notranslate"><span class="pre">EpicsAdapter</span></code> and <code class="docutils literal notranslate"><span class="pre">ModbusAdapter</span></code>, which must be modified to
+<code class="docutils literal notranslate"><span class="pre">EpicsInterface</span></code> and <code class="docutils literal notranslate"><span class="pre">ModbusInterface</span></code> respectively.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="release_1_0_3.html" class="btn btn-neutral float-left" title="Release 1.0.3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release_1_1_1.html" class="btn btn-neutral float-right" title="Release 1.1.1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

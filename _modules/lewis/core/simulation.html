@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.simulation &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.core.simulation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.core.simulation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A :class:`~Simulation` combines a :mod:`Device &lt;lewis.devices&gt;` and its interface (derived from</span>
+<span class="sd">an :mod:`Adapter &lt;lewis.adapters&gt;`).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Adapter</span><span class="p">,</span> <span class="n">AdapterCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.control_server</span><span class="w"> </span><span class="kn">import</span> <span class="n">ControlServer</span><span class="p">,</span> <span class="n">ExposedObject</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeviceBuilder</span><span class="p">,</span> <span class="n">DeviceRegistry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">seconds_since</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span>
+
+
+<div class="viewcode-block" id="Simulation">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Simulation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Simulation class controls certain aspects of a device simulation,</span>
+<span class="sd">    the most important one being time.</span>
+
+<span class="sd">    Once :meth:`start` is called, the process-method of the device</span>
+<span class="sd">    is called in regular intervals. The time between these calls is</span>
+<span class="sd">    influenced by the cycle_delay property. Because of the way some</span>
+<span class="sd">    network protocols work, the actual processing time can be</span>
+<span class="sd">    longer or shorter, so cycle_delay should be seen as a guideline</span>
+<span class="sd">    rather than a guaranteed parameter.</span>
+
+<span class="sd">    In the simplest case, the actual time-delta between two cycles</span>
+<span class="sd">    is passed to the simulated device so that it can update its internal</span>
+<span class="sd">    state according to the elapsed time. It is however possible to set</span>
+<span class="sd">    a simulation speed, which serves as a multiplier for this time.</span>
+<span class="sd">    If the speed is set to 2 and 0.1 seconds pass between two cycles,</span>
+<span class="sd">    the simulation is asked to simulate 0.2 seconds, and so on. Speed 0</span>
+<span class="sd">    effectively stops all time dependent calculations in the</span>
+<span class="sd">    simulated device.</span>
+
+<span class="sd">    Another possibility to pause the simulation is the pause-method. After</span>
+<span class="sd">    calling it, all processing in the device is suspended, while the communication</span>
+<span class="sd">    adapters continue to work. This can be used to simulate that a device is &quot;hanging&quot;.</span>
+<span class="sd">    The simulation can be continued using the resume-method.</span>
+
+<span class="sd">    A number of status properties provide information about the simulation.</span>
+<span class="sd">    The total uptime (in actually elapsed time) can be obtained through the</span>
+<span class="sd">    uptime-property, whereas the runtime-property contains the simulated time.</span>
+<span class="sd">    The cycles-property indicates the total number of simulation cycles, which</span>
+<span class="sd">    does not increase when the simulation is paused.</span>
+
+<span class="sd">    Finally, the simulation can be stopped entirely with the stop-method.</span>
+
+<span class="sd">    All functionality except for the start-method can be made available to remote</span>
+<span class="sd">    computers via a :class:`ControlServer`-instance. The way to expose device and simulation</span>
+<span class="sd">    is to pass a &#39;host:port&#39;-string as the control_server argument,</span>
+<span class="sd">    which will construct the control server. Simulation will try to start the</span>
+<span class="sd">    control server using the start_server method.</span>
+
+<span class="sd">    :param device: The simulated device.</span>
+<span class="sd">    :param adapters: Adapters which expose the simulated device.</span>
+<span class="sd">    :param device_builder: :class:`~lewis.core.devices.DeviceBuilder` instance to enable setup-</span>
+<span class="sd">                           switching at runtime.</span>
+<span class="sd">    :param control_server: &#39;host:port&#39;-string to construct control server or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Device</span><span class="p">,</span>
+        <span class="n">adapters</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Adapter</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">device_builder</span><span class="p">:</span> <span class="n">DeviceBuilder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">control_server</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Simulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_builder</span> <span class="o">=</span> <span class="n">device_builder</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span> <span class="o">=</span> <span class="n">AdapterCollection</span><span class="p">(</span><span class="o">*</span><span class="n">adapters</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_speed</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Multiplier for delta t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycle_delay</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Target time between cycles</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Real time when the simulation started</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Number of cycles processed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Total simulation time processed</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_commanded</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Constructing the control server must be deferred until the end,</span>
+        <span class="c1"># because the construction is not complete at this point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span><span class="p">:</span> <span class="n">ControlServer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="kc">None</span>  <span class="c1"># Just initialize to None and use property setter afterwards</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_server</span> <span class="o">=</span> <span class="n">control_server</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Created simulation. Device type: </span><span class="si">%s</span><span class="s2">, Protocol(s): </span><span class="si">%s</span><span class="s2">, Possible setups for &quot;</span>
+            <span class="s2">&quot;switching: </span><span class="si">%s</span><span class="s2">, Control server: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">protocols</span><span class="p">),</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">device_builder</span><span class="o">.</span><span class="n">setups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">device_builder</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">control_server</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_control_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control_server</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ControlServer</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">control_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">ControlServer</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">ExposedObject</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span>
+                    <span class="n">exclude_inherited</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">lock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">device_lock</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;simulation&quot;</span><span class="p">:</span> <span class="n">ExposedObject</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span>
+                    <span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;control_server&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">),</span>
+                    <span class="n">exclude_inherited</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;interface&quot;</span><span class="p">:</span> <span class="n">ExposedObject</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">,</span>
+                    <span class="n">exclude</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;device_lock&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;add_adapter&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;remove_adapter&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;handle&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;log&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">exclude_inherited</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+            <span class="n">control_server</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A list of setups that are available. Use :meth:`switch_setup` to</span>
+<span class="sd">        change the setup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device_builder</span><span class="o">.</span><span class="n">setups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_builder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Simulation.switch_setup">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.switch_setup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">switch_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method switches the setup, which means that it replaces the currently</span>
+<span class="sd">        simulated device with a new device, as defined by the setup.</span>
+
+<span class="sd">        If any error occurs during setup switching it is logged and re-raised.</span>
+
+<span class="sd">        :param new_setup: Name of the new setup to load.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_builder</span><span class="o">.</span><span class="n">create_device</span><span class="p">(</span><span class="n">new_setup</span><span class="p">)</span>  <span class="c1"># pyright: ignore reportOptionalMemberAccess</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Switched setup to &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">new_setup</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Caught an error while trying to switch setups. Setup not switched, &quot;</span>
+                <span class="s2">&quot;simulation continues: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">raise</span></div>
+
+
+<div class="viewcode-block" id="Simulation.start">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.start">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting simulation&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_commanded</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_control_server</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="n">delta</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_commanded</span><span class="p">:</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_cycle</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_control_server_to_stop</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Simulation has ended.&quot;</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_start_control_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">control_server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span>
+        <span class="k">if</span> <span class="n">control_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">control_server_loop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">control_server</span><span class="o">.</span><span class="n">start_server</span><span class="p">()</span>
+
+                <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_commanded</span><span class="p">:</span>
+                    <span class="n">control_server</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopped processing control server commands, ending thread.&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">control_server_loop</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_wait_for_control_server_to_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_server_thread</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Processes one cycle, which consists of one simulation cycle and processing</span>
+<span class="sd">        of control server commands. The method measures how long all this takes</span>
+<span class="sd">        and returns the elapsed time in seconds.</span>
+
+<span class="sd">        :param delta: Elapsed time in last cycle, passed to simulation.</span>
+<span class="sd">        :return: Elapsed time in this cycle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_simulation_cycle</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">seconds_since</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">delta</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_simulation_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If the simulation is not paused, the device&#39;s process-method is</span>
+<span class="sd">        called with the supplied delta, multiplied by the simulation speed.</span>
+
+<span class="sd">        If the simulation is paused, the process sleeps for the duration</span>
+<span class="sd">        of one cycle_delay.</span>
+
+<span class="sd">        :param delta: Time delta passed to simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cycle, dt=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+
+        <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cycle_delay</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
+            <span class="n">delta_simulation</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed</span>
+
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">device_lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">delta_simulation</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="o">+=</span> <span class="n">delta_simulation</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cycle_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Desired time between simulation cycles, this can not be negative.</span>
+<span class="sd">        Use 0 for highest possible processing rate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cycle_delay</span>
+
+    <span class="nd">@cycle_delay</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cycle_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">delay</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cycle delay can not be negative.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cycle_delay</span> <span class="o">=</span> <span class="n">delay</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Changed cycle delay to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cycle_delay</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cycles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Simulation cycles processed since start has been called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cycles</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">uptime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Elapsed time in seconds since the simulation has been started.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="n">seconds_since</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Simulation speed. Actual elapsed time is multiplied with this property</span>
+<span class="sd">        to determine simulated time. Values greater than 1 increase the simulation</span>
+<span class="sd">        speed, values between 1 and 0 decrease it. A speed of 0 effectively pauses</span>
+<span class="sd">        the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed</span>
+
+    <span class="nd">@speed</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">new_speed</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Speed can not be negative.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_speed</span> <span class="o">=</span> <span class="n">new_speed</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Changed speed to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_speed</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">runtime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The accumulated simulation time. Whenever speed is different from 1, this</span>
+<span class="sd">        progresses at a different rate than uptime.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span>
+
+<div class="viewcode-block" id="Simulation.set_device_parameters">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.set_device_parameters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_device_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set multiple parameters of the simulated device &quot;simultaneously&quot;. The passed</span>
+<span class="sd">        parameter is assumed to be device parameter/value dict.</span>
+<span class="sd">        The method only allows to set existing attributes. If there are invalid</span>
+<span class="sd">        attribute names, the attributes are not updated, instead a RuntimeError</span>
+<span class="sd">        is raised. The same happens if any of the parameters are methods, which</span>
+<span class="sd">        can not be updated with this mechanisms.</span>
+
+<span class="sd">        :param parameters: Dict of device attribute/values to update the device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">invalid_parameters</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span>
+            <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">invalid_parameters</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The following parameters do not exist in the device or are methods: </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                <span class="s2">&quot;Parameters not updated.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">invalid_parameters</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">device_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Updated device parameters: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Simulation.pause">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.pause">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pause the simulation. Can only be called after start has been called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can only pause a running simulation.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Pausing simulation&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Simulation.resume">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.resume">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resume a paused simulation. Can only be called after start</span>
+<span class="sd">        and pause have been called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can only resume a paused simulation.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Resuming simulation&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Simulation.stop">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.Simulation.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the simulation entirely.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_started</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Stopping simulation&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_commanded</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_started</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This property is true if the simulation has been started.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_paused</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        True if the simulation is paused (implies that the simulation has been started).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">control_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ControlServer</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ControlServer-instance that exposes the object to remote machines. Can only</span>
+<span class="sd">        be set before start has been called or on a running simulation if no</span>
+<span class="sd">        control server was previously present. If the server is not running, it will be started</span>
+<span class="sd">        after it has been set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span>
+
+    <span class="nd">@control_server</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">control_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control_server</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_started</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can not replace control server while simulation is running.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_control_server</span><span class="p">(</span><span class="n">control_server</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_started</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_server</span><span class="o">.</span><span class="n">start_server</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="SimulationFactory">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.SimulationFactory">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationFactory</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is used to create :class:`Simulation`-objects according to a certain</span>
+<span class="sd">    set of parameters, such as device, setup and protocol. To create a simulation, it needs to</span>
+<span class="sd">    know where devices are stored:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        factory = SimulationFactory(&quot;lewis.devices&quot;)</span>
+
+<span class="sd">    The actual creation happens via the :meth:`create`-method:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        simulation = factory.create(&quot;device_name&quot;, protocol=&quot;protocol&quot;)</span>
+
+<span class="sd">    The simulation can then be started and stopped as desired.</span>
+
+<span class="sd">    .. warning:: This class is meant for internal use at the moment and may change frequently.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">devices_package</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span> <span class="o">=</span> <span class="n">DeviceRegistry</span><span class="p">(</span><span class="n">devices_package</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Names of available devices.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span><span class="o">.</span><span class="n">devices</span>
+
+<div class="viewcode-block" id="SimulationFactory.get_protocols">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.SimulationFactory.get_protocols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_protocols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of available protocols for the specified device.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span><span class="o">.</span><span class="n">device_builder</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">protocols</span></div>
+
+
+<div class="viewcode-block" id="SimulationFactory.create">
+<a class="viewcode-back" href="../../../generated/lewis.core.simulation.html#lewis.core.simulation.SimulationFactory.create">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">protocols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">control_server</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Simulation</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a :class:`Simulation` according to the supplied parameters.</span>
+
+<span class="sd">        :param device: Name of device.</span>
+<span class="sd">        :param setup: Name of the setup for device creation.</span>
+<span class="sd">        :param protocols: Dictionary where each key is assigned a dictionary with options for the</span>
+<span class="sd">                          corresponding :class:`~lewis.core.adapters.Adapter`. For available</span>
+<span class="sd">                          protocols, see :meth:`get_protocols`.</span>
+<span class="sd">        :param control_server: String to construct a control server (host:port).</span>
+<span class="sd">        :return: Simulation object according to input parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">device_builder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span><span class="o">.</span><span class="n">device_builder</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">device_instance</span> <span class="o">=</span> <span class="n">device_builder</span><span class="o">.</span><span class="n">create_device</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>
+
+        <span class="n">adapters</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">protocols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="n">protocols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">interface</span> <span class="o">=</span> <span class="n">device_builder</span><span class="o">.</span><span class="n">create_interface</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+                <span class="n">interface</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_instance</span>
+
+                <span class="n">adapter</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">adapter</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span> <span class="ow">or</span> <span class="p">{})</span>
+                <span class="n">adapter</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">interface</span>
+
+                <span class="n">adapters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">adapter</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Simulation</span><span class="p">(</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">device_instance</span><span class="p">,</span>
+            <span class="n">adapters</span><span class="o">=</span><span class="n">adapters</span><span class="p">,</span>
+            <span class="n">device_builder</span><span class="o">=</span><span class="n">device_builder</span><span class="p">,</span>
+            <span class="n">control_server</span><span class="o">=</span><span class="n">control_server</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

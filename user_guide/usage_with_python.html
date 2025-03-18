@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage with Python &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developing Lewis" href="../developer_guide/developing_lewis.html" />
+    <link rel="prev" title="Remote Access to Simulation Parameters" href="remote_access_simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-environments">Virtual environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-via-pip">Installation via pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-from-source">Installation from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-from-source">Running from source</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage with Python</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/user_guide/usage_with_python.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage-with-python">
+<h1>Usage with Python<a class="headerlink" href="#usage-with-python" title="Link to this heading"></a></h1>
+<p>To use Lewis directly via Python you must first install its dependencies:</p>
+<ul class="simple">
+<li><p>Python 3.6+</p></li>
+<li><p>pip (latest)</p></li>
+</ul>
+<p>On most linux systems these can be installed via the distribution’s package manager.</p>
+<section id="virtual-environments">
+<h2>Virtual environments<a class="headerlink" href="#virtual-environments" title="Link to this heading"></a></h2>
+<p>We recommend using a virtual environment.</p>
+</section>
+<section id="installation-via-pip">
+<h2>Installation via pip<a class="headerlink" href="#installation-via-pip" title="Link to this heading"></a></h2>
+<p>Lewis is available on the <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Package</span> <span class="pre">Index</span> <span class="pre">&lt;https://pypi.python.org/pypi/lewis&gt;</span></code>__. That means
+it can be installed using pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install lewis
+</pre></div>
+</div>
+<p>This will install lewis along with its dependencies. If you would like to use EPICS based devices
+and have a working EPICS environment on your machine, you can install it like this to get the
+additional required dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install lewis[epics]
+</pre></div>
+</div>
+<p>This will install two scripts in the path, <code class="docutils literal notranslate"><span class="pre">lewis</span></code> and <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code>. Both scripts provide
+command line help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis --help
+$ lewis-control --help
+</pre></div>
+</div>
+<p>To list available devices, just type <code class="docutils literal notranslate"><span class="pre">lewis</span></code> in the command line, a list of devices that are
+available for simulation will be printed.</p>
+<p>All following sections of this user manual assume that Lewis has been installed via pip and that
+the <code class="docutils literal notranslate"><span class="pre">lewis</span></code> command is available.</p>
+</section>
+<section id="installation-from-source">
+<h2>Installation from source<a class="headerlink" href="#installation-from-source" title="Link to this heading"></a></h2>
+<p>Clone the repository in a location of your choice, we recommend that you do it inside a virtual
+environment so that you can keep track of the dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/ISISComputingGroup/lewis.git
+</pre></div>
+</div>
+<p>If you do not have git available, you can
+also download this repository as an archive and unpack it somewhere. A
+few additional dependencies must be installed. This can be done through
+pip in the top level directory of Lewis, which contains the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>-file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install .
+</pre></div>
+</div>
+<p>Note: There are a few optional dependencies for certain adapter types. Currently the only
+optional dependency is <code class="docutils literal notranslate"><span class="pre">pcaspy</span></code> for using devices with an EPICS interface, it requires a
+working installation of EPICS base. Please refer to the <code class="docutils literal notranslate"><span class="pre">installation</span> <span class="pre">instructions</span> <span class="pre">&lt;https://pcaspy.readthedocs.io/en/latest/installation.html&gt;</span></code>__ of the module.
+To include <code class="docutils literal notranslate"><span class="pre">pcaspy</span></code> in the installation of dependencies, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install &quot;.[epics]&quot;
+</pre></div>
+</div>
+<p>If you also want to develop Lewis, the workflow is a bit different. Please refer to the
+<code class="docutils literal notranslate"><span class="pre">developer_guide</span></code> for details.</p>
+<p>If you want to use the EPICS adapter, you will also need to configure a few more
+EPICS environment variables correctly. If you only want to communicate
+using EPICS locally via the loopback device, you can configure it like
+this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export EPICS_CA_AUTO_ADDR_LIST=NO
+$ export EPICS_CA_ADDR_LIST=localhost
+$ export EPICS_CAS_INTF_ADDR_LIST=localhost
+</pre></div>
+</div>
+<p>Once all dependencies and requirements are satisfied, Lewis can be
+run using the following general format (from inside the Lewis
+directory):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m lewis device_name [arguments]
+</pre></div>
+</div>
+<p>You can then run Lewis as follows (from within the lewis
+directory):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m lewis chopper -p epics
+</pre></div>
+</div>
+<p>Details about parameters for the various adapters, and differences
+between OSes are covered in the “Adapter Specifics” sections.</p>
+<p>If you decided to install Lewis this way, please be aware that the <code class="docutils literal notranslate"><span class="pre">lewis</span></code> and <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code>
+calls in the other parts of the guide have to be replaced with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">lewis.py</span></code>.</p>
+</section>
+<section id="running-from-source">
+<h2>Running from source<a class="headerlink" href="#running-from-source" title="Link to this heading"></a></h2>
+<p>Lewis can be run directly from source. First it is necessary to install the basic requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
+</pre></div>
+</div>
+<p>If you would like to use EPICS based devices
+and have a working EPICS environment on your machine then it is necessary to install <code class="docutils literal notranslate"><span class="pre">pcaspy</span></code> like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pcaspy
+</pre></div>
+</div>
+<p>There are Python scripts for running both <code class="docutils literal notranslate"><span class="pre">lewis</span></code> and <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code> in the top-level scripts directory.
+These scripts work exactly the same as when Lewis is installed via pip (see above). For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python scripts/lewis.py --help
+$ python scripts/lewis-control.py --help
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="remote_access_simulation.html" class="btn btn-neutral float-left" title="Remote Access to Simulation Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../developer_guide/developing_lewis.html" class="btn btn-neutral float-right" title="Developing Lewis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

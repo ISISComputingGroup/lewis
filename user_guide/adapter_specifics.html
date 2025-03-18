@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adapter Specifics &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command line tools" href="command_line_tools.html" />
+    <link rel="prev" title="Quickstart Guide" href="../quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adapter Specifics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#epics-adapter-specifics">EPICS Adapter Specifics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stream-adapter-specifics">Stream Adapter Specifics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Adapter Specifics</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/user_guide/adapter_specifics.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="adapter-specifics">
+<h1>Adapter Specifics<a class="headerlink" href="#adapter-specifics" title="Link to this heading"></a></h1>
+<section id="epics-adapter-specifics">
+<h2>EPICS Adapter Specifics<a class="headerlink" href="#epics-adapter-specifics" title="Link to this heading"></a></h2>
+<p>The EPICS adapter takes only one optional argument:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: This string is prefixed to all PV names. Defaults to empty / no prefix.</p></li>
+</ul>
+<p>Arguments meant for the adapter can be specified with the adapter options.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python lewis.py chopper --adapter-options &quot;epics: {prefix: &#39;SIM2:&#39;}&quot;
+</pre></div>
+</div>
+<p>On Linux, this means that <code class="docutils literal notranslate"><span class="pre">EPICS_CA_ADDR_LIST</span></code> must include this
+networks broadcast address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export EPICS_CA_AUTO_ADDR_LIST=NO
+$ export EPICS_CA_ADDR_LIST=172.17.255.255
+$ export EPICS_CAS_INTF_ADDR_LIST=localhost
+</pre></div>
+</div>
+</section>
+<section id="stream-adapter-specifics">
+<h2>Stream Adapter Specifics<a class="headerlink" href="#stream-adapter-specifics" title="Link to this heading"></a></h2>
+<p>The TCP Stream adapter has the following optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bind_address</span></code>: Address of network adapter to listen on.
+Defaults to “0.0.0.0” (all network adapters).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code>: Port to listen for connections on. Defaults to 9999.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">telnet_mode</span></code>: When True, overrides both in and out terminators
+to CRNL for telnet compatibility. Defaults to False.</p></li>
+</ul>
+<p>Arguments meant for the adapter can be specified with the adapter options.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python lewis.py linkam_t95 -p &quot;stream: {bind_address: localhost, port: 1234}&quot;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../quickstart.html" class="btn btn-neutral float-left" title="Quickstart Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="command_line_tools.html" class="btn btn-neutral float-right" title="Command line tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

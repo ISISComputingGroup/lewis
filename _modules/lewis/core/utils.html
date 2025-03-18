@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.utils &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.core.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.core.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains some useful helper classes and functions that are not specific to a certain</span>
+<span class="sd">module contained in the Core API.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">listdir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">path</span> <span class="k">as</span> <span class="n">osp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModuleType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LewisException</span><span class="p">,</span> <span class="n">LimitViolationException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+
+
+<div class="viewcode-block" id="get_submodules">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.get_submodules">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_submodules</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ModuleType</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function imports all sub-modules of the supplied module and returns a dictionary</span>
+<span class="sd">    with module names as keys and the sub-module objects as values. If the supplied parameter</span>
+<span class="sd">    is not a module object, a RuntimeError is raised.</span>
+
+<span class="sd">    :param module: Module object from which to import sub-modules.</span>
+<span class="sd">    :return: Dict with name-module pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Can only extract submodules from a module object, &quot;</span>
+            <span class="s2">&quot;for example imported via importlib.import_module&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">submodules</span> <span class="o">=</span> <span class="n">get_members</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">)</span>
+
+    <span class="n">module_path</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;__path__&quot;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">module_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">module_path</span><span class="p">):</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">extract_module_name</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">module_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">submodules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span>
+                        <span class="s2">&quot;.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module_name</span><span class="p">),</span> <span class="n">package</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">import_error</span><span class="p">:</span>
+                    <span class="c1"># This is necessary in case random directories are in the path or things can</span>
+                    <span class="c1"># just not be imported due to other ImportErrors.</span>
+                    <span class="n">get_submodules</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="s2">&quot;ImportError for </span><span class="si">{module}</span><span class="s2">: </span><span class="si">{error}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">module</span><span class="o">=</span><span class="n">module_name</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">import_error</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">submodules</span></div>
+
+
+
+<div class="viewcode-block" id="get_members">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.get_members">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_members</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns all members of an object for which the supplied predicate is true and that do not</span>
+<span class="sd">    begin with __. Keep in mind that the supplied function must accept a potentially very broad</span>
+<span class="sd">    range of inputs, because the members of an object can be of any type. The function puts</span>
+<span class="sd">    those members into a dict with the member names as keys and returns it. If no predicate is</span>
+<span class="sd">    supplied, all members are put into the dict.</span>
+
+<span class="sd">    :param obj: Object from which to get the members.</span>
+<span class="sd">    :param predicate: Filter function for the members, only members for which True is returned are</span>
+<span class="sd">                      part of the resulting dict.</span>
+<span class="sd">    :return: Dict with name-object pairs of members of obj for which predicate returns true.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="p">{</span><span class="n">member</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span> <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">member</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)}</span>
+
+    <span class="k">if</span> <span class="n">predicate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">members</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">member</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">members</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">predicate</span><span class="p">(</span><span class="n">member</span><span class="p">)}</span></div>
+
+
+
+<div class="viewcode-block" id="extract_module_name">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.extract_module_name">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_module_name</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function tries to extract a valid module name from the basename of the supplied path.</span>
+<span class="sd">    If it&#39;s a directory, the directory name is returned, if it&#39;s a file, the file name</span>
+<span class="sd">    without extension is returned. If the basename starts with _ or . or it&#39;s a file with an</span>
+<span class="sd">    ending different from .py, the function returns None</span>
+
+<span class="sd">    :param absolute_path: Absolute path of something that might be a module.</span>
+<span class="sd">    :return: Module name or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">base_name</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">))</span>
+
+    <span class="c1"># If the basename starts with _ it&#39;s probably __init__.py or __pycache__ or something internal.</span>
+    <span class="c1"># At the moment there seems to be no use case for those</span>
+    <span class="k">if</span> <span class="n">base_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># If it&#39;s a directory, there&#39;s nothing else to check, so it can be returned directly</span>
+    <span class="k">if</span> <span class="n">osp</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">base_name</span>
+
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">base_name</span><span class="p">)</span>
+
+    <span class="c1"># If it&#39;s a file, it must have a .py ending</span>
+    <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.py&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">module_name</span>
+
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="dict_strict_update">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.dict_strict_update">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dict_strict_update</span><span class="p">(</span><span class="n">base_dict</span><span class="p">,</span> <span class="n">update_dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function updates base_dict with update_dict if and only if update_dict does not contain</span>
+<span class="sd">    keys that are not already in base_dict. It is essentially a more strict interpretation of the</span>
+<span class="sd">    term &quot;updating&quot; the dict.</span>
+
+<span class="sd">    If update_dict contains keys that are not in base_dict, a RuntimeError is raised.</span>
+
+<span class="sd">    :param base_dict: The dict that is to be updated. This dict is modified.</span>
+<span class="sd">    :param update_dict: The dict containing the new values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">additional_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">update_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">base_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">additional_keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;The update dictionary contains keys that are not part of &quot;</span>
+            <span class="s2">&quot;the base dictionary: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">additional_keys</span><span class="p">)),</span>
+            <span class="n">additional_keys</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">base_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update_dict</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="seconds_since">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.seconds_since">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">seconds_since</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a small helper function that returns the elapsed seconds</span>
+<span class="sd">    since start using datetime.datetime.now().</span>
+
+<span class="sd">    :param start: Start time.</span>
+<span class="sd">    :return: Elapsed seconds since start time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="FromOptionalDependency">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.FromOptionalDependency">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FromOptionalDependency</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a utility class for importing classes from a module or</span>
+<span class="sd">    replacing them with dummy types if the module can not be loaded.</span>
+
+<span class="sd">    Assume module &#39;a&#39; that does:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        from b import C, D</span>
+
+<span class="sd">    and module &#39;e&#39; which does:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        from a import F</span>
+
+<span class="sd">    where &#39;b&#39; is a hard to install dependency which is thus optional.</span>
+<span class="sd">    To still be able to do:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        import e</span>
+
+<span class="sd">    without raising an error, for example for inspection purposes,</span>
+<span class="sd">    this class can be used as a workaround in module &#39;a&#39;:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        C, D = FromOptionalDependency(&quot;b&quot;).do_import(&quot;C&quot;, &quot;D&quot;)</span>
+
+<span class="sd">    which is not as pretty as the actual syntax, but at least it</span>
+<span class="sd">    can be read in a similar way. If the module &#39;b&#39; can not be imported,</span>
+<span class="sd">    stub-types are created that are called &#39;C&#39; and &#39;D&#39;. Everything depending</span>
+<span class="sd">    on these types will work until any of those are instantiated - in that</span>
+<span class="sd">    case an exception is raised.</span>
+
+<span class="sd">    The exception can be controlled via the exception-parameter. If it is a</span>
+<span class="sd">    string, a LewisException is constructed from it. Alternatively it can</span>
+<span class="sd">    be an instance of an exception-type. If not provided, a LewisException</span>
+<span class="sd">    with a standard message is constructed. If it is anything else, a RuntimeError</span>
+<span class="sd">    is raised.</span>
+
+<span class="sd">    Essentially, this class helps deferring ImportErrors until anything from</span>
+<span class="sd">    the module that was attempted to load is actually used.</span>
+
+<span class="sd">    :param module: Module from that symbols should be imported.</span>
+<span class="sd">    :param exception: Text for LewisException or custom exception object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">exception</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_module</span> <span class="o">=</span> <span class="n">module</span>
+
+        <span class="k">if</span> <span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exception</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;The optional dependency &#39;</span><span class="si">{}</span><span class="s2">&#39; is required for the &quot;</span>
+                <span class="s2">&quot;functionality you tried to use.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">exception</span> <span class="o">=</span> <span class="n">LewisException</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The exception parameter has to be either a string or a an instance of an &quot;</span>
+                <span class="s2">&quot;exception type (derived from BaseException).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span> <span class="o">=</span> <span class="n">exception</span>
+
+<div class="viewcode-block" id="FromOptionalDependency.do_import">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.FromOptionalDependency.do_import">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">names</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to import names from the module specified on initialization</span>
+<span class="sd">        of the FromOptionalDependency-object. In case an ImportError occurs,</span>
+<span class="sd">        the requested names are replaced with stub objects.</span>
+
+<span class="sd">        :param names: List of strings that are used as type names.</span>
+<span class="sd">        :return: Tuple of actual symbols or stub types with provided names. If there is only one</span>
+<span class="sd">                 element in the tuple, that element is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">module_object</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module</span><span class="p">)</span>
+
+            <span class="n">objects</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">module_object</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">failing_init</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span>
+
+            <span class="n">objects</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s2">&quot;__init__&quot;</span><span class="p">:</span> <span class="n">failing_init</span><span class="p">})</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">objects</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="format_doc_text">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.format_doc_text">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_doc_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A very thin wrapper around textwrap.fill to consistently wrap documentation text</span>
+<span class="sd">    for display in a command line environment. The text is wrapped to 99 characters with an</span>
+<span class="sd">    indentation depth of 4 spaces. Each line is wrapped independently in order to preserve</span>
+<span class="sd">    manually added line breaks.</span>
+
+<span class="sd">    :param text: The text to format, it is cleaned by inspect.cleandoc.</span>
+<span class="sd">    :return: The formatted doc text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">initial_indent</span><span class="o">=</span><span class="s2">&quot;    &quot;</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="s2">&quot;    &quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">cleandoc</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="check_limits">
+<a class="viewcode-back" href="../../../generated/lewis.core.utils.html#lewis.core.utils.check_limits">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">check_limits</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This decorator helps to make sure that the parameter of a property setter (or any other</span>
+<span class="sd">    method with one argument) is within certain numerical limits.</span>
+
+<span class="sd">    It&#39;s possible to set static limits using floats or ints:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class Foo:</span>
+<span class="sd">            _bar = 0</span>
+
+<span class="sd">            @property</span>
+<span class="sd">            def bar(self):</span>
+<span class="sd">                return self._bar</span>
+
+<span class="sd">            @bar.setter</span>
+<span class="sd">            @check_limits(0, 15)</span>
+<span class="sd">            def bar(self, new_value):</span>
+<span class="sd">                self._bar = new_value</span>
+
+<span class="sd">    But sometimes this is not flexible enough, so it&#39;s also possible to supply strings, which</span>
+<span class="sd">    are the names of attributes of the object the decorated method belongs with:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class Foo:</span>
+<span class="sd">            _bar = 0</span>
+
+<span class="sd">            bar_min = 0</span>
+<span class="sd">            bar_max = 24</span>
+
+<span class="sd">            @property</span>
+<span class="sd">            def bar(self):</span>
+<span class="sd">                return self._bar</span>
+
+<span class="sd">            @bar.setter</span>
+<span class="sd">            @check_limits(&quot;bar_min&quot;, &quot;bar_max&quot;)</span>
+<span class="sd">            def bar(self, new_value):</span>
+<span class="sd">                self._bar = new_value</span>
+
+<span class="sd">    This will make sure that the new value is always between ``bar_min`` and ``bar_max``, even</span>
+<span class="sd">    if they change at runtime. If the limit is ``None`` (default), the value will not be limited</span>
+<span class="sd">    in that direction.</span>
+
+<span class="sd">    Upper and lower limit can also be used exclusively, for example for a property that has a lower</span>
+<span class="sd">    bound but not an upper, say a temperature:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class Foo:</span>
+<span class="sd">            _temp = 273.15</span>
+
+<span class="sd">            @check_limits(lower=0)</span>
+<span class="sd">            def set_temperature(self, t_in_kelvin):</span>
+<span class="sd">                self._temp = t_in_kelvin</span>
+
+
+<span class="sd">    If the value is outside the specified limits, the decorated function is not called and a</span>
+<span class="sd">    :class:`~lewis.core.exceptions.LimitViolationException` is raised if the ``silent``-</span>
+<span class="sd">    parameter is ``False`` (default). If that option is active, the call is simply silently</span>
+<span class="sd">    ignored.</span>
+
+<span class="sd">    :param lower: Numerical lower limit or name of attribute that contains limit.</span>
+<span class="sd">    :param upper: Numerical upper limit or name of attribute that contains limit.</span>
+<span class="sd">    :param silent: A limit violation will not raise an exception if this option is ``True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lower</span> <span class="o">=</span> <span class="n">lower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_upper</span> <span class="o">=</span> <span class="n">upper</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_silent</span> <span class="o">=</span> <span class="n">silent</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">limit_checked</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lower</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lower</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lower</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upper</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_upper</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upper</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">lower</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">new_value</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">upper</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">new_value</span> <span class="o">&lt;=</span> <span class="n">upper</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_silent</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">LimitViolationException</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">%f</span><span class="s2"> is outside limits (</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">limit_checked</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
