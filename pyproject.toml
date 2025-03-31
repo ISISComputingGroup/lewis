@@ -22,6 +22,7 @@ classifiers=[
 
         "Programming Language :: Python :: 3",
     ]
+license = "GPL-3.0-only"
 license-files = ["LICENSE"]
 dynamic=["version"]
 authors=[
