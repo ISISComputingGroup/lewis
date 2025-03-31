@@ -1,0 +1,28 @@
+
+
+``lewis.examples.example_motor``
+================================
+        
+        
+        
+
+.. automodule:: lewis.examples.example_motor
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        DefaultMovingState
+        ExampleMotorStreamInterface
+        SimulatedExampleMotor
+    
+    

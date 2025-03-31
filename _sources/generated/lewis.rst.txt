@@ -1,0 +1,30 @@
+﻿
+
+``lewis``
+=========
+
+.. automodule:: lewis
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        adapters
+        core
+        devices
+        examples
+        scripts
+        utils
+    
+    
+
+    
+    
+    

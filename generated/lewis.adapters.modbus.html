@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.modbus &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.adapters.stream" href="lewis.adapters.stream.html" />
+    <link rel="prev" title="lewis.adapters.epics" href="lewis.adapters.epics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.epics.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.modbus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.stream.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.modbus</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.adapters.modbus.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.adapters.modbus">
+<span id="lewis-adapters-modbus"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.adapters.modbus</span></code><a class="headerlink" href="#module-lewis.adapters.modbus" title="Link to this heading"></a></h1>
+<p>This module provides components to expose a Device via a Modbus-interface. The following resources
+were used as guidelines and references for implementing the protocol:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf">http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf</a></p></li>
+<li><p><a class="reference external" href="http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf">http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sourceperl/pyModbusTCP">https://github.com/sourceperl/pyModbusTCP</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bashwork/pymodbus">https://github.com/bashwork/pymodbus</a></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For an example how Modbus can be used in the current implementation, please look
+at lewis/examples/modbus_device.</p>
+</div>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.modbus.MBEX" title="lewis.adapters.modbus.MBEX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBEX</span></code></a></p></td>
+<td><p>Modbus standard exception codes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusAdapter" title="lewis.adapters.modbus.ModbusAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusAdapter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusBasicDataBank" title="lewis.adapters.modbus.ModbusBasicDataBank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusBasicDataBank</span></code></a></p></td>
+<td><p>A basic ModbusDataBank instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusDataBank" title="lewis.adapters.modbus.ModbusDataBank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusDataBank</span></code></a></p></td>
+<td><p>Preliminary DataBank implementation for Modbus.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusDataStore" title="lewis.adapters.modbus.ModbusDataStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusDataStore</span></code></a></p></td>
+<td><p>Convenience struct to hold the four types of DataBanks in Modbus</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusHandler</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusInterface" title="lewis.adapters.modbus.ModbusInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusInterface</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusProtocol" title="lewis.adapters.modbus.ModbusProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusProtocol</span></code></a></p></td>
+<td><p>This class implements the Modbus TCP Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusServer</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.modbus.ModbusTCPFrame" title="lewis.adapters.modbus.ModbusTCPFrame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModbusTCPFrame</span></code></a></p></td>
+<td><p>This class models a frame of the Modbus TCP protocol.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.MBEX">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">MBEX</span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#MBEX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.MBEX" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Modbus standard exception codes</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusAdapter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusAdapter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusAdapter.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusAdapter.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusAdapter.handle" title="Link to this definition"></a></dt>
+<dd><p>This function is called on each cycle of a simulation. It should process requests that are
+made via the protocol that exposes the device. The time spent processing should be
+approximately <code class="docutils literal notranslate"><span class="pre">cycle_delay</span></code> seconds, during which the adapter may block the current
+process. It is desirable to stick to the provided time, but deviations are permissible if
+necessary due to the way the protocol works.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cycle_delay</strong> – Approximate time spent processing requests.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusAdapter.is_running">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><a class="headerlink" href="#lewis.adapters.modbus.ModbusAdapter.is_running" title="Link to this definition"></a></dt>
+<dd><p>This property indicates whether the Adapter’s server is running and listening. The result
+of calls to <a class="reference internal" href="#lewis.adapters.modbus.ModbusAdapter.start_server" title="lewis.adapters.modbus.ModbusAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a> and <a class="reference internal" href="#lewis.adapters.modbus.ModbusAdapter.stop_server" title="lewis.adapters.modbus.ModbusAdapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> should be reflected as expected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusAdapter.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusAdapter.start_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusAdapter.start_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to start the infrastructure required for the
+protocol in question. These startup operations are not supposed to be carried out on
+construction of the adapter in order to preserve control over when services are
+started during a run of a simulation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#lewis.adapters.modbus.ModbusAdapter.stop_server" title="lewis.adapters.modbus.ModbusAdapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> for shutting down the adapter.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusAdapter.stop_server">
+<span class="sig-name descname"><span class="pre">stop_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusAdapter.stop_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusAdapter.stop_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to stop and tear down anything that has been setup
+in <a class="reference internal" href="#lewis.adapters.modbus.ModbusAdapter.start_server" title="lewis.adapters.modbus.ModbusAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>. This method should close all connections to clients that have
+been established since the adapter has been started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusBasicDataBank">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusBasicDataBank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">65535</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusBasicDataBank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusBasicDataBank" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.adapters.modbus.ModbusDataBank" title="lewis.adapters.modbus.ModbusDataBank"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModbusDataBank</span></code></a></p>
+<p>A basic ModbusDataBank instance.</p>
+<p>This type of DataBank simply serves as a memory space for Modbus requests to read from and
+write to. It does not support binding addresses to attributes or functions of the device
+or interface. Example usage:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">di</span> <span class="o">=</span> <span class="n">ModbusBasicDataBank</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mh">0x1000</span><span class="p">,</span> <span class="mh">0x1FFF</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_value</strong> – Value to initialize memory with</p></li>
+<li><p><strong>start_addr</strong> – First valid address</p></li>
+<li><p><strong>last_addr</strong> – Last valid address</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusDataBank">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusDataBank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusDataBank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusDataBank" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Preliminary DataBank implementation for Modbus.</p>
+<p>This is a very generic implementation of a databank for Modbus. It’s meant to set the
+groundwork for future implementations. Only derived classes should be instantiated, not
+this class directly. The signature of this __init__ method is subject to change.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Configuration</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusDataBank.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusDataBank.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusDataBank.get" title="Link to this definition"></a></dt>
+<dd><p>Read list of <code class="docutils literal notranslate"><span class="pre">count</span></code> values at <code class="docutils literal notranslate"><span class="pre">addr</span></code> memory location in DataBank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> – Address to read from</p></li>
+<li><p><strong>count</strong> – Number of entries to retrieve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of entry values</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – Raised if address range falls outside valid range</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusDataBank.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusDataBank.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusDataBank.set" title="Link to this definition"></a></dt>
+<dd><p>Write list <code class="docutils literal notranslate"><span class="pre">values</span></code> to <code class="docutils literal notranslate"><span class="pre">addr</span></code> memory location in DataBank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> – Address to write to</p></li>
+<li><p><strong>values</strong> – list of values to write</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>IndexError</strong> – Raised if address range falls outside valid range</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusDataStore">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusDataStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">di</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">co</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusDataStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusDataStore" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convenience struct to hold the four types of DataBanks in Modbus</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusInterface">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusInterface</span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusInterface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusInterface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusInterface.adapter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adapter</span></span><a class="headerlink" href="#lewis.adapters.modbus.ModbusInterface.adapter" title="Link to this definition"></a></dt>
+<dd><p>Adapter type that is required to process and expose interfaces of this type. Must be
+implemented in subclasses.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusProtocol">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datastore</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusProtocol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class implements the Modbus TCP Protocol.</p>
+<p>The user of this class should provide a ModbusDataStore instance that will be used to
+fulfill read and write requests, and a callable <cite>sender</cite> which accepts one bytearray
+parameter. The <cite>sender</cite> will be called whenever a response frame is generated, with a
+bytearray containing the response frame as the parameter.</p>
+<p>Processing occurs when the user calls ModbusProtocol.process(), passing in the raw frame
+data to process as a bytearray. The data may include multiple frames and partial frame
+fragments. Any data that could not be processed (due to incomplete frames) is buffered for
+the next call to process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> – callable that accepts one bytearray parameter, called to send responses.</p></li>
+<li><p><strong>datastore</strong> – ModbusDataStore instance to reference when processing requests</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusProtocol.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_lock</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusProtocol.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusProtocol.process" title="Link to this definition"></a></dt>
+<dd><p>Process as much of given data as possible.</p>
+<p>Any remainder, in case there is an incomplete frame at the end, is stored so that
+processing may continue where it left off when more data is provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – Incoming byte data. Must be compatible with bytearray.</p></li>
+<li><p><strong>device_lock</strong> – threading.Lock instance that is acquired for device interaction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.modbus.</span></span><span class="sig-name descname"><span class="pre">ModbusTCPFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class models a frame of the Modbus TCP protocol.</p>
+<p>It may be a request, a response or an exception. Typically, requests are constructed using the
+init method, while responses and exceptions are constructed by called create_request or
+create_exception on an instance that is a request.</p>
+<p>Note that data from the passed in bytearray stream is consumed. That is, bytes will be removed
+from the front of the bytearray if construction is successful.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stream</strong> – bytearray to consume data from to construct this frame.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>EOFError</strong> – Not enough data for complete frame; no data consumed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame.create_exception">
+<span class="sig-name descname"><span class="pre">create_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame.create_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame.create_exception" title="Link to this definition"></a></dt>
+<dd><p>Create an exception frame based on this frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> – Modbus exception code to use for this exception</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModbusTCPFrame instance that represents an exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame.create_response">
+<span class="sig-name descname"><span class="pre">create_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame.create_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame.create_response" title="Link to this definition"></a></dt>
+<dd><p>Create a response frame based on this frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Data section of response as bytearray. If None, request data section is kept.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ModbusTCPFrame instance that represents a response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame.from_bytearray">
+<span class="sig-name descname"><span class="pre">from_bytearray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame.from_bytearray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame.from_bytearray" title="Link to this definition"></a></dt>
+<dd><p>Constructs this frame from input data stream, consuming as many bytes as necessary from
+the beginning of the stream.</p>
+<p>If stream does not contain enough data to construct a complete modbus frame, an EOFError
+is raised and no data is consumed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stream</strong> – bytearray to consume data from to construct this frame.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>EOFError</strong> – Not enough data for complete frame; no data consumed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame.is_valid" title="Link to this definition"></a></dt>
+<dd><p>Check integrity and validity of this frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool True if this frame is structurally valid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.modbus.ModbusTCPFrame.to_bytearray">
+<span class="sig-name descname"><span class="pre">to_bytearray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/modbus.html#ModbusTCPFrame.to_bytearray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.modbus.ModbusTCPFrame.to_bytearray" title="Link to this definition"></a></dt>
+<dd><p>Convert this frame into its bytearray representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytearray representation of this frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.adapters.epics.html" class="btn btn-neutral float-left" title="lewis.adapters.epics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.adapters.stream.html" class="btn btn-neutral float-right" title="lewis.adapters.stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

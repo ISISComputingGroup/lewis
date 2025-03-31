@@ -1,0 +1,24 @@
+
+
+``lewis.devices.chopper.interfaces.epics_interface``
+====================================================
+        
+
+.. automodule:: lewis.devices.chopper.interfaces.epics_interface
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        ChopperEpicsInterface
+    
+    

@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.adapters &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.core.adapters</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.core.adapters</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains :class:`Adapter`, which serves as a base class for concrete adapter</span>
+<span class="sd">implementations in :mod:`lewis.adapters`. It also contains :class:`AdapterCollection` which can</span>
+<span class="sd">be used to store multiple adapters and manage them together.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">TracebackType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeviceBase</span><span class="p">,</span> <span class="n">InterfaceBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LewisException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">dict_strict_update</span>
+
+
+<div class="viewcode-block" id="NoLock">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.NoLock">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NoLock</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A dummy context manager that raises a RuntimeError when it&#39;s used. This makes it easier to</span>
+<span class="sd">    detect cases where an :class:`Adapter` has not received the proper lock-object to make sure</span>
+<span class="sd">    that device/interface access is synchronous.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;The attempted action requires a proper threading.Lock-object, &quot;</span>
+            <span class="s2">&quot;but none was available.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exctype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
+        <span class="n">excinst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
+        <span class="n">exctb</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="Adapter">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.Adapter">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Adapter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for adapters</span>
+
+<span class="sd">    This class serves as a base class for concrete adapter implementations that expose a device via</span>
+<span class="sd">    a certain communication protocol. It defines the minimal interface that an adapter must provide</span>
+<span class="sd">    in order to fit seamlessly into other parts of the framework</span>
+<span class="sd">    (most importantly :class:`~lewis.core.simulation.Simulation`).</span>
+
+<span class="sd">    Sub-classes should re-define the ``protocol``-member to something appropriate. While it is</span>
+<span class="sd">    explicitly supported to modify it in concrete device interface implementations, it is good</span>
+<span class="sd">    to have a default (for example ``epics`` or ``stream``).</span>
+
+<span class="sd">    An adapter should provide everything that is needed for the communication via the protocol it</span>
+<span class="sd">    defines. This might involve constructing a server-object, configuring it and starting the</span>
+<span class="sd">    service (this should happen in :meth:`start_server`). Due to the large differences between</span>
+<span class="sd">    protocols it is very hard to provide general guidelines here. Please take a look at the</span>
+<span class="sd">    implementations of existing adapters (:class:`~lewis.adapters.epics.EpicsAdapter`,</span>
+<span class="sd">    :class:`~lewis.adapters.stream.StreamAdapter`),to get some examples.</span>
+
+<span class="sd">    In principle, an adapter can exist on its own, but it only really becomes useful when a device</span>
+<span class="sd">    is bound to it. To do this, assign an object derived from</span>
+<span class="sd">    :class:`lewis.core.devices.DeviceBase` to the ``device``-property. Sub-classes have to</span>
+<span class="sd">    implement :meth:`_bind_device` to achieve actual binding behavior.</span>
+
+<span class="sd">    It is possible to pass a dictionary with configuration options to Adapter. The keys of</span>
+<span class="sd">    the dictionary are accessible as properties of the ``_options``-member. Only keys that are</span>
+<span class="sd">    in the ``default_options`` member of the class are accepted. Inheriting classes must override</span>
+<span class="sd">    ``default_options`` to be a dictionary with the possible options for the adapter.</span>
+
+<span class="sd">    Each adapter has a ``lock`` member, which contains a :class:`NoLock` by default. To make</span>
+<span class="sd">    device access thread-safe, any adapter should acquire this lock before interacting with</span>
+<span class="sd">    the device (or interface). This means that before starting the server component of an Adapter,</span>
+<span class="sd">    a proper Lock-object needs to be assigned to ``lock``.</span>
+
+<span class="sd">    :param options: Configuration options for the adapter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Adapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span><span class="p">:</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span> <span class="o">|</span> <span class="n">NoLock</span> <span class="o">=</span> <span class="n">NoLock</span><span class="p">()</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">options</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">combined_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_options</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dict_strict_update</span><span class="p">(</span><span class="n">combined_options</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid options found: </span><span class="si">{}</span><span class="s2">. Valid options are: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_options</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">options_type</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;adapter_options&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">combined_options</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">options_type</span><span class="p">(</span><span class="o">**</span><span class="n">combined_options</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protocol</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">protocol</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interface</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InterfaceBase</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The device property contains the device-object exposed by the adapter.</span>
+
+<span class="sd">        The property can be set from the outside, at that point the adapter will</span>
+<span class="sd">        call :meth:`_bind_device` (which is implemented in each adapter sub-class)</span>
+<span class="sd">        and thus re-bind its commands etc. to call the new device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span>
+
+    <span class="nd">@interface</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_interface</span><span class="p">:</span> <span class="n">InterfaceBase</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span> <span class="o">=</span> <span class="n">new_interface</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This property can be overridden in a sub-class to provide protocol documentation to users</span>
+<span class="sd">        at runtime. By default it returns the indentation cleaned-up docstring of the class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="Adapter.start_server">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.Adapter.start_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method must be re-implemented to start the infrastructure required for the</span>
+<span class="sd">        protocol in question. These startup operations are not supposed to be carried out on</span>
+<span class="sd">        construction of the adapter in order to preserve control over when services are</span>
+<span class="sd">        started during a run of a simulation.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            This method may be called multiple times over the lifetime of the Adapter, so it is</span>
+<span class="sd">            important to make sure that this does not cause problems.</span>
+
+<span class="sd">        .. seealso:: See :meth:`stop_server` for shutting down the adapter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;Adapters must implement start_server to construct and setup any servers or mechanism &quot;</span>
+            <span class="s2">&quot;required for network communication.&quot;</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Adapter.stop_server">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.Adapter.stop_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method must be re-implemented to stop and tear down anything that has been setup</span>
+<span class="sd">        in :meth:`start_server`. This method should close all connections to clients that have</span>
+<span class="sd">        been established since the adapter has been started.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            This method may be called multiple times over the lifetime of the Adapter, so it is</span>
+<span class="sd">            important to make sure that this does not cause problems.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;Adapters must implement stop_server to tear down anything that has been setup in &quot;</span>
+            <span class="s2">&quot;start_server.&quot;</span>
+        <span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This property indicates whether the Adapter&#39;s server is running and listening. The result</span>
+<span class="sd">        of calls to :meth:`start_server` and :meth:`stop_server` should be reflected as expected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;Adapters must implement the is_running property to indicate whether &quot;</span>
+            <span class="s2">&quot;a server is currently running and listening for requests.&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Adapter.handle">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.Adapter.handle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cycle_delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is called on each cycle of a simulation. It should process requests that are</span>
+<span class="sd">        made via the protocol that exposes the device. The time spent processing should be</span>
+<span class="sd">        approximately ``cycle_delay`` seconds, during which the adapter may block the current</span>
+<span class="sd">        process. It is desirable to stick to the provided time, but deviations are permissible if</span>
+<span class="sd">        necessary due to the way the protocol works.</span>
+
+<span class="sd">        :param cycle_delay: Approximate time spent processing requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AdapterCollection">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdapterCollection</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A container to manage the adapters of a device</span>
+
+<span class="sd">    This container is designed to keep all adapters that expose a device in one place and interact</span>
+<span class="sd">    with them in a uniform way.</span>
+
+<span class="sd">    Adapters can be passed as arguments upon construction or added later on using</span>
+<span class="sd">    :meth:`add_adapter` (and removed using :meth:`remove_adapter`). The available protocols can be</span>
+<span class="sd">    queried using the :meth:`protocols` property.</span>
+
+<span class="sd">    Each adapter can be started and stopped separately by supplying protocol names to</span>
+<span class="sd">    :meth:`connect` and :meth:`disconnect`, both methods accept an arbitrary number of arguments,</span>
+<span class="sd">    so that any subset of the stored protocols can be handled at any time. Supplying no protocol</span>
+<span class="sd">    names at all will start/stop all adapters. These semantics also apply for :meth:`is_connected`</span>
+<span class="sd">    and `documentation`.</span>
+
+<span class="sd">    This class also makes sure that all adapters use the same Lock for device interaction.</span>
+
+<span class="sd">    :param args: List of adapters to add to the container</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Adapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span>
+
+        <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_adapter</span><span class="p">(</span><span class="n">adapter</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This lock is passed to each adapter when it&#39;s started. It&#39;s supposed to be used to ensure</span>
+<span class="sd">        that the device is only accessed from one thread at a time, for example during network IO.</span>
+<span class="sd">        :class:`~lewis.core.simulation.Simulation` uses this lock to block the device during the</span>
+<span class="sd">        simulation cycle calculations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span>
+
+<div class="viewcode-block" id="AdapterCollection.set_device">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.set_device">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_device</span><span class="p">:</span> <span class="n">DeviceBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bind the new device to all interfaces managed by the adapters in the collection.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">adapter</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">new_device</span></div>
+
+
+<div class="viewcode-block" id="AdapterCollection.add_adapter">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.add_adapter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adapter</span><span class="p">:</span> <span class="n">Adapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the supplied adapter to the container but raises a ``RuntimeError`` if there&#39;s</span>
+<span class="sd">        already an adapter registered for the same protocol.</span>
+
+<span class="sd">        :param adapter: Adapter to add to the container</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Adapter for protocol &#39;</span><span class="si">{}</span><span class="s2">&#39; is already registered.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span></div>
+
+
+<div class="viewcode-block" id="AdapterCollection.remove_adapter">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.remove_adapter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to remove the adapter for the specified protocol, raises a ``RuntimeError`` if there</span>
+<span class="sd">        is no adapter registered for that particular protocol.</span>
+
+<span class="sd">        :param protocol: Protocol to remove from container</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">protocol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Can not remove adapter for protocol &#39;</span><span class="si">{}</span><span class="s2">&#39;, none registered.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">[</span><span class="n">protocol</span><span class="p">]</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protocols</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List of protocols for which adapters are registered.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<div class="viewcode-block" id="AdapterCollection.connect">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.connect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method starts an adapter for each specified protocol in a separate thread, if the</span>
+<span class="sd">        adapter is not already running.</span>
+
+<span class="sd">        :param args: List of protocols for which to start adapters or empty for all.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_adapters</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_server</span><span class="p">(</span><span class="n">adapter</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adapter</span><span class="p">:</span> <span class="n">Adapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Connecting device interface for protocol &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+
+            <span class="n">adapter_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapter_loop</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">adapter</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+            <span class="n">adapter_thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter_thread</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+
+            <span class="n">adapter_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+            <span class="c1"># Block until server is actually listening</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span><span class="s2">&quot;Adapter for &#39;</span><span class="si">%s</span><span class="s2">&#39; failed to start!&quot;</span> <span class="o">%</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_adapter_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adapter</span><span class="p">:</span> <span class="n">Adapter</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">adapter</span><span class="o">.</span><span class="n">device_lock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span>  <span class="c1"># This ensures that the adapter is using the correct lock</span>
+        <span class="n">adapter</span><span class="o">.</span><span class="n">start_server</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting adapter loop for protocol </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="n">adapter</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="n">adapter</span><span class="o">.</span><span class="n">stop_server</span><span class="p">()</span>
+
+<div class="viewcode-block" id="AdapterCollection.disconnect">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.disconnect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops all adapters for the specified protocols. The method waits for each adapter thread</span>
+<span class="sd">        to join, so it might hang if the thread is not terminating correctly.</span>
+
+<span class="sd">        :param args: List of protocols for which to stop adapters or empty for all.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_adapters</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_server</span><span class="p">(</span><span class="n">adapter</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stop_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adapter</span><span class="p">:</span> <span class="n">Adapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Disconnecting device interface for protocol &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threads</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">[</span><span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">]</span>
+
+<div class="viewcode-block" id="AdapterCollection.is_connected">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.is_connected">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If only one protocol is supplied, a single bool is returned with the connection status.</span>
+<span class="sd">        Otherwise, this method returns a dictionary of adapter connection statuses for the supplied</span>
+<span class="sd">        protocols. If no protocols are supplied, all adapter statuses are returned.</span>
+
+<span class="sd">        :param args: List of protocols for which to start adapters or empty for all.</span>
+<span class="sd">        :return: Boolean for single adapter or dict of statuses for multiple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">:</span> <span class="n">adapter</span><span class="o">.</span><span class="n">is_running</span> <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_adapters</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">status_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">status</span>
+
+        <span class="k">return</span> <span class="n">status_dict</span></div>
+
+
+<div class="viewcode-block" id="AdapterCollection.configuration">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.configuration">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary that contains the options for the specified adapter. The dictionary</span>
+<span class="sd">        keys are the adapter protocols.</span>
+
+<span class="sd">        :param args: List of protocols for which to list options, empty for all adapters.</span>
+<span class="sd">        :return: Dict of protocol: option-dict pairs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">adapter</span><span class="o">.</span><span class="n">protocol</span><span class="p">:</span> <span class="n">adapter</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_adapters</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AdapterCollection.documentation">
+<a class="viewcode-back" href="../../../generated/lewis.core.adapters.html#lewis.core.adapters.AdapterCollection.documentation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the concatenated documentation for the adapters specified by the supplied</span>
+<span class="sd">        protocols or all of them if no arguments are provided.</span>
+
+<span class="sd">        :param args: List of protocols for which to get documentation or empty for all.</span>
+<span class="sd">        :return: Documentation for all selected adapters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">adapter</span><span class="o">.</span><span class="n">documentation</span> <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_adapters</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_adapters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Adapter</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method to map protocols back to adapters. If the list of protocols contains an</span>
+<span class="sd">        invalid entry (e.g. a protocol for which there is no adapter), a ``RuntimeError``</span>
+<span class="sd">        is raised.</span>
+
+<span class="sd">        :param protocols: List of protocols, can be empty to return all adapters.</span>
+<span class="sd">        :return: Adapters according to the rules described above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">invalid_protocols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">protocols</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">invalid_protocols</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;No adapter registered for protocols: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">invalid_protocols</span><span class="p">))</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapters</span><span class="p">[</span><span class="n">proto</span><span class="p">]</span> <span class="k">for</span> <span class="n">proto</span> <span class="ow">in</span> <span class="n">protocols</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocols</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

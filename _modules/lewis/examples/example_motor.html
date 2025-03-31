@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.examples.example_motor &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.examples.example_motor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.examples.example_motor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="n">regex</span><span class="p">,</span> <span class="n">scanf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">approaches</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.statemachine</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateMachineDevice</span>
+
+
+<div class="viewcode-block" id="DefaultMovingState">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.DefaultMovingState">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DefaultMovingState</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultMovingState.in_state">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.DefaultMovingState.in_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">in_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">old_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">approaches</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span>
+            <span class="n">old_position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">dt</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Moved position (</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">), target=</span><span class="si">%s</span><span class="s2">, speed=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">old_position</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SimulatedExampleMotor">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.SimulatedExampleMotor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulatedExampleMotor</span><span class="p">(</span><span class="n">StateMachineDevice</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">2.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_state_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;idle&quot;</span><span class="p">:</span> <span class="n">State</span><span class="p">(),</span> <span class="s2">&quot;moving&quot;</span><span class="p">:</span> <span class="n">DefaultMovingState</span><span class="p">()}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_initial_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;idle&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_transition_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">((</span><span class="s2">&quot;idle&quot;</span><span class="p">,</span> <span class="s2">&quot;moving&quot;</span><span class="p">),</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+                <span class="p">((</span><span class="s2">&quot;moving&quot;</span><span class="p">,</span> <span class="s2">&quot;idle&quot;</span><span class="p">),</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csm</span><span class="o">.</span><span class="n">state</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span>
+
+    <span class="nd">@target</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_target</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;moving&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can not set new target while moving.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">new_target</span> <span class="o">&lt;=</span> <span class="mi">250</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target is out of range [0, 250]&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">new_target</span>
+
+<div class="viewcode-block" id="SimulatedExampleMotor.stop">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.SimulatedExampleMotor.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stops the motor and returns the new target and position, which are equal&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping movement after user request.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ExampleMotorStreamInterface">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.ExampleMotorStreamInterface">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExampleMotorStreamInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TCP-stream based example motor interface</span>
+
+<span class="sd">    This motor simulation can be controlled via telnet:</span>
+
+<span class="sd">        $ telnet host port</span>
+
+<span class="sd">    Where the host and port-parameter are part of the dynamically created documentation for</span>
+<span class="sd">    a concrete device instance.</span>
+
+<span class="sd">    The motor starts moving immediately when a new target position is set. Once it&#39;s moving,</span>
+<span class="sd">    it has to be stopped to receive a new target, otherwise an error is generated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;get_status&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^S\?$&quot;</span><span class="p">)),</span>  <span class="c1"># explicit regex</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;get_position&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;^P\?$&quot;</span><span class="p">),</span>  <span class="c1"># implicit regex</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;get_target&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;^T\?$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;set_target&quot;</span><span class="p">,</span> <span class="n">scanf</span><span class="p">(</span><span class="s2">&quot;T=</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)),</span>  <span class="c1"># scanf format specification</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;^H$&quot;</span><span class="p">,</span> <span class="n">return_mapping</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;T=</span><span class="si">{}</span><span class="s2">,P=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+    <span class="p">}</span>
+
+    <span class="n">in_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">out_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="ExampleMotorStreamInterface.get_status">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.ExampleMotorStreamInterface.get_status">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the status of the device, which is one of &#39;idle&#39; or &#39;moving&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">state</span></div>
+
+
+<div class="viewcode-block" id="ExampleMotorStreamInterface.get_position">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.ExampleMotorStreamInterface.get_position">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current position in mm.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">position</span></div>
+
+
+<div class="viewcode-block" id="ExampleMotorStreamInterface.get_target">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.ExampleMotorStreamInterface.get_target">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current target in mm.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">target</span></div>
+
+
+<div class="viewcode-block" id="ExampleMotorStreamInterface.set_target">
+<a class="viewcode-back" href="../../../generated/lewis.examples.example_motor.html#lewis.examples.example_motor.ExampleMotorStreamInterface.set_target">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_target</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the new target in mm, the movement starts immediately. If the value is outside</span>
+<span class="sd">        the interval [0, 250] or the motor is already moving, an error is returned, otherwise</span>
+<span class="sd">        the new target is returned.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">new_target</span>
+            <span class="k">return</span> <span class="s2">&quot;T=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_target</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;err: not idle&quot;</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;err: not 0&lt;=T&lt;=250&quot;</span></div>
+</div>
+
+
+
+<span class="n">setups</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">moving</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">device_type</span><span class="o">=</span><span class="n">SimulatedExampleMotor</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">override_initial_state</span><span class="o">=</span><span class="s2">&quot;moving&quot;</span><span class="p">,</span>
+            <span class="n">override_initial_data</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">_target</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mf">20.0</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+
+``lewis.devices.chopper.devices.device``
+========================================
+        
+        
+
+.. automodule:: lewis.devices.chopper.devices.device
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        SimulatedBearings
+        SimulatedChopper
+    
+    

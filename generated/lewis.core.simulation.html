@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.simulation &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.statemachine" href="lewis.core.statemachine.html" />
+    <link rel="prev" title="lewis.core.processor" href="lewis.core.processor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_client.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_server.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.statemachine.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.simulation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.simulation">
+<span id="lewis-core-simulation"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code><a class="headerlink" href="#module-lewis.core.simulation" title="Link to this heading"></a></h1>
+<p>A <a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a> combines a <a class="reference internal" href="lewis.devices.html#module-lewis.devices" title="lewis.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Device</span></code></a> and its interface (derived from
+an <a class="reference internal" href="lewis.adapters.html#module-lewis.adapters" title="lewis.adapters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Adapter</span></code></a>).</p>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Simulation</span></code></a></p></td>
+<td><p>The Simulation class controls certain aspects of a device simulation, the most important one being time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.simulation.SimulationFactory" title="lewis.core.simulation.SimulationFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimulationFactory</span></code></a></p></td>
+<td><p>This class is used to create <a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a>-objects according to a certain set of parameters, such as device, setup and protocol.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.simulation.</span></span><span class="sig-name descname"><span class="pre">Simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lewis.devices.html#lewis.devices.Device" title="lewis.devices.Device"><span class="pre">Device</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">adapters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><span class="pre">Adapter</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_builder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><span class="pre">DeviceBuilder</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The Simulation class controls certain aspects of a device simulation,
+the most important one being time.</p>
+<p>Once <a class="reference internal" href="#lewis.core.simulation.Simulation.start" title="lewis.core.simulation.Simulation.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a> is called, the process-method of the device
+is called in regular intervals. The time between these calls is
+influenced by the cycle_delay property. Because of the way some
+network protocols work, the actual processing time can be
+longer or shorter, so cycle_delay should be seen as a guideline
+rather than a guaranteed parameter.</p>
+<p>In the simplest case, the actual time-delta between two cycles
+is passed to the simulated device so that it can update its internal
+state according to the elapsed time. It is however possible to set
+a simulation speed, which serves as a multiplier for this time.
+If the speed is set to 2 and 0.1 seconds pass between two cycles,
+the simulation is asked to simulate 0.2 seconds, and so on. Speed 0
+effectively stops all time dependent calculations in the
+simulated device.</p>
+<p>Another possibility to pause the simulation is the pause-method. After
+calling it, all processing in the device is suspended, while the communication
+adapters continue to work. This can be used to simulate that a device is “hanging”.
+The simulation can be continued using the resume-method.</p>
+<p>A number of status properties provide information about the simulation.
+The total uptime (in actually elapsed time) can be obtained through the
+uptime-property, whereas the runtime-property contains the simulated time.
+The cycles-property indicates the total number of simulation cycles, which
+does not increase when the simulation is paused.</p>
+<p>Finally, the simulation can be stopped entirely with the stop-method.</p>
+<p>All functionality except for the start-method can be made available to remote
+computers via a <code class="xref py py-class docutils literal notranslate"><span class="pre">ControlServer</span></code>-instance. The way to expose device and simulation
+is to pass a ‘host:port’-string as the control_server argument,
+which will construct the control server. Simulation will try to start the
+control server using the start_server method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> – The simulated device.</p></li>
+<li><p><strong>adapters</strong> – Adapters which expose the simulated device.</p></li>
+<li><p><strong>device_builder</strong> – <a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a> instance to enable setup-
+switching at runtime.</p></li>
+<li><p><strong>control_server</strong> – ‘host:port’-string to construct control server or None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.control_server">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control_server</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lewis.core.control_server.html#lewis.core.control_server.ControlServer" title="lewis.core.control_server.ControlServer"><span class="pre">ControlServer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.control_server" title="Link to this definition"></a></dt>
+<dd><p>ControlServer-instance that exposes the object to remote machines. Can only
+be set before start has been called or on a running simulation if no
+control server was previously present. If the server is not running, it will be started
+after it has been set.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.cycle_delay">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cycle_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.cycle_delay" title="Link to this definition"></a></dt>
+<dd><p>Desired time between simulation cycles, this can not be negative.
+Use 0 for highest possible processing rate.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.cycles">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cycles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.cycles" title="Link to this definition"></a></dt>
+<dd><p>Simulation cycles processed since start has been called.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.is_paused">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_paused</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.is_paused" title="Link to this definition"></a></dt>
+<dd><p>True if the simulation is paused (implies that the simulation has been started).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.is_started">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_started</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.is_started" title="Link to this definition"></a></dt>
+<dd><p>This property is true if the simulation has been started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.pause" title="Link to this definition"></a></dt>
+<dd><p>Pause the simulation. Can only be called after start has been called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.resume">
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.resume" title="Link to this definition"></a></dt>
+<dd><p>Resume a paused simulation. Can only be called after start
+and pause have been called.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.runtime">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">runtime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.runtime" title="Link to this definition"></a></dt>
+<dd><p>The accumulated simulation time. Whenever speed is different from 1, this
+progresses at a different rate than uptime.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.set_device_parameters">
+<span class="sig-name descname"><span class="pre">set_device_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.set_device_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.set_device_parameters" title="Link to this definition"></a></dt>
+<dd><p>Set multiple parameters of the simulated device “simultaneously”. The passed
+parameter is assumed to be device parameter/value dict.
+The method only allows to set existing attributes. If there are invalid
+attribute names, the attributes are not updated, instead a RuntimeError
+is raised. The same happens if any of the parameters are methods, which
+can not be updated with this mechanisms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parameters</strong> – Dict of device attribute/values to update the device.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.setups">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.setups" title="Link to this definition"></a></dt>
+<dd><p>A list of setups that are available. Use <a class="reference internal" href="#lewis.core.simulation.Simulation.switch_setup" title="lewis.core.simulation.Simulation.switch_setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">switch_setup()</span></code></a> to
+change the setup.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.speed">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">speed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.speed" title="Link to this definition"></a></dt>
+<dd><p>Simulation speed. Actual elapsed time is multiplied with this property
+to determine simulated time. Values greater than 1 increase the simulation
+speed, values between 1 and 0 decrease it. A speed of 0 effectively pauses
+the simulation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.start" title="Link to this definition"></a></dt>
+<dd><p>Starts the simulation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.stop" title="Link to this definition"></a></dt>
+<dd><p>Stops the simulation entirely.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.switch_setup">
+<span class="sig-name descname"><span class="pre">switch_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_setup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#Simulation.switch_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.Simulation.switch_setup" title="Link to this definition"></a></dt>
+<dd><p>This method switches the setup, which means that it replaces the currently
+simulated device with a new device, as defined by the setup.</p>
+<p>If any error occurs during setup switching it is logged and re-raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_setup</strong> – Name of the new setup to load.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.Simulation.uptime">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uptime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lewis.core.simulation.Simulation.uptime" title="Link to this definition"></a></dt>
+<dd><p>Elapsed time in seconds since the simulation has been started.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.simulation.SimulationFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.simulation.</span></span><span class="sig-name descname"><span class="pre">SimulationFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices_package</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/simulation.html#SimulationFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.SimulationFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to create <a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a>-objects according to a certain
+set of parameters, such as device, setup and protocol. To create a simulation, it needs to
+know where devices are stored:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">factory</span> <span class="o">=</span> <span class="n">SimulationFactory</span><span class="p">(</span><span class="s2">&quot;lewis.devices&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The actual creation happens via the <a class="reference internal" href="#lewis.core.simulation.SimulationFactory.create" title="lewis.core.simulation.SimulationFactory.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a>-method:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;device_name&quot;</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;protocol&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The simulation can then be started and stopped as desired.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This class is meant for internal use at the moment and may change frequently.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.SimulationFactory.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><span class="pre">Simulation</span></a></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#SimulationFactory.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.SimulationFactory.create" title="Link to this definition"></a></dt>
+<dd><p>Creates a <a class="reference internal" href="#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a> according to the supplied parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> – Name of device.</p></li>
+<li><p><strong>setup</strong> – Name of the setup for device creation.</p></li>
+<li><p><strong>protocols</strong> – Dictionary where each key is assigned a dictionary with options for the
+corresponding <a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a>. For available
+protocols, see <a class="reference internal" href="#lewis.core.simulation.SimulationFactory.get_protocols" title="lewis.core.simulation.SimulationFactory.get_protocols"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_protocols()</span></code></a>.</p></li>
+<li><p><strong>control_server</strong> – String to construct a control server (host:port).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Simulation object according to input parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.simulation.SimulationFactory.devices">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">devices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#lewis.core.simulation.SimulationFactory.devices" title="Link to this definition"></a></dt>
+<dd><p>Names of available devices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.simulation.SimulationFactory.get_protocols">
+<span class="sig-name descname"><span class="pre">get_protocols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lewis/core/simulation.html#SimulationFactory.get_protocols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.simulation.SimulationFactory.get_protocols" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of available protocols for the specified device.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.processor.html" class="btn btn-neutral float-left" title="lewis.core.processor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.statemachine.html" class="btn btn-neutral float-right" title="lewis.core.statemachine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
