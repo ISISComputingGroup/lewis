@@ -18,13 +18,12 @@ classifiers=[
         "Topic :: Scientific/Engineering",
         "Topic :: Software Development :: Libraries",
 
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-
         "Operating System :: OS Independent",
 
         "Programming Language :: Python :: 3",
     ]
-license= {file = "LICENSE"}
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
 dynamic=["version"]
 authors=[
     {name = "ScreamingUdder"},
