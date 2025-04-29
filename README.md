@@ -8,6 +8,7 @@ Lewis can be installed via pip or ran from source. See relevant usage sections o
 Resources:
 [GitHub](https://github.com/ISISComputingGroup/lewis)
 [PyPI](https://pypi.python.org/pypi/lewis)
+[ISIS-developed device emulators](https://github.com/ISISComputingGroup/EPICS-DeviceEmulator/tree/master/lewis_emulators)
 
 Lewis was previously named "Plankton" but, due to a
 package with the same name on PyPI, we decided to rename the project.
