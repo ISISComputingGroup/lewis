@@ -13,16 +13,16 @@ jobs:
         version: ['3.10','3.11', '3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.version }}
       - name: install requirements
-        run: pip install -e .[dev]
+        run: uv sync --extra dev
       - name: run unit tests
-        run: python -m pytest .
+        run: uv run pytest
       - name: run system tests
         working-directory: ./system_tests
-        run: python -m pytest --approvaltests-use-reporter='PythonNativeReporter' lewis_tests.py 
+        run: uv run pytest --approvaltests-use-reporter='PythonNativeReporter' lewis_tests.py 
   results:
     if: ${{ always() }}
     runs-on: ubuntu-latest
