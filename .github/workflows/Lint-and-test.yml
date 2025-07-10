@@ -16,14 +16,13 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.version }}
-          enable-cache: false
       - name: install requirements
-        run: pip install -e .[dev]
+        run: uv sync --all-extras
       - name: run unit tests
-        run: python -m pytest .
+        run: uv run pytest
       - name: run system tests
         working-directory: ./system_tests
-        run: python -m pytest --approvaltests-use-reporter='PythonNativeReporter' lewis_tests.py 
+        run: uv run pytest --approvaltests-use-reporter='PythonNativeReporter' lewis_tests.py 
   results:
     if: ${{ always() }}
     runs-on: ubuntu-latest
