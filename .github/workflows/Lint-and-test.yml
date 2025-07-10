@@ -16,6 +16,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.version }}
+          enable-cache: false
       - name: install requirements
         run: pip install -e .[dev]
       - name: run unit tests
