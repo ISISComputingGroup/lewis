@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.scripts.run &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../scripts.html">lewis.scripts</a></li>
+      <li class="breadcrumb-item active">lewis.scripts.run</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.scripts.run</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LewisException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_log_format</span><span class="p">,</span> <span class="n">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.simulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationFactory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.scripts</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_usage_text</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;This script starts a simulated device that is exposed via the specified &quot;</span>
+    <span class="s2">&quot;communication protocol. Complete documentation of Lewis is available in &quot;</span>
+    <span class="s2">&quot;the online documentation on GitHub https://github.com/ess-dmsc/lewis/&quot;</span><span class="p">,</span>
+    <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">prog</span><span class="o">=</span><span class="s2">&quot;lewis&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">positional_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Positional arguments&quot;</span><span class="p">)</span>
+
+<span class="n">positional_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;device&quot;</span><span class="p">,</span>
+    <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Name of the device to simulate, omitting this argument prints out a list &quot;</span>
+    <span class="s2">&quot;of available devices.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">device_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span>
+    <span class="s2">&quot;Device related parameters&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Parameters that influence the selected device, such as setup or protocol.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--setup&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Name of the setup to load. If not provided, the default setup is selected. If there&quot;</span>
+    <span class="s2">&quot;is no default, a list of setups is printed.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">interface_args</span> <span class="o">=</span> <span class="n">device_args</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+<span class="n">interface_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--no-interface&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If supplied, the device simulation will not have any communication interface.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">interface_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--adapter-options&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Supply the protocol name and adapter options in the format &quot;</span>
+    <span class="s1">&#39;&quot;name:{opt1: val, opt2: val}&quot;. Use the -l flag to see which protocols &#39;</span>
+    <span class="s2">&quot;are available for the selected device. Can be supplied multiple times for &quot;</span>
+    <span class="s2">&quot;multiple protocols.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-l&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--list-protocols&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;List available protocols for selected device.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-L&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--list-adapter-options&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;List available configuration options and their value. Values that have not been &quot;</span>
+    <span class="s2">&quot;modified in the -p argument are default values.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-i&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--show-interface&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Show command interface of device interface.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-k&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--device-package&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;lewis.devices&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Name of packages where devices are found.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">device_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-a&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--add-path&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path where the device package exists. Is added to the path.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">simulation_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span>
+    <span class="s2">&quot;Simulation related parameters&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Parameters that influence the simulation itself, such as timing and speed.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">simulation_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--cycle-delay&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Approximate time to spend in each cycle of the simulation. &quot;</span>
+    <span class="s2">&quot;0 for maximum simulation rate.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">simulation_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-e&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--speed&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Simulation speed. The actually elapsed time between two cycles is &quot;</span>
+    <span class="s2">&quot;multiplied with this speed to determine the simulated time.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">simulation_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-r&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--rpc-host&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;HOST:PORT format string for exposing the device and the simulation via &quot;</span>
+    <span class="s2">&quot;JSON-RPC over ZMQ. Use lewis-control to access this service from the command line.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">other_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Other arguments&quot;</span><span class="p">)</span>
+
+<span class="n">other_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--output-level&quot;</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+    <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;critical&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">],</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Level of detail for logging to stderr.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">other_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-V&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--verify&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Sets the output level to &#39;debug&#39; and aborts before starting the device simulation. &quot;</span>
+    <span class="s2">&quot;This is intended to help with diagnosing problems with devices or input arguments.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">version_handling</span> <span class="o">=</span> <span class="n">other_args</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+<span class="n">version_handling</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-I&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--ignore-versions&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Ignore version mismatches between device and framework. A warning will still &quot;</span>
+    <span class="s2">&quot;be logged.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">other_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Prints the version and exits.&quot;</span>
+<span class="p">)</span>
+<span class="n">other_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-h&quot;</span><span class="p">,</span> <span class="s2">&quot;--help&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Shows this help message and exits.&quot;</span><span class="p">)</span>
+
+<span class="n">deprecated_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Deprecated arguments&quot;</span><span class="p">)</span>
+<span class="n">deprecated_args</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-R&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--relaxed-versions&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Renamed to --I/--ignore-versions. Using this old option produces an error &quot;</span>
+    <span class="s2">&quot;and it will be removed in a future release.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;This script is the main interaction point of the user with Lewis. The usage &quot;</span>
+    <span class="s2">&quot;is as follows:</span><span class="se">\n\n</span><span class="s2">.. code-block:: none</span><span class="se">\n\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_usage_text</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_adapter_options</span><span class="p">(</span><span class="n">raw_adapter_options</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">raw_adapter_options</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="p">{}}</span>
+
+    <span class="n">protocols</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">option_string</span> <span class="ow">in</span> <span class="n">raw_adapter_options</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">adapter_options</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">option_string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                <span class="s2">&quot;It was not possible to parse this adapter option specification:</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;    </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;Correct formats for the -p argument are:</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;    -p protocol</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;    -p </span><span class="se">\&quot;</span><span class="s2">protocol: {option: &#39;val&#39;, option2: 34}</span><span class="se">\&quot;\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;The spaces after the colons are significant!&quot;</span> <span class="o">%</span> <span class="n">option_string</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adapter_options</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">protocols</span><span class="p">[</span><span class="n">adapter_options</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">protocol</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adapter_options</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">protocols</span><span class="p">[</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter_options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="k">return</span> <span class="n">protocols</span>
+
+
+<div class="viewcode-block" id="run_simulation">
+<a class="viewcode-back" href="../../../generated/lewis.scripts.run.html#lewis.scripts.run.run_simulation">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_simulation</span><span class="p">(</span><span class="n">argument_list</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: C901</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is effectively the main function of a typical simulation run. Arguments passed in are</span>
+<span class="sd">    parsed and used to construct and run the simulation.</span>
+
+<span class="sd">    This function only exits when the program has completed or is interrupted.</span>
+
+<span class="sd">    :param argument_list: Argument list to pass to the argument parser declared in this module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argument_list</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">relaxed_versions</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown option --relaxed-versions. Did you mean --ignore-versions?&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">loglevel</span> <span class="o">=</span> <span class="s2">&quot;debug&quot;</span> <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">verify</span> <span class="k">else</span> <span class="n">arguments</span><span class="o">.</span><span class="n">output_level</span>
+        <span class="k">if</span> <span class="n">loglevel</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">loglevel</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span> <span class="nb">format</span><span class="o">=</span><span class="n">default_log_format</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">add_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">additional_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">add_path</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extending path with: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">additional_path</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">additional_path</span><span class="p">)</span>
+
+        <span class="n">simulation_factory</span> <span class="o">=</span> <span class="n">SimulationFactory</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">device_package</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+            <span class="n">devices</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Please specify a device to simulate. The following devices are available:&quot;</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">dev</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">simulation_factory</span><span class="o">.</span><span class="n">devices</span><span class="p">):</span>
+                <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;    &quot;</span> <span class="o">+</span> <span class="n">dev</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">list_protocols</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">simulation_factory</span><span class="o">.</span><span class="n">get_protocols</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">device</span><span class="p">)))</span>
+            <span class="k">return</span>
+
+        <span class="n">protocols</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">parse_adapter_options</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">adapter_options</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="o">.</span><span class="n">no_interface</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="p">)</span>
+
+        <span class="n">simulation</span> <span class="o">=</span> <span class="n">simulation_factory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">arguments</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">arguments</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span> <span class="n">protocols</span><span class="p">,</span> <span class="n">arguments</span><span class="o">.</span><span class="n">rpc_host</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">show_interface</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">documentation</span><span class="p">())</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">list_adapter_options</span><span class="p">:</span>
+            <span class="n">configurations</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">_adapters</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">options</span> <span class="ow">in</span> <span class="n">configurations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">protocol</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    </span><span class="si">{}</span><span class="s2"> = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+
+            <span class="k">return</span>
+
+        <span class="n">simulation</span><span class="o">.</span><span class="n">cycle_delay</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">cycle_delay</span>
+        <span class="n">simulation</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">speed</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="o">.</span><span class="n">verify</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">simulation</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Interrupt received; shutting down. Goodbye, cruel world!&quot;</span><span class="p">)</span>
+                <span class="n">simulation</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Simulation aborted by user interaction&quot;</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">simulation</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">LewisException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s2">&quot;An error occurred:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

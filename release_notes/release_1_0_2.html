@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release 1.0.2 &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release 1.0.3" href="release_1_0_3.html" />
+    <link rel="prev" title="Release 1.0.1" href="release_1_0_1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="release_notes.html">Release notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_0.html">Release 1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_1.html">Release 1.0.1</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release 1.0.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes-and-other-improvements">Bug fixes and other improvements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_0_3.html">Release 1.0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_1_0.html">Release 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_1_1.html">Release 1.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_0.html">Release 1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_1.html">Release 1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_2_2.html">Release 1.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_0.html">Release 1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_1.html">Release 1.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_2.html">Release 1.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_1_3_3.html">Release 1.3.3</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="release_notes.html">Release notes</a></li>
+      <li class="breadcrumb-item active">Release 1.0.2</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/release_notes/release_1_0_2.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-1-0-2">
+<h1>Release 1.0.2<a class="headerlink" href="#release-1-0-2" title="Link to this heading"></a></h1>
+<p>This version of Lewis was released on January 26th, 2017. A few bugs have been fixed and a lot
+of functionality has been added. The most notable changes are preliminary Modbus protocol support
+and logging capabilities which make debugging easier.</p>
+<section id="new-features">
+<h2>New features<a class="headerlink" href="#new-features" title="Link to this heading"></a></h2>
+<ul>
+<li><p>A preliminary Modbus Adapter has been added. The current version is mainly aimed at what is
+currently required by the IBEX team for the <code class="docutils literal notranslate"><span class="pre">nanodac</span></code>. Since all that is needed is writing
+and reading back from memory via the Modbus protocol, bindings to <code class="docutils literal notranslate"><span class="pre">Device</span></code> attributes or
+functions have not been implemented yet. We will add these in a future version.</p>
+<p>The current version supports:</p>
+<ul class="simple">
+<li><p>Eight common Function Codes (0x01 through 0x06, 0x0F and 0x10)</p></li>
+<li><p>Overlaid memory segments (using the same databank for <code class="docutils literal notranslate"><span class="pre">di</span></code> and <code class="docutils literal notranslate"><span class="pre">co</span></code> for example)</p></li>
+<li><p>Modbus Exceptions for invalid Function Codes, bad memory addresses, invalid data, etc</p></li>
+<li><p>Request frames may arrive in arbitrary chunks of multiple or partial frames</p></li>
+</ul>
+<p>For a usage example, see <code class="docutils literal notranslate"><span class="pre">examples/modbus_device</span></code>.</p>
+</li>
+<li><p>Logging capabilities have been added to the framework through the standard Python <code class="docutils literal notranslate"><span class="pre">logging</span></code>_
+module. The <code class="docutils literal notranslate"><span class="pre">lewis</span></code>-script logs messages to stderr, the level can be set using a new flag
+<code class="docutils literal notranslate"><span class="pre">-o/--output-level</span></code>.</p>
+<p>All devices have a new member <code class="docutils literal notranslate"><span class="pre">log</span></code>, which can be used like this:</p>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">class</span><span class="w"> </span><span class="nc">SomeDevice</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">some_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;some_method called with param=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This new behavior is also supported by <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>,
+so that changes in device state can be logged as well.</p>
+<ul>
+<li><p>A simulation for a Julabo FP50 waterbath was kindly contributed by Matt Clarke. It is
+communicating through TCP Stream and offers two different protocol versions. The new device
+can be started like the other available devices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -p julabo-version-1 julabo
+</pre></div>
+</div>
+</li>
+<li><p>Exposing devices via TCP Stream has been made easier. It is now possible to define commands
+that expose lambda-functions, named functions and data attributes (with separate read/write
+patterns). See the updated documentation of :mod:<code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code>.</p></li>
+<li><p>TCP Stream based devices are now easier to test with telnet due to a new adapter argument.
+The new <code class="docutils literal notranslate"><span class="pre">-t</span></code>-flag makes the device interface “telnet compatible”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis linkam_t95 -- -t
+</pre></div>
+</div>
+<p>Instead of the native in- and out-terminator of the device, the interface now looks for <code class="docutils literal notranslate"><span class="pre">\r\n</span></code>.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics.PV</span></code>-class has been extended to allow for meta data updates
+at runtime. A second property can now be specified that returns a dictionary to update the
+PV’s metadata such as limits or alarm states.</p></li>
+<li><p>It is now possible to change multiple device parameters through lewis-control:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control simulation set_device_parameters &quot;{&#39;target_speed&#39;: 1, &#39;target_phase&#39;: 20}&quot;
+</pre></div>
+</div>
+<p>Thanks to the IBEX team for requesting this.</p>
+</section>
+<section id="bug-fixes-and-other-improvements">
+<h2>Bug fixes and other improvements<a class="headerlink" href="#bug-fixes-and-other-improvements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Virtually disconnecting devices via the control server now actually closes all network
+connections and shuts down any running servers, making it impossible to re-connect to the
+device in that state. Virtually re-connecting the device returns the behavior back to normal.</p></li>
+<li><p>If a device contained members that are not JSON serializable, displaying the device’s API
+using the lewis-control script failed. This has been fixed, instead a message is now printed
+that informs the user about why fetching the attribute value failed. Thanks to Adrian Potter
+for reporting this issue.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="release_1_0_1.html" class="btn btn-neutral float-left" title="Release 1.0.1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release_1_0_3.html" class="btn btn-neutral float-right" title="Release 1.0.3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
