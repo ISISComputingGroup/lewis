@@ -5,12 +5,12 @@ jobs:
     uses: ISISComputingGroup/reusable-workflows/.github/workflows/linters.yml@main
     with:
       compare-branch: origin/main
-      python-ver: '3.11'
+      python-ver: '3.13'
   tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['3.10','3.11', '3.12', '3.13']
+        version: ['3.10','3.11', '3.12', '3.13', '3.14']
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
