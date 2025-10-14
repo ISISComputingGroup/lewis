@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # *********************************************************************
-# lewis - a library for creating hardware device simulators
-# Copyright (C) 2016-2021 European Spallation Source ERIC
+# plankton - a library for creating hardware device simulators
+# Copyright (C) 2016-2017 European Spallation Source ERIC
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,3 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # *********************************************************************
+
+

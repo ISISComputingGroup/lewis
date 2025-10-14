@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # *********************************************************************
-# lewis - a library for creating hardware device simulators
-# Copyright (C) 2016-2021 European Spallation Source ERIC
+# plankton - a library for creating hardware device simulators
+# Copyright (C) 2016-2017 European Spallation Source ERIC
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ class DefaultNotCirculatingState(State):
 
 
 class DefaultCirculatingState(State):
-    def in_state(self, dt) -> None:
+    def in_state(self, dt):
         # Approach target temperature at a set rate
         self._context.temperature = approaches.linear(
             self._context.temperature,
