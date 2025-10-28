@@ -57,9 +57,7 @@ class Mk2ChopperStreamInterface(StreamInterface):
         return "RP{0}".format(filled_int(self._device.get_true_phase_delay(), 5))
 
     def get_demanded_phase_error_window(self):
-        return "RW{0}".format(
-            filled_int(self._device.get_demanded_phase_error_window(), 3)
-        )
+        return "RW{0}".format(filled_int(self._device.get_demanded_phase_error_window(), 3))
 
     def get_true_phase_error(self):
         return "RE{0}".format(filled_int(self._device.get_true_phase_error(), 3))

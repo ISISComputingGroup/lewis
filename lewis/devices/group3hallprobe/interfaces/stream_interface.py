@@ -23,26 +23,10 @@ class Group3HallProbeStreamInterface(StreamInterface):
 
         # Commands that we expect via serial during normal operation
         self.commands = {
-            CmdBuilder(self.initialize)
-            .escape("A")
-            .int()
-            .escape(" SE0GDR3GCNNUFG")
-            .eos()
-            .build(),
+            CmdBuilder(self.initialize).escape("A").int().escape(" SE0GDR3GCNNUFG").eos().build(),
             CmdBuilder(self.get_field).escape("A").int().escape(" F").eos().build(),
-            CmdBuilder(self.get_temperature)
-            .escape("A")
-            .int()
-            .escape(" T")
-            .eos()
-            .build(),
-            CmdBuilder(self.set_range)
-            .escape("A")
-            .int()
-            .escape(" R")
-            .int()
-            .eos()
-            .build(),
+            CmdBuilder(self.get_temperature).escape("A").int().escape(" T").eos().build(),
+            CmdBuilder(self.set_range).escape("A").int().escape(" R").int().eos().build(),
         }
 
     def handle_error(self, request: str, error: str | Exception) -> None:
@@ -54,9 +38,7 @@ class Group3HallProbeStreamInterface(StreamInterface):
             error: problem
 
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @if_connected
     def initialize(self, probe_id: int) -> str:

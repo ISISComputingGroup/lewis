@@ -97,14 +97,10 @@ class SimulatedSkfMb350Chopper(StateMachineDevice):
         return False
 
     def is_levitation_complete(self):
-        return (
-            self.is_up_to_speed()
-        )  # Not really the correct condition but close enough
+        return self.is_up_to_speed()  # Not really the correct condition but close enough
 
     def is_phase_locked(self):
-        return (
-            self.is_up_to_speed()
-        )  # Not really the correct condition but close enough
+        return self.is_up_to_speed()  # Not really the correct condition but close enough
 
     def get_motor_direction(self):
         return 1  # Not clear if this can be set externally or only from front panel of physical device.

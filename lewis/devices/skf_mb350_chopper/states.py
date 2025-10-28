@@ -15,6 +15,4 @@ class StoppingState(State):
 class GoingState(State):
     def in_state(self, dt):
         device = self._context
-        device.frequency = approaches.linear(
-            device.frequency, device.frequency_setpoint, 50, dt
-        )
+        device.frequency = approaches.linear(device.frequency, device.frequency_setpoint, 50, dt)

@@ -22,11 +22,7 @@ class Tpgx00StreamInterfaceBase(object):
         .escape(ack_terminator)
         .eos()
         .build(),
-        CmdBuilder("acknowledge_units")
-        .escape("UNI")
-        .escape(ack_terminator)
-        .eos()
-        .build(),
+        CmdBuilder("acknowledge_units").escape("UNI").escape(ack_terminator).eos().build(),
         CmdBuilder("acknowledge_set_units")
         .escape("UNI")
         .escape(",")
@@ -61,11 +57,7 @@ class Tpgx00StreamInterfaceBase(object):
         .escape(ack_terminator)
         .eos()
         .build(),
-        CmdBuilder("acknowledge_error")
-        .escape("ERR")
-        .escape(ack_terminator)
-        .eos()
-        .build(),
+        CmdBuilder("acknowledge_error").escape("ERR").escape(ack_terminator).eos().build(),
         CmdBuilder("handle_enquiry")
         .enq()
         .build(),  # IMPORTANT: <ENQ> is not terminated with usual terminator
@@ -141,9 +133,7 @@ class Tpgx00StreamInterfaceBase(object):
         return ACK
 
     @conditional_reply("connected")
-    def acknowledge_set_function(
-        self, function, low_thr, low_exp, high_thr, high_exp, assign
-    ):
+    def acknowledge_set_function(self, function, low_thr, low_exp, high_thr, high_exp, assign):
         """Acknowledge that the request to set the function thresholds was received.
 
         Args:
@@ -222,9 +212,7 @@ class Tpgx00StreamInterfaceBase(object):
 
         elif self._device.readstate.name in switching_functions_set:
             self.set_threshold(self._device.readstate)
-            readstate = self.get_readstate_val(self._device.readstate).replace(
-                "S", "", 1
-            )
+            readstate = self.get_readstate_val(self._device.readstate).replace("S", "", 1)
             return self.get_thresholds_readstate(self.get_readstate_enum(readstate))
 
         elif self._device.readstate.name == "SPS":
@@ -236,9 +224,7 @@ class Tpgx00StreamInterfaceBase(object):
 
         else:
             self.log.info(
-                "Last command was unknown. Current readstate is {}.".format(
-                    self._device.readstate
-                )
+                "Last command was unknown. Current readstate is {}.".format(self._device.readstate)
             )
 
     def get_units(self):
@@ -325,9 +311,7 @@ class Tpgx00StreamInterfaceBase(object):
             String: Device status and pressure from the channel.
         """
         pressure_suffix = "pressure_{}".format(self.get_readstate_val(channel).lower())
-        status_suffix = "pressure_status_{}".format(
-            self.get_readstate_val(channel).lower()
-        )
+        status_suffix = "pressure_status_{}".format(self.get_readstate_val(channel).lower())
         pressure = getattr(self._device, pressure_suffix)
         status = getattr(self._device, status_suffix)
         return "{},{}".format(self.get_channel_status_val(status), pressure)

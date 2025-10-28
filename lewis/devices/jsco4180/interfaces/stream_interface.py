@@ -28,10 +28,7 @@ class Jsco4180StreamInterface(StreamInterface):
             CmdBuilder(self.get_pressure_max).escape("a_pmax load p").eos().build(),
             CmdBuilder(self.set_pressure_min).int().escape(" pmin set").build(),
             CmdBuilder(self.get_pressure_min).escape("a_pmin load p").eos().build(),
-            CmdBuilder(self.get_program_runtime)
-            .escape("current_time load p")
-            .eos()
-            .build(),
+            CmdBuilder(self.get_program_runtime).escape("current_time load p").eos().build(),
             CmdBuilder(self.get_component_a).escape("compa load p").eos().build(),
             CmdBuilder(self.get_component_b).escape("compb load p").eos().build(),
             CmdBuilder(self.get_component_c).escape("compc load p").eos().build(),

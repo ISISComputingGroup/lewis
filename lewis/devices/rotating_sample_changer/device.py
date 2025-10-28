@@ -14,9 +14,7 @@ class SimulatedSampleChanger(StateMachineDevice):
 
     # ARM_SPEED = 1.0/25.0  Arm takes 25s to raise/lower (measured on HRPD)
     # ARM_SPEED = 1.0/100.0  # Arm takes 100s to raise/lower (measured on POLARIS)
-    CAR_SPEED = (
-        1.0 / 6.0
-    )  # Carousel takes 6 seconds per position (measured on actual device)
+    CAR_SPEED = 1.0 / 6.0  # Carousel takes 6 seconds per position (measured on actual device)
 
     def _initialize_data(self):
         self.uninitialise()

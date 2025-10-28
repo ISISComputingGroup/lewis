@@ -105,9 +105,7 @@ class SimulatedFermichopper(StateMachineDevice):
         return self.last_command
 
     def set_speed_setpoint(self, value):
-        assert value in self._allowed_speed_setpoints, (
-            "Speed setpoint {} not allowed".format(value)
-        )
+        assert value in self._allowed_speed_setpoints, "Speed setpoint {} not allowed".format(value)
 
         if value == 600 and self.speed_setpoint == 600 and self.speed == 600:
             self.is_broken = True

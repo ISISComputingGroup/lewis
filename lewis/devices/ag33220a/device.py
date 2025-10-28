@@ -94,9 +94,7 @@ class SimulatedAG33220A(Device):
 
         :param new_voltage_high: the value of voltage high to set to
         """
-        new_voltage_high = self.limit(
-            new_voltage_high, self.VOLT_HIGH_MIN, self.VOLT_MAX
-        )
+        new_voltage_high = self.limit(new_voltage_high, self.VOLT_HIGH_MIN, self.VOLT_MAX)
         if new_voltage_high <= self.voltage_low:
             self.voltage_low = self.limit(
                 new_voltage_high - self.VOLT_PRECISION, self.VOLT_MIN, new_voltage_high

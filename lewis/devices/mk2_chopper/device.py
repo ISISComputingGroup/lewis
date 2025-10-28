@@ -131,12 +131,8 @@ class SimulatedMk2Chopper(StateMachineDevice):
         )
 
     def set_demanded_frequency(self, new_frequency_int):
-        self._demanded_frequency = self._type.get_closest_valid_frequency(
-            new_frequency_int
-        )
-        self._max_phase_delay = self._type.get_max_phase_for_closest_frequency(
-            new_frequency_int
-        )
+        self._demanded_frequency = self._type.get_closest_valid_frequency(new_frequency_int)
+        self._max_phase_delay = self._type.get_max_phase_for_closest_frequency(new_frequency_int)
 
     def set_demanded_phase_delay(self, new_phase_delay):
         self._demanded_phase_delay = min(new_phase_delay, self._max_phase_delay)

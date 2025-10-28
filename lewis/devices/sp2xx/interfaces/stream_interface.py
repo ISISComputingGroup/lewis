@@ -47,11 +47,7 @@ class Sp2XXStreamInterface(StreamInterface):
             CmdBuilder(self.stop).escape("stop").eos().build(),
             CmdBuilder(self.get_run_status).escape("run?").eos().build(),
             CmdBuilder(self.get_error_status).escape("error?").eos().build(),
-            CmdBuilder(self.set_mode)
-            .escape("mode ")
-            .arg("i/w|w/i|i|w|con")
-            .eos()
-            .build(),
+            CmdBuilder(self.set_mode).escape("mode ").arg("i/w|w/i|i|w|con").eos().build(),
             CmdBuilder(self.get_mode).escape("mode?").eos().build(),
             CmdBuilder(self.get_direction).escape("dir?").eos().build(),
             CmdBuilder(self.reverse_direction).escape("dir rev").eos().build(),
@@ -66,12 +62,7 @@ class Sp2XXStreamInterface(StreamInterface):
             .string()
             .eos()
             .build(),
-            CmdBuilder(self.get_volume_or_rate)
-            .arg("vol|rate")
-            .char()
-            .escape("?")
-            .eos()
-            .build(),
+            CmdBuilder(self.get_volume_or_rate).arg("vol|rate").char().escape("?").eos().build(),
         }
 
     out_terminator = ""
@@ -92,9 +83,7 @@ class Sp2XXStreamInterface(StreamInterface):
         Returns:
             None.
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
         print("An error occurred at request {}: {}".format(request, error))
 
@@ -284,9 +273,7 @@ class Sp2XXStreamInterface(StreamInterface):
             self._device.withdrawal_rate_units = units
             self._device.withdrawal_rate = actual_volume
         else:
-            self.log.error(
-                "command is not know: '{}{}' ".format(vol_or_rate, vol_or_rate_type)
-            )
+            self.log.error("command is not know: '{}{}' ".format(vol_or_rate, vol_or_rate_type))
             return "{}NA{}".format(self._return, run_status)
 
         return "{}".format(self.Stopped)
@@ -319,9 +306,7 @@ class Sp2XXStreamInterface(StreamInterface):
             value = self._device.withdrawal_rate
             units = self._device.withdrawal_rate_units
         else:
-            self.log.error(
-                "Command is not know: '{}{}?' ".format(vol_or_rate, vol_or_rate_type)
-            )
+            self.log.error("Command is not know: '{}{}?' ".format(vol_or_rate, vol_or_rate_type))
             return "{}NA{}".format(self._return, run_status)
 
         if value < 10.0:

@@ -12,11 +12,7 @@ class Lakeshore460StreamInterface(StreamInterface):
 
     commands = {
         # get_multicmds splits commands by ';' if multiple command strings are received
-        CmdBuilder("get_multicmds", arg_sep="")
-        .arg("[^;]+")
-        .escape(";")
-        .arg(".*")
-        .build(),
+        CmdBuilder("get_multicmds", arg_sep="").arg("[^;]+").escape(";").arg(".*").build(),
         CmdBuilder("get_idn").escape("*IDN?").build(),
         CmdBuilder("get_source").escape("VSRC?").build(),
         CmdBuilder("set_source").escape("VSRC ").digit().build(),
@@ -56,9 +52,7 @@ class Lakeshore460StreamInterface(StreamInterface):
     }
 
     def handle_error(self, request, error):
-        self.log.error(
-            "An error occurred at request" + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request" + repr(request) + ": " + repr(error))
         print("An error occurred at request" + repr(request) + ": " + repr(error))
 
     def get_idn(self):
@@ -83,9 +77,7 @@ class Lakeshore460StreamInterface(StreamInterface):
         # Update max_hold_reading if field_reading is larger
         if field_reading > self._device.channels[self.get_channel()].max_hold_reading:
             self._device.channels[self.get_channel()].max_hold_reading = field_reading
-            self._device.channels[
-                self.get_channel()
-            ].max_hold_reading_multiplier = multiplier
+            self._device.channels[self.get_channel()].max_hold_reading_multiplier = multiplier
 
         return "{0}".format(self._device.channels[self.get_channel()].field_reading)
 
@@ -96,17 +88,13 @@ class Lakeshore460StreamInterface(StreamInterface):
         return "{0}".format(self._device.channels[self.get_channel()].max_hold_reading)
 
     def get_max_hold_reading_multiplier(self):
-        return "{0}".format(
-            self._device.channels[self.get_channel()].max_hold_multiplier
-        )
+        return "{0}".format(self._device.channels[self.get_channel()].max_hold_multiplier)
 
     def get_relative_mode_reading(self):
         return "{0}".format(self._device.channels[self.get_channel()].rel_mode_reading)
 
     def get_relative_mode_multiplier(self):
-        return "{0}".format(
-            self._device.channels[self.get_channel()].rel_mode_multiplier
-        )
+        return "{0}".format(self._device.channels[self.get_channel()].rel_mode_multiplier)
 
     def get_unit(self):
         return "{0}".format(self._device.unit)
@@ -143,9 +131,7 @@ class Lakeshore460StreamInterface(StreamInterface):
         self._device.channels[self.get_channel()].rel_mode_status = rel_mode
 
     def get_relative_mode_status(self):
-        return_val = "{0}".format(
-            self._device.channels[self.get_channel()].rel_mode_status
-        )
+        return_val = "{0}".format(self._device.channels[self.get_channel()].rel_mode_status)
         return return_val
 
     def set_auto_mode_status(self, auto_mode_status):

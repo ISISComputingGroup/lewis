@@ -169,8 +169,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         """
         system_gases = self._device.system_gases().gases()
         column_headers = [
-            gas.name(VolumetricRigStreamInterface.output_length, "|")
-            for gas in system_gases
+            gas.name(VolumetricRigStreamInterface.output_length, "|") for gas in system_gases
         ]
         row_titles = [
             " ".join(
@@ -182,10 +181,7 @@ class VolumetricRigStreamInterface(StreamInterface):
             for gas in system_gases
         ]
         mixable_chars = [
-            [
-                "<" if self._device.mixer().can_mix(g1, g2) else "."
-                for g1 in system_gases
-            ]
+            ["<" if self._device.mixer().can_mix(g1, g2) else "." for g1 in system_gases]
             for g2 in system_gases
         ]
 
@@ -208,9 +204,7 @@ class VolumetricRigStreamInterface(StreamInterface):
             words.append(" ".join(mixable_chars[i]))
             lines.append("".join(words))
         # Add footer
-        lines.append(
-            "GMM allowance limit: " + str(self._device.system_gases().gas_count())
-        )
+        lines.append("GMM allowance limit: " + str(self._device.system_gases().gas_count()))
 
         return "\r\n".join(lines)
 
@@ -224,12 +218,8 @@ class VolumetricRigStreamInterface(StreamInterface):
         :return: An echo of the name and index of the requested gases as well as an ok/NO indicating whether the
              gases can be mixed
         """
-        gas1 = self._device.system_gases().gas_by_index(
-            convert_raw_to_int(gas1_index_raw)
-        )
-        gas2 = self._device.system_gases().gas_by_index(
-            convert_raw_to_int(gas2_index_raw)
-        )
+        gas1 = self._device.system_gases().gas_by_index(convert_raw_to_int(gas1_index_raw))
+        gas2 = self._device.system_gases().gas_by_index(convert_raw_to_int(gas2_index_raw))
         if gas1 is None:
             gas1 = self._device.system_gases().gas_by_index(0)
         if gas2 is None:
@@ -331,10 +321,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         """
         return " ".join(
             ["PMV"]
-            + [
-                p.value(as_string=True)
-                for p in self._device.pressure_sensors(reverse=True)
-            ]
+            + [p.value(as_string=True) for p in self._device.pressure_sensors(reverse=True)]
             + ["T", self._device.target_pressure(as_string=True)]
         )
 
@@ -345,10 +332,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         """
         return " ".join(
             ["TMV"]
-            + [
-                t.value(as_string=True)
-                for t in self._device.temperature_sensors(reverse=True)
-            ]
+            + [t.value(as_string=True) for t in self._device.temperature_sensors(reverse=True)]
         )
 
     def get_valve_status(self):
@@ -382,9 +366,7 @@ class VolumetricRigStreamInterface(StreamInterface):
             n = convert_raw_to_int(raw)
         return n
 
-    def _set_valve_status(
-        self, valve_identifier_raw, set_to_open=None, set_to_enabled=None
-    ):
+    def _set_valve_status(self, valve_identifier_raw, set_to_open=None, set_to_enabled=None):
         """Change the valve status.
 
         :param valve_identifier_raw: A raw value that identifies the valve
@@ -392,9 +374,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         :param set_to_enabled: Whether to set the valve to enabled(True)/disabled(False)/do noting(None)
         :return: Indicates the valve number, previous state, and new state
         """
-        valve_number = VolumetricRigStreamInterface._convert_raw_valve_to_int(
-            valve_identifier_raw
-        )
+        valve_number = VolumetricRigStreamInterface._convert_raw_valve_to_int(valve_identifier_raw)
 
         # We should have exactly one of these arguments
         if set_to_open is not None:
@@ -434,9 +414,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         elif valve_number == self._device.buffer_count() + 1:
             if set_to_open is not None:
                 action = (
-                    self._device.open_cell_valve
-                    if set_to_open
-                    else self._device.close_cell_valve
+                    self._device.open_cell_valve if set_to_open else self._device.close_cell_valve
                 )
                 enabled = self._device.cell_valve_is_enabled
                 current_state = self._device.cell_valve_is_open
@@ -521,9 +499,7 @@ class VolumetricRigStreamInterface(StreamInterface):
              of input
         :return: Indicates the valve number, previous state, and new state
         """
-        return self._set_valve_status(
-            convert_raw_to_int(valve_number_raw), set_to_enabled=True
-        )
+        return self._set_valve_status(convert_raw_to_int(valve_number_raw), set_to_enabled=True)
 
     def disable_valve(self, valve_number_raw):
         """Disable a valve.
@@ -534,9 +510,7 @@ class VolumetricRigStreamInterface(StreamInterface):
              of input
         :return: Indicates the valve number, previous state, and new state
         """
-        return self._set_valve_status(
-            convert_raw_to_int(valve_number_raw), set_to_enabled=False
-        )
+        return self._set_valve_status(convert_raw_to_int(valve_number_raw), set_to_enabled=False)
 
     def halt(self):
         """Halts the device. No further valve commands will be accepted.
@@ -598,9 +572,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         :param gas_index_raw: The index of the gas to update
         :return: Indicates the buffer changed, the previous system gas and the new system gas
         """
-        gas = self._device.system_gases().gas_by_index(
-            convert_raw_to_int(gas_index_raw)
-        )
+        gas = self._device.system_gases().gas_by_index(convert_raw_to_int(gas_index_raw))
         buff = self._device.buffer(convert_raw_to_int(buffer_index_raw))
         if gas is not None and buff is not None:
             original_gas = buff.system_gas()

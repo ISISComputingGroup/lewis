@@ -30,9 +30,7 @@ class Amint2lStreamInterface(StreamInterface):
             error: problem
 
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @if_connected
     def get_pressure(self, address):
@@ -50,11 +48,7 @@ class Amint2lStreamInterface(StreamInterface):
             return None
         else:
             try:
-                return "{stx}{pressure:+8.3f}".format(
-                    stx=chr(2), pressure=self._device.pressure
-                )
+                return "{stx}{pressure:+8.3f}".format(stx=chr(2), pressure=self._device.pressure)
             except ValueError:
                 # pressure contains string probably OR (over range) or UR (under range)
-                return "{stx}{pressure:8s}".format(
-                    stx=chr(2), pressure=self._device.pressure
-                )
+                return "{stx}{pressure:8s}".format(stx=chr(2), pressure=self._device.pressure)

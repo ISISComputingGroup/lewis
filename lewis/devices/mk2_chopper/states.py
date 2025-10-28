@@ -25,13 +25,9 @@ class DefaultStoppedState(State):
     def in_state(self, dt):
         device = self._context
         output_current_state(self._context, "stopped")
-        device.set_true_frequency(
-            approaches.linear(device.get_true_frequency(), 0, 1, dt)
-        )
+        device.set_true_frequency(approaches.linear(device.get_true_frequency(), 0, 1, dt))
         device.set_temperature(approaches.linear(device.get_temperature(), 0, 0.1, dt))
-        device.set_true_phase_delay(
-            approaches.linear(device.get_true_phase_delay(), 0, 1, dt)
-        )
+        device.set_true_phase_delay(approaches.linear(device.get_true_phase_delay(), 0, 1, dt))
 
 
 class DefaultStartedState(State):
@@ -39,15 +35,10 @@ class DefaultStartedState(State):
         device = self._context
         output_current_state(self._context, "started")
         device.set_true_frequency(
-            approaches.linear(
-                device.get_true_frequency(), device.get_demanded_frequency(), 1, dt
-            )
+            approaches.linear(device.get_true_frequency(), device.get_demanded_frequency(), 1, dt)
         )
         equilibrium_frequency_temperature = (
-            2
-            * MAX_TEMPERATURE
-            * device.get_true_frequency()
-            / device.get_system_frequency()
+            2 * MAX_TEMPERATURE * device.get_true_frequency() / device.get_system_frequency()
         )
         device.set_temperature(
             approaches.linear(

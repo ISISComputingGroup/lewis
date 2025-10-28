@@ -47,9 +47,7 @@ class KepcoStreamInterface(StreamInterface):
     }
 
     def handle_error(self, request, error):
-        self.log.error(
-            "An error occurred at request" + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request" + repr(request) + ": " + repr(error))
         print("An error occurred at request" + repr(request) + ": " + repr(error))
 
     @if_connected

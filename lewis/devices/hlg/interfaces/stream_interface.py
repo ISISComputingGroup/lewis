@@ -33,9 +33,7 @@ class HlgStreamInterface(StreamInterface):
             error: problem
 
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     def set_verbosity(self, verbosity):
         """Set the verbosity of the output from the device

@@ -21,9 +21,7 @@ class TDKLambdaGenesysStreamInterface(StreamInterface):
     out_terminator = "\r"
 
     def handle_error(self, request, error):
-        self.log.error(
-            "Beep boop. Error occurred at " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("Beep boop. Error occurred at " + repr(request) + ": " + repr(error))
         print("Beep boop. Error occurred at " + repr(request) + ": " + repr(error))
 
     @conditional_reply("comms_initialized")

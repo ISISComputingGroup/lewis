@@ -35,7 +35,5 @@ class GamryStreamInterface(StreamInterface):
         return "STARTED"
 
     def handle_error(self, request, error):
-        self.log.info(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.info("An error occurred at request " + repr(request) + ": " + repr(error))
         return "NAC"

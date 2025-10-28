@@ -30,11 +30,7 @@ class KeylkgStreamInterface(StreamInterface):
             .float()
             .eos()
             .build(),
-            CmdBuilder(self.get_measurement_offset)
-            .escape("SR,OF,")
-            .float()
-            .eos()
-            .build(),
+            CmdBuilder(self.get_measurement_offset).escape("SR,OF,").float().eos().build(),
             CmdBuilder(self.get_measurement_mode).escape("SR,HB,").int().eos().build(),
             CmdBuilder(self.set_measurement_mode)
             .escape("SW,HB,")
@@ -63,20 +59,14 @@ class KeylkgStreamInterface(StreamInterface):
 
     @if_connected
     def get_measurement_value(self, measurement_head):
-        detector_1_value = (
-            self.device.detector_1_raw_value - self.device.detector_1_offset
-        )
-        detector_2_value = (
-            self.device.detector_2_raw_value - self.device.detector_2_offset
-        )
+        detector_1_value = self.device.detector_1_raw_value - self.device.detector_1_offset
+        detector_2_value = self.device.detector_2_raw_value - self.device.detector_2_offset
 
         if measurement_head == 0:
             return (
                 "ER,M0,01"
                 if self.device.mode == Modes.SET_UP
-                else "M0,{0:+08.4f},{1:+08.4f}".format(
-                    detector_1_value, detector_2_value
-                )
+                else "M0,{0:+08.4f},{1:+08.4f}".format(detector_1_value, detector_2_value)
             )
         elif measurement_head == 1:
             return (

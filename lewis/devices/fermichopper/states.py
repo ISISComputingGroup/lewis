@@ -40,9 +40,7 @@ class GoingState(State):
                 rate -= 1
 
         device.set_true_speed(
-            approaches.linear(
-                device.get_true_speed(), device.get_speed_setpoint(), rate, dt
-            )
+            approaches.linear(device.get_true_speed(), device.get_speed_setpoint(), rate, dt)
         )
 
         check_speed(device)

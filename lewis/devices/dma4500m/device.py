@@ -83,13 +83,11 @@ class SimulatedDMA4500M(StateMachineDevice):
                 (("ready", "measuring"), lambda: self.measuring is True),
                 (
                     ("measuring", "ready"),
-                    lambda: self.measuring is False
-                    and not self.last_measurement_successful,
+                    lambda: self.measuring is False and not self.last_measurement_successful,
                 ),
                 (
                     ("measuring", "done"),
-                    lambda: self.measuring is False
-                    and self.last_measurement_successful,
+                    lambda: self.measuring is False and self.last_measurement_successful,
                 ),
                 (("done", "measuring"), lambda: self.measuring is True),
                 (("done", "ready"), lambda: self.setting_temperature is True),

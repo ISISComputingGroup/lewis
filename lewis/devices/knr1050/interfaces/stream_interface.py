@@ -4,9 +4,7 @@ from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 
 if_connected = conditional_reply("connected")
-if_input_error = conditional_reply(
-    "input_correct", "ERROR:20,Instrument in standalone mode"
-)
+if_input_error = conditional_reply("input_correct", "ERROR:20,Instrument in standalone mode")
 
 
 @has_log
@@ -53,9 +51,7 @@ class Knr1050StreamInterface(StreamInterface):
             request: requested string
             error: problem
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @if_connected
     def start_pump(self, flow_rate, a, b, c, d):
@@ -72,8 +68,7 @@ class Knr1050StreamInterface(StreamInterface):
         self.device.current_flow_rate = flow_rate
         # crude pressure simulation
         self.device.pressure = (
-            int(self.device.pressure_limit_high)
-            - int(self.device.pressure_limit_low) // 2
+            int(self.device.pressure_limit_high) - int(self.device.pressure_limit_low) // 2
         )
         self.device.concentrations = [int(a), int(b), int(c), int(d)]
 
@@ -101,9 +96,7 @@ class Knr1050StreamInterface(StreamInterface):
     @if_connected
     @if_input_error
     def get_pressure_limits(self):
-        return "PLIM:{},{}".format(
-            self.device.pressure_limit_low, self.device.pressure_limit_high
-        )
+        return "PLIM:{},{}".format(self.device.pressure_limit_low, self.device.pressure_limit_high)
 
     @if_connected
     def set_pressure_limits(self, low, high):
@@ -129,9 +122,7 @@ class Knr1050StreamInterface(StreamInterface):
         ]
         return_params.extend(self.device.concentrations)
         return_params.append(self.device.pressure)
-        return "STATUS:{},{},0,{},{},{},{},{},{},0,0,0,0,0,0,0,0,{},0,0".format(
-            *return_params
-        )
+        return "STATUS:{},{},0,{},{},{},{},{},{},0,0,0,0,0,0,0,0,{},0,0".format(*return_params)
 
     @if_connected
     def get_remote_mode(self):

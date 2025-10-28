@@ -73,9 +73,7 @@ class ChopperEpicsInterface(EpicsInterface):
             doc="Readback value of phase setpoint in degrees.",
         ),
         "Phs": PV("target_phase", doc="Phase setpoint in degrees."),
-        "ActPhs": PV(
-            "phase", read_only=True, doc="Current phase of the chopper disc in degrees."
-        ),
+        "ActPhs": PV("phase", read_only=True, doc="Current phase of the chopper disc in degrees."),
         "ParkAng-RB": PV(
             "target_parking_position",
             read_only=True,

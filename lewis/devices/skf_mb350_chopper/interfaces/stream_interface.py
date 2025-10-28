@@ -22,9 +22,7 @@ class SkfMb350ChopperStreamInterface(StreamInterface):
     out_terminator = b""
 
     def handle_error(self, request, error):
-        error_message = (
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        error_message = "An error occurred at request " + repr(request) + ": " + repr(error)
         print(error_message)
         self.log.error(error_message)
         return str(error)

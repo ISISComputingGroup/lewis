@@ -62,13 +62,7 @@ class IndfurnStreamInterface(StreamInterface):
         CmdBuilder("set_hf_off").escape(">oscOFF").eos().build(),
         CmdBuilder("get_hf_power").escape("?oscOnOff").eos().build(),
         CmdBuilder("get_pid_limits").escape("?pidOUTL").eos().build(),
-        CmdBuilder("set_pid_limits")
-        .escape(">pidOUTL ")
-        .float()
-        .escape(" ")
-        .float()
-        .eos()
-        .build(),
+        CmdBuilder("set_pid_limits").escape(">pidOUTL ").float().escape(" ").float().eos().build(),
         CmdBuilder("get_psu_overtemp").escape("?alarmh").eos().build(),
         CmdBuilder("get_psu_overvolt").escape("?alarmv").eos().build(),
         CmdBuilder("get_cooling_water_flow_status").escape("?flowSt").eos().build(),
@@ -78,11 +72,7 @@ class IndfurnStreamInterface(StreamInterface):
         CmdBuilder("set_runmode_off").escape(">pidSTP").eos().build(),
         CmdBuilder("get_runmode").escape("?pidRUN").eos().build(),
         CmdBuilder("get_sample_holder_material").escape("?sHold").eos().build(),
-        CmdBuilder("set_sample_holder_material")
-        .escape(">sHold ")
-        .string()
-        .eos()
-        .build(),
+        CmdBuilder("set_sample_holder_material").escape(">sHold ").string().eos().build(),
         CmdBuilder("get_tc_fault").escape("?faultTC").eos().build(),
         CmdBuilder("get_tc2_fault").escape("?fltTC2").eos().build(),
     }
@@ -159,9 +149,7 @@ class IndfurnStreamInterface(StreamInterface):
         return "<temps {:.2f}".format(self.device.fet_temperature)
 
     def get_pid_params(self):
-        return "<pidtu {:.2f} {:.2f} {:.2f}".format(
-            self.device.p, self.device.i, self.device.d
-        )
+        return "<pidtu {:.2f} {:.2f} {:.2f}".format(self.device.p, self.device.i, self.device.d)
 
     def set_pid_params(self, p, i, d):
         self.device.p = p

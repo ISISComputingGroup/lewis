@@ -19,9 +19,7 @@ class FinsPLCStreamInterface(StreamInterface):
     do_log = True
 
     def handle_error(self, request, error):
-        error_message = (
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        error_message = "An error occurred at request " + repr(request) + ": " + repr(error)
         self.log.error(error_message)
         print(error_message)
         return str(error)
@@ -52,9 +50,7 @@ class FinsPLCStreamInterface(StreamInterface):
         service_id = command[9]
 
         if command[10] != 0x01 or command[11] != 0x01:
-            raise ValueError(
-                "The command code should be 0x0101, for memory area read command!"
-            )
+            raise ValueError("The command code should be 0x0101, for memory area read command!")
 
         if command[12] != 0x82:
             raise ValueError(
@@ -73,9 +69,7 @@ class FinsPLCStreamInterface(StreamInterface):
                 "be 0x00."
             )
 
-        number_of_words_to_read = raw_bytes_to_int(
-            command[16:18], low_bytes_first=False
-        )
+        number_of_words_to_read = raw_bytes_to_int(command[16:18], low_bytes_first=False)
 
         # The helium recovery PLC memory map has addresses that store types that take up either one word (16 bits) or
         # two. Most take up one word, so if the number of words to read is two we check that the client wants to read
@@ -94,9 +88,7 @@ class FinsPLCStreamInterface(StreamInterface):
             raise ValueError(
                 "The memory map only specifies data types for which commands should ask for one or two at most."
             )
-        is_float = (
-            True if memory_start_address in self.device.float_memory.keys() else False
-        )
+        is_float = True if memory_start_address in self.device.float_memory.keys() else False
         self._log_command_contents(
             client_network_address,
             client_node_address,
@@ -162,9 +154,7 @@ class FinsPLCStreamInterface(StreamInterface):
             None.
         """
         if self.do_log:
-            self.log.info(
-                "Server network address: {}".format(self.device.network_address)
-            )
+            self.log.info("Server network address: {}".format(self.device.network_address))
             self.log.info("Server Unit address: {}".format(self.device.unit_address))
             self.log.info("Client network address: {}".format(client_network_address))
             self.log.info("Client node address: {}".format(client_node_address))
@@ -189,9 +179,7 @@ class FinsPLCStreamInterface(StreamInterface):
         # and if a response is needed or not.
         icf = fins_frame_header[0]
         if icf != 0x80:
-            raise ValueError(
-                "ICF value should always be 0x80 for a command sent to the emulator"
-            )
+            raise ValueError("ICF value should always be 0x80 for a command sent to the emulator")
 
         # Reserved byte. Should always be 0x00
         if fins_frame_header[1] != 0x00:

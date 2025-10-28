@@ -8,6 +8,4 @@ class DefaultState(State):
 
         rate = 10
 
-        device.temperature = approaches.linear(
-            device.temperature, device.temperature_sp, rate, dt
-        )
+        device.temperature = approaches.linear(device.temperature, device.temperature_sp, rate, dt)

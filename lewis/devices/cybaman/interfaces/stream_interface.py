@@ -17,13 +17,7 @@ class CybamanStreamInterface(StreamInterface):
         Cmd("get_c", "^M301$"),
         Cmd(
             "set_all",
-            "^OPEN PROG 10 CLEAR\nG1 A "
-            + FLOAT
-            + " B "
-            + FLOAT
-            + " C "
-            + FLOAT
-            + " TM([0-9]*)$",
+            "^OPEN PROG 10 CLEAR\nG1 A " + FLOAT + " B " + FLOAT + " C " + FLOAT + " TM([0-9]*)$",
         ),
         Cmd("ignore", "^CLOSE$"),
         Cmd("ignore", "^B10R$"),
@@ -102,9 +96,7 @@ class CybamanStreamInterface(StreamInterface):
         # Allow a difference of 1000 for rounding errors / differences between labview and epics
         # (error would get multiplied by 1000)
         if abs(tm - expected_tm) > 1000:
-            assert False, "Wrong TM value! Expected {} but got {}".format(
-                expected_tm, tm
-            )
+            assert False, "Wrong TM value! Expected {} but got {}".format(expected_tm, tm)
 
     def home_a(self):
         self._device.home_axis_a()

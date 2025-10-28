@@ -35,9 +35,9 @@ class JulichChecksum(object):
         assert len(header) == 2, "Header should have length 2"
         assert len(data) == 4, "Data should have length 4"
         assert len(actual_checksum) == 2, "Actual checksum should have length 2"
-        assert (
-            JulichChecksum._calculate(list(header) + list(data)) == actual_checksum
-        ), "Checksum did not match"
+        assert JulichChecksum._calculate(list(header) + list(data)) == actual_checksum, (
+            "Checksum did not match"
+        )
 
     @staticmethod
     def append(data):
@@ -97,9 +97,7 @@ class FermichopperStreamInterface(StreamInterface):
         return status
 
     def handle_error(self, request, error):
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
         return str(error)
 
     def get_all_data(self, checksum):
@@ -112,76 +110,48 @@ class FermichopperStreamInterface(StreamInterface):
             JulichChecksum.append("#1" + self._device.get_last_command())
             + JulichChecksum.append("#2{:04X}".format(self.build_status_code()))
             + JulichChecksum.append(
-                "#3000{:01X}".format(
-                    int(round(12 - (self._device.get_speed_setpoint() / 50)))
-                )
+                "#3000{:01X}".format(int(round(12 - (self._device.get_speed_setpoint() / 50))))
             )
             + JulichChecksum.append(
                 "#4{:04X}".format(int(round(self._device.get_true_speed() * 60)))
             )
             + JulichChecksum.append(
                 "#5{:04X}".format(
-                    int(
-                        round(
-                            (self._device.get_nominal_delay() * TIMING_FREQ_MHZ) % 65536
-                        )
-                    )
+                    int(round((self._device.get_nominal_delay() * TIMING_FREQ_MHZ) % 65536))
                 )
             )
             + JulichChecksum.append(
                 "#6{:04X}".format(
-                    int(
-                        round(
-                            (self._device.get_nominal_delay() * TIMING_FREQ_MHZ) / 65536
-                        )
-                    )
+                    int(round((self._device.get_nominal_delay() * TIMING_FREQ_MHZ) / 65536))
                 )
             )
             + JulichChecksum.append(
                 "#7{:04X}".format(
-                    int(
-                        round(
-                            (self._device.get_actual_delay() * TIMING_FREQ_MHZ) % 65536
-                        )
-                    )
+                    int(round((self._device.get_actual_delay() * TIMING_FREQ_MHZ) % 65536))
                 )
             )
             + JulichChecksum.append(
                 "#8{:04X}".format(
-                    int(
-                        round(
-                            (self._device.get_actual_delay() * TIMING_FREQ_MHZ) / 65536
-                        )
-                    )
+                    int(round((self._device.get_actual_delay() * TIMING_FREQ_MHZ) / 65536))
                 )
             )
             + JulichChecksum.append(
-                "#9{:04X}".format(
-                    int(round(self._device.get_gate_width() * TIMING_FREQ_MHZ))
-                )
+                "#9{:04X}".format(int(round(self._device.get_gate_width() * TIMING_FREQ_MHZ)))
             )
             + JulichChecksum.append(
                 "#A{:04X}".format(int(round(self._device.get_current() / 0.002016)))
             )
             + JulichChecksum.append(
-                "#B{:04X}".format(
-                    int(round(autozero_calibrate(self._device.autozero_1_upper)))
-                )
+                "#B{:04X}".format(int(round(autozero_calibrate(self._device.autozero_1_upper))))
             )
             + JulichChecksum.append(
-                "#C{:04X}".format(
-                    int(round(autozero_calibrate(self._device.autozero_2_upper)))
-                )
+                "#C{:04X}".format(int(round(autozero_calibrate(self._device.autozero_2_upper))))
             )
             + JulichChecksum.append(
-                "#D{:04X}".format(
-                    int(round(autozero_calibrate(self._device.autozero_1_lower)))
-                )
+                "#D{:04X}".format(int(round(autozero_calibrate(self._device.autozero_1_lower))))
             )
             + JulichChecksum.append(
-                "#E{:04X}".format(
-                    int(round(autozero_calibrate(self._device.autozero_2_lower)))
-                )
+                "#E{:04X}".format(int(round(autozero_calibrate(self._device.autozero_2_lower))))
             )
             + JulichChecksum.append(
                 "#F{:04X}".format(int(round(self._device.get_voltage() / 0.4274)))
@@ -192,9 +162,7 @@ class FermichopperStreamInterface(StreamInterface):
                 )
             )
             + JulichChecksum.append(
-                "#H{:04X}".format(
-                    int(round((self._device.get_motor_temp() + 12.124) / 0.1263))
-                )
+                "#H{:04X}".format(int(round((self._device.get_motor_temp() + 12.124) / 0.1263)))
             )
             + "$"
         )

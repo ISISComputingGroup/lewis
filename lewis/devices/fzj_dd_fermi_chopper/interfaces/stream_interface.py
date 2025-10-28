@@ -17,26 +17,10 @@ class FZJDDFCHStreamInterface(StreamInterface):
     commands = {
         CmdBuilder("get_magnetic_bearing_status").arg(".{3}").escape("?;MBON?").build(),
         CmdBuilder("get_all_status").arg(".{3}").escape("?;ASTA?").build(),
-        CmdBuilder("set_frequency", arg_sep="")
-        .arg(".{3}")
-        .escape("!;FACT!;")
-        .int()
-        .build(),
-        CmdBuilder("set_phase", arg_sep="")
-        .arg(".{3}")
-        .escape("!;PHAS!;")
-        .float()
-        .build(),
-        CmdBuilder("set_magnetic_bearing", arg_sep="")
-        .arg(".{3}")
-        .escape("!;MAGB!;")
-        .any()
-        .build(),
-        CmdBuilder("set_drive_mode", arg_sep="")
-        .arg(".{3}")
-        .escape("!;DRIV!;")
-        .any()
-        .build(),
+        CmdBuilder("set_frequency", arg_sep="").arg(".{3}").escape("!;FACT!;").int().build(),
+        CmdBuilder("set_phase", arg_sep="").arg(".{3}").escape("!;PHAS!;").float().build(),
+        CmdBuilder("set_magnetic_bearing", arg_sep="").arg(".{3}").escape("!;MAGB!;").any().build(),
+        CmdBuilder("set_drive_mode", arg_sep="").arg(".{3}").escape("!;DRIV!;").any().build(),
     }
 
     in_terminator = "\r\n"
@@ -49,9 +33,7 @@ class FZJDDFCHStreamInterface(StreamInterface):
             request: requested string
             error: problem
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @conditional_reply("connected")
     def set_frequency(self, chopper_name, frequency):
@@ -64,9 +46,7 @@ class FZJDDFCHStreamInterface(StreamInterface):
         Returns: OK or error
         """
         if self._device.error_on_set_frequency is None:
-            self._device.frequency_setpoint = (
-                frequency * self._device.frequency_reference
-            )
+            self._device.frequency_setpoint = frequency * self._device.frequency_reference
             reply = "{chopper_name}OK".format(chopper_name=chopper_name)
         else:
             reply = "ERROR;{}".format(self._device.error_on_set_frequency)
@@ -105,9 +85,7 @@ class FZJDDFCHStreamInterface(StreamInterface):
         """
         if self._device.error_on_set_magnetic_bearing is None:
             # Lookup the bool representation of the string
-            inverted_on_off_dict = {
-                str_val: bool_val for (bool_val, str_val) in ON_OFF.items()
-            }
+            inverted_on_off_dict = {str_val: bool_val for (bool_val, str_val) in ON_OFF.items()}
             self._device.magnetic_bearing_is_on = inverted_on_off_dict[magnetic_bearing]
             reply = "{chopper_name}OK".format(chopper_name=chopper_name)
         else:
@@ -198,19 +176,13 @@ class FZJDDFCHStreamInterface(StreamInterface):
             "{0:s}".format(OK_NOK[device.interlock_vacuum_status_is_ok]),
             "{0:s}".format(OK_NOK[device.interlock_frequency_monitoring_status_is_ok]),
             "{0:s}".format(
-                OK_NOK[
-                    device.interlock_magnetic_bearing_amplifier_temperature_status_is_ok
-                ]
+                OK_NOK[device.interlock_magnetic_bearing_amplifier_temperature_status_is_ok]
             ),
             "{0:s}".format(
                 OK_NOK[device.interlock_magnetic_bearing_amplifier_current_status_is_ok]
             ),
-            "{0:s}".format(
-                OK_NOK[device.interlock_drive_amplifier_temperature_status_is_ok]
-            ),
-            "{0:s}".format(
-                OK_NOK[device.interlock_drive_amplifier_current_status_is_ok]
-            ),
+            "{0:s}".format(OK_NOK[device.interlock_drive_amplifier_temperature_status_is_ok]),
+            "{0:s}".format(OK_NOK[device.interlock_drive_amplifier_current_status_is_ok]),
             "{0:s}".format(OK_NOK[device.interlock_ups_status_is_ok]),
         ]
 

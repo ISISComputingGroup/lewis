@@ -20,10 +20,7 @@ class HeaterOnState(State):
 
         if curr_ramp_rate > device.MAGNET_RAMP_RATE:
             device.quench("PSU ramp rate is too high")
-        elif (
-            abs(device.current - device.magnet_current)
-            > device.QUENCH_CURRENT_DELTA * dt
-        ):
+        elif abs(device.current - device.magnet_current) > device.QUENCH_CURRENT_DELTA * dt:
             device.quench(
                 "Difference between PSU current ({}) and magnet current ({}) is higher than allowed ({})".format(
                     device.current,
@@ -42,9 +39,7 @@ class HeaterOnState(State):
 
         elif device.activity == Activity.TO_ZERO:
             device.current = approaches.linear(device.current, 0, curr_ramp_rate, dt)
-            device.magnet_current = approaches.linear(
-                device.magnet_current, 0, curr_ramp_rate, dt
-            )
+            device.magnet_current = approaches.linear(device.magnet_current, 0, curr_ramp_rate, dt)
 
 
 class HeaterOffState(State):

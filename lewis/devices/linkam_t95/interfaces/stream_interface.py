@@ -84,9 +84,7 @@ class LinkamT95StreamInterface(StreamInterface):
         Tarray[2] = 0x80 + self.device.pump_speed
 
         # Temperature
-        Tarray[6:10] = [
-            ord(x) for x in "%04x" % (int(self.device.temperature * 10) & 0xFFFF)
-        ]
+        Tarray[6:10] = [ord(x) for x in "%04x" % (int(self.device.temperature * 10) & 0xFFFF)]
 
         return bytes(Tarray)
 
@@ -202,6 +200,4 @@ class LinkamT95StreamInterface(StreamInterface):
             error: problem
 
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))

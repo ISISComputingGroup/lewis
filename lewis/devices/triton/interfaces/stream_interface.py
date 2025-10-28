@@ -14,11 +14,7 @@ class TritonStreamInterface(StreamInterface):
         # ID
         CmdBuilder("get_idn").escape("*IDN?").eos().build(),
         # UIDs
-        CmdBuilder("get_uid")
-        .escape("READ:SYS:DR:CHAN:")
-        .arg("[A-Z0-9]+")
-        .eos()
-        .build(),
+        CmdBuilder("get_uid").escape("READ:SYS:DR:CHAN:").arg("[A-Z0-9]+").eos().build(),
         # PID setpoints
         CmdBuilder("set_p")
         .escape("SET:DEV:")
@@ -42,24 +38,9 @@ class TritonStreamInterface(StreamInterface):
         .eos()
         .build(),
         # PID readbacks
-        CmdBuilder("get_p")
-        .escape("READ:DEV:")
-        .arg("T[0-9]+")
-        .escape(":TEMP:LOOP:P")
-        .eos()
-        .build(),
-        CmdBuilder("get_i")
-        .escape("READ:DEV:")
-        .arg("T[0-9]+")
-        .escape(":TEMP:LOOP:I")
-        .eos()
-        .build(),
-        CmdBuilder("get_d")
-        .escape("READ:DEV:")
-        .arg("T[0-9]+")
-        .escape(":TEMP:LOOP:D")
-        .eos()
-        .build(),
+        CmdBuilder("get_p").escape("READ:DEV:").arg("T[0-9]+").escape(":TEMP:LOOP:P").eos().build(),
+        CmdBuilder("get_i").escape("READ:DEV:").arg("T[0-9]+").escape(":TEMP:LOOP:I").eos().build(),
+        CmdBuilder("get_d").escape("READ:DEV:").arg("T[0-9]+").escape(":TEMP:LOOP:D").eos().build(),
         # Setpoint temperature
         CmdBuilder("set_temperature_setpoint")
         .escape("SET:DEV:")
@@ -158,12 +139,7 @@ class TritonStreamInterface(StreamInterface):
         # System
         CmdBuilder("get_time").escape("READ:SYS:TIME").eos().build(),
         # Sensor info
-        CmdBuilder("get_sig")
-        .escape("READ:DEV:")
-        .arg("T[0-9]+")
-        .escape(":TEMP:SIG")
-        .eos()
-        .build(),
+        CmdBuilder("get_sig").escape("READ:DEV:").arg("T[0-9]+").escape(":TEMP:SIG").eos().build(),
         CmdBuilder("get_excitation")
         .escape("READ:DEV:")
         .arg("T[0-9]+")
@@ -197,9 +173,7 @@ class TritonStreamInterface(StreamInterface):
         return "This is the IDN of this device"
 
     def get_uid(self, chan):
-        return "STAT:SYS:DR:CHAN:{}:{}".format(
-            chan, self.device.find_temperature_channel(chan)
-        )
+        return "STAT:SYS:DR:CHAN:{}:{}".format(chan, self.device.find_temperature_channel(chan))
 
     def set_p(self, stage, value):
         self.raise_if_channel_is_not_sample_channel(stage)
@@ -235,9 +209,7 @@ class TritonStreamInterface(StreamInterface):
 
     def get_temperature_setpoint(self, chan):
         self.raise_if_channel_is_not_sample_channel(chan)
-        return "STAT:DEV:{}:TEMP:LOOP:TSET:{}K".format(
-            chan, self.device.get_temperature_setpoint()
-        )
+        return "STAT:DEV:{}:TEMP:LOOP:TSET:{}K".format(chan, self.device.get_temperature_setpoint())
 
     def set_heater_range(self, chan, value):
         self.raise_if_channel_is_not_sample_channel(chan)
@@ -246,28 +218,20 @@ class TritonStreamInterface(StreamInterface):
 
     def get_heater_range(self, chan):
         self.raise_if_channel_is_not_sample_channel(chan)
-        return "STAT:DEV:{}:TEMP:LOOP:RANGE:{}mA".format(
-            chan, self.device.get_heater_range()
-        )
+        return "STAT:DEV:{}:TEMP:LOOP:RANGE:{}mA".format(chan, self.device.get_heater_range())
 
     def get_heater_type(self, chan):
         self.raise_if_channel_is_not_sample_channel(chan)
         return "STAT:DEV:{}:TEMP:LOOP:HTR:{}".format(chan, HEATER_NAME)
 
     def get_heater_power(self):
-        return "STAT:DEV:{}:HTR:SIG:POWR:{}uW".format(
-            HEATER_NAME, self.device.heater_power
-        )
+        return "STAT:DEV:{}:HTR:SIG:POWR:{}uW".format(HEATER_NAME, self.device.heater_power)
 
     def get_heater_resistance(self):
-        return "STAT:DEV:{}:HTR:RES:{}Ohm".format(
-            HEATER_NAME, self.device.heater_resistance
-        )
+        return "STAT:DEV:{}:HTR:RES:{}Ohm".format(HEATER_NAME, self.device.heater_resistance)
 
     def get_heater_current(self):
-        return "STAT:DEV:{}:HTR:SIG:CURR:{}mA".format(
-            HEATER_NAME, self.device.heater_current
-        )
+        return "STAT:DEV:{}:HTR:SIG:CURR:{}mA".format(HEATER_NAME, self.device.heater_current)
 
     def get_closed_loop_mode(self, chan):
         self.raise_if_channel_is_not_sample_channel(chan)
@@ -305,23 +269,17 @@ class TritonStreamInterface(StreamInterface):
         return "STAT:SYS:DR:ACTN:{}".format(self.device.get_automation())
 
     def get_temp(self, stage):
-        return "STAT:DEV:{}:TEMP:SIG:TEMP:{}K".format(
-            stage, self.device.get_temp(str(stage))
-        )
+        return "STAT:DEV:{}:TEMP:SIG:TEMP:{}K".format(stage, self.device.get_temp(str(stage)))
 
     def get_pressure(self, sensor):
-        return "STAT:DEV:{}:PRES:SIG:PRES:{}mB".format(
-            sensor, self.device.get_pressure(sensor)
-        )
+        return "STAT:DEV:{}:PRES:SIG:PRES:{}mB".format(sensor, self.device.get_pressure(sensor))
 
     def get_time(self):
         return datetime.now().strftime("STAT:SYS:TIME:%H:%M:%S")
 
     def get_heater_control_sensor(self):
         # Always assume heater controls sample. This is true so far at ISIS
-        return "STAT:DEV:{}:HTR:LOOP:SENS:{}".format(
-            HEATER_NAME, self.device.sample_channel
-        )
+        return "STAT:DEV:{}:HTR:LOOP:SENS:{}".format(HEATER_NAME, self.device.sample_channel)
 
     def get_sig(self, chan):
         return "STAT:DEV:{}:TEMP:SIG:TEMP:{}K:RES:{}Ohm".format(

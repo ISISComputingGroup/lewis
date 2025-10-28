@@ -123,9 +123,7 @@ class EurothermModbusInterface(StreamInterface):
     protocol = "eurotherm_modbus"
 
     def handle_error(self, request: bytes, error: BaseException | str) -> None:
-        error_message = (
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        error_message = "An error occurred at request " + repr(request) + ": " + repr(error)
         print(error_message)
         self.log.error(error_message)
 
@@ -152,15 +150,11 @@ class EurothermModbusInterface(StreamInterface):
     def handle_read(self, comms_address: int, data: bytes) -> bytes:
         mem_address = bytes_to_int(data[0:2])
         words_to_read = bytes_to_int(data[2:4])
-        self.log.info(
-            f"Attempting to read {words_to_read} words from mem address: {mem_address}"
-        )
+        self.log.info(f"Attempting to read {words_to_read} words from mem address: {mem_address}")
         reply_data = self.read_commands[mem_address]()
 
         self.log.info(f"reply_data = {reply_data}")
-        assert -0x8000 <= reply_data <= 0x7FFF, (
-            f"reply {reply_data} was outside modbus range, bug?"
-        )
+        assert -0x8000 <= reply_data <= 0x7FFF, f"reply {reply_data} was outside modbus range, bug?"
 
         reply = (
             comms_address.to_bytes(1, byteorder="big", signed=True)
@@ -183,19 +177,13 @@ class EurothermModbusInterface(StreamInterface):
         return command
 
     def get_temperature(self) -> int:
-        return int(
-            self.device.current_temperature(sensor) * self.device.scaling(sensor)
-        )
+        return int(self.device.current_temperature(sensor) * self.device.scaling(sensor))
 
     def get_temperature_sp(self) -> int:
-        return int(
-            self.device.ramp_setpoint_temperature(sensor) * self.device.scaling(sensor)
-        )
+        return int(self.device.ramp_setpoint_temperature(sensor) * self.device.scaling(sensor))
 
     def set_temperature_sp(self, value: int) -> None:
-        self.device.set_ramp_setpoint_temperature(
-            sensor, (value / self.device.scaling(sensor))
-        )
+        self.device.set_ramp_setpoint_temperature(sensor, (value / self.device.scaling(sensor)))
 
     def get_p(self) -> int:
         return int(self.device.p(sensor))

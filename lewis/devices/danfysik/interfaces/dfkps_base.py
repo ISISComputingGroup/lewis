@@ -32,9 +32,7 @@ class CommonStreamInterface(object, metaclass=abc.ABCMeta):
             request: requested string
             error: problem
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @conditional_reply("connected")
     @conditional_reply("comms_initialized")

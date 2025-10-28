@@ -8,9 +8,7 @@ class TemperatureControlState(State):
 
         rate = 10
 
-        device.he3pot_temp = approaches.linear(
-            device.he3pot_temp, device.temperature_sp, rate, dt
-        )
+        device.he3pot_temp = approaches.linear(device.he3pot_temp, device.temperature_sp, rate, dt)
 
 
 class He3PotEmptyState(State):

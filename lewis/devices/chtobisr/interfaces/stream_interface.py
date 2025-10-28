@@ -26,9 +26,7 @@ class ChtobisrStreamInterface(StreamInterface):
             request: requested string
             error: problem
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     @conditional_reply("connected")
     def get_id(self):

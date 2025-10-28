@@ -11,9 +11,7 @@ class SimulatedFZJDDFCH(StateMachineDevice):
     def _initialize_data(self):
         """Sets the initial state of the device."""
         self.chopper_name = "C01"  # only one chopper in this case
-        self.frequency_reference = (
-            50  # reference frequency set to 50Hz to match actual device
-        )
+        self.frequency_reference = 50  # reference frequency set to 50Hz to match actual device
         self.frequency_setpoint = 0
         self.frequency = 0
         self.phase_setpoint = 0

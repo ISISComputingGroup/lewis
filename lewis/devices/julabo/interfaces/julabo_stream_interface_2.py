@@ -22,9 +22,7 @@ class JulaboStreamInterfaceV2(StreamInterface):
             read_pattern="^IN_SP_00$",
             doc="The temperature setpoint.",
         ),
-        Cmd(
-            "set_set_point", "^OUT_SP_00 ([0-9]*\.?[0-9]+)$", argument_mappings=(float,)
-        ),
+        Cmd("set_set_point", "^OUT_SP_00 ([0-9]*\.?[0-9]+)$", argument_mappings=(float,)),
         # Read pattern for high limit is different from version 1
         Var(
             "temperature_high_limit",

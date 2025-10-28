@@ -120,22 +120,14 @@ class SimulatedKeithley2400(StateMachineDevice):
         def update_value(value):
             return abs(value + uniform(-1, 1) * dt)
 
-        new_current = max(
-            update_value(self.current), SimulatedKeithley2400.MINIMUM_CURRENT
-        )
+        new_current = max(update_value(self.current), SimulatedKeithley2400.MINIMUM_CURRENT)
         new_voltage = update_value(self.voltage)
 
         if self._resistance_mode == ResistanceMode.MANUAL:
             # Restrict the current if we're in current compliance mode. Similarly for voltage
-            if (
-                new_current < self.current_compliance
-                or self._source_mode == SourceMode.VOLTAGE
-            ):
+            if new_current < self.current_compliance or self._source_mode == SourceMode.VOLTAGE:
                 self.current = new_current
-            if (
-                new_voltage < self._voltage_compliance
-                or self._source_mode == SourceMode.CURRENT
-            ):
+            if new_voltage < self._voltage_compliance or self._source_mode == SourceMode.CURRENT:
                 self.voltage = new_voltage
         elif self._resistance_mode == ResistanceMode.AUTO:
             self.current = new_current
@@ -151,9 +143,7 @@ class SimulatedKeithley2400(StateMachineDevice):
         if mode in mode_class.MODES:
             return True
         else:
-            print(
-                "Invalid mode, {}, received for: {}".format(mode, mode_class.__name__)
-            )
+            print("Invalid mode, {}, received for: {}".format(mode, mode_class.__name__))
             return False
 
     def set_output_mode(self, mode):
@@ -208,8 +198,7 @@ class SimulatedKeithley2400(StateMachineDevice):
         # value exceeds
         self._resistance_range = SimulatedKeithley2400.RESISTANCE_RANGE_MULTIPLIER
         for r in [
-            SimulatedKeithley2400.RESISTANCE_RANGE_MULTIPLIER * pow(10, i)
-            for i in range(1, 8)
+            SimulatedKeithley2400.RESISTANCE_RANGE_MULTIPLIER * pow(10, i) for i in range(1, 8)
         ]:
             if value < r:
                 self._resistance_range = r / 10

@@ -24,17 +24,8 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             CmdBuilder(self.identity).escape("*IDN?").eos().build(),
             CmdBuilder(self.trigger).escape("*TRG").eos().build(),
             CmdBuilder(self.get_status).escape("OUTP").int().escape(":STAT?").build(),
-            CmdBuilder(self.set_status)
-            .escape("OUTP")
-            .int()
-            .escape(":STAT ")
-            .int()
-            .build(),
-            CmdBuilder(self.get_function)
-            .escape("SOUR")
-            .int()
-            .escape(":FUNC:SHAP?")
-            .build(),
+            CmdBuilder(self.set_status).escape("OUTP").int().escape(":STAT ").int().build(),
+            CmdBuilder(self.get_function).escape("SOUR").int().escape(":FUNC:SHAP?").build(),
             CmdBuilder(self.set_function)
             .escape("SOUR")
             .int()
@@ -49,24 +40,10 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             .arg("NORM|INV")
             .build(),
             CmdBuilder(self.get_impedance).escape("OUTP").int().escape(":IMP?").build(),
-            CmdBuilder(self.set_impedance)
-            .escape("OUTP")
-            .int()
-            .escape(":IMP ")
-            .float()
-            .build(),
+            CmdBuilder(self.set_impedance).escape("OUTP").int().escape(":IMP ").float().build(),
             CmdBuilder(self.get_voltage).escape("SOUR").int().escape(":VOLT?").build(),
-            CmdBuilder(self.set_voltage)
-            .escape("SOUR")
-            .int()
-            .escape(":VOLT ")
-            .float()
-            .build(),
-            CmdBuilder(self.get_voltage_units)
-            .escape("SOUR")
-            .int()
-            .escape(":VOLT:UNIT?")
-            .build(),
+            CmdBuilder(self.set_voltage).escape("SOUR").int().escape(":VOLT ").float().build(),
+            CmdBuilder(self.get_voltage_units).escape("SOUR").int().escape(":VOLT:UNIT?").build(),
             CmdBuilder(self.set_voltage_units)
             .escape("SOUR")
             .int()
@@ -128,44 +105,23 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             .escape(":VOLT:LEV:IMM:OFFS ")
             .float()
             .build(),
-            CmdBuilder(self.get_frequency)
-            .escape("SOUR")
-            .int()
-            .escape(":FREQ:FIX?")
-            .build(),
+            CmdBuilder(self.get_frequency).escape("SOUR").int().escape(":FREQ:FIX?").build(),
             CmdBuilder(self.set_frequency)
             .escape("SOUR")
             .int()
             .escape(":FREQ:FIX ")
             .float()
             .build(),
-            CmdBuilder(self.get_phase)
-            .escape("SOUR")
-            .int()
-            .escape(":PHASE:ADJ?")
-            .build(),
-            CmdBuilder(self.set_phase)
-            .escape("SOUR")
-            .int()
-            .escape(":PHASE:ADJ ")
-            .float()
-            .build(),
-            CmdBuilder(self.get_burst_status)
-            .escape("SOUR")
-            .int()
-            .escape(":BURS:STAT?")
-            .build(),
+            CmdBuilder(self.get_phase).escape("SOUR").int().escape(":PHASE:ADJ?").build(),
+            CmdBuilder(self.set_phase).escape("SOUR").int().escape(":PHASE:ADJ ").float().build(),
+            CmdBuilder(self.get_burst_status).escape("SOUR").int().escape(":BURS:STAT?").build(),
             CmdBuilder(self.set_burst_status)
             .escape("SOUR")
             .int()
             .escape(":BURS:STAT ")
             .arg("ON|OFF|1|0")
             .build(),
-            CmdBuilder(self.get_burst_mode)
-            .escape("SOUR")
-            .int()
-            .escape(":BURS:MODE?")
-            .build(),
+            CmdBuilder(self.get_burst_mode).escape("SOUR").int().escape(":BURS:MODE?").build(),
             CmdBuilder(self.set_burst_mode)
             .escape("SOUR")
             .int()
@@ -194,66 +150,42 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             .escape(":BURS:TDEL ")
             .float()
             .build(),
-            CmdBuilder(self.get_frequency_mode)
-            .escape("SOUR")
-            .int()
-            .escape(":FREQ:MODE?")
-            .build(),
+            CmdBuilder(self.get_frequency_mode).escape("SOUR").int().escape(":FREQ:MODE?").build(),
             CmdBuilder(self.set_frequency_mode)
             .escape("SOUR")
             .int()
             .escape(":FREQ:MODE ")
             .arg("CW|FIX|SWE")
             .build(),
-            CmdBuilder(self.get_sweep_span)
-            .escape("SOUR")
-            .int()
-            .escape(":FREQ:SPAN?")
-            .build(),
+            CmdBuilder(self.get_sweep_span).escape("SOUR").int().escape(":FREQ:SPAN?").build(),
             CmdBuilder(self.set_sweep_span)
             .escape("SOUR")
             .int()
             .escape(":FREQ:SPAN ")
             .float()
             .build(),
-            CmdBuilder(self.get_sweep_start)
-            .escape("SOUR")
-            .int()
-            .escape(":FREQ:STAR?")
-            .build(),
+            CmdBuilder(self.get_sweep_start).escape("SOUR").int().escape(":FREQ:STAR?").build(),
             CmdBuilder(self.set_sweep_start)
             .escape("SOUR")
             .int()
             .escape(":FREQ:STAR ")
             .float()
             .build(),
-            CmdBuilder(self.get_sweep_stop)
-            .escape("SOUR")
-            .int()
-            .escape(":FREQ:STOP?")
-            .build(),
+            CmdBuilder(self.get_sweep_stop).escape("SOUR").int().escape(":FREQ:STOP?").build(),
             CmdBuilder(self.set_sweep_stop)
             .escape("SOUR")
             .int()
             .escape(":FREQ:STOP ")
             .float()
             .build(),
-            CmdBuilder(self.get_sweep_hold_time)
-            .escape("SOUR")
-            .int()
-            .escape(":SWE:HTIM?")
-            .build(),
+            CmdBuilder(self.get_sweep_hold_time).escape("SOUR").int().escape(":SWE:HTIM?").build(),
             CmdBuilder(self.set_sweep_hold_time)
             .escape("SOUR")
             .int()
             .escape(":SWE:HTIM ")
             .float()
             .build(),
-            CmdBuilder(self.get_sweep_mode)
-            .escape("SOUR")
-            .int()
-            .escape(":SWE:MODE?")
-            .build(),
+            CmdBuilder(self.get_sweep_mode).escape("SOUR").int().escape(":SWE:MODE?").build(),
             CmdBuilder(self.set_sweep_mode)
             .escape("SOUR")
             .int()
@@ -271,22 +203,14 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             .escape(":SWE:RTIM ")
             .float()
             .build(),
-            CmdBuilder(self.get_sweep_spacing)
-            .escape("SOUR")
-            .int()
-            .escape(":SWE:SPAC?")
-            .build(),
+            CmdBuilder(self.get_sweep_spacing).escape("SOUR").int().escape(":SWE:SPAC?").build(),
             CmdBuilder(self.set_sweep_spacing)
             .escape("SOUR")
             .int()
             .escape(":SWE:SPAC ")
             .arg("LIN|LOG")
             .build(),
-            CmdBuilder(self.get_sweep_time)
-            .escape("SOUR")
-            .int()
-            .escape(":SWE:TIME?")
-            .build(),
+            CmdBuilder(self.get_sweep_time).escape("SOUR").int().escape(":SWE:TIME?").build(),
             CmdBuilder(self.set_sweep_time)
             .escape("SOUR")
             .int()
@@ -314,9 +238,7 @@ class Tekafg3XXXStreamInterface(StreamInterface):
             error: problem
 
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
     def identity(self) -> str:
         """:return: identity of the device"""
@@ -380,17 +302,13 @@ class Tekafg3XXXStreamInterface(StreamInterface):
     def get_voltage_high_limit(self, channel: int) -> float:
         return self._channel(channel).voltage_high_limit
 
-    def set_voltage_high_limit(
-        self, channel: int, new_voltage_high_limit: float
-    ) -> None:
+    def set_voltage_high_limit(self, channel: int, new_voltage_high_limit: float) -> None:
         self._channel(channel).voltage_high_limit = new_voltage_high_limit
 
     def get_voltage_high_level(self, channel: int) -> float:
         return self._channel(channel).voltage_high_level
 
-    def set_voltage_high_level(
-        self, channel: int, new_voltage_high_level: float
-    ) -> None:
+    def set_voltage_high_level(self, channel: int, new_voltage_high_level: float) -> None:
         self._channel(channel).voltage_high_level = new_voltage_high_level
 
     def get_voltage_offset(self, channel: int) -> float:
@@ -421,9 +339,7 @@ class Tekafg3XXXStreamInterface(StreamInterface):
         return self._channel(channel).burst_status
 
     def set_burst_status(self, channel: int, new_burst_status: str) -> None:
-        self._channel(channel).burst_status = (
-            "ON" if new_burst_status in ["ON", "1"] else "OFF"
-        )
+        self._channel(channel).burst_status = "ON" if new_burst_status in ["ON", "1"] else "OFF"
 
     def get_burst_mode(self, channel: int) -> str:
         return self._channel(channel).burst_mode

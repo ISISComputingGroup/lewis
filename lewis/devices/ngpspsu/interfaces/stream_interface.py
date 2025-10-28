@@ -36,9 +36,7 @@ class NgpspsuStreamInterface(StreamInterface):
         Returns:
             None.
         """
-        self.log.error(
-            "An error occurred at request " + repr(request) + ": " + repr(error)
-        )
+        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
         print("An error occurred at request {}: {}".format(request, error))
 
