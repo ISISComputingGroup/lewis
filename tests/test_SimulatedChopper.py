@@ -19,8 +19,8 @@
 
 import unittest
 
-from lewis.devices.chopper.devices.device import SimulatedChopper
-from lewis.devices.chopper.devices.states import DefaultIdleState
+from lewis.devices.facility_specific.ess.chopper.devices.device import SimulatedChopper
+from lewis.devices.facility_specific.ess.chopper.devices.states import DefaultIdleState
 
 
 class TestSimulatedChopper(unittest.TestCase):
