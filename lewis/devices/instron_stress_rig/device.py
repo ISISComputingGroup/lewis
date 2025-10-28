@@ -76,7 +76,10 @@ class SimulatedInstron(StateMachineDevice):
                     == self.channels[self.control_channel].ramp_amplitude_setpoint,
                 ),
                 (("default", "waveform"), lambda: self._waveform_generator.active()),
-                (("waveform", "default"), lambda: not self._waveform_generator.active()),
+                (
+                    ("waveform", "default"),
+                    lambda: not self._waveform_generator.active(),
+                ),
             ]
         )
 
@@ -219,7 +222,11 @@ class SimulatedInstron(StateMachineDevice):
         try:
             return self._waveform_generator.amplitude[channel]
         except NameError:
-            print("Unable to get waveform generator amplitude. Channel: {0}".format(channel))
+            print(
+                "Unable to get waveform generator amplitude. Channel: {0}".format(
+                    channel
+                )
+            )
 
     def set_waveform_amplitude(self, channel, value):
         try:
@@ -235,7 +242,11 @@ class SimulatedInstron(StateMachineDevice):
         try:
             return self._waveform_generator.frequency[channel]
         except NameError:
-            print("Unable to get waveform generator frequency. Channel: {0}".format(channel))
+            print(
+                "Unable to get waveform generator frequency. Channel: {0}".format(
+                    channel
+                )
+            )
 
     def set_waveform_frequency(self, channel, value):
         try:

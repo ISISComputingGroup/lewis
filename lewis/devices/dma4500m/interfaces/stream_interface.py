@@ -25,7 +25,12 @@ class DMA4500MStreamInterface(StreamInterface):
             .arg(".+")
             .eos()
             .build(),
-            CmdBuilder(self.get_data).escape("get").optional(" ").escape("data").eos().build(),
+            CmdBuilder(self.get_data)
+            .escape("get")
+            .optional(" ")
+            .escape("data")
+            .eos()
+            .build(),
             CmdBuilder(self.get_raw_data)
             .escape("get")
             .optional(" ")

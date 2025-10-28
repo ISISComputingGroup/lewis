@@ -178,7 +178,9 @@ class SimulatedKeithley2001(StateMachineDevice):
         """
         return self.buffer.number_of_times_buffer_cleared
 
-    def get_number_of_times_status_register_has_been_reset_and_cleared_via_the_backdoor(self):
+    def get_number_of_times_status_register_has_been_reset_and_cleared_via_the_backdoor(
+        self,
+    ):
         """Gets the number of times the status register has been reset and cleared.
 
         Only called via the backdoor.

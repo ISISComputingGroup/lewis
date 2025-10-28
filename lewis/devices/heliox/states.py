@@ -8,11 +8,15 @@ class TemperatureControlState(State):
 
         rate = 10
 
-        device.temperature = approaches.linear(device.temperature, device.temperature_sp, rate, dt)
+        device.temperature = approaches.linear(
+            device.temperature, device.temperature_sp, rate, dt
+        )
 
 
 class He3PotEmptyState(State):
-    DRIFT_TOWARDS = 1.5  # When the 3He pot is empty, this is the temperature it will drift towards
+    DRIFT_TOWARDS = (
+        1.5  # When the 3He pot is empty, this is the temperature it will drift towards
+    )
 
     def in_state(self, dt):
         device = self._context

@@ -68,10 +68,16 @@ class SimulatedCRYOSMS(StateMachineDevice):
     def _get_transition_handlers(self) -> dict[tuple[str, str], Callable[[], bool]]:
         return OrderedDict(
             [
-                (("init", "ramping"), lambda: not self.at_target and not self.is_paused),
+                (
+                    ("init", "ramping"),
+                    lambda: not self.at_target and not self.is_paused,
+                ),
                 (("ramping", "holding"), lambda: self.is_paused or self.at_target),
                 (("ramping", "tripped"), lambda: self.is_quenched or self.is_xtripped),
-                (("holding", "ramping"), lambda: not self.at_target and not self.is_paused),
+                (
+                    ("holding", "ramping"),
+                    lambda: not self.at_target and not self.is_paused,
+                ),
             ]
         )
 

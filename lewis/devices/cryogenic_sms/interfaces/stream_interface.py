@@ -33,9 +33,24 @@ class CRYOSMSStreamInterface(StreamInterface):
         re_get = " *G(?:ET)* *"  # Get regex
         self.commands = {
             # Get commands
-            CmdBuilder(self.read_direction).regex(re_get).regex("S(?:IGN)*").spaces().eos().build(),
-            CmdBuilder(self.read_output_mode).spaces().regex("T(?:ESLA)*").spaces().eos().build(),
-            CmdBuilder(self.read_output).regex(re_get).regex("O(?:UTPUT)*").spaces().eos().build(),
+            CmdBuilder(self.read_direction)
+            .regex(re_get)
+            .regex("S(?:IGN)*")
+            .spaces()
+            .eos()
+            .build(),
+            CmdBuilder(self.read_output_mode)
+            .spaces()
+            .regex("T(?:ESLA)*")
+            .spaces()
+            .eos()
+            .build(),
+            CmdBuilder(self.read_output)
+            .regex(re_get)
+            .regex("O(?:UTPUT)*")
+            .spaces()
+            .eos()
+            .build(),
             CmdBuilder(self.read_ramp_status)
             .spaces()
             .regex("R(?:AMP)*")
@@ -62,16 +77,36 @@ class CRYOSMSStreamInterface(StreamInterface):
             .spaces()
             .eos()
             .build(),
-            CmdBuilder(self.read_ramp_rate).regex(re_get).regex("R(?:ATE)*").spaces().eos().build(),
-            CmdBuilder(self.read_limit).regex(re_get).regex("V(?:L)*").spaces().eos().build(),
-            CmdBuilder(self.read_pause).spaces().regex("P(?:AUSE)*").spaces().eos().build(),
+            CmdBuilder(self.read_ramp_rate)
+            .regex(re_get)
+            .regex("R(?:ATE)*")
+            .spaces()
+            .eos()
+            .build(),
+            CmdBuilder(self.read_limit)
+            .regex(re_get)
+            .regex("V(?:L)*")
+            .spaces()
+            .eos()
+            .build(),
+            CmdBuilder(self.read_pause)
+            .spaces()
+            .regex("P(?:AUSE)*")
+            .spaces()
+            .eos()
+            .build(),
             CmdBuilder(self.read_heater_value)
             .regex(re_get)
             .regex("H(?:V)*")
             .spaces()
             .eos()
             .build(),
-            CmdBuilder(self.read_constant).regex(re_get).regex("T(?:PA)").spaces().eos().build(),
+            CmdBuilder(self.read_constant)
+            .regex(re_get)
+            .regex("T(?:PA)")
+            .spaces()
+            .eos()
+            .build(),
             # Set commands
             CmdBuilder(self.write_direction)
             .spaces()
@@ -169,7 +204,9 @@ class CRYOSMSStreamInterface(StreamInterface):
     def _timestamp(self) -> str:
         return datetime.now().strftime("%H:%M:%S")
 
-    def _create_log_message(self, pv: str, value: float | int | str, suffix: str = "") -> None:
+    def _create_log_message(
+        self, pv: str, value: float | int | str, suffix: str = ""
+    ) -> None:
         current_time = self._timestamp()
         self._device.log_message = "{} {}: {}{}".format(current_time, pv, value, suffix)
 
@@ -189,14 +226,20 @@ class CRYOSMSStreamInterface(StreamInterface):
             return self._device.max_target
         elif self._device.ramp_target.name == "ZERO":
             return self._device.zero_target
-        raise RuntimeError("Unknown ramp target {}".format(self._device.ramp_target.name))
+        raise RuntimeError(
+            "Unknown ramp target {}".format(self._device.ramp_target.name)
+        )
 
     @if_connected
     def read_direction(self) -> str:
-        return "........ CURRENT DIRECTION: {}\r\n\x13".format(self._device.direction.name)
+        return "........ CURRENT DIRECTION: {}\r\n\x13".format(
+            self._device.direction.name
+        )
 
     @if_connected
-    def write_direction(self, direction: Literal["+"] | Literal["-"] | Literal["0"]) -> str:
+    def write_direction(
+        self, direction: Literal["+"] | Literal["-"] | Literal["0"]
+    ) -> str:
         if direction == "+":
             self._device.direction = RampDirection.POSITIVE
         if direction == "-":
@@ -207,13 +250,17 @@ class CRYOSMSStreamInterface(StreamInterface):
 
     @if_connected
     def read_output_mode(self) -> str:
-        return self._out_message("UNITS: {}\r\n\x13".format(self._get_output_mode_string()))
+        return self._out_message(
+            "UNITS: {}\r\n\x13".format(self._get_output_mode_string())
+        )
 
     @if_connected
     def read_output(self) -> str:
         sign = -1 if self._device.direction == RampDirection.NEGATIVE else 1
         return "........ OUTPUT: {} {} AT {} VOLTS \r\n\x13".format(
-            self._device.output * sign, self._get_output_mode_string(), self._device.output_voltage
+            self._device.output * sign,
+            self._get_output_mode_string(),
+            self._device.output_voltage,
         )
 
     @if_connected
@@ -227,7 +274,9 @@ class CRYOSMSStreamInterface(StreamInterface):
         elif output_mode in OFF_STATES:
             self._create_log_message("UNITS", "AMPS")
             if constant == 0:
-                self._device.error_message = "------> No field constant has been entered"
+                self._device.error_message = (
+                    "------> No field constant has been entered"
+                )
             else:
                 if self._device.is_output_mode_tesla:
                     self._device.switch_mode("AMPS")
@@ -237,7 +286,9 @@ class CRYOSMSStreamInterface(StreamInterface):
 
     @if_connected
     def read_ramp_target(self) -> str:
-        return self._out_message("RAMP TARGET: {}".format(self._device.ramp_target.name))
+        return self._out_message(
+            "RAMP TARGET: {}".format(self._device.ramp_target.name)
+        )
 
     @if_connected
     def read_ramp_status(self) -> str:
@@ -252,7 +303,9 @@ class CRYOSMSStreamInterface(StreamInterface):
                 output, self._get_output_mode_string()
             )
         elif self._device.is_quenched:
-            status_message += "QUENCH TRIP AT {} {}".format(output, self._get_output_mode_string())
+            status_message += "QUENCH TRIP AT {} {}".format(
+                output, self._get_output_mode_string()
+            )
         elif self._device.is_xtripped:
             status_message += "EXTERNAL TRIP AT {} {}".format(
                 output, self._get_output_mode_string()
@@ -318,7 +371,9 @@ class CRYOSMSStreamInterface(StreamInterface):
 
     @if_connected
     def read_pause(self) -> str:
-        return self._out_message("PAUSE STATUS: {}".format(self._get_paused_state_str()))
+        return self._out_message(
+            "PAUSE STATUS: {}".format(self._get_paused_state_str())
+        )
 
     @if_connected
     def write_pause(self, paused: str) -> str:
@@ -346,7 +401,9 @@ class CRYOSMSStreamInterface(StreamInterface):
 
     @if_connected
     def read_heater_value(self) -> str:
-        return self._out_message("HEATER OUTPUT: {} VOLTS".format(self._device.heater_value))
+        return self._out_message(
+            "HEATER OUTPUT: {} VOLTS".format(self._device.heater_value)
+        )
 
     @if_connected
     def write_heater_value(self, heater_value: float) -> str:
@@ -358,7 +415,8 @@ class CRYOSMSStreamInterface(StreamInterface):
     def read_max_target(self) -> str:
         mode = self._get_output_mode_string()
         return self._out_message(
-            "MAX SETTING: {:.4} {}".format(float(self._device.max_target), mode), terminator="\r\n"
+            "MAX SETTING: {:.4} {}".format(float(self._device.max_target), mode),
+            terminator="\r\n",
         )
 
     @if_connected
@@ -395,7 +453,9 @@ class CRYOSMSStreamInterface(StreamInterface):
 
     @if_connected
     def read_constant(self) -> str:
-        return self._out_message("FIELD CONSTANT: {:.7} T/A".format(self._device.constant))
+        return self._out_message(
+            "FIELD CONSTANT: {:.7} T/A".format(self._device.constant)
+        )
 
     @if_connected
     def write_constant(self, constant: int | float | str) -> str:

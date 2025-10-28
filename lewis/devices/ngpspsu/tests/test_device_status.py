@@ -1,6 +1,9 @@
 import unittest
 
-from lewis.devices.ngpspsu.interfaces.device_status import DeviceStatus, convert_to_hexadecimal
+from lewis.devices.ngpspsu.interfaces.device_status import (
+    DeviceStatus,
+    convert_to_hexadecimal,
+)
 
 
 class DeviceStatusTests(unittest.TestCase):
@@ -68,7 +71,9 @@ class DeviceStatusTests(unittest.TestCase):
         expected = "0" * 7 + "1"
         assert result == expected
 
-    def test_that_GIVEN_a_fault_condition_on_an_on_device_THEN_00000003_is_returned(self):
+    def test_that_GIVEN_a_fault_condition_on_an_on_device_THEN_00000003_is_returned(
+        self,
+    ):
         # Given:
         status = {
             "ON/OFF": True,

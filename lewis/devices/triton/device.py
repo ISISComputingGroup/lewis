@@ -72,7 +72,9 @@ class SimulatedTriton(StateMachineDevice):
             raise KeyError("{} not found".format(name))
 
     def set_temperature_backdoor(self, stage_name, new_temp):
-        self.temperature_stages[self.find_temperature_channel(stage_name)].temperature = new_temp
+        self.temperature_stages[
+            self.find_temperature_channel(stage_name)
+        ].temperature = new_temp
 
     def set_pressure_backdoor(self, sensor, newpressure):
         self.pressure_sensors["P{}".format(sensor)].pressure = float(newpressure)

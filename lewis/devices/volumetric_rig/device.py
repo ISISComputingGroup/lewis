@@ -34,16 +34,21 @@ class SimulatedVolumetricRig(StateMachineDevice):
         self._mixer = TwoGasMixer()
         for name1, name2 in SeedGasData.mixable_gas_names():
             self._mixer.add_mixable(
-                self._system_gases.gas_by_name(name1), self._system_gases.gas_by_name(name2)
+                self._system_gases.gas_by_name(name1),
+                self._system_gases.gas_by_name(name2),
             )
 
         # Set buffers
         buffer_gases = [
-            (self._system_gases.gas_by_name(name1), self._system_gases.gas_by_name(name2))
+            (
+                self._system_gases.gas_by_name(name1),
+                self._system_gases.gas_by_name(name2),
+            )
             for name1, name2 in SeedGasData.buffer_gas_names()
         ]
         self._buffers = [
-            Buffer(i + 1, buffer_gases[i][0], buffer_gases[i][1]) for i in range(len(buffer_gases))
+            Buffer(i + 1, buffer_gases[i][0], buffer_gases[i][1])
+            for i in range(len(buffer_gases))
         ]
 
         # Set ethernet devices
@@ -112,11 +117,17 @@ class SimulatedVolumetricRig(StateMachineDevice):
         self._halted = True
 
     def pressure_sensors(self, reverse=False):
-        return self._pressure_sensors if not reverse else list(reversed(self._pressure_sensors))
+        return (
+            self._pressure_sensors
+            if not reverse
+            else list(reversed(self._pressure_sensors))
+        )
 
     def temperature_sensors(self, reverse=False):
         return (
-            self._temperature_sensors if not reverse else list(reversed(self._temperature_sensors))
+            self._temperature_sensors
+            if not reverse
+            else list(reversed(self._temperature_sensors))
         )
 
     def target_pressure(self, as_string):
@@ -166,7 +177,8 @@ class SimulatedVolumetricRig(StateMachineDevice):
             # The buffer must exist and the system gas connected to it must be mixable with all the other current
             # buffer gases
             if buff is not None and all(
-                self._mixer.can_mix(buff.system_gas(), b.buffer_gas()) for b in self._buffers
+                self._mixer.can_mix(buff.system_gas(), b.buffer_gas())
+                for b in self._buffers
             ):
                 buff.open_valve(self._mixer)
 
@@ -243,7 +255,10 @@ class SimulatedVolumetricRig(StateMachineDevice):
                     p.approach_value(
                         dt,
                         1.1 * self._target_pressure,
-                        base_rate * float(number_of_open_buffers) / self.buffer_count() * random(),
+                        base_rate
+                        * float(number_of_open_buffers)
+                        / self.buffer_count()
+                        * random(),
                     )
                 else:
                     p.approach_value(dt, 0.0, base_rate)

@@ -34,7 +34,11 @@ GAUGESTATES_MAP = {
 
 GAUGEUNITS_MAP = {GaugeUnits.Pa: 59, GaugeUnits.V: 66, GaugeUnits.percent: 81}
 
-PRIORITYSTATES_MAP = {PriorityStates.OK: 0, PriorityStates.Warning: 1, PriorityStates.Alarm: 3}
+PRIORITYSTATES_MAP = {
+    PriorityStates.OK: 0,
+    PriorityStates.Warning: 1,
+    PriorityStates.Alarm: 3,
+}
 
 
 def reverse_dict_lookup(dictionary, value_to_find):
@@ -172,7 +176,9 @@ class EdwardsTICStreamInterface(StreamInterface):
 
     @conditional_reply("connected")
     def get_gauge(self, gauge_id):
-        state_string = "=V91{gauge_id} {pressure};{units};{gauge_state};{alert};{priority}"
+        state_string = (
+            "=V91{gauge_id} {pressure};{units};{gauge_state};{alert};{priority}"
+        )
 
         return state_string.format(
             gauge_id=gauge_id,

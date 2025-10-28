@@ -13,28 +13,50 @@ class Keithley2001StreamInterface(StreamInterface):
         # Commands used on setup
         CmdBuilder("get_idn").escape("*IDN?").eos().build(),
         CmdBuilder("reset_device").escape("*RST").eos().build(),
-        CmdBuilder("set_buffer_source").escape(":DATA:FEED ").arg("NONE|SENS1|CALC1").eos().build(),
+        CmdBuilder("set_buffer_source")
+        .escape(":DATA:FEED ")
+        .arg("NONE|SENS1|CALC1")
+        .eos()
+        .build(),
         CmdBuilder("get_buffer_source").escape(":DATA:FEED?").eos().build(),
-        CmdBuilder("set_buffer_egroup").escape(":DATA:EGR ").arg("FULL|COMP").eos().build(),
+        CmdBuilder("set_buffer_egroup")
+        .escape(":DATA:EGR ")
+        .arg("FULL|COMP")
+        .eos()
+        .build(),
         CmdBuilder("get_buffer_egroup").escape(":DATA:EGR?").eos().build(),
         CmdBuilder("set_continuous_initialization")
         .escape(":INIT:CONT ")
         .arg("OFF|ON")
         .eos()
         .build(),
-        CmdBuilder("get_continuous_initialization_status").escape(":INIT:CONT?").eos().build(),
+        CmdBuilder("get_continuous_initialization_status")
+        .escape(":INIT:CONT?")
+        .eos()
+        .build(),
         CmdBuilder("get_elements").escape(":FORM:ELEM?").eos().build(),
         CmdBuilder("set_elements").escape(":FORM:ELEM ").string().eos().build(),
         CmdBuilder("get_measurement_status").escape(":STAT:MEAS:ENAB?").eos().build(),
-        CmdBuilder("set_buffer_full_status").escape(":STAT:MEAS:ENAB 512").eos().build(),
+        CmdBuilder("set_buffer_full_status")
+        .escape(":STAT:MEAS:ENAB 512")
+        .eos()
+        .build(),
         CmdBuilder("get_service_request_status").escape("*SRE?").eos().build(),
         CmdBuilder("set_measure_summary_status").escape("*SRE 1").eos().build(),
-        CmdBuilder("reset_and_clear_status_registers").escape(":STAT:PRES; *CLS").eos().build(),
+        CmdBuilder("reset_and_clear_status_registers")
+        .escape(":STAT:PRES; *CLS")
+        .eos()
+        .build(),
         CmdBuilder("set_scan_count").escape(":ARM:LAY2:COUN ").int().eos().build(),
         CmdBuilder("get_scan_count").escape(":ARM:LAY2:COUN?").eos().build(),
         CmdBuilder("get_scan_trigger").escape(":ARM:LAY2:SOUR?").eos().build(),
         # Reading a single channel
-        CmdBuilder("set_read_channel").escape(":ROUT:CLOS (@").int().escape(")").eos().build(),
+        CmdBuilder("set_read_channel")
+        .escape(":ROUT:CLOS (@")
+        .int()
+        .escape(")")
+        .eos()
+        .build(),
         CmdBuilder("read_single_channel").escape(":READ?").eos().build(),
         # Reading from the buffer
         CmdBuilder("set_buffer_mode")
@@ -47,7 +69,11 @@ class Keithley2001StreamInterface(StreamInterface):
         CmdBuilder("scan_channels").escape(":INIT").eos().build(),
         CmdBuilder("get_buffer_date").escape(":DATA:DATA?").eos().build(),
         # Setting up a scan
-        CmdBuilder("set_measurement_scan_count").escape(":TRIG:COUN ").int().eos().build(),
+        CmdBuilder("set_measurement_scan_count")
+        .escape(":TRIG:COUN ")
+        .int()
+        .eos()
+        .build(),
         CmdBuilder("get_measurement_scan_count").escape(":TRIG:COUN?").eos().build(),
         CmdBuilder("set_buffer_size").escape(":DATA:POIN ").int().eos().build(),
         CmdBuilder("get_buffer_size").escape(":DATA:POIN?").eos().build(),
@@ -63,7 +89,9 @@ class Keithley2001StreamInterface(StreamInterface):
     }
 
     def handle_error(self, request, error):
-        self.log.error("An error occurred at request {}: {}".format(repr(request), repr(error)))
+        self.log.error(
+            "An error occurred at request {}: {}".format(repr(request), repr(error))
+        )
         print("An error occurred at request {}: {}".format(repr(request), repr(error)))
 
     # Commands used on setup
@@ -80,7 +108,9 @@ class Keithley2001StreamInterface(StreamInterface):
     @conditional_reply("_connected")
     def get_elements(self):
         """Returns the lists of elements of a reading in alphabetical order from the device."""
-        elements = [element for element, value in self._device.elements.items() if value]
+        elements = [
+            element for element, value in self._device.elements.items() if value
+        ]
         return ", ".join(elements)
 
     @conditional_reply("_connected")
@@ -98,9 +128,15 @@ class Keithley2001StreamInterface(StreamInterface):
                 self._device.elements[element] = True
             except LookupError:
                 self.log.error(
-                    "Tried to set {} which is not a valid reading element.".format(element)
+                    "Tried to set {} which is not a valid reading element.".format(
+                        element
+                    )
                 )
-                print("Tried to set {} which is not a valid reading element.".format(element))
+                print(
+                    "Tried to set {} which is not a valid reading element.".format(
+                        element
+                    )
+                )
 
         self._generate_readback_format()
 

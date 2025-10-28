@@ -118,7 +118,9 @@ class SimulatedEdwardsTIC(StateMachineDevice):
             self.log.info("Leaving turbo standby mode")
             self._turbo_in_standby = False
         else:
-            raise ValueError("Invalid standby argument provided ({} not 0 or 1)".format(value))
+            raise ValueError(
+                "Invalid standby argument provided ({} not 0 or 1)".format(value)
+            )
 
     @property
     def turbo_pump(self):

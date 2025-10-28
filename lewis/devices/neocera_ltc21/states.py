@@ -33,11 +33,15 @@ class ControlState(State):
     def in_state(self, dt):
         device = self._context
         for output_index in range(device.sensor_count):
-            sensor_source = device.sensor_source[output_index] - 1  # sensor source is 1 indexed
+            sensor_source = (
+                device.sensor_source[output_index] - 1
+            )  # sensor source is 1 indexed
             try:
                 temp = device.temperatures[sensor_source]
                 setpoint = device.setpoints[output_index]
-                device.temperatures[sensor_source] = approaches.linear(temp, setpoint, 0.1, dt)
+                device.temperatures[sensor_source] = approaches.linear(
+                    temp, setpoint, 0.1, dt
+                )
             except IndexError:
                 # sensor source is out of range (probably 3)
                 pass

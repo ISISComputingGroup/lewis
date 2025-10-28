@@ -157,5 +157,7 @@ class SimulatedJulabo(StateMachineDevice):
         :param control_mode: (int) 1 for external control, 0 for internal control
         :return: Empty string
         """
-        self.control_mode = ControlModes.EXTERNAL if control_mode == 1 else ControlModes.INTERNAL
+        self.control_mode = (
+            ControlModes.EXTERNAL if control_mode == 1 else ControlModes.INTERNAL
+        )
         return ""

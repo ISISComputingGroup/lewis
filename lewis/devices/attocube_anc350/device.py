@@ -37,7 +37,10 @@ class SimulatedAttocubeANC350(StateMachineDevice):
     def _get_transition_handlers(self):
         return OrderedDict(
             [
-                ((DefaultState.NAME, MovingState.NAME), lambda: self.start_move and self.axis_on),
+                (
+                    (DefaultState.NAME, MovingState.NAME),
+                    lambda: self.start_move and self.axis_on,
+                ),
                 (
                     (MovingState.NAME, DefaultState.NAME),
                     lambda: self.position_setpoint == self.position,

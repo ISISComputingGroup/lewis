@@ -80,9 +80,13 @@ class Itc503StreamInterface(StreamInterface):
 
     def get_status(self):
         if self.device.report_sweep_state_with_leading_zero:
-            format_string = "X0A{mode}C{ctrl}S{sweeping:02d}H{control_channel}L{autopid}"
+            format_string = (
+                "X0A{mode}C{ctrl}S{sweeping:02d}H{control_channel}L{autopid}"
+            )
         else:
-            format_string = "X0A{mode}C{ctrl}S{sweeping:01d}H{control_channel}L{autopid}"
+            format_string = (
+                "X0A{mode}C{ctrl}S{sweeping:01d}H{control_channel}L{autopid}"
+            )
 
         return format_string.format(
             mode=self.device.mode,
@@ -128,4 +132,6 @@ class Itc503StreamInterface(StreamInterface):
         raise ValueError("At ISIS, do not use this command!")
 
     def get_temp_error(self):
-        return "R{:.1f}".format(abs(self.device.temperature_sp - self.device.temperature))
+        return "R{:.1f}".format(
+            abs(self.device.temperature_sp - self.device.temperature)
+        )

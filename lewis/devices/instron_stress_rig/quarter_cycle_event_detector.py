@@ -1,4 +1,6 @@
-from .quarter_cycle_event_detector_states import QuarterCycleEventDetectorStates as QCEDStates
+from .quarter_cycle_event_detector_states import (
+    QuarterCycleEventDetectorStates as QCEDStates,
+)
 
 
 class QuarterCycleEventDetector(object):

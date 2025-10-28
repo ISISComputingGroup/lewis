@@ -25,7 +25,9 @@ class Valve(object):
     def status(self):
         if self._is_open:
             return (
-                ValveStatus.OPEN_AND_ENABLED if self._is_enabled else ValveStatus.OPEN_AND_DISABLED
+                ValveStatus.OPEN_AND_ENABLED
+                if self._is_enabled
+                else ValveStatus.OPEN_AND_DISABLED
             )
         else:
             return (

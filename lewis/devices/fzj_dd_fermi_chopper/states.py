@@ -11,7 +11,9 @@ class StartedState(State):
 
     def in_state(self, dt):
         device = self._context
-        device.frequency = approaches.linear(device.frequency, device.frequency_setpoint, 1, dt)
+        device.frequency = approaches.linear(
+            device.frequency, device.frequency_setpoint, 1, dt
+        )
         device.phase = approaches.linear(device.phase, device.phase_setpoint, 1, dt)
 
 

@@ -44,7 +44,10 @@ class SimulatedItc503(StateMachineDevice):
     def _get_transition_handlers(self):
         return OrderedDict(
             [
-                (("temperature_control", "helium_3_empty"), lambda: self.helium_3_pot_empty),
+                (
+                    ("temperature_control", "helium_3_empty"),
+                    lambda: self.helium_3_pot_empty,
+                ),
                 (
                     ("helium_3_empty", "regenerating"),
                     lambda: self.control_channel == 1 and self.temperature_sp >= 30,

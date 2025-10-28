@@ -56,8 +56,14 @@ class SimulatedHeliox(StateMachineDevice):
     def _get_transition_handlers(self):
         return OrderedDict(
             [
-                (("temperature_control", "helium_3_empty"), lambda: self.helium_3_pot_empty),
-                (("helium_3_empty", "temperature_control"), lambda: not self.helium_3_pot_empty),
+                (
+                    ("temperature_control", "helium_3_empty"),
+                    lambda: self.helium_3_pot_empty,
+                ),
+                (
+                    ("helium_3_empty", "temperature_control"),
+                    lambda: not self.helium_3_pot_empty,
+                ),
             ]
         )
 

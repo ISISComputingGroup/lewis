@@ -57,7 +57,9 @@ class Mk2ChopperStreamInterface(StreamInterface):
         return "RP{0}".format(filled_int(self._device.get_true_phase_delay(), 5))
 
     def get_demanded_phase_error_window(self):
-        return "RW{0}".format(filled_int(self._device.get_demanded_phase_error_window(), 3))
+        return "RW{0}".format(
+            filled_int(self._device.get_demanded_phase_error_window(), 3)
+        )
 
     def get_true_phase_error(self):
         return "RE{0}".format(filled_int(self._device.get_true_phase_error(), 3))
@@ -110,7 +112,9 @@ class Mk2ChopperStreamInterface(StreamInterface):
 
     def set_demanded_frequency(self, new_frequency_raw):
         return Mk2ChopperStreamInterface._set(
-            new_frequency_raw, self.get_demanded_frequency, self._device.set_demanded_frequency
+            new_frequency_raw,
+            self.get_demanded_frequency,
+            self._device.set_demanded_frequency,
         )
 
     def set_demanded_phase_delay(self, new_phase_delay_raw):

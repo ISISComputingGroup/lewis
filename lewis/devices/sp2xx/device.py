@@ -138,7 +138,9 @@ class SimulatedSp2XX(StateMachineDevice):
         """Returns the last error type."""
         return self._last_error
 
-    def throw_error_via_the_backdoor(self, error_name, error_value, error_alarm_severity):
+    def throw_error_via_the_backdoor(
+        self, error_name, error_value, error_alarm_severity
+    ):
         """Throws an error of type error_type. Set only via the backdoor
 
         Args:

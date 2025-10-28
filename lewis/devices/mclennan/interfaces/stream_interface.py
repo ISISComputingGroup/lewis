@@ -22,7 +22,14 @@ class MclennanStreamInterface(StreamInterface):
         CmdBuilder("jog").int().escape("CV").int().eos().build(),
         CmdBuilder("query_speeds").int().escape("QS").eos().build(),
         CmdBuilder("set_mode").int().escape("CM").int().eos().build(),
-        CmdBuilder("set_encoder_ratio").int().escape("ER").int().escape("/").int().eos().build(),
+        CmdBuilder("set_encoder_ratio")
+        .int()
+        .escape("ER")
+        .int()
+        .escape("/")
+        .int()
+        .eos()
+        .build(),
         CmdBuilder("set_window").int().escape("WI").int().eos().build(),
         CmdBuilder("set_timeout").int().escape("TO").int().eos().build(),
         CmdBuilder("set_tracking_window").int().escape("TR").int().eos().build(),

@@ -14,9 +14,21 @@ class TtiplpStreamInterface(StreamInterface):
         CmdBuilder("get_curr").escape("I").int().escape("O?").eos().build(),
         CmdBuilder("get_output").escape("OP").int().escape("?").eos().build(),
         CmdBuilder("set_output").escape("OP").int().escape(" ").float().eos().build(),
-        CmdBuilder("set_overvolt").escape("OVP").int().escape(" ").float().eos().build(),
+        CmdBuilder("set_overvolt")
+        .escape("OVP")
+        .int()
+        .escape(" ")
+        .float()
+        .eos()
+        .build(),
         CmdBuilder("get_overvolt").escape("OVP").int().escape("?").eos().build(),
-        CmdBuilder("set_overcurr").escape("OCP").int().escape(" ").float().eos().build(),
+        CmdBuilder("set_overcurr")
+        .escape("OCP")
+        .int()
+        .escape(" ")
+        .float()
+        .eos()
+        .build(),
         CmdBuilder("get_overcurr").escape("OCP").int().escape("?").eos().build(),
         CmdBuilder("get_event_stat_reg").escape("LSR").int().escape("?").eos().build(),
         CmdBuilder("reset_trip").escape("TRIPRST").eos().build(),

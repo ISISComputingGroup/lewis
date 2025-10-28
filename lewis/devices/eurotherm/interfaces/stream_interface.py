@@ -43,9 +43,19 @@ class EurothermStreamInterface(StreamInterface):
         self.log: logging.Logger
 
     commands: ClassVar = {
-        CmdBuilder("get_current_temperature").eot().arg("[0-9]{4}").escape("PV").enq().build(),
+        CmdBuilder("get_current_temperature")
+        .eot()
+        .arg("[0-9]{4}")
+        .escape("PV")
+        .enq()
+        .build(),
         CmdBuilder("get_setpoint").eot().arg("[0-9]{4}").escape("SL").enq().build(),
-        CmdBuilder("get_ramp_setpoint").eot().arg("[0-9]{4}").escape("SP").enq().build(),
+        CmdBuilder("get_ramp_setpoint")
+        .eot()
+        .arg("[0-9]{4}")
+        .escape("SP")
+        .enq()
+        .build(),
         CmdBuilder("get_output").eot().arg("[0-9]{4}").escape("OP").enq().build(),
         CmdBuilder("get_max_output").eot().arg("[0-9]{4}").escape("HO").enq().build(),
         CmdBuilder("get_output_rate").eot().arg("[0-9]{4}").escape("OR").enq().build(),
@@ -123,7 +133,9 @@ class EurothermStreamInterface(StreamInterface):
         Returns: None
 
         """
-        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
+        self.log.error(
+            "An error occurred at request " + repr(request) + ": " + repr(error)
+        )
 
     @if_connected
     @translate_adddress
@@ -293,7 +305,9 @@ class EurothermStreamInterface(StreamInterface):
         Returns: the current set point temperature formatted like the Eurotherm protocol.
         """
         try:
-            return self.make_read_reply("SP", self.device.ramp_setpoint_temperature(addr))
+            return self.make_read_reply(
+                "SP", self.device.ramp_setpoint_temperature(addr)
+            )
         except Exception:
             return None
 

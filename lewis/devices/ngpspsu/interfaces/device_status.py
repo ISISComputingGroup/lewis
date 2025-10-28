@@ -84,7 +84,9 @@ def convert_to_hexadecimal(bits, padding):
 
     bits_base_2 = int("".join(bits_as_strings), 2)
 
-    zero_padded_eight_digit_hexadecimal_with_prefix = "{0:#0{1}x}".format(bits_base_2, padding + 2)
+    zero_padded_eight_digit_hexadecimal_with_prefix = "{0:#0{1}x}".format(
+        bits_base_2, padding + 2
+    )
 
     zero_padded_eight_digit_hexadecimal_without_prefix = (
         zero_padded_eight_digit_hexadecimal_with_prefix[2:]

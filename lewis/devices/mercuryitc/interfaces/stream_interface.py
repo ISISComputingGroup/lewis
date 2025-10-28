@@ -14,7 +14,11 @@ ISOBUS_PREFIX = "@1"
 class MercuryitcInterface(StreamInterface):
     commands = {
         # System-level commands
-        CmdBuilder("get_catalog").optional(ISOBUS_PREFIX).escape("READ:SYS:CAT").eos().build(),
+        CmdBuilder("get_catalog")
+        .optional(ISOBUS_PREFIX)
+        .escape("READ:SYS:CAT")
+        .eos()
+        .build(),
         CmdBuilder("read_calib_tables")
         .optional(ISOBUS_PREFIX)
         .escape("READ:FILE:calibration_tables:LIST")
@@ -473,7 +477,9 @@ class MercuryitcInterface(StreamInterface):
     def set_nickname(self, deviceid, devicetype, nickname):
         chan = self._chan_from_id(deviceid, expected_type=devicetype)
         chan.nickname = nickname
-        return "STAT:SET:DEV:{}:{}:NICK:{}:VALID".format(deviceid, devicetype, chan.nickname)
+        return "STAT:SET:DEV:{}:{}:NICK:{}:VALID".format(
+            deviceid, devicetype, chan.nickname
+        )
 
     @if_connected
     def read_calib_tables(self):
@@ -548,7 +554,9 @@ class MercuryitcInterface(StreamInterface):
     @if_connected
     def get_calib_file(self, deviceid, chan_type):
         chan = self._chan_from_id(deviceid, expected_type=chan_type)
-        return "STAT:DEV:{}:{}:CAL:FILE:{}".format(deviceid, chan_type, chan.calibration_file)
+        return "STAT:DEV:{}:{}:CAL:FILE:{}".format(
+            deviceid, chan_type, chan.calibration_file
+        )
 
     @if_connected
     def set_calib_file(self, deviceid, chan_type, calib_file):
@@ -582,7 +590,9 @@ class MercuryitcInterface(StreamInterface):
     @if_connected
     def get_associated_aux(self, deviceid, chan_type):
         chan = self._chan_from_id(deviceid, expected_type=chan_type)
-        return "STAT:DEV:{}:{}:LOOP:AUX:{}".format(deviceid, chan_type, chan.associated_aux_channel)
+        return "STAT:DEV:{}:{}:LOOP:AUX:{}".format(
+            deviceid, chan_type, chan.associated_aux_channel
+        )
 
     @if_connected
     def set_associated_aux(self, deviceid, chan_type, new_aux):
@@ -655,7 +665,9 @@ class MercuryitcInterface(StreamInterface):
     @if_connected
     def get_temp_setpoint(self, deviceid):
         chan = self._chan_from_id(deviceid, expected_type=ChannelTypes.TEMP)
-        return "STAT:DEV:{}:TEMP:LOOP:TSET:{:.4f}K".format(deviceid, chan.temperature_sp)
+        return "STAT:DEV:{}:TEMP:LOOP:TSET:{:.4f}K".format(
+            deviceid, chan.temperature_sp
+        )
 
     @if_connected
     def get_pres_setpoint(self, deviceid):
@@ -719,13 +731,17 @@ class MercuryitcInterface(StreamInterface):
     @if_connected
     def get_heater_percent(self, deviceid, chan_type):
         chan = self._chan_from_id(deviceid, expected_type=chan_type)
-        return "STAT:DEV:{}:{}:LOOP:HSET:{:.4f}".format(deviceid, chan_type, chan.heater_percent)
+        return "STAT:DEV:{}:{}:LOOP:HSET:{:.4f}".format(
+            deviceid, chan_type, chan.heater_percent
+        )
 
     @if_connected
     def set_heater_percent(self, deviceid, chan_type, sp):
         chan = self._chan_from_id(deviceid, expected_type=chan_type)
         chan.heater_percent = sp
-        return "STAT:SET:DEV:{}:{}:LOOP:HSET:{:.4f}:VALID".format(deviceid, chan_type, sp)
+        return "STAT:SET:DEV:{}:{}:LOOP:HSET:{:.4f}:VALID".format(
+            deviceid, chan_type, sp
+        )
 
     @if_connected
     def get_gas_flow(self, deviceid):
@@ -739,7 +755,9 @@ class MercuryitcInterface(StreamInterface):
             temp_chan.associated_aux_channel, expected_type=ChannelTypes.AUX
         )
         aux_chan.gas_flow = sp
-        return "STAT:SET:DEV:{}:{}:LOOP:FSET:{:.4f}:VALID".format(deviceid, chan_type, sp)
+        return "STAT:SET:DEV:{}:{}:LOOP:FSET:{:.4f}:VALID".format(
+            deviceid, chan_type, sp
+        )
 
     @if_connected
     def get_all_heater_details(self, deviceid):
@@ -767,7 +785,9 @@ class MercuryitcInterface(StreamInterface):
     def set_heater_voltage_limit(self, deviceid, sp):
         chan = self._chan_from_id(deviceid, expected_type=ChannelTypes.HTR)
         chan.voltage_limit = sp
-        return "STAT:SET:DEV:{}:HTR:VLIM:{:.4f}:VALID".format(deviceid, chan.voltage_limit)
+        return "STAT:SET:DEV:{}:HTR:VLIM:{:.4f}:VALID".format(
+            deviceid, chan.voltage_limit
+        )
 
     @if_connected
     def get_heater_voltage(self, deviceid):
@@ -816,7 +836,9 @@ class MercuryitcInterface(StreamInterface):
     def get_nitrogen_level(self, deviceid):
         chan = self._chan_from_id(deviceid, expected_type=ChannelTypes.LVL)
 
-        return "STAT:DEV:{}:LVL:SIG:NIT:LEV:{:.3f}%".format(deviceid, chan.nitrogen_level)
+        return "STAT:DEV:{}:LVL:SIG:NIT:LEV:{:.3f}%".format(
+            deviceid, chan.nitrogen_level
+        )
 
     @if_connected
     def get_helium_level(self, deviceid):

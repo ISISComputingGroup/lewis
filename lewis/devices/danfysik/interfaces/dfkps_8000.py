@@ -57,5 +57,7 @@ class Danfysik8000StreamInterface(CommonStreamInterface, StreamInterface):
             )
         )
 
-        assert len(response) == 24, "length should have been 24 but was {}".format(len(response))
+        assert len(response) == 24, "length should have been 24 but was {}".format(
+            len(response)
+        )
         return response

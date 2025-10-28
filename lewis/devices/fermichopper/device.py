@@ -66,7 +66,16 @@ class SimulatedFermichopper(StateMachineDevice):
         )
 
     def do_command(self, command):
-        valid_commands = ["0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008"]
+        valid_commands = [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+        ]
         assert command in valid_commands, "Invalid command."
 
         self.last_command = command
@@ -96,7 +105,9 @@ class SimulatedFermichopper(StateMachineDevice):
         return self.last_command
 
     def set_speed_setpoint(self, value):
-        assert value in self._allowed_speed_setpoints, "Speed setpoint {} not allowed".format(value)
+        assert value in self._allowed_speed_setpoints, (
+            "Speed setpoint {} not allowed".format(value)
+        )
 
         if value == 600 and self.speed_setpoint == 600 and self.speed == 600:
             self.is_broken = True

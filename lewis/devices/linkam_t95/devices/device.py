@@ -86,23 +86,27 @@ class SimulatedLinkamT95(StateMachineDevice):
                 ),
                 (
                     ("heat", "hold"),
-                    lambda: self.temperature == self.temperature_limit or self.hold_commanded,
+                    lambda: self.temperature == self.temperature_limit
+                    or self.hold_commanded,
                 ),
                 (("heat", "cool"), lambda: self.temperature > self.temperature_limit),
                 (("heat", "stopped"), lambda: self.stop_commanded),
                 (
                     ("hold", "heat"),
-                    lambda: self.temperature < self.temperature_limit and not self.hold_commanded,
+                    lambda: self.temperature < self.temperature_limit
+                    and not self.hold_commanded,
                 ),
                 (
                     ("hold", "cool"),
-                    lambda: self.temperature > self.temperature_limit and not self.hold_commanded,
+                    lambda: self.temperature > self.temperature_limit
+                    and not self.hold_commanded,
                 ),
                 (("hold", "stopped"), lambda: self.stop_commanded),
                 (("cool", "heat"), lambda: self.temperature < self.temperature_limit),
                 (
                     ("cool", "hold"),
-                    lambda: self.temperature == self.temperature_limit or self.hold_commanded,
+                    lambda: self.temperature == self.temperature_limit
+                    or self.hold_commanded,
                 ),
                 (("cool", "stopped"), lambda: self.stop_commanded),
             ]

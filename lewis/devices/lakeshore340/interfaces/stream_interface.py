@@ -24,7 +24,10 @@ class Lakeshore340StreamInterface(StreamInterface):
         .float()
         .eos()
         .build(),
-        CmdBuilder("get_tset").escape("SETP? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("get_tset")
+        .escape("SETP? {}".format(_CONTROL_CHANNEL_INDEX))
+        .eos()
+        .build(),
         CmdBuilder("set_pid")
         .escape("PID {},".format(_CONTROL_CHANNEL_INDEX))
         .float()
@@ -34,15 +37,25 @@ class Lakeshore340StreamInterface(StreamInterface):
         .int()
         .eos()
         .build(),
-        CmdBuilder("get_pid").escape("PID? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("get_pid")
+        .escape("PID? {}".format(_CONTROL_CHANNEL_INDEX))
+        .eos()
+        .build(),
         CmdBuilder("set_pid_mode")
         .escape("CMODE {},".format(_CONTROL_CHANNEL_INDEX))
         .int()
         .eos()
         .build(),
-        CmdBuilder("get_pid_mode").escape("CMODE? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("get_pid_mode")
+        .escape("CMODE? {}".format(_CONTROL_CHANNEL_INDEX))
+        .eos()
+        .build(),
         CmdBuilder("set_control_mode")
-        .escape("CSET {},{},{},".format(_CONTROL_CHANNEL_INDEX, _CONTROL_CHANNEL, _SENSOR_UNITS))
+        .escape(
+            "CSET {},{},{},".format(
+                _CONTROL_CHANNEL_INDEX, _CONTROL_CHANNEL, _SENSOR_UNITS
+            )
+        )
         .int()
         .escape(",{}".format(_POWERUPENABLE))
         .eos()
@@ -64,7 +77,11 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("set_heater_range").escape("RANGE ").int().eos().build(),
         CmdBuilder("get_heater_range").escape("RANGE?").eos().build(),
         CmdBuilder("get_excitation_a").escape("INTYPE? A").eos().build(),
-        CmdBuilder("set_excitation_a").escape("INTYPE A, 1, , , , ").int().eos().build(),
+        CmdBuilder("set_excitation_a")
+        .escape("INTYPE A, 1, , , , ")
+        .int()
+        .eos()
+        .build(),
     }
 
     in_terminator = "\r\n"
@@ -124,7 +141,10 @@ class Lakeshore340StreamInterface(StreamInterface):
 
     def get_control_mode(self):
         return "{},{},{},{}".format(
-            _CONTROL_CHANNEL, _SENSOR_UNITS, 1 if self._device.loop_on else 0, _POWERUPENABLE
+            _CONTROL_CHANNEL,
+            _SENSOR_UNITS,
+            1 if self._device.loop_on else 0,
+            _POWERUPENABLE,
         )
 
     def set_control_mode(self, val):

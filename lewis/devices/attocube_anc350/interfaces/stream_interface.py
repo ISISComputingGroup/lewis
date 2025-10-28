@@ -7,7 +7,9 @@ from lewis.utils.byte_conversions import int_to_raw_bytes, raw_bytes_to_int
 BYTES_IN_INT = 4
 HEADER_LENGTH = 4 * BYTES_IN_INT
 
-convert_to_response = partial(int_to_raw_bytes, length=BYTES_IN_INT, low_byte_first=True)
+convert_to_response = partial(
+    int_to_raw_bytes, length=BYTES_IN_INT, low_byte_first=True
+)
 
 # NB, all variables used from here onwards are named the same in the C driver
 # 'hump' in the controller refers to hardware limits
@@ -65,7 +67,8 @@ def convert_to_ints(command, start, end):
     Returns: A list of integers converted from the command.
     """
     return [
-        raw_bytes_to_int(command[x : x + BYTES_IN_INT]) for x in range(start, end, BYTES_IN_INT)
+        raw_bytes_to_int(command[x : x + BYTES_IN_INT])
+        for x in range(start, end, BYTES_IN_INT)
     ]
 
 
@@ -109,7 +112,9 @@ class AttocubeANC350StreamInterface(StreamInterface):
     readtimeout = 10
 
     def handle_error(self, request, error):
-        self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
+        self.log.error(
+            "An error occurred at request " + repr(request) + ": " + repr(error)
+        )
         return str(error)
 
     def any_command(self, command):

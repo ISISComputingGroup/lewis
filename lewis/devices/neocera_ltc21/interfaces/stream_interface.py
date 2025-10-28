@@ -15,9 +15,15 @@ class NeoceraStreamInterface(StreamInterface):
     """Stream interface for the serial port."""
 
     commands = {
-        CmdBuilder("get_state", arg_sep=",", ignore=r"\r\n\s").escape("QISTATE?").build(),
-        CmdBuilder("set_state_monitor", arg_sep=",", ignore=r"\r\n\s").escape("SMON").build(),
-        CmdBuilder("set_state_control", arg_sep=",", ignore=r"\r\n\s").escape("SCONT").build(),
+        CmdBuilder("get_state", arg_sep=",", ignore=r"\r\n\s")
+        .escape("QISTATE?")
+        .build(),
+        CmdBuilder("set_state_monitor", arg_sep=",", ignore=r"\r\n\s")
+        .escape("SMON")
+        .build(),
+        CmdBuilder("set_state_control", arg_sep=",", ignore=r"\r\n\s")
+        .escape("SCONT")
+        .build(),
         CmdBuilder("get_temperature_and_unit", arg_sep=",", ignore=r"\r\n\s")
         .escape("QSAMP?")
         .digit()
@@ -43,8 +49,13 @@ class NeoceraStreamInterface(StreamInterface):
         .escape("SACONT")
         .digit()
         .build(),
-        CmdBuilder("get_heater", arg_sep=",", ignore=r"\r\n\s").escape("QHEAT?").build(),
-        CmdBuilder("get_pid", arg_sep=",", ignore=r"\r\n\s").escape("QPID?").digit().build(),
+        CmdBuilder("get_heater", arg_sep=",", ignore=r"\r\n\s")
+        .escape("QHEAT?")
+        .build(),
+        CmdBuilder("get_pid", arg_sep=",", ignore=r"\r\n\s")
+        .escape("QPID?")
+        .digit()
+        .build(),
         CmdBuilder("set_pid_heater", arg_sep=",", ignore=r"\r\n\s")
         .escape("SPID1,")
         .float()
@@ -83,7 +94,9 @@ class NeoceraStreamInterface(StreamInterface):
         :param sensor_number: sensor number
         :return: formatted temperature and unit for the device
         """
-        return self._get_indexed_value_with_unit(self._device.temperatures, sensor_number)
+        return self._get_indexed_value_with_unit(
+            self._device.temperatures, sensor_number
+        )
 
     def _get_indexed_value_with_unit(self, device_values, item_number):
         """Get a temperature like value back from device temperatures in the format produced by the device.
@@ -155,7 +168,9 @@ class NeoceraStreamInterface(StreamInterface):
             )
 
             if output_index == HEATER_INDEX:
-                output_config += ";{heater_range}".format(heater_range=device.heater_range)
+                output_config += ";{heater_range}".format(
+                    heater_range=device.heater_range
+                )
 
             return output_config
 
@@ -230,7 +245,9 @@ class NeoceraStreamInterface(StreamInterface):
         try:
             output_index = int(output_number) - 1
 
-            pid_output = "{P:f};{I:f};{D:f};{fixed_power:f}".format(**device.pid[output_index])
+            pid_output = "{P:f};{I:f};{D:f};{fixed_power:f}".format(
+                **device.pid[output_index]
+            )
 
             if output_index == HEATER_INDEX:
                 return "{pid_output};{limit:f}".format(
@@ -242,7 +259,9 @@ class NeoceraStreamInterface(StreamInterface):
                 )
 
         except (IndexError, ValueError, TypeError):
-            print("Error: invalid output number, '{output}'".format(output=output_number))
+            print(
+                "Error: invalid output number, '{output}'".format(output=output_number)
+            )
             device.error = NeoceraDeviceErrors(NeoceraDeviceErrors.BAD_PARAMETER)
 
     def set_pid_heater(self, p, i, d, fixed_power, limit):

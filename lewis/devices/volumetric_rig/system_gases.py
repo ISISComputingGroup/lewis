@@ -21,7 +21,9 @@ class SystemGases(object):
             return None
 
     def _add_gases(self, iterable):
-        self._gases = set.union(self._gases, {g for g in iterable if isinstance(g, Gas)})
+        self._gases = set.union(
+            self._gases, {g for g in iterable if isinstance(g, Gas)}
+        )
 
     def gases(self):
         return sorted(list(self._gases), key=lambda g: g.index())

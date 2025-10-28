@@ -128,21 +128,24 @@ class SimulatedLakeshore460(StateMachineDevice):
             self.channels[c].max_hold_reading *= convert_value
             self.channels[c].max_hold_reading, self.channels[c].max_hold_multiplier = (
                 self.update_reading_and_multiplier(
-                    self.channels[c].max_hold_reading, self.channels[c].max_hold_multiplier
+                    self.channels[c].max_hold_reading,
+                    self.channels[c].max_hold_multiplier,
                 )
             )
             self.channels[c].rel_mode_reading *= convert_value
             self.channels[c].rel_mode_reading, self.channels[c].rel_mode_multiplier = (
                 self.update_reading_and_multiplier(
-                    self.channels[c].rel_mode_reading, self.channels[c].rel_mode_multiplier
+                    self.channels[c].rel_mode_reading,
+                    self.channels[c].rel_mode_multiplier,
                 )
             )
             self.channels[c].relative_setpoint *= convert_value
-            self.channels[c].relative_setpoint, self.channels[c].relative_setpoint_multiplier = (
-                self.update_reading_and_multiplier(
-                    self.channels[c].relative_setpoint,
-                    self.channels[c].relative_setpoint_multiplier,
-                )
+            (
+                self.channels[c].relative_setpoint,
+                self.channels[c].relative_setpoint_multiplier,
+            ) = self.update_reading_and_multiplier(
+                self.channels[c].relative_setpoint,
+                self.channels[c].relative_setpoint_multiplier,
             )
 
     def calculate_multiplier(self, reading):

@@ -106,4 +106,6 @@ class ResponseBuilder(object):
         :return: (str) response
         """
         assert self.valid, "At least one data block must be added before calling build"
-        return "{response}{packet_end}".format(response=self.response, packet_end=self.packet_end)
+        return "{response}{packet_end}".format(
+            response=self.response, packet_end=self.packet_end
+        )

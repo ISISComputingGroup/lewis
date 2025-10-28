@@ -28,9 +28,20 @@ class MKS_PR4000B_StreamInterface(StreamInterface):
             .eos()
             .build(),
             CmdBuilder("get_formula_relay").escape("?FR").int().eos().build(),
-            CmdBuilder("set_formula_relay").escape("FR").int().escape(",").any().eos().build(),
+            CmdBuilder("set_formula_relay")
+            .escape("FR")
+            .int()
+            .escape(",")
+            .any()
+            .eos()
+            .build(),
             CmdBuilder("get_remote_mode").escape("?RT").eos().build(),
-            CmdBuilder("set_remote_mode").escape("RT").escape(",").enum("ON", "OFF").eos().build(),
+            CmdBuilder("set_remote_mode")
+            .escape("RT")
+            .escape(",")
+            .enum("ON", "OFF")
+            .eos()
+            .build(),
             CmdBuilder("get_external_input").escape("EX").int().eos().build(),
             CmdBuilder("get_status").escape("ST").eos().build(),
             CmdBuilder("set_range")

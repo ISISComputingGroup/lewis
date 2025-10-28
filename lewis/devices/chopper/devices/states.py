@@ -53,7 +53,9 @@ class DefaultStoppingState(State):
         self._acceleration = acceleration
 
     def in_state(self, dt) -> None:
-        self._context.speed = approaches.linear(self._context.speed, 0.0, self._acceleration, dt)
+        self._context.speed = approaches.linear(
+            self._context.speed, 0.0, self._acceleration, dt
+        )
 
     def on_entry(self, dt) -> None:
         self._context._stop_commanded = False

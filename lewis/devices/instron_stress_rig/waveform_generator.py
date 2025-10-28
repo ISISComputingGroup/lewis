@@ -31,7 +31,8 @@ class WaveformGenerator(object):
     def time_to_stop(self):
         return (
             self.stop_requested_at_time is not None
-            and (datetime.now() - self.stop_requested_at_time) > WaveformGenerator.STOP_DELAY
+            and (datetime.now() - self.stop_requested_at_time)
+            > WaveformGenerator.STOP_DELAY
         )
 
     def stop(self):

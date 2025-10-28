@@ -42,9 +42,18 @@ class SimulatedCybaman(StateMachineDevice):
         """Returns: the state transitions"""
         return OrderedDict(
             [
-                ((UninitializedState.NAME, InitializedState.NAME), lambda: self.initialized),
-                ((InitializedState.NAME, UninitializedState.NAME), lambda: not self.initialized),
-                ((MovingState.NAME, UninitializedState.NAME), lambda: not self.initialized),
+                (
+                    (UninitializedState.NAME, InitializedState.NAME),
+                    lambda: self.initialized,
+                ),
+                (
+                    (InitializedState.NAME, UninitializedState.NAME),
+                    lambda: not self.initialized,
+                ),
+                (
+                    (MovingState.NAME, UninitializedState.NAME),
+                    lambda: not self.initialized,
+                ),
                 (
                     (InitializedState.NAME, MovingState.NAME),
                     lambda: self.a != self.a_setpoint

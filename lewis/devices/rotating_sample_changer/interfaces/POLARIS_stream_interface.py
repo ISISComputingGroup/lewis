@@ -16,7 +16,11 @@ class POLARISSampleChangerStreamInterface(StreamInterface):
         Cmd("initialise", "^in$"),
         Cmd("lower_arm", "^lo$"),
         Cmd("move_to", "^ma(0[1-9]|[1][0-9]|20)$", argument_mappings=[int]),
-        Cmd("move_to_without_lowering", "^mn(0[1-9]|[1][0-9]|20)$", argument_mappings=[int]),
+        Cmd(
+            "move_to_without_lowering",
+            "^mn(0[1-9]|[1][0-9]|20)$",
+            argument_mappings=[int],
+        ),
         Cmd("raise_arm", "^ra$"),
         Cmd("retrieve_sample", "^rt$"),
     }

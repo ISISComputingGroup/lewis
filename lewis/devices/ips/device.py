@@ -115,13 +115,21 @@ class SimulatedIps(StateMachineDevice):
                 (("heater_on", "quenched"), lambda: self.quenched),
                 (("heater_off", "quenched"), lambda: self.quenched),
                 # Only triggered when device is reset or similar
-                (("quenched", "heater_off"), lambda: not self.quenched and not self.heater_on),
-                (("quenched", "heater_on"), lambda: not self.quenched and self.heater_on),
+                (
+                    ("quenched", "heater_off"),
+                    lambda: not self.quenched and not self.heater_on,
+                ),
+                (
+                    ("quenched", "heater_on"),
+                    lambda: not self.quenched and self.heater_on,
+                ),
             ]
         )
 
     def quench(self, reason):
-        self.log.info("Magnet quenching at current={} because: {}".format(self.current, reason))
+        self.log.info(
+            "Magnet quenching at current={} because: {}".format(self.current, reason)
+        )
         self.trip_current = self.current
         self.magnet_current = 0
         self.current = 0
@@ -143,7 +151,10 @@ class SimulatedIps(StateMachineDevice):
         return self.current * self.lead_resistance
 
     def set_heater_status(self, new_status):
-        if new_status and abs(self.current - self.magnet_current) > self.QUENCH_CURRENT_DELTA:
+        if (
+            new_status
+            and abs(self.current - self.magnet_current) > self.QUENCH_CURRENT_DELTA
+        ):
             raise ValueError(
                 "Can't set the heater to on while the magnet current and PSU current are mismatched"
             )

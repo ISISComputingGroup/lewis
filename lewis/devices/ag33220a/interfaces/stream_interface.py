@@ -29,9 +29,17 @@ class AG33220AStreamInterface(StreamInterface):
         Cmd("set_output", "^OUTP (ON|OFF)$", argument_mappings=[string_arg]),
         Cmd("get_idn", "^\*IDN\?$"),
         Cmd("get_voltage_high", "^VOLT:HIGH\?$"),
-        Cmd("set_voltage_high", "^VOLT:HIGH " + NUM_MIN_MAX, argument_mappings=[string_arg]),
+        Cmd(
+            "set_voltage_high",
+            "^VOLT:HIGH " + NUM_MIN_MAX,
+            argument_mappings=[string_arg],
+        ),
         Cmd("get_voltage_low", "^VOLT:LOW\?$"),
-        Cmd("set_voltage_low", "^VOLT:LOW " + NUM_MIN_MAX, argument_mappings=[string_arg]),
+        Cmd(
+            "set_voltage_low",
+            "^VOLT:LOW " + NUM_MIN_MAX,
+            argument_mappings=[string_arg],
+        ),
         Cmd("get_voltage_range_auto", "^VOLT:RANG:AUTO\?$"),
         Cmd(
             "set_voltage_range_auto",
