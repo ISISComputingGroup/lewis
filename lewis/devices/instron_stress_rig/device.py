@@ -10,8 +10,7 @@ from .waveform_generator import WaveformGenerator
 
 class SimulatedInstron(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         # When initialisation is complete, this is set to true and the device will enter a running state
         self.ready = True
         self.control_channel = 1
@@ -157,25 +156,25 @@ class SimulatedInstron(StateMachineDevice):
 
     def get_strain_channel_length(self, channel):
         # Getting the length is only supported for channel 3 (strain).
-        assert isinstance(
-            self.channels[channel], StrainChannel
-        ), "Length only applies to strain channel"
+        assert isinstance(self.channels[channel], StrainChannel), (
+            "Length only applies to strain channel"
+        )
         # This number gets divided by in the IOC - if it's zero things will break.
         assert self.channels[channel].length != 0, "Strain channel length was zero"
         return self.channels[channel].length
 
     def get_chan_area(self, channel):
         # Area is only applicable to stress channel
-        assert isinstance(
-            self.channels[channel], StressChannel
-        ), "Area only applies to stress channel"
+        assert isinstance(self.channels[channel], StressChannel), (
+            "Area only applies to stress channel"
+        )
         return self.channels[channel].area
 
     def set_chan_area(self, channel, value):
         # Area is only applicable to stress channel
-        assert isinstance(
-            self.channels[channel], StressChannel
-        ), "Area only applies to stress channel"
+        assert isinstance(self.channels[channel], StressChannel), (
+            "Area only applies to stress channel"
+        )
         self.channels[channel].area = value
 
     def get_chan_transducer_type(self, channel):

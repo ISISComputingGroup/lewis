@@ -3,8 +3,7 @@ from .utilities import format_float
 
 
 class Sensor(object):
-    """A basic sensor which monitors a value and keeps track of its own status.
-    """
+    """A basic sensor which monitors a value and keeps track of its own status."""
 
     def __init__(self):
         self._status = SensorStatus.NO_REPLY

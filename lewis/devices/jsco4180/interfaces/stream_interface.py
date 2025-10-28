@@ -8,8 +8,7 @@ if_valid_input_delay = timed_reply(action="crash_pump", minimum_time_delay=100)
 
 
 def combined_checks(func):
-    """Combine all conditional reply checks so we have a single decorator
-    """
+    """Combine all conditional reply checks so we have a single decorator"""
     return if_valid_input_delay(if_connected(if_input_error(func)))
 
 

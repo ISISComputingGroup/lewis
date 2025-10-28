@@ -1,8 +1,8 @@
+from lewis.devices.indfurn.device import SampleHolderMaterials
+
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
 from lewis.utils.command_builder import CmdBuilder
-
-from lewis_emulators.indfurn.device import SampleHolderMaterials
 
 SAMPLE_HOLDER_MATERIALS = {
     "aluminium": SampleHolderMaterials.ALUMINIUM,

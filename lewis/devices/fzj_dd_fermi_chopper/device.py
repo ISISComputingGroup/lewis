@@ -6,12 +6,10 @@ from .states import StartedState, StoppedState
 
 
 class SimulatedFZJDDFCH(StateMachineDevice):
-    """Simulated FZJ Digital Drive Fermi Chopper Controller.
-    """
+    """Simulated FZJ Digital Drive Fermi Chopper Controller."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         self.chopper_name = "C01"  # only one chopper in this case
         self.frequency_reference = 50  # reference frequency set to 50Hz to match actual device
         self.frequency_setpoint = 0
@@ -49,18 +47,15 @@ class SimulatedFZJDDFCH(StateMachineDevice):
         self.connected = True
 
     def _get_state_handlers(self):
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {StartedState.NAME: StartedState(), StoppedState.NAME: StoppedState()}
 
     def _get_initial_state(self):
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return StoppedState.NAME
 
     def _get_transition_handlers(self):
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict(
             [
                 ((StoppedState.NAME, StartedState.NAME), lambda: self.drive_mode_is_start),

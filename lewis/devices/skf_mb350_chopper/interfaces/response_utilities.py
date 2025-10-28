@@ -119,8 +119,7 @@ def phase_time_response_packet(address, device):
 
 
 class ResponseBuilder(object):
-    """Response builder which formats the responses as bytes.
-    """
+    """Response builder which formats the responses as bytes."""
 
     def __init__(self):
         self.response = bytearray()

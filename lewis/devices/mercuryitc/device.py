@@ -24,8 +24,7 @@ class Channel(object):
 
 
 class TempPressureCommonChannel(Channel):
-    """Holds attributes common to temperature and pressure channels
-    """
+    """Holds attributes common to temperature and pressure channels"""
 
     def __init__(self, channel_type, nickname):
         super(TempPressureCommonChannel, self).__init__(channel_type, nickname)

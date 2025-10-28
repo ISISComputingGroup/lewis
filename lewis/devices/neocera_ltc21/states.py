@@ -14,8 +14,7 @@ class OffState(State):
 
 
 class MonitorState(State):
-    """Temperature is being monitored but heater is switched off.
-    """
+    """Temperature is being monitored but heater is switched off."""
 
     NAME = "monitor"
 

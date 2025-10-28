@@ -153,8 +153,7 @@ class HelioxStreamInterface(StreamInterface):
 
     @if_connected
     def get_catalog(self):
-        """This is only needed by the LabVIEW driver - it is not used by EPICS.
-        """
+        """This is only needed by the LabVIEW driver - it is not used by EPICS."""
         return (
             "STAT:SYS:CAT"
             ":DEV:HelioxX:HEL"

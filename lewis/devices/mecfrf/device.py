@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedMecfrf(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.sensor1 = 123
         self.sensor2 = 456
 

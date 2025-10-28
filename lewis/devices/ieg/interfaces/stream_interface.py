@@ -73,8 +73,7 @@ class ResponseBuilder(object):
     data_block_sep = ","
 
     def __init__(self):
-        """Initialize a new response.
-        """
+        """Initialize a new response."""
         self.response = "{pack_start}ACK{pack_end}{pack_start}".format(
             pack_start=self.packet_start, pack_end=self.packet_end
         )

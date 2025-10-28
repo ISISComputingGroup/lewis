@@ -11,8 +11,7 @@ from ..device import CircuitAssignment
 
 @has_log
 class Tpgx00StreamInterfaceBase(object):
-    """Stream interface for the serial port for either a TPG300 or TPG500.
-    """
+    """Stream interface for the serial port for either a TPG300 or TPG500."""
 
     ack_terminator = "\r\n"  # Acknowledged commands are terminated by this
 

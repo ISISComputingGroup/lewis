@@ -17,8 +17,7 @@ class SampleHolderMaterials(object):
 
 class SimulatedIndfurn(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.setpoint = 20
         self.pipe_temperature = 25.1
         self.capacitor_bank_temperature = 30.3

@@ -7,20 +7,17 @@ ACK = chr(6)
 
 
 class TpgStreamInterfaceBase(object, metaclass=abc.ABCMeta):
-    """Stream interface for the serial port for either a TPG26x or TPG36x.
-    """
+    """Stream interface for the serial port for either a TPG26x or TPG36x."""
 
     _last_command = None
 
     @abc.abstractmethod
     def acknowledgement(self):
-        """Returns a string which is the device's "acknowledgement" message.
-        """
+        """Returns a string which is the device's "acknowledgement" message."""
 
     @abc.abstractmethod
     def output_terminator(self):
-        """A terminator to add to every reply except acknowledgement messages.
-        """
+        """A terminator to add to every reply except acknowledgement messages."""
 
     commands = {
         CmdBuilder("acknowledge_pressure").escape("PRX").build(),

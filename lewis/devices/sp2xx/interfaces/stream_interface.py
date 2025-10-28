@@ -1,5 +1,4 @@
-"""Stream interface for the SP2xx device.
-"""
+"""Stream interface for the SP2xx device."""
 
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
@@ -38,8 +37,7 @@ def if_error(f):
 
 @has_log
 class Sp2XXStreamInterface(StreamInterface):
-    """Stream interface for the serial port.
-    """
+    """Stream interface for the serial port."""
 
     def __init__(self):
         super(Sp2XXStreamInterface, self).__init__()

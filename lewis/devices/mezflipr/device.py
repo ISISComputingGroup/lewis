@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedMezflipr(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
 
         self.powered_on = False

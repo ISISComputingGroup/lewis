@@ -8,8 +8,7 @@ from .states import DefaultState
 
 class SimulatedTtiplp(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.ident = "THURLBY THANDAR, PL303-P, 490296, 3.02-4.06"
         self.volt = 0
         self.volt_sp = 0

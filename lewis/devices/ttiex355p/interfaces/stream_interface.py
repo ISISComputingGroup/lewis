@@ -1,4 +1,4 @@
-from lewis_emulators.tti355.interfaces.stream_interface import Tti355StreamInterface
+from lewis.devices.tti355.interfaces.stream_interface import Tti355StreamInterface
 
 __all__ = ["Ttiex355pStreamInterface"]
 

@@ -100,8 +100,7 @@ class CircuitAssignment:
         low_exponent=0,
         circuit_assignment="A1",
     ):
-        """Default constructor.
-        """
+        """Default constructor."""
         self.high_threshold = high_threshold
         self.high_exponent = high_exponent
         self.low_threshold = low_threshold
@@ -110,12 +109,10 @@ class CircuitAssignment:
 
 
 class SimulatedTpgx00(StateMachineDevice):
-    """Simulated device for both the TPG300 and TPG500.
-    """
+    """Simulated device for both the TPG300 and TPG500."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         self.__pressure_a1 = 0.0
         self.__pressure_a2 = 0.0
         self.__pressure_b1 = 0.0
@@ -158,20 +155,17 @@ class SimulatedTpgx00(StateMachineDevice):
 
     @staticmethod
     def _get_state_handlers():
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {DefaultState.NAME: DefaultState()}
 
     @staticmethod
     def _get_initial_state():
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return DefaultState.NAME
 
     @staticmethod
     def _get_transition_handlers():
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict()
 
     @property

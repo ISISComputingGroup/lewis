@@ -2,7 +2,6 @@ from lewis.core.statemachine import State
 
 
 class DefaultState(State):
-    """Device is in default state.
-    """
+    """Device is in default state."""
 
     NAME = "Default"

@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedDh2000(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._shutter_is_open = False
         self._interlock_triggered = False
         self.is_connected = True

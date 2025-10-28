@@ -16,8 +16,7 @@ states = OrderedDict(
 
 class SimulatedMclennan(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.is_jogging = False
         self.is_moving = False

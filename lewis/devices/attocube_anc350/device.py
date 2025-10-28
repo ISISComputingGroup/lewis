@@ -7,8 +7,7 @@ from .states import DefaultState, MovingState
 
 class SimulatedAttocubeANC350(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.position = 0
         self.position_setpoint = 0

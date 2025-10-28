@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedNgpspsu(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._model_no_and_firmware = "NGPS 100-50:0.9.01"
         self._voltage = 0.0
         self._voltage_setpoint = 0.0

@@ -21,12 +21,10 @@ def build_code(codes_dict):
 
 
 class SimulatedChtobisr(StateMachineDevice):
-    """Class to simulate Coherent OBIS Laser Remote
-    """
+    """Class to simulate Coherent OBIS Laser Remote"""
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.id = "Coherent OBIS Laser Remote - EMULATOR"
         self.interlock = "OFF"  # "OFF" -> OPEN, "ON" -> CLOSED
@@ -99,8 +97,7 @@ class SimulatedChtobisr(StateMachineDevice):
             self.interlock = value
 
     def reset(self):
-        """Resets all parameters by calling initialize function
-        """
+        """Resets all parameters by calling initialize function"""
         self._initialize_data()
 
     def build_status_code(self):

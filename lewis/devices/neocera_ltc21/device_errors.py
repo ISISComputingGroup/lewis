@@ -1,6 +1,5 @@
 class NeoceraDeviceErrors(object):
-    """Class to represent errors.
-    """
+    """Class to represent errors."""
 
     # bad parameter has been encountered
     BAD_PARAMETER = "Bad parameter"

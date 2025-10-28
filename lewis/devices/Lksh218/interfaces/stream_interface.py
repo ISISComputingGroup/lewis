@@ -24,8 +24,7 @@ def if_connected(f):
 
 
 class Lakeshore218StreamInterface(StreamInterface):
-    """Stream interface for the serial port
-    """
+    """Stream interface for the serial port"""
 
     in_terminator = "\r\n"
     out_terminator = "\r\n"

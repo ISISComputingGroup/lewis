@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedSmrtmon(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.stat = [0.0] * 11
         self.oplm = [1.0] * 9

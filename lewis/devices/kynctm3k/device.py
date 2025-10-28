@@ -9,9 +9,7 @@ from .states import DefaultState
 
 
 def truncate_if_set(f):
-    """Truncates the decorated function's string output if truncated_output is True
-
-    """
+    """Truncates the decorated function's string output if truncated_output is True"""
 
     @wraps(f)
     def wrapper(self, *args, **kwargs):
@@ -27,9 +25,7 @@ def truncate_if_set(f):
 
 @has_log
 def fake_auto_send(f):
-    """Changes the decorated functions's string output to a simulate a device in auto-send mode
-
-    """
+    """Changes the decorated functions's string output to a simulate a device in auto-send mode"""
 
     @wraps(f)
     def wrapper(self, *args, **kwargs):

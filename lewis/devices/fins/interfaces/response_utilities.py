@@ -132,8 +132,7 @@ def _convert_32bit_float_to_int16_array(number):
 
 
 class FinsResponseBuilder(object):
-    """Response builder which formats the responses as bytes.
-    """
+    """Response builder which formats the responses as bytes."""
 
     def __init__(self):
         self.response = bytearray()

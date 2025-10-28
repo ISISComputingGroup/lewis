@@ -9,8 +9,7 @@ if_input_error = conditional_reply("input_correct", "ER,OF,00")
 
 
 class Modes(Enum):
-    """Device Modes
-    """
+    """Device Modes"""
 
     MEASURE = "R0"  # Read measured values
     SET_UP = "Q0"  # Configure device parameters

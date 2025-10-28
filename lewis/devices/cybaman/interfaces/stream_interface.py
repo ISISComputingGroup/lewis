@@ -6,8 +6,7 @@ if_connected = conditional_reply("connected")
 
 
 class CybamanStreamInterface(StreamInterface):
-    """Stream interface for the serial port
-    """
+    """Stream interface for the serial port"""
 
     FLOAT = "([-+]?[0-9]*\.?[0-9]*)"
 

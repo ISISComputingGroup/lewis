@@ -6,8 +6,7 @@ from .states import DefaultState
 
 
 class FieldUnits(object):
-    """Field units.
-    """
+    """Field units."""
 
     OERSTED = object()
     GAUSS = object()
@@ -15,12 +14,10 @@ class FieldUnits(object):
 
 
 class SimulatedDanfysik(StateMachineDevice):
-    """Simulated Danfysik.
-    """
+    """Simulated Danfysik."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         self.comms_initialized = False
         self.connected = True
 
@@ -80,15 +77,13 @@ class SimulatedDanfysik(StateMachineDevice):
             self.log.info("Device up")
 
     def reset(self):
-        """Reset the device to the standard off configuration.
-        """
+        """Reset the device to the standard off configuration."""
         self.absolute_current = 0
         self.voltage = 0
         self.power = False
 
     def reinitialise(self):
-        """Reinitialise the device state (this is mainly used via the backdoor to clean up between tests)
-        """
+        """Reinitialise the device state (this is mainly used via the backdoor to clean up between tests)"""
         self._initialize_data()
 
     def set_current_read_factor(self, factor):
@@ -144,16 +139,13 @@ class SimulatedDanfysik(StateMachineDevice):
         return self.slew_rate[dac_num - 1]
 
     def _get_state_handlers(self):
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {DefaultState.NAME: DefaultState()}
 
     def _get_initial_state(self):
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return DefaultState.NAME
 
     def _get_transition_handlers(self):
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict()

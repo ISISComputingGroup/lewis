@@ -15,8 +15,7 @@ class Direction(Enum):
 @has_log
 class SimulatedWm323(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.speed = 0
         self.direction = Direction.CCW
         self.running = False

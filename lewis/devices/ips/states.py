@@ -1,7 +1,7 @@
+from lewis.devices.ips.modes import Activity
+
 from lewis.core import approaches
 from lewis.core.statemachine import State
-
-from lewis_emulators.ips.modes import Activity
 
 SECS_PER_MIN = 60
 

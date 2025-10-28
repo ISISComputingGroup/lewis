@@ -14,9 +14,9 @@ class JulichChecksum(object):
         :param alldata: the input data (list of chars, length 5)
         :return: the Julich checksum of the given input data
         """
-        assert all(
-            i in list("#0123456789ABCDEFGH") for i in alldata
-        ), "Invalid character can't calculate checksum"
+        assert all(i in list("#0123456789ABCDEFGH") for i in alldata), (
+            "Invalid character can't calculate checksum"
+        )
         return (
             "00"
             if all(x in ["0", "#"] for x in alldata)
@@ -35,9 +35,9 @@ class JulichChecksum(object):
         assert len(header) == 2, "Header should have length 2"
         assert len(data) == 4, "Data should have length 4"
         assert len(actual_checksum) == 2, "Actual checksum should have length 2"
-        assert (
-            JulichChecksum._calculate(list(header) + list(data)) == actual_checksum
-        ), "Checksum did not match"
+        assert JulichChecksum._calculate(list(header) + list(data)) == actual_checksum, (
+            "Checksum did not match"
+        )
 
     @staticmethod
     def append(data):

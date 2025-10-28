@@ -3,8 +3,7 @@ from .sensor_status import SensorStatus
 
 
 class PressureSensor(Sensor):
-    """A sensor that reads the pressure.
-    """
+    """A sensor that reads the pressure."""
 
     def __init__(self):
         super(PressureSensor, self).__init__()

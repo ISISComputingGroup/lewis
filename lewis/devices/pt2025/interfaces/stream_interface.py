@@ -1,4 +1,3 @@
-
 import threading
 
 from lewis.adapters.stream import StreamInterface

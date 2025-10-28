@@ -1,12 +1,12 @@
 import logging
 from typing import Callable, Concatenate, ParamSpec, Protocol, TypeVar
 
+from lewis.devices.eurotherm import SimulatedEurotherm
+
 from lewis.adapters.stream import Cmd, StreamInterface
 from lewis.core.logging import has_log
 from lewis.utils.byte_conversions import BYTE, int_to_raw_bytes
 from lewis.utils.replies import conditional_reply
-
-from lewis_emulators.eurotherm import SimulatedEurotherm
 
 sensor = "01"
 

@@ -1,8 +1,8 @@
+from lewis.devices.ips.modes import Activity, Control
+
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
 from lewis.utils.command_builder import CmdBuilder
-
-from lewis_emulators.ips.modes import Activity, Control
 
 from ..device import amps_to_tesla, tesla_to_amps
 
@@ -76,8 +76,7 @@ class IpsStreamInterface(StreamInterface):
         return "Simulated IPS"
 
     def set_comms_mode(self):
-        """This sets the terminator that the device wants, not implemented in emulator. Command does not reply.
-        """
+        """This sets the terminator that the device wants, not implemented in emulator. Command does not reply."""
 
     def set_control_mode(self, mode):
         self.device.control = CONTROL_MODE_MAPPING[mode]

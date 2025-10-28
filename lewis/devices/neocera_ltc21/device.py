@@ -8,12 +8,10 @@ from .states import ControlState, MonitorState
 
 
 class SimulatedNeocera(StateMachineDevice):
-    """Simulated Neocera LTG21 temperature controller.
-    """
+    """Simulated Neocera LTG21 temperature controller."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         # desired current state of the system
         self.current_state = self._get_initial_state()
 
@@ -63,18 +61,15 @@ class SimulatedNeocera(StateMachineDevice):
         self._error = NeoceraDeviceErrors()
 
     def _get_state_handlers(self):
-        """:return: states and their names
-        """
+        """:return: states and their names"""
         return {MonitorState.NAME: MonitorState(), ControlState.NAME: ControlState()}
 
     def _get_initial_state(self):
-        """:return: the name of the initial state
-        """
+        """:return: the name of the initial state"""
         return ControlState.NAME
 
     def _get_transition_handlers(self):
-        """:return: the state transitions
-        """
+        """:return: the state transitions"""
         return OrderedDict(
             [
                 (
@@ -89,17 +84,14 @@ class SimulatedNeocera(StateMachineDevice):
         )
 
     def set_state_monitor(self):
-        """Sets the current state to MONITOR.
-        """
+        """Sets the current state to MONITOR."""
         self.current_state = MonitorState.NAME
 
     def set_state_control(self):
-        """Sets the current state to CONTROL.
-        """
+        """Sets the current state to CONTROL."""
         self.current_state = ControlState.NAME
 
     @property
     def state(self):
-        """:return: the state
-        """
+        """:return: the state"""
         return self._csm.state

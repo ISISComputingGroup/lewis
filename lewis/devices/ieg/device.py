@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedIeg(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.unique_id = 123
 
         self.gas_valve_open = False

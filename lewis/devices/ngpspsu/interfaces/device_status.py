@@ -5,8 +5,7 @@ NUMBER_OF_HEXADECIMAL_CHARACTERS = 8
 
 
 class DeviceStatus(object):
-    """Converts the device's status to a list of 8 hexadecimal characters.
-    """
+    """Converts the device's status to a list of 8 hexadecimal characters."""
 
     _REFERENCE = {
         "0": "ON/OFF",
