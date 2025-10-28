@@ -1,6 +1,5 @@
-from lewis.devices.tti355.device import SimulatedTti355
-
 from lewis.core.logging import has_log
+from lewis.devices.tti355.device import SimulatedTti355
 
 
 @has_log

@@ -1,7 +1,6 @@
-from lewis.devices.ips.modes import Activity, Control
-
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
+from lewis.devices.ips.modes import Activity, Control
 from lewis.utils.command_builder import CmdBuilder
 
 from ..device import amps_to_tesla, tesla_to_amps

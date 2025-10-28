@@ -1,9 +1,8 @@
 from collections import OrderedDict
 
-from lewis.devices.ips.modes import Activity, Control, Mode, SweepMode
-
 from lewis.core.logging import has_log
 from lewis.devices import StateMachineDevice
+from lewis.devices.ips.modes import Activity, Control, Mode, SweepMode
 
 from .states import HeaterOffState, HeaterOnState, MagnetQuenchedState
 

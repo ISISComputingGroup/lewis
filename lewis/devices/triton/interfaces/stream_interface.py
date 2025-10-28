@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from lewis.devices.triton.device import HEATER_NAME
-
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
+from lewis.devices.triton.device import HEATER_NAME
 from lewis.utils.command_builder import CmdBuilder
 
 

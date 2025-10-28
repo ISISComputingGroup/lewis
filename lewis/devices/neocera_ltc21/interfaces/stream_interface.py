@@ -1,3 +1,4 @@
+from lewis.adapters.stream import StreamInterface
 from lewis.devices.neocera_ltc21.constants import (
     ANALOG_INDEX,
     CONTROL_TYPE_MAX,
@@ -6,8 +7,6 @@ from lewis.devices.neocera_ltc21.constants import (
 )
 from lewis.devices.neocera_ltc21.device_errors import NeoceraDeviceErrors
 from lewis.devices.neocera_ltc21.states import ControlState, MonitorState
-
-from lewis.adapters.stream import StreamInterface
 from lewis.utils.command_builder import CmdBuilder
 
 

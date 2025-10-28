@@ -1,7 +1,6 @@
-from lewis.devices.indfurn.device import SampleHolderMaterials
-
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
+from lewis.devices.indfurn.device import SampleHolderMaterials
 from lewis.utils.command_builder import CmdBuilder
 
 SAMPLE_HOLDER_MATERIALS = {

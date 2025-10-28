@@ -1,7 +1,6 @@
-from lewis.devices.mercuryitc.device import ChannelTypes
-
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
+from lewis.devices.mercuryitc.device import ChannelTypes
 from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 

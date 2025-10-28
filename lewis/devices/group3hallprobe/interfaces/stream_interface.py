@@ -1,9 +1,8 @@
 import logging
 
-from lewis.devices.group3hallprobe.device import Ranges, SimulatedGroup3HallProbe
-
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
+from lewis.devices.group3hallprobe.device import Ranges, SimulatedGroup3HallProbe
 from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 

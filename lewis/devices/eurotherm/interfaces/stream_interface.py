@@ -1,9 +1,8 @@
 import logging
 from typing import Callable, ClassVar, Concatenate, ParamSpec, TypeVar
 
-from lewis.devices.eurotherm import SimulatedEurotherm
-
 from lewis.adapters.stream import StreamInterface
+from lewis.devices.eurotherm import SimulatedEurotherm
 from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 
