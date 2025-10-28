@@ -1,7 +1,0 @@
-name: Linter
-on: [pull_request]
-jobs:
-  call-workflow:
-    uses: ISISComputingGroup/reusable-workflows/.github/workflows/linters.yml@main
-    with:
-      compare-branch: origin/master
