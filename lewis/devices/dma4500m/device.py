@@ -7,8 +7,7 @@ from .states import DoneState, MeasuringState, ReadyState
 
 class SimulatedDMA4500M(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.measurement_time = 0
 

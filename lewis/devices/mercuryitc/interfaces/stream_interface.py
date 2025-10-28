@@ -1,9 +1,9 @@
+from lewis.devices.mercuryitc.device import ChannelTypes
+
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
 from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
-
-from lewis_emulators.mercuryitc.device import ChannelTypes
 
 if_connected = conditional_reply("connected")
 
@@ -791,9 +791,11 @@ class MercuryitcInterface(StreamInterface):
         """
         chan = self._chan_from_id(deviceid, expected_type=ChannelTypes.AUX)
 
-        return "STAT:DEV:{}:AUX".format(deviceid) + ":NICK:{}".format(
-            chan.nickname
-        ) + ":SIG" ":PERC:{:.4f}".format(chan.gas_flow)
+        return (
+            "STAT:DEV:{}:AUX".format(deviceid)
+            + ":NICK:{}".format(chan.nickname)
+            + ":SIG:PERC:{:.4f}".format(chan.gas_flow)
+        )
 
     @if_connected
     def get_all_level_sensor_details(self, deviceid):

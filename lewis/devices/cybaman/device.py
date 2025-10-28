@@ -6,12 +6,10 @@ from .states import InitializedState, MovingState, UninitializedState
 
 
 class SimulatedCybaman(StateMachineDevice):
-    """Simulated cyber man.
-    """
+    """Simulated cyber man."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         self.connected = True
 
         self.a_setpoint = 0
@@ -29,8 +27,7 @@ class SimulatedCybaman(StateMachineDevice):
         self.initialized = False
 
     def _get_state_handlers(self):
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {
             InitializedState.NAME: InitializedState(),
             UninitializedState.NAME: UninitializedState(),
@@ -38,13 +35,11 @@ class SimulatedCybaman(StateMachineDevice):
         }
 
     def _get_initial_state(self):
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return UninitializedState.NAME
 
     def _get_transition_handlers(self):
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict(
             [
                 ((UninitializedState.NAME, InitializedState.NAME), lambda: self.initialized),

@@ -1,9 +1,9 @@
 from collections import OrderedDict
 
+from lewis.devices.ips.modes import Activity, Control, Mode, SweepMode
+
 from lewis.core.logging import has_log
 from lewis.devices import StateMachineDevice
-
-from lewis_emulators.ips.modes import Activity, Control, Mode, SweepMode
 
 from .states import HeaterOffState, HeaterOnState, MagnetQuenchedState
 
@@ -40,8 +40,7 @@ class SimulatedIps(StateMachineDevice):
     HEATER_RAMP_RATE = 5
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.reset()
 
     def reset(self):

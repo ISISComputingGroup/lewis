@@ -6,7 +6,7 @@ from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 
 if typing.TYPE_CHECKING:
-    from lewis_emulators.tekafg3XXX.device import SimulatedTekafg3XXX, SourceChannel
+    from lewis.devices.tekafg3XXX.device import SimulatedTekafg3XXX, SourceChannel
 
 if_connected = conditional_reply("connected")
 

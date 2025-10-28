@@ -12,8 +12,7 @@ CW_CCW = {True: "CLOCK", False: "ANTICLOCK"}
 
 @has_log
 class FZJDDFCHStreamInterface(StreamInterface):
-    """Stream interface for the Ethernet port
-    """
+    """Stream interface for the Ethernet port"""
 
     commands = {
         CmdBuilder("get_magnetic_bearing_status").arg(".{3}").escape("?;MBON?").build(),
@@ -128,7 +127,9 @@ class FZJDDFCHStreamInterface(StreamInterface):
         Returns: magnetic bearing status
         """
         device = self._device
-        return "{0:3s};MBON?;{}".format(device.chopper_name, )
+        return "{0:3s};MBON?;{}".format(
+            device.chopper_name,
+        )
 
     @conditional_reply("connected")
     def get_all_status(self, chopper_name):

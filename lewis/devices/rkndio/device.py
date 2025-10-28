@@ -10,8 +10,7 @@ NUMBER_OF_D_Os = 6
 
 class SimulatedRkndio(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._idn = "RIKENFE Prototype v2.0"
         self._connected = True
         self.reset_error()

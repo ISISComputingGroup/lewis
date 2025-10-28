@@ -14,8 +14,7 @@ PREFIXES = [
 
 @has_log
 class HlgStreamInterface(StreamInterface):
-    """Stream interface for the serial port
-    """
+    """Stream interface for the serial port"""
 
     commands = {
         CmdBuilder("get_level").escape("PM").build(),

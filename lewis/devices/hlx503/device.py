@@ -9,8 +9,7 @@ from .states import He3PotEmptyState, RegeneratingState, TemperatureControlState
 @has_log
 class SimulatedItc503(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.control_channel = 1
         self.p, self.i, self.d = 0, 0, 0
         self.control = 0

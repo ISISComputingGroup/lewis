@@ -6,8 +6,7 @@ from lewis.utils.replies import conditional_reply
 
 @has_log
 class ChtobisrStreamInterface(StreamInterface):
-    """Stream interface for the Coherent OBIS Laser Remote
-    """
+    """Stream interface for the Coherent OBIS Laser Remote"""
 
     commands = {
         CmdBuilder("get_id").escape("*IDN?").build(),

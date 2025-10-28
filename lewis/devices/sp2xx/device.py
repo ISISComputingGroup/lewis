@@ -1,5 +1,4 @@
-"""Items associated with WPI SP2XX syringe pump
-"""
+"""Items associated with WPI SP2XX syringe pump"""
 
 from collections import OrderedDict
 
@@ -11,12 +10,10 @@ from .util_constants import DIRECTIONS, MODES, NO_ERROR
 
 
 class SimulatedSp2XX(StateMachineDevice):
-    """Simulation of the WPI SP2XX syringe pump
-    """
+    """Simulation of the WPI SP2XX syringe pump"""
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._running_status = RunStatus.Stopped
         self._direction = DIRECTIONS["I"]
         self._running = False
@@ -46,14 +43,12 @@ class SimulatedSp2XX(StateMachineDevice):
 
     @property
     def running(self):
-        """Returns True if the device is running and False otherwise.
-        """
+        """Returns True if the device is running and False otherwise."""
         return self._running
 
     @property
     def direction(self):
-        """Returns the direction the pump is set to.
-        """
+        """Returns the direction the pump is set to."""
         return self._direction
 
     def set_direction_via_the_backdoor(self, direction_symbol):
@@ -108,8 +103,7 @@ class SimulatedSp2XX(StateMachineDevice):
 
     @property
     def running_status(self):
-        """Returns the running status of the device.
-        """
+        """Returns the running status of the device."""
         return self._running_status
 
     @property
@@ -141,9 +135,7 @@ class SimulatedSp2XX(StateMachineDevice):
 
     @property
     def last_error(self):
-        """Returns the last error type.
-
-        """
+        """Returns the last error type."""
         return self._last_error
 
     def throw_error_via_the_backdoor(self, error_name, error_value, error_alarm_severity):
@@ -170,8 +162,7 @@ class SimulatedSp2XX(StateMachineDevice):
 
     @property
     def diameter(self):
-        """Returns: the diameter of the syringe set on the device
-        """
+        """Returns: the diameter of the syringe set on the device"""
         return self._diameter
 
     def successfully_set_diameter(self, value):
@@ -189,8 +180,7 @@ class SimulatedSp2XX(StateMachineDevice):
 
     @property
     def connected(self):
-        """Returns True if the device is connected and False if disconnected.
-        """
+        """Returns True if the device is connected and False if disconnected."""
         return self._connected
 
     def connect(self):

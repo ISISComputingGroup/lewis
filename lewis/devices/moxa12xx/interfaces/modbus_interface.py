@@ -3,9 +3,7 @@ from lewis.core.logging import has_log
 
 
 class GenericMoxa12XXInterface(ModbusInterface):
-    """A generic interface which can be used to create a set of modbus registers for a device
-
-    """
+    """A generic interface which can be used to create a set of modbus registers for a device"""
 
     @ModbusInterface.device.setter
     def device(self, new_device):
@@ -18,9 +16,7 @@ class GenericMoxa12XXInterface(ModbusInterface):
 
 @has_log
 class Moxa1210ModbusInterface(GenericMoxa12XXInterface):
-    """Creates modbus data registers for a Moxa e1210 and makes them available to the lewis device.
-
-    """
+    """Creates modbus data registers for a Moxa e1210 and makes them available to the lewis device."""
 
     protocol = "MOXA_1210"
 
@@ -32,9 +28,7 @@ class Moxa1210ModbusInterface(GenericMoxa12XXInterface):
 
 @has_log
 class Moxa1240ModbusInterface(GenericMoxa12XXInterface):
-    """Creates modbus data registers for a Moxa e1240 and makes them available to the lewis device.
-
-    """
+    """Creates modbus data registers for a Moxa e1240 and makes them available to the lewis device."""
 
     protocol = "MOXA_1240"
 
@@ -46,9 +40,7 @@ class Moxa1240ModbusInterface(GenericMoxa12XXInterface):
 
 @has_log
 class Moxa1242ModbusInterface(GenericMoxa12XXInterface):
-    """Creates modbus data registers for a Moxa e1242 and makes them available to the lewis device.
-
-    """
+    """Creates modbus data registers for a Moxa e1242 and makes them available to the lewis device."""
 
     protocol = "MOXA_1242"
 
@@ -65,9 +57,7 @@ class Moxa1242ModbusInterface(GenericMoxa12XXInterface):
 
 @has_log
 class Moxa1262ModbusInterface(GenericMoxa12XXInterface):
-    """Creates modbus data registers for a Moxa e1240 and makes them available to the lewis device.
-
-    """
+    """Creates modbus data registers for a Moxa e1240 and makes them available to the lewis device."""
 
     protocol = "MOXA_1262"
 

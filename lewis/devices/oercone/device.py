@@ -22,8 +22,7 @@ class ReadState(Enum):
 
 class SimulatedOercone(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._pressure = 0
         self._measurement_unit = Units.mbar
         self._read_state = None

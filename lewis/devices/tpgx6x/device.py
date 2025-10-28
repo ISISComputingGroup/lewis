@@ -6,12 +6,10 @@ from .states import DefaultState
 
 
 class SimulatedTpgx6x(StateMachineDevice):
-    """Simulated device for both the TPG26x and TPG36x.
-    """
+    """Simulated device for both the TPG26x and TPG36x."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device.
-        """
+        """Sets the initial state of the device."""
         self._pressure1 = 2.0
         self._pressure2 = 3.0
         self._error1 = 0
@@ -19,24 +17,20 @@ class SimulatedTpgx6x(StateMachineDevice):
         self._units = 0
 
     def _get_state_handlers(self):
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {DefaultState.NAME: DefaultState()}
 
     def _get_initial_state(self):
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return DefaultState.NAME
 
     def _get_transition_handlers(self):
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict()
 
     @property
     def pressure1(self):
-        """Returns: the first pressure
-        """
+        """Returns: the first pressure"""
         return self._pressure1
 
     @pressure1.setter
@@ -49,8 +43,7 @@ class SimulatedTpgx6x(StateMachineDevice):
 
     @property
     def pressure2(self):
-        """Returns: the second pressure.
-        """
+        """Returns: the second pressure."""
         return self._pressure2
 
     @pressure2.setter
@@ -63,8 +56,7 @@ class SimulatedTpgx6x(StateMachineDevice):
 
     @property
     def units(self):
-        """Returns: the units of the TPG26x
-        """
+        """Returns: the units of the TPG26x"""
         return self._units
 
     @units.setter
@@ -77,8 +69,7 @@ class SimulatedTpgx6x(StateMachineDevice):
 
     @property
     def error1(self):
-        """Returns: the error state for pressure 1
-        """
+        """Returns: the error state for pressure 1"""
         return self._error1
 
     @error1.setter
@@ -91,8 +82,7 @@ class SimulatedTpgx6x(StateMachineDevice):
 
     @property
     def error2(self):
-        """Returns: the error state for pressure 2
-        """
+        """Returns: the error state for pressure 2"""
         return self._error2
 
     @error2.setter

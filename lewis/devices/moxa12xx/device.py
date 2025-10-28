@@ -9,26 +9,21 @@ from .states import DefaultState
 
 @has_log
 class SimulatedMoxa1210(StateMachineDevice):
-    """Simulated Moxa ioLogik E1210 Remote I/O device.
-    """
+    """Simulated Moxa ioLogik E1210 Remote I/O device."""
 
     def _initialize_data(self):
-        """Sets the initial state of the device
-        """
+        """Sets the initial state of the device"""
 
     def _get_state_handlers(self):
-        """Returns: states and their names
-        """
+        """Returns: states and their names"""
         return {DefaultState.NAME: DefaultState()}
 
     def _get_initial_state(self):
-        """Returns: the name of the initial state
-        """
+        """Returns: the name of the initial state"""
         return DefaultState.NAME
 
     def _get_transition_handlers(self):
-        """Returns: the state transitions
-        """
+        """Returns: the state transitions"""
         return OrderedDict()
 
     def get_di(self, addr, count):

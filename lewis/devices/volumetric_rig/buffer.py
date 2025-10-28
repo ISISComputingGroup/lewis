@@ -43,8 +43,7 @@ class Buffer(object):
         self._valve.enable()
 
     def disable_valve(self):
-        """Disable the valve. If the valve is open when this is requested then it will be automatically closed
-        """
+        """Disable the valve. If the valve is open when this is requested then it will be automatically closed"""
         self._valve.close()
         self._valve.disable()
 

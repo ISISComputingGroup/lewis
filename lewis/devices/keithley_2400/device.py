@@ -22,8 +22,7 @@ class SimulatedKeithley2400(StateMachineDevice):
     INITIAL_SOURCE_VOLTAGE = 0.8
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.random_output = True
 
         # Power properties
@@ -116,8 +115,7 @@ class SimulatedKeithley2400(StateMachineDevice):
         return self._format_power_output(self._resistance(), as_string)
 
     def update(self, dt):
-        """Update the current and voltage values based on the current mode and time elapsed.
-        """
+        """Update the current and voltage values based on the current mode and time elapsed."""
 
         def update_value(value):
             return abs(value + uniform(-1, 1) * dt)
@@ -136,14 +134,12 @@ class SimulatedKeithley2400(StateMachineDevice):
             self.voltage = new_voltage
 
     def reset(self):
-        """Set all the attributes back to their initial values.
-        """
+        """Set all the attributes back to their initial values."""
         self._initialize_data()
 
     @staticmethod
     def _check_mode(mode, mode_class):
-        """Make sure the mode requested exists in the related class.
-        """
+        """Make sure the mode requested exists in the related class."""
         if mode in mode_class.MODES:
             return True
         else:

@@ -7,8 +7,7 @@ from .states import DefaultState
 
 class SimulatedLakeshore340(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.temp_a = 0
         self.temp_b = 0
         self.temp_c = 0

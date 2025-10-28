@@ -1,20 +1,18 @@
-
-from lewis.adapters.stream import StreamInterface
-from lewis.utils.command_builder import CmdBuilder
-
-from lewis_emulators.neocera_ltc21.constants import (
+from lewis.devices.neocera_ltc21.constants import (
     ANALOG_INDEX,
     CONTROL_TYPE_MAX,
     CONTROL_TYPE_MIN,
     HEATER_INDEX,
 )
-from lewis_emulators.neocera_ltc21.device_errors import NeoceraDeviceErrors
-from lewis_emulators.neocera_ltc21.states import ControlState, MonitorState
+from lewis.devices.neocera_ltc21.device_errors import NeoceraDeviceErrors
+from lewis.devices.neocera_ltc21.states import ControlState, MonitorState
+
+from lewis.adapters.stream import StreamInterface
+from lewis.utils.command_builder import CmdBuilder
 
 
 class NeoceraStreamInterface(StreamInterface):
-    """Stream interface for the serial port.
-    """
+    """Stream interface for the serial port."""
 
     commands = {
         CmdBuilder("get_state", arg_sep=",", ignore=r"\r\n\s").escape("QISTATE?").build(),
@@ -210,8 +208,7 @@ class NeoceraStreamInterface(StreamInterface):
             device.error = NeoceraDeviceErrors(NeoceraDeviceErrors.BAD_PARAMETER)
 
     def get_heater(self):
-        """:return: Heater output
-        """
+        """:return: Heater output"""
         return "{0:5.1f}".format(self._device.heater)
 
     def get_pid(self, output_number):

@@ -2,8 +2,7 @@ from lewis.devices import Device
 
 
 class SimulatedAG33220A(Device):
-    """Simulated AG33220A
-    """
+    """Simulated AG33220A"""
 
     connected = True
 

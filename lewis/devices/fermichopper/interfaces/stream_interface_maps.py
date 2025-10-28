@@ -14,9 +14,9 @@ class JulichChecksum(object):
         :param alldata: the input data (list of chars, length 5)
         :return: the Julich checksum of the given input data
         """
-        assert all(
-            i in list("#0123456789ABCDEFGH") for i in alldata
-        ), "Invalid character can't calculate checksum"
+        assert all(i in list("#0123456789ABCDEFGH") for i in alldata), (
+            "Invalid character can't calculate checksum"
+        )
         return (
             "00"
             if all(x in ["0", "#"] for x in alldata)

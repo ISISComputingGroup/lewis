@@ -6,8 +6,7 @@ from .states import DefaultState
 
 
 class SimulatedFinsPLC(StateMachineDevice):
-    """Class represented a simulated Helium Recovery FINS PLC.
-    """
+    """Class represented a simulated Helium Recovery FINS PLC."""
 
     HELIUM_RECOVERY_NODE = 58
 
@@ -155,8 +154,7 @@ class SimulatedFinsPLC(StateMachineDevice):
     }
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.network_address = 0x00
         self.unit_address = 0x00
 

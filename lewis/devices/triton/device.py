@@ -8,8 +8,7 @@ HEATER_NAME = "H1"
 
 
 class TemperatureStage(object):
-    """Class representing a temperature stage.
-    """
+    """Class representing a temperature stage."""
 
     def __init__(self, name):
         self.name = name
@@ -37,8 +36,7 @@ class PressureSensor(object):
 
 class SimulatedTriton(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.heater_range = 0
         self.heater_power = 1
         self.heater_resistance = 0

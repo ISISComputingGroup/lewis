@@ -1,5 +1,4 @@
-"""Stream device for amint2l
-"""
+"""Stream device for amint2l"""
 
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
@@ -11,8 +10,7 @@ if_connected = conditional_reply("connected")
 
 @has_log
 class Amint2lStreamInterface(StreamInterface):
-    """Stream interface for the serial port
-    """
+    """Stream interface for the serial port"""
 
     in_terminator = chr(3)
     out_terminator = chr(3)

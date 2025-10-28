@@ -17,8 +17,7 @@ states = OrderedDict([("Stopped", StoppedState()), ("Moving", MovingState())])
 
 class SimulatedLinmot(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.position = 0
         self.target_position = 0
         self.inside_hard_limits = True

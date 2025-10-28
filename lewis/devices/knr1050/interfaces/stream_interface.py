@@ -79,8 +79,7 @@ class Knr1050StreamInterface(StreamInterface):
 
     @if_connected
     def stop_pump(self):
-        """Stop mode: Stop time table and data acquisition.
-        """
+        """Stop mode: Stop time table and data acquisition."""
         self.device.pump_on = False
         self.device.keep_last_values = False
 
@@ -90,8 +89,7 @@ class Knr1050StreamInterface(StreamInterface):
 
     @if_connected
     def stop_klv(self):
-        """Stop mode: Keep last values.
-        """
+        """Stop mode: Keep last values."""
         self.device.keep_last_values = True
         return "OK"
 

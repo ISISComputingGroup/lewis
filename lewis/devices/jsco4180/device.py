@@ -16,8 +16,7 @@ states = OrderedDict(
 
 class SimulatedJsco4180(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connected = True
         self.input_correct = True
         self.single_channel_mode = False

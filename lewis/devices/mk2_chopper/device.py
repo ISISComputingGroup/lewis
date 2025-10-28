@@ -8,8 +8,7 @@ from .states import MAX_TEMPERATURE, DefaultInitState, DefaultStartedState, Defa
 
 class SimulatedMk2Chopper(StateMachineDevice):
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self._type = ChopperType(50, ChopperType.INDRAMAT)
 
         self._demanded_frequency = self._type.get_frequency()

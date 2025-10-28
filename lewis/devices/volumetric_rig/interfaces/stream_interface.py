@@ -532,28 +532,23 @@ class VolumetricRigStreamInterface(StreamInterface):
         )
 
     def get_ports_and_relays_hex(self):
-        """:return: Information about the ports and relays
-        """
+        """:return: Information about the ports and relays"""
         return "PTR I:00 0000 0000 R:0000 0200 0000 O:00 0000 4400"
 
     def get_ports_output(self):
-        """:return: Information about the port output
-        """
+        """:return: Information about the port output"""
         return "POT qwertyus vsbbbbbbzyxwvuts aBhecSssvsbbbbbb"
 
     def get_ports_input(self):
-        """:return: Information about the port input
-        """
+        """:return: Information about the port input"""
         return "PIN qwertyui zyxwvutsrqponmlk abcdefghijklmneb"
 
     def get_ports_relays(self):
-        """:return: Information about the port relays.
-        """
+        """:return: Information about the port relays."""
         return "PRY qwertyuiopasdfgh zyxwhmLsrqponmlk abcdefghihlbhace"
 
     def get_com_activity(self):
-        """:return: Information about activity over the COM port
-        """
+        """:return: Information about activity over the COM port"""
         return "COM ok  0113/0000"
 
     def set_buffer_system_gas(self, buffer_index_raw, gas_index_raw):
@@ -616,8 +611,7 @@ class VolumetricRigStreamInterface(StreamInterface):
         return "SPT Pressure target set to " + str(value)
 
     def handle_error(self, request, error):
-        """Handle errors during execution. May be an unrecognised command or emulator failure.
-        """
+        """Handle errors during execution. May be an unrecognised command or emulator failure."""
         if str(error) == "None of the device's commands matched.":
             return "URC,04,Unrecognised Command," + str(request)
         else:

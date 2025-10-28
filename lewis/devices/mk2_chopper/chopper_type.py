@@ -1,6 +1,5 @@
 class ChopperType(object):
-    """A type of chopper that the system can represent. Typically MK2 choppers come in 50Hz and 100Hz varieties.
-    """
+    """A type of chopper that the system can represent. Typically MK2 choppers come in 50Hz and 100Hz varieties."""
 
     # An overspeed system state used to check the overspeed error flag
     OVERSPEED = (999, 95)

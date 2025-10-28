@@ -8,14 +8,12 @@ from .utils import Channel, ScanTrigger, StatusRegister
 
 
 class SimulatedKeithley2001(StateMachineDevice):
-    """Simulated Keithley2700 Multimeter
-    """
+    """Simulated Keithley2700 Multimeter"""
 
     number_of_times_device_has_been_reset = 0
 
     def _initialize_data(self):
-        """Initialize all of the device's attributes.
-        """
+        """Initialize all of the device's attributes."""
         self.connect()
         self.idn = "KEITHLEY INSTRUMENTS INC.,MODEL 2001,4301578,B17  /A02  "
         self.elements = {
@@ -129,8 +127,7 @@ class SimulatedKeithley2001(StateMachineDevice):
 
     @property
     def scan_trigger_type(self):
-        """Returns name of the scan trigger type.
-        """
+        """Returns name of the scan trigger type."""
         return self._scan_trigger_type.name
 
     def scan_channels(self):
@@ -160,18 +157,15 @@ class SimulatedKeithley2001(StateMachineDevice):
         return self._error
 
     def clear_error(self):
-        """Clears any error
-        """
+        """Clears any error"""
         self._error = [0, "No error"]
 
     def connect(self):
-        """Connects the device.
-        """
+        """Connects the device."""
         self._connected = True
 
     def disconnect(self):
-        """Disconnects the device.
-        """
+        """Disconnects the device."""
         self._connected = False
 
     # Backdoor functions

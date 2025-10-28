@@ -1,13 +1,10 @@
 import unittest
 
-from hamcrest import assert_that, equal_to, is_
-
-from lewis_emulators.ngpspsu.interfaces.device_status import DeviceStatus, convert_to_hexadecimal
+from lewis.devices.ngpspsu.interfaces.device_status import DeviceStatus, convert_to_hexadecimal
 
 
 class DeviceStatusTests(unittest.TestCase):
-    """Tests that the device status is correctly converted.
-    """
+    """Tests that the device status is correctly converted."""
 
     def test_that_GIVEN_a_blank_device_status_THEN_all_hex_characters_zero(self):
         # Given:
@@ -38,7 +35,7 @@ class DeviceStatusTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 8
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_a_on_device_status_THEN_00000001_is_returned(self):
         # Given:
@@ -69,7 +66,7 @@ class DeviceStatusTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 7 + "1"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_a_fault_condition_on_an_on_device_THEN_00000003_is_returned(self):
         # Given:
@@ -100,7 +97,7 @@ class DeviceStatusTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 7 + "3"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
 
 class ConvertBitsToHexTests(unittest.TestCase):
@@ -117,7 +114,7 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "0"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_the_last_bit_on_THEN_one_is_returned(self):
         # Given:
@@ -128,7 +125,7 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "01"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_a_byte_and_padding_of_5_THEN_a_5_padded_two_digit_hex_character_is_returned(
         self,
@@ -141,7 +138,7 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 3 + "8C"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_32_bits_THEN_a_zero_padded_8_digit_hex_number_is_returned(self):
         # Given:
@@ -152,7 +149,7 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 8
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_32_bits_with_zeroth_one_on_THEN_00000001_is_returned(self):
         # Given:
@@ -164,7 +161,7 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 7 + "1"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
 
     def test_that_GIVEN_32_bits_with_5th_bit_on_THEN_00000010_is_returned(self):
         # Given:
@@ -176,4 +173,4 @@ class ConvertBitsToHexTests(unittest.TestCase):
 
         # Then:
         expected = "0" * 6 + "10"
-        assert_that(result, is_(equal_to(expected)))
+        assert result == expected
