@@ -18,7 +18,8 @@ LEWIS_CONTROL_PATH = Path(TOP_DIR) / "scripts/lewis-control.py"
 @contextlib.contextmanager
 def julabo_simulation():
     command = [
-        "python",
+        "uv",
+        "run",
         str(LEWIS_PATH),
         "julabo",
         "-p",
@@ -33,7 +34,7 @@ def julabo_simulation():
 
 
 def run_control_command(mode, command, value):
-    subprocess.check_output(["python", str(LEWIS_CONTROL_PATH), mode, command, value]).decode()
+    subprocess.check_output(["uv", "run", str(LEWIS_CONTROL_PATH), mode, command, value], env=os.environ).decode()
 
 
 def santise_whitespace(input_str):
@@ -42,7 +43,7 @@ def santise_whitespace(input_str):
 
 def query_device_status():
     return santise_whitespace(
-        subprocess.check_output(["python", str(LEWIS_CONTROL_PATH), "device"]).decode()
+        subprocess.check_output(["uv", "run", str(LEWIS_CONTROL_PATH), "device"], env=os.environ).decode()
     )
 
 
@@ -56,7 +57,7 @@ class TestLewis:
         When: running Lewis without parameters
         Then: returns a list of possible simulations
         """
-        result = santise_whitespace(subprocess.check_output(["python", str(LEWIS_PATH)]).decode())
+        result = santise_whitespace(subprocess.check_output(["uv", "run", str(LEWIS_PATH)]).decode())
 
         verify(result, self.reporter)
 
