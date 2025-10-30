@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart Guide &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Adapter Specifics" href="user_guide/adapter_specifics.html" />
+    <link rel="prev" title="Welcome to the Lewis documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            lewis
+              <img src="_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-lewis">Install Lewis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-motor-example">Run the Motor Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connect-to-motor-via-telnet">Connect to Motor via Telnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connect-to-motor-via-control-client">Connect to Motor via Control Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#control-motor-via-control-api">Control Motor via Control API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quickstart Guide</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/quickstart.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart-guide">
+<h1>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Link to this heading"></a></h1>
+<p>This section aims to get you started with Lewis as quickly as possible. It is meant as a basic starting point for becoming familiar with Lewis, and to give you a broad overview of what it can do. As such, many features are skimmed over or skipped entirely. See the detailed documentation sections for a more complete overview of features.</p>
+<p>This guide is presented as a step-by-step tutorial, so skipping sections may mean you will miss steps that are required for the examples to work.</p>
+<section id="install-lewis">
+<h2>Install Lewis<a class="headerlink" href="#install-lewis" title="Link to this heading"></a></h2>
+<p>The recommended way to install Lewis is via PyPI and using a virtual environment. This guide assumes you have Python and Pip installed and in your PATH.</p>
+<ul class="simple">
+<li><p>Create a virtual environment (optional)</p></li>
+<li><p>Install Lewis from PyPI, <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lewis</span> </code></p></li>
+</ul>
+</section>
+<section id="run-the-motor-example">
+<h2>Run the Motor Example<a class="headerlink" href="#run-the-motor-example" title="Link to this heading"></a></h2>
+<p>Once Lewis is installed, you can use it to start some of the example devices it ships with.</p>
+<p>You can see which devices are available by just executing Lewis without parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis
+Please specify a device to simulate. The following devices are available:
+    julabo
+    chopper
+    linkam_t95
+</pre></div>
+</div>
+<p>Some additional, simpler examples are located in the <code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code> module. You can tell Lewis which module to scan for devices using the <code class="docutils literal notranslate"><span class="pre">-k</span></code> parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -k lewis.examples
+Please specify a device to simulate. The following devices are available:
+    dual_device
+    simple_device
+    timeout_device
+    modbus_device
+    example_motor
+</pre></div>
+</div>
+<p>For this guide, we will launch the example_motor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -k lewis.examples example_motor
+INFO lewis.DeviceBase: Creating device, setting up state machine
+INFO lewis.Simulation: Changed cycle delay to 0.1
+INFO lewis.Simulation: Changed speed to 1.0
+INFO lewis.Simulation: Starting simulation
+INFO lewis.AdapterCollection: Connecting device interface for protocol &#39;stream&#39;
+INFO lewis.ExampleMotorStreamInterface.StreamServer: Listening on 0.0.0.0:9999
+</pre></div>
+</div>
+<p>The example motor is a TCP Stream device and listens on port 9999 on all adapters by default.</p>
+</section>
+<section id="connect-to-motor-via-telnet">
+<h2>Connect to Motor via Telnet<a class="headerlink" href="#connect-to-motor-via-telnet" title="Link to this heading"></a></h2>
+<p>With the last command from the previous section still running, open another terminal window.</p>
+<p>Since the example motor conveniently uses CRLF line terminators, we can use telnet to talk to it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ telnet localhost 9999
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is &#39;^]&#39;.
+</pre></div>
+</div>
+<p>You’re now connected to the TCP Stream interface of the example motor device. It understands the following commands:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S?</p></td>
+<td><p>get status</p></td>
+</tr>
+<tr class="row-odd"><td><p>P?</p></td>
+<td><p>get position</p></td>
+</tr>
+<tr class="row-even"><td><p>T?</p></td>
+<td><p>get target</p></td>
+</tr>
+<tr class="row-odd"><td><p>T=%f</p></td>
+<td><p>set target</p></td>
+</tr>
+<tr class="row-even"><td><p>H</p></td>
+<td><p>stop movement</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can get more details, and details on the interface of any device, by using the <code class="docutils literal notranslate"><span class="pre">-i</span></code> or <code class="docutils literal notranslate"><span class="pre">--show-interface</span></code> argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -k lewis.examples example_motor -i
+</pre></div>
+</div>
+<p>Note that the commands are case sensitive. Try entering a few commands in the Telnet session:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>S?
+idle
+P?
+0.0
+T=20.0
+T=20.0
+S?
+moving
+P?
+9.106584
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/ISISComputingGroup/lewis/blob/main/lewis/examples/example_motor/__init__.py">the source code</a> of the example motor if you want to see what makes it tick.</p>
+</section>
+<section id="connect-to-motor-via-control-client">
+<h2>Connect to Motor via Control Client<a class="headerlink" href="#connect-to-motor-via-control-client" title="Link to this heading"></a></h2>
+<p>In addition to the simulated TCP Stream interface, Lewis provides a so-called Control Server interface, which allows you to bypass the normal device protocol and access both device and simulation parameters directly while the simulation is running. This can be very useful for debugging and diagnostics, without having to modify the main device interface.</p>
+<p>Remote access is disabled by default and enabled only if you provide the <code class="docutils literal notranslate"><span class="pre">-r</span></code> argument when starting Lewis. Stop the previously launched instance of Lewis by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> and run Lewis again with the <code class="docutils literal notranslate"><span class="pre">-r</span></code> parameter to enable remote access like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -r localhost:10000 -k lewis.examples example_motor
+</pre></div>
+</div>
+<p>Lewis ships with a Control Client commandline tool that allows you to connect to it. It also has an <code class="docutils literal notranslate"><span class="pre">-r</span></code> argument but for the client it defaults to <code class="docutils literal notranslate"><span class="pre">localhost:10000</span></code>, which is why it is recommended to use the same value above.</p>
+<p>Open another terminal session. If you installed Lewis in a virtual environment, make sure to activate it in the new terminal session so that Lewis is available.</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code> without any parameter displays the objects available to interact with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control
+device
+interface
+simulation
+</pre></div>
+</div>
+<p>You can think of these as root nodes in a tree that <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code> allows you to traverse. Passing one of them as an argument shows you what is available below that level:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control device
+Type: SimulatedExampleMotor
+Properties (current values):
+    position    (20.0)
+    speed       (2.0)
+    state       (idle)
+    target      (20.0)
+Methods:
+    stop
+</pre></div>
+</div>
+<p>Going down one more level retrieves the value of a single property, or calls a method (without passing arguments):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control device target
+0.0
+</pre></div>
+</div>
+<p>And by specifying additional argument(s) we can set properties (or pass arguments to methods):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control device target 100.0
+$ lewis-control device
+Type: SimulatedExampleMotor
+Properties (current values):
+    position    (29.159932)
+    speed       (2.0)
+    state       (moving)
+    target      (100.0)
+Methods:
+    stop
+$ lewis-control device stop
+[78.64038600000002, 78.64038600000002]
+$ lewis-control device
+Type: SimulatedExampleMotor
+Properties (current values):
+    position    (78.640386)
+    speed       (2.0)
+    state       (idle)
+    target      (78.640386)
+Methods:
+    stop
+</pre></div>
+</div>
+<p>Note that, as you go along, you can also use a Telnet session in another terminal to issue commands or request information, and that the state of the device will be consistent between the two connections.</p>
+<p>Aside from the simulated device itself, you can also access and modify parameters of the simulation and network interface(s):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis-control simulation
+$ lewis-control interface
+</pre></div>
+</div>
+<p>See the respective sections of documentation for more details.</p>
+</section>
+<section id="control-motor-via-control-api">
+<h2>Control Motor via Control API<a class="headerlink" href="#control-motor-via-control-api" title="Link to this heading"></a></h2>
+<p>While the command line client is convenient for manual diagnostics and debugging, you may find the Control API more useful for automated testing. It exposes all the same functionality available on the CLI via a Python library (In fact, that is how the CLI client is implemented).</p>
+<p>If you installed Lewis in a virtual environment, make sure you activate it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ . myenv/bin/activate
+</pre></div>
+</div>
+<p>Usually, you would use this API to write a Python script, but for demo purposes we will just use the interactive Python client:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python
+&gt;&gt;&gt; from lewis.core.control_client import ControlClient
+&gt;&gt;&gt;
+&gt;&gt;&gt; client = ControlClient(host=&#39;localhost&#39;, port=&#39;10000&#39;)
+&gt;&gt;&gt; motor = client.get_object(&#39;device&#39;)
+&gt;&gt;&gt;
+&gt;&gt;&gt; motor.target
+78.64038600000002
+&gt;&gt;&gt; motor.target = 20.0
+&gt;&gt;&gt; motor.state
+u&#39;moving&#39;
+&gt;&gt;&gt; motor.stop()
+[45.142721999999964, 45.142721999999964]
+&gt;&gt;&gt; motor.state
+u&#39;idle&#39;
+&gt;&gt;&gt; motor.position
+45.142721999999964
+</pre></div>
+</div>
+<p>As with the previous sections, you can also interact with the motor using any of the other interfaces as you are doing this and the state will always be consistent between them.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Lewis documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="user_guide/adapter_specifics.html" class="btn btn-neutral float-right" title="Adapter Specifics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

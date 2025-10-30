@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Checklist &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Writing Device Simulators" href="writing_devices.html" />
+    <link rel="prev" title="Framework Details" href="framework_details.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="framework_details.html">Framework Details</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Checklist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-for-release">Preparing for Release</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-milestones">Git Milestones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-notes">Release Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-version">Update Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github-release">GitHub Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-changes">Merge Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#build-and-finalize-release">Build and Finalize Release</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-pypi-package">Build PyPI Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-pypi-package">Test PyPI Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-release">Git Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload-pypi-package">Upload PyPI Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Release Checklist</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/developer_guide/release_checklist.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-checklist">
+<h1>Release Checklist<a class="headerlink" href="#release-checklist" title="Link to this heading"></a></h1>
+<p>This document provides a check list of steps to take and things to watch out
+for when preparing a new release of Lewis. It is organized roughly in the order
+that these things need to be done or checked.</p>
+<p>If any issues are found, it is best to start again at the top once they are
+resolved and the fix is merged.</p>
+<section id="preparing-for-release">
+<h2>Preparing for Release<a class="headerlink" href="#preparing-for-release" title="Link to this heading"></a></h2>
+<p>These steps are to prepare for a release on Git, and to commit as a pull
+request named “Prepare release x.y.z”. This pull request should be merged
+prior to proceeding to the next section.</p>
+<section id="git-milestones">
+<h3>Git Milestones<a class="headerlink" href="#git-milestones" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Go to https://github.com/ISISComputingGroup/lewis/milestones</p></li>
+<li><p>Ensure all issues and PRs included in this release are tagged correctly</p></li>
+<li><p>Create milestone for next release</p></li>
+<li><p>Ensure any open issues or PRs not included are tagged for next release</p></li>
+</ul>
+</section>
+<section id="release-notes">
+<h3>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Ensure release notes are up to date against all included changes</p></li>
+<li><p>If changes to existing devices may be required to update Lewis, include an
+Update Guide section in the release notes</p></li>
+<li><p>Include new release notes in <code class="docutils literal notranslate"><span class="pre">docs/release_notes/</span></code></p></li>
+<li><p>Remove orphan tag from release notes for this release</p></li>
+</ul>
+</section>
+<section id="update-version">
+<h3>Update Version<a class="headerlink" href="#update-version" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">__version__</span></code> in <code class="docutils literal notranslate"><span class="pre">lewis/__init__.py</span></code></p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">release</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code></p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">version</span></code> in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
+</ul>
+</section>
+<section id="github-release">
+<h3>GitHub Release<a class="headerlink" href="#github-release" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Draft release blurb at https://github.com/ISISComputingGroup/lewis/releases</p></li>
+</ul>
+</section>
+<section id="merge-changes">
+<h3>Merge Changes<a class="headerlink" href="#merge-changes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Merge any changes made in this section into the main branch</p></li>
+<li><p>Ensure this pull request is also tagged for the current version</p></li>
+</ul>
+</section>
+</section>
+<section id="build-and-finalize-release">
+<h2>Build and Finalize Release<a class="headerlink" href="#build-and-finalize-release" title="Link to this heading"></a></h2>
+<p>These steps should be taken once the ones in the previous section have been
+completed.</p>
+<section id="build-pypi-package">
+<h3>Build PyPI Package<a class="headerlink" href="#build-pypi-package" title="Link to this heading"></a></h3>
+<p>This should be done in a clean directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m venv build
+$ . build/bin/activate
+(build) $ git clone https://github.com/ISISComputingGroup/lewis.git
+(build) $ cd lewis
+(build) $ pip install twine wheel
+(build) $ python setup.py sdist bdist_wheel
+(build) $ twine check dist/*
+(build) $ deactivate
+</pre></div>
+</div>
+</section>
+<section id="test-pypi-package">
+<h3>Test PyPI Package<a class="headerlink" href="#test-pypi-package" title="Link to this heading"></a></h3>
+<p>Ideally, <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> and <code class="docutils literal notranslate"><span class="pre">.whl</span></code> produced in previous step should also be shared
+with and tested by another developer.</p>
+<p>Make sure tests are run in a fresh virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m venv targz
+$ . targz/bin/activate
+(targz) $ pip install lewis/dist/lewis-X.Y.Z.tar.gz
+(targz) $ lewis linkam_t95
+...
+(targz) $ deactivate
+
+$ python -m venv whl
+$ . whl/bin/activate
+(whl) $ pip install lewis/dist/lewis-X.Y.Z-py3-none-any.whl
+(whl) $ lewis linkam_t95
+...
+(whl) $ deactivate
+</pre></div>
+</div>
+<p>Since these are release packages, unit tests aren’t available. Run a few manual
+tests against the packaged version of Lewis to double check that things still
+work as expected.</p>
+</section>
+<section id="git-release">
+<h3>Git Release<a class="headerlink" href="#git-release" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Finalize and submit release blurb at:
+https://github.com/ISISComputingGroup/lewis/releases</p></li>
+<li><p>Close the current milestone at:
+https://github.com/ISISComputingGroup/lewis/milestones</p></li>
+</ul>
+</section>
+<section id="upload-pypi-package">
+<h3>Upload PyPI Package<a class="headerlink" href="#upload-pypi-package" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">twine</span></code> utility can be used to upload the packages to PyPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ twine upload dist/*
+</pre></div>
+</div>
+<p>Note: requires a PyPi account and lewis permissions.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="framework_details.html" class="btn btn-neutral float-left" title="Framework Details" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="writing_devices.html" class="btn btn-neutral float-right" title="Writing Device Simulators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

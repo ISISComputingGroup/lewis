@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.statemachine &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.utils" href="lewis.core.utils.html" />
+    <link rel="prev" title="lewis.core.simulation" href="lewis.core.simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_client.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_server.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.simulation.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.statemachine.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.statemachine">
+<span id="lewis-core-statemachine"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code><a class="headerlink" href="#module-lewis.core.statemachine" title="Link to this heading"></a></h1>
+<p>The statemachine module contains one of lewis’ central parts, the cycle-based
+<a class="reference internal" href="#lewis.core.statemachine.StateMachine" title="lewis.core.statemachine.StateMachine"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateMachine</span></code></a>. The module also contains classes that make it easier to define the
+state machine (<a class="reference internal" href="#lewis.core.statemachine.State" title="lewis.core.statemachine.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>, <a class="reference internal" href="#lewis.core.statemachine.Transition" title="lewis.core.statemachine.Transition"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transition</span></code></a>). Despite its central nature, it’s unlikely
+to be used directly in client code for device simulations - these should be based on
+<code class="xref py py-class docutils literal notranslate"><span class="pre">StateMachineDevice</span></code>, which provides a more convenient interface for that purpose.</p>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.statemachine.HasContext" title="lewis.core.statemachine.HasContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HasContext</span></code></a></p></td>
+<td><p>Mixin to provide a Context.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.statemachine.State" title="lewis.core.statemachine.State"><code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></a></p></td>
+<td><p>StateMachine state handler base class.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.statemachine.StateMachine" title="lewis.core.statemachine.StateMachine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StateMachine</span></code></a></p></td>
+<td><p>Cycle based state machine.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.statemachine.StateMachineException" title="lewis.core.statemachine.StateMachineException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StateMachineException</span></code></a></p></td>
+<td><p>Classes in this module should only raise this type of Exception.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.statemachine.Transition" title="lewis.core.statemachine.Transition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transition</span></code></a></p></td>
+<td><p>StateMachine transition condition base class.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.statemachine.HasContext">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.statemachine.</span></span><span class="sig-name descname"><span class="pre">HasContext</span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#HasContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.HasContext" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Mixin to provide a Context.</p>
+<p>Creates a <cite>_context</cite> member variable that can be assigned with <a class="reference internal" href="#lewis.core.statemachine.HasContext.set_context" title="lewis.core.statemachine.HasContext.set_context"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_context()</span></code></a>.</p>
+<p>Any state handler or transition callable that derives from this mixin will
+receive a context from its <a class="reference internal" href="#lewis.core.statemachine.StateMachine" title="lewis.core.statemachine.StateMachine"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateMachine</span></code></a> upon initialization (assuming the
+StateMachine was provided with a context itself).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.HasContext.set_context">
+<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#HasContext.set_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.HasContext.set_context" title="Link to this definition"></a></dt>
+<dd><p>Assigns the new context to the member variable <code class="docutils literal notranslate"><span class="pre">_context</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.statemachine.State">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.statemachine.</span></span><span class="sig-name descname"><span class="pre">State</span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#State"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.State" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.core.statemachine.HasContext" title="lewis.core.statemachine.HasContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasContext</span></code></a></p>
+<p>StateMachine state handler base class.</p>
+<p>Provides a way to implement StateMachine event handling behaviour using an
+object-oriented interface. Once the StateMachine is configured to do so, it
+will automatically invoke the events in this class when appropriate.</p>
+<p>To use this class, create a derived class and override any events that need
+custom behaviour. Device context is provided via <a class="reference internal" href="#lewis.core.statemachine.HasContext" title="lewis.core.statemachine.HasContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasContext</span></code></a> mixin.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.State.in_state">
+<span class="sig-name descname"><span class="pre">in_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#State.in_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.State.in_state" title="Link to this definition"></a></dt>
+<dd><p>Handle in-state event.</p>
+<p>Raised repeatedly, once per cycle, while idling in this state. Exactly one
+in-state event occurs per cycle for every StateMachine. This is always the
+last event of the cycle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – Delta T since last cycle.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.State.on_entry">
+<span class="sig-name descname"><span class="pre">on_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#State.on_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.State.on_entry" title="Link to this definition"></a></dt>
+<dd><p>Handle entry event. Raised once, when this state is entered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – Delta T since last cycle.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.State.on_exit">
+<span class="sig-name descname"><span class="pre">on_exit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#State.on_exit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.State.on_exit" title="Link to this definition"></a></dt>
+<dd><p>Handle exit event. Raised once, when this state is exited.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – Delta T since last cycle.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.statemachine.</span></span><span class="sig-name descname"><span class="pre">StateMachine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachine" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.processor.html#lewis.core.processor.CanProcess" title="lewis.core.processor.CanProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">CanProcess</span></code></a></p>
+<p>Cycle based state machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> – dict which contains state machine configuration.</p></li>
+<li><p><strong>context</strong> – object which is assigned to State and Transition objects as their _context.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The configuration dict may contain the following keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>initial: Name of the initial state of this machine</p></li>
+<li><p>states: [optional] Dict of custom state handlers</p></li>
+<li><p>transitions: [optional] Dict of transitions in this state machine.</p></li>
+</ul>
+</div></blockquote>
+<p>State handlers may be given as a dict, list or State class:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dict: May contain keys ‘on_entry’, ‘in_state’ and ‘on_exit’.</p></li>
+<li><p>list: May contain up to 3 entries, above events in that order.</p></li>
+<li><p>class: Should be an instance of a class that derives from State.</p></li>
+</ul>
+</div></blockquote>
+<p>In case of handlers being provided as a dict or a list, values should be callable
+and may take a single parameter: the Delta T since the last cycle.</p>
+<p>Transitions should be provided as a dict where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Each key is a tuple of two values, the FROM and TO states respectively.</p></li>
+<li><p>Each value is a callable transition condition that return True or False.</p></li>
+</ul>
+</div></blockquote>
+<p>Transition conditions are called once per cycle when in the FROM state. If one of
+the transition conditions returns True, the transition is executed that cycle. The
+remaining conditions aren’t called.</p>
+<p>Consider using an OrderedDict if order matters.</p>
+<p>Only one transition may occur per cycle. Every cycle will, at the very least,
+trigger an in_state event against the current state.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#lewis.core.statemachine.StateMachine.doProcess" title="lewis.core.statemachine.StateMachine.doProcess"><code class="xref py py-meth docutils literal notranslate"><span class="pre">doProcess()</span></code></a> for details.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine.bind_handlers_by_name">
+<span class="sig-name descname"><span class="pre">bind_handlers_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachine.bind_handlers_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachine.bind_handlers_by_name" title="Link to this definition"></a></dt>
+<dd><p>Auto-bind state handlers based on naming convention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> – Target object instance to search for handlers and bind events to.</p></li>
+<li><p><strong>override</strong> – If set to True, matching handlers will replace
+previously registered handlers.</p></li>
+<li><p><strong>prefix</strong> – Dict or list of prefixes to override defaults
+(keys: on_entry, in_state, on_exit)</p></li>
+</ul>
+</dd>
+</dl>
+<p>This function enables automatically binding state handlers to events without having to
+specify them in the constructor. When called, this function searches <cite>instance</cite> for
+member functions that match the following patterns for all known states
+(states mentioned in ‘states’ or ‘transitions’ dicts of cfg):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">instance._on_entry_[state]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instance._in_state_[state]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instance._on_exit_[state]</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>The default prefixes may be overridden using the prefix parameter. Supported keys are
+‘on_entry’, ‘in_state’, and ‘on_exit’. Values should include any and
+all desired underscores.</p>
+<p>Matching functions are assigned as handlers to the corresponding state events,
+iff no handler was previously assigned to that event.</p>
+<p>If a state event already had a handler assigned (during construction or previous call
+to this function), no changes are made even if a matching function is found. To force
+previously assigned handlers to be overwritten, set the third parameter to True.
+This may be useful to implement inheritance-like specialization using multiple
+implementation classes but only one StateMachine instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine.can">
+<span class="sig-name descname"><span class="pre">can</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachine.can"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachine.can" title="Link to this definition"></a></dt>
+<dd><p>Returns true if the transition to ‘state’ is allowed from the current state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – State to check transition to</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if state is reachable from current</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine.doProcess">
+<span class="sig-name descname"><span class="pre">doProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachine.doProcess"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachine.doProcess" title="Link to this definition"></a></dt>
+<dd><p>Process a cycle of this state machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – Delta T. “Time” passed since last cycle, passed on to event handlers.</p>
+</dd>
+</dl>
+<p>A cycle will perform at most one transition and exactly one in_state event.</p>
+<p>A transition will only occur if one of the transition condition functions leaving
+the current state returns True.</p>
+<dl class="simple">
+<dt>When a transition occurs, the following events are raised:</dt><dd><ul class="simple">
+<li><p>on_exit_old_state()</p></li>
+<li><p>on_entry_new_state()</p></li>
+<li><p>in_state_new_state()</p></li>
+</ul>
+</dd>
+</dl>
+<p>The first cycle after init or reset will never call transition checks and, instead,
+always performs on_entry and in_state on the initial state.</p>
+<p>Whether a transition occurs or not, and regardless of any other circumstances, a
+cycle always ends by raising an in_state event on the current (potentially new)
+state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachine.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachine.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the state machine to before the first cycle. The next process() will
+enter the initial state.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachine.state">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><a class="headerlink" href="#lewis.core.statemachine.StateMachine.state" title="Link to this definition"></a></dt>
+<dd><p>Name of the current state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lewis.core.statemachine.StateMachineException">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.statemachine.</span></span><span class="sig-name descname"><span class="pre">StateMachineException</span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#StateMachineException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.StateMachineException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Classes in this module should only raise this type of Exception.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.statemachine.Transition">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.statemachine.</span></span><span class="sig-name descname"><span class="pre">Transition</span></span><a class="reference internal" href="../_modules/lewis/core/statemachine.html#Transition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.statemachine.Transition" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.core.statemachine.HasContext" title="lewis.core.statemachine.HasContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasContext</span></code></a></p>
+<p>StateMachine transition condition base class.</p>
+<p>Provides a way to implement a transition that requires access to the device
+context. The device context is provided via <a class="reference internal" href="#lewis.core.statemachine.HasContext" title="lewis.core.statemachine.HasContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasContext</span></code></a> mixin, and can be
+accessed as <cite>self._context</cite>.</p>
+<p>To use this class, create a derived class and override the <code class="xref py py-meth docutils literal notranslate"><span class="pre">__call__()</span></code> attribute.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.simulation.html" class="btn btn-neutral float-left" title="lewis.core.simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.utils.html" class="btn btn-neutral float-right" title="lewis.core.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

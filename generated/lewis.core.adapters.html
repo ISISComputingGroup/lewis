@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.adapters &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.approaches" href="lewis.core.approaches.html" />
+    <link rel="prev" title="lewis.core" href="lewis.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_client.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_server.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.simulation.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.statemachine.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.adapters.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.adapters">
+<span id="lewis-core-adapters"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code><a class="headerlink" href="#module-lewis.core.adapters" title="Link to this heading"></a></h1>
+<p>This module contains <a class="reference internal" href="#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a>, which serves as a base class for concrete adapter
+implementations in <a class="reference internal" href="lewis.adapters.html#module-lewis.adapters" title="lewis.adapters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a>. It also contains <a class="reference internal" href="#lewis.core.adapters.AdapterCollection" title="lewis.core.adapters.AdapterCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdapterCollection</span></code></a> which can
+be used to store multiple adapters and manage them together.</p>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adapter</span></code></a></p></td>
+<td><p>Base class for adapters</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.adapters.AdapterCollection" title="lewis.core.adapters.AdapterCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdapterCollection</span></code></a></p></td>
+<td><p>A container to manage the adapters of a device</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.adapters.NoLock" title="lewis.core.adapters.NoLock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NoLock</span></code></a></p></td>
+<td><p>A dummy context manager that raises a RuntimeError when it's used.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.adapters.</span></span><span class="sig-name descname"><span class="pre">Adapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/adapters.html#Adapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.Adapter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for adapters</p>
+<p>This class serves as a base class for concrete adapter implementations that expose a device via
+a certain communication protocol. It defines the minimal interface that an adapter must provide
+in order to fit seamlessly into other parts of the framework
+(most importantly <a class="reference internal" href="lewis.core.simulation.html#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a>).</p>
+<p>Sub-classes should re-define the <code class="docutils literal notranslate"><span class="pre">protocol</span></code>-member to something appropriate. While it is
+explicitly supported to modify it in concrete device interface implementations, it is good
+to have a default (for example <code class="docutils literal notranslate"><span class="pre">epics</span></code> or <code class="docutils literal notranslate"><span class="pre">stream</span></code>).</p>
+<p>An adapter should provide everything that is needed for the communication via the protocol it
+defines. This might involve constructing a server-object, configuring it and starting the
+service (this should happen in <a class="reference internal" href="#lewis.core.adapters.Adapter.start_server" title="lewis.core.adapters.Adapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>). Due to the large differences between
+protocols it is very hard to provide general guidelines here. Please take a look at the
+implementations of existing adapters (<a class="reference internal" href="lewis.adapters.epics.html#lewis.adapters.epics.EpicsAdapter" title="lewis.adapters.epics.EpicsAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpicsAdapter</span></code></a>,
+<a class="reference internal" href="lewis.adapters.stream.html#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a>),to get some examples.</p>
+<p>In principle, an adapter can exist on its own, but it only really becomes useful when a device
+is bound to it. To do this, assign an object derived from
+<a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.DeviceBase" title="lewis.core.devices.DeviceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">lewis.core.devices.DeviceBase</span></code></a> to the <code class="docutils literal notranslate"><span class="pre">device</span></code>-property. Sub-classes have to
+implement <code class="xref py py-meth docutils literal notranslate"><span class="pre">_bind_device()</span></code> to achieve actual binding behavior.</p>
+<p>It is possible to pass a dictionary with configuration options to Adapter. The keys of
+the dictionary are accessible as properties of the <code class="docutils literal notranslate"><span class="pre">_options</span></code>-member. Only keys that are
+in the <code class="docutils literal notranslate"><span class="pre">default_options</span></code> member of the class are accepted. Inheriting classes must override
+<code class="docutils literal notranslate"><span class="pre">default_options</span></code> to be a dictionary with the possible options for the adapter.</p>
+<p>Each adapter has a <code class="docutils literal notranslate"><span class="pre">lock</span></code> member, which contains a <a class="reference internal" href="#lewis.core.adapters.NoLock" title="lewis.core.adapters.NoLock"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoLock</span></code></a> by default. To make
+device access thread-safe, any adapter should acquire this lock before interacting with
+the device (or interface). This means that before starting the server component of an Adapter,
+a proper Lock-object needs to be assigned to <code class="docutils literal notranslate"><span class="pre">lock</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>options</strong> – Configuration options for the adapter.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.documentation">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#lewis.core.adapters.Adapter.documentation" title="Link to this definition"></a></dt>
+<dd><p>This property can be overridden in a sub-class to provide protocol documentation to users
+at runtime. By default it returns the indentation cleaned-up docstring of the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#Adapter.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.Adapter.handle" title="Link to this definition"></a></dt>
+<dd><p>This function is called on each cycle of a simulation. It should process requests that are
+made via the protocol that exposes the device. The time spent processing should be
+approximately <code class="docutils literal notranslate"><span class="pre">cycle_delay</span></code> seconds, during which the adapter may block the current
+process. It is desirable to stick to the provided time, but deviations are permissible if
+necessary due to the way the protocol works.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cycle_delay</strong> – Approximate time spent processing requests.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.interface">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interface</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><span class="pre">InterfaceBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lewis.core.adapters.Adapter.interface" title="Link to this definition"></a></dt>
+<dd><p>The device property contains the device-object exposed by the adapter.</p>
+<p>The property can be set from the outside, at that point the adapter will
+call <code class="xref py py-meth docutils literal notranslate"><span class="pre">_bind_device()</span></code> (which is implemented in each adapter sub-class)
+and thus re-bind its commands etc. to call the new device.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.is_running">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#lewis.core.adapters.Adapter.is_running" title="Link to this definition"></a></dt>
+<dd><p>This property indicates whether the Adapter’s server is running and listening. The result
+of calls to <a class="reference internal" href="#lewis.core.adapters.Adapter.start_server" title="lewis.core.adapters.Adapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a> and <a class="reference internal" href="#lewis.core.adapters.Adapter.stop_server" title="lewis.core.adapters.Adapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> should be reflected as expected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#Adapter.start_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.Adapter.start_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to start the infrastructure required for the
+protocol in question. These startup operations are not supposed to be carried out on
+construction of the adapter in order to preserve control over when services are
+started during a run of a simulation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#lewis.core.adapters.Adapter.stop_server" title="lewis.core.adapters.Adapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> for shutting down the adapter.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.Adapter.stop_server">
+<span class="sig-name descname"><span class="pre">stop_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#Adapter.stop_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.Adapter.stop_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to stop and tear down anything that has been setup
+in <a class="reference internal" href="#lewis.core.adapters.Adapter.start_server" title="lewis.core.adapters.Adapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>. This method should close all connections to clients that have
+been established since the adapter has been started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.adapters.</span></span><span class="sig-name descname"><span class="pre">AdapterCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><span class="pre">Adapter</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A container to manage the adapters of a device</p>
+<p>This container is designed to keep all adapters that expose a device in one place and interact
+with them in a uniform way.</p>
+<p>Adapters can be passed as arguments upon construction or added later on using
+<a class="reference internal" href="#lewis.core.adapters.AdapterCollection.add_adapter" title="lewis.core.adapters.AdapterCollection.add_adapter"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_adapter()</span></code></a> (and removed using <a class="reference internal" href="#lewis.core.adapters.AdapterCollection.remove_adapter" title="lewis.core.adapters.AdapterCollection.remove_adapter"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_adapter()</span></code></a>). The available protocols can be
+queried using the <a class="reference internal" href="#lewis.core.adapters.AdapterCollection.protocols" title="lewis.core.adapters.AdapterCollection.protocols"><code class="xref py py-meth docutils literal notranslate"><span class="pre">protocols()</span></code></a> property.</p>
+<p>Each adapter can be started and stopped separately by supplying protocol names to
+<a class="reference internal" href="#lewis.core.adapters.AdapterCollection.connect" title="lewis.core.adapters.AdapterCollection.connect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect()</span></code></a> and <a class="reference internal" href="#lewis.core.adapters.AdapterCollection.disconnect" title="lewis.core.adapters.AdapterCollection.disconnect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">disconnect()</span></code></a>, both methods accept an arbitrary number of arguments,
+so that any subset of the stored protocols can be handled at any time. Supplying no protocol
+names at all will start/stop all adapters. These semantics also apply for <a class="reference internal" href="#lewis.core.adapters.AdapterCollection.is_connected" title="lewis.core.adapters.AdapterCollection.is_connected"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_connected()</span></code></a>
+and <cite>documentation</cite>.</p>
+<p>This class also makes sure that all adapters use the same Lock for device interaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of adapters to add to the container</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.add_adapter">
+<span class="sig-name descname"><span class="pre">add_adapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adapter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><span class="pre">Adapter</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.add_adapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.add_adapter" title="Link to this definition"></a></dt>
+<dd><p>Adds the supplied adapter to the container but raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if there’s
+already an adapter registered for the same protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>adapter</strong> – Adapter to add to the container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.configuration">
+<span class="sig-name descname"><span class="pre">configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.configuration" title="Link to this definition"></a></dt>
+<dd><p>Returns a dictionary that contains the options for the specified adapter. The dictionary
+keys are the adapter protocols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of protocols for which to list options, empty for all adapters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict of protocol: option-dict pairs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.connect" title="Link to this definition"></a></dt>
+<dd><p>This method starts an adapter for each specified protocol in a separate thread, if the
+adapter is not already running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of protocols for which to start adapters or empty for all.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.device_lock">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_lock</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">allocate_lock</span></em><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.device_lock" title="Link to this definition"></a></dt>
+<dd><p>This lock is passed to each adapter when it’s started. It’s supposed to be used to ensure
+that the device is only accessed from one thread at a time, for example during network IO.
+<a class="reference internal" href="lewis.core.simulation.html#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a> uses this lock to block the device during the
+simulation cycle calculations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Stops all adapters for the specified protocols. The method waits for each adapter thread
+to join, so it might hang if the thread is not terminating correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of protocols for which to stop adapters or empty for all.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.documentation">
+<span class="sig-name descname"><span class="pre">documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.documentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.documentation" title="Link to this definition"></a></dt>
+<dd><p>Returns the concatenated documentation for the adapters specified by the supplied
+protocols or all of them if no arguments are provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of protocols for which to get documentation or empty for all.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Documentation for all selected adapters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.is_connected">
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.is_connected" title="Link to this definition"></a></dt>
+<dd><p>If only one protocol is supplied, a single bool is returned with the connection status.
+Otherwise, this method returns a dictionary of adapter connection statuses for the supplied
+protocols. If no protocols are supplied, all adapter statuses are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – List of protocols for which to start adapters or empty for all.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean for single adapter or dict of statuses for multiple.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.protocols">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.protocols" title="Link to this definition"></a></dt>
+<dd><p>List of protocols for which adapters are registered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.remove_adapter">
+<span class="sig-name descname"><span class="pre">remove_adapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.remove_adapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.remove_adapter" title="Link to this definition"></a></dt>
+<dd><p>Tries to remove the adapter for the specified protocol, raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if there
+is no adapter registered for that particular protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>protocol</strong> – Protocol to remove from container</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.adapters.AdapterCollection.set_device">
+<span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.DeviceBase" title="lewis.core.devices.DeviceBase"><span class="pre">DeviceBase</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#AdapterCollection.set_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.AdapterCollection.set_device" title="Link to this definition"></a></dt>
+<dd><p>Bind the new device to all interfaces managed by the adapters in the collection.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.adapters.NoLock">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.adapters.</span></span><span class="sig-name descname"><span class="pre">NoLock</span></span><a class="reference internal" href="../_modules/lewis/core/adapters.html#NoLock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.adapters.NoLock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A dummy context manager that raises a RuntimeError when it’s used. This makes it easier to
+detect cases where an <a class="reference internal" href="#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a> has not received the proper lock-object to make sure
+that device/interface access is synchronous.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.html" class="btn btn-neutral float-left" title="lewis.core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.approaches.html" class="btn btn-neutral float-right" title="lewis.core.approaches" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

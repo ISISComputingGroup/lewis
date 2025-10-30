@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.control_client &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.control_server" href="lewis.core.control_server.html" />
+    <link rel="prev" title="lewis.core.approaches" href="lewis.core.approaches.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_server.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.simulation.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.statemachine.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.control_client.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.control_client">
+<span id="lewis-core-control-client"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code><a class="headerlink" href="#module-lewis.core.control_client" title="Link to this heading"></a></h1>
+<p>This module provides client code for objects exposed via JSON-RPC over ZMQ.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The server-part for these client classes is defined
+in the module <a class="reference internal" href="lewis.core.control_server.html#module-lewis.core.control_server" title="lewis.core.control_server"><code class="xref py py-mod docutils literal notranslate"><span class="pre">control_server</span></code></a>.</p>
+</div>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.control_client.ControlClient" title="lewis.core.control_client.ControlClient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlClient</span></code></a></p></td>
+<td><p>This class provides an interface to a ControlServer instance on the server side.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.control_client.ObjectProxy" title="lewis.core.control_client.ObjectProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObjectProxy</span></code></a></p></td>
+<td><p>This class serves as a base class for dynamically created classes on the client side that represent server-side objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.control_client.ProtocolException" title="lewis.core.control_client.ProtocolException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProtocolException</span></code></a></p></td>
+<td><p>An exception type for exceptions related to the transport protocol, i.e. malformed requests etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.control_client.RemoteException" title="lewis.core.control_client.RemoteException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RemoteException</span></code></a></p></td>
+<td><p>This exception type replaces exceptions that are raised on the server, but unknown (i.e. not in the exceptions-module) on the client side.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.control_client.ControlClient">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_client.</span></span><span class="sig-name descname"><span class="pre">ControlClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'10000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_client.html#ControlClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.ControlClient" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class provides an interface to a ControlServer instance on
+the server side. Proxies to exposed objects can be obtained either
+directly via get_object or, in case the server exposes a collection
+of objects at the top level, a dictionary of named objects can be
+obtained via get_object_collection.</p>
+<p>If a timeout is supplied, all underlying network operations time out
+after the specified time (in milliseconds), for no timeout specify <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – Host the control server is running on.</p></li>
+<li><p><strong>port</strong> – Port on which the control server is listening.</p></li>
+<li><p><strong>timeout</strong> – Timeout in milliseconds for ZMQ operations.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_client.ControlClient.get_object_collection">
+<span class="sig-name descname"><span class="pre">get_object_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_client.html#ControlClient.get_object_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.ControlClient.get_object_collection" title="Link to this definition"></a></dt>
+<dd><p>If the remote end exposes a collection of objects under the supplied object name (empty
+for top level), this method returns a dictionary of these objects stored under their
+names on the server.</p>
+<p>This function performs n + 1 calls to the server, where n is the number of objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>object_name</strong> – Object name on the server. This is required if the object collection
+is not the top level object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_client.ControlClient.json_rpc">
+<span class="sig-name descname"><span class="pre">json_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_client.html#ControlClient.json_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.ControlClient.json_rpc" title="Link to this definition"></a></dt>
+<dd><p>This method takes a ZMQ REQ-socket and submits a JSON-object containing
+the RPC (JSON-RPC 2.0 format) to the supplied method with the supplied arguments.
+Then it waits for a reply from the server and blocks until it has received
+a JSON-response. The method returns the response and the id it used to tag
+the original request, which is a random UUID (uuid.uuid4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> – Method to call on remote.</p></li>
+<li><p><strong>args</strong> – Arguments to method call.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON result and request id.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.control_client.ObjectProxy">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_client.</span></span><span class="sig-name descname"><span class="pre">ObjectProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_client.html#ObjectProxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.ObjectProxy" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class serves as a base class for dynamically created classes on the
+client side that represent server-side objects. Upon initialization,
+this class takes the supplied methods and installs appropriate proxy methods
+or properties into the object and class respectively. Because of that
+class manipulation, this class must never be used directly.
+Instead, it should be used as a base-class for dynamically created types
+that mirror types on the server, like this:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">proxy</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;SomeClassName&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">ObjectProxy</span><span class="p">,),</span> <span class="p">{})(</span><span class="n">connection</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is however, the class ControlClient, which automates all that
+and provides objects that are ready to use.</p>
+<p>Exceptions on the server are propagated to the client. If the exception is not part
+of the exceptions-module (builtins for Python 3), a RemoteException is raised instead
+which contains information about the server side exception.</p>
+<p>All RPC method names are prefixed with the supplied prefix, which is usually the
+object name on the server plus a dot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> – ControlClient-object for remote calls.</p></li>
+<li><p><strong>members</strong> – List of strings to generate methods and properties.</p></li>
+<li><p><strong>prefix</strong> – Usually object name on the server plus dot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lewis.core.control_client.ProtocolException">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_client.</span></span><span class="sig-name descname"><span class="pre">ProtocolException</span></span><a class="reference internal" href="../_modules/lewis/core/control_client.html#ProtocolException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.ProtocolException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>An exception type for exceptions related to the transport protocol, i.e.
+malformed requests etc.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lewis.core.control_client.RemoteException">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_client.</span></span><span class="sig-name descname"><span class="pre">RemoteException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_client.html#RemoteException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_client.RemoteException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception type replaces exceptions that are raised on the server,
+but unknown (i.e. not in the exceptions-module) on the client side.
+To retain as much information as possible, the exception type on the server and
+the message are stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exception_type</strong> – Type of the exception on the server side.</p></li>
+<li><p><strong>message</strong> – Exception message on the server side.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.approaches.html" class="btn btn-neutral float-left" title="lewis.core.approaches" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.control_server.html" class="btn btn-neutral float-right" title="lewis.core.control_server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
