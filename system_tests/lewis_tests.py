@@ -57,7 +57,9 @@ class TestLewis:
         When: running Lewis without parameters
         Then: returns a list of possible simulations
         """
-        result = santise_whitespace(subprocess.check_output(["uv", "run", str(LEWIS_PATH)]).decode())
+        result = santise_whitespace(
+            subprocess.check_output(["uv", "run", str(LEWIS_PATH)]).decode()
+        )
 
         verify(result, self.reporter)
 
