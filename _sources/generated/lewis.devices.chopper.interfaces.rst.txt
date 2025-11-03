@@ -1,0 +1,25 @@
+
+
+``lewis.devices.chopper.interfaces``
+====================================
+
+.. automodule:: lewis.devices.chopper.interfaces
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        epics_interface
+    
+    
+
+    
+    
+    

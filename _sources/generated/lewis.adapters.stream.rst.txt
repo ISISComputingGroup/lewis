@@ -1,0 +1,44 @@
+
+
+``lewis.adapters.stream``
+=========================
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+.. automodule:: lewis.adapters.stream
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        Cmd
+        CommandBase
+        Func
+        PatternMatcher
+        StreamAdapter
+        StreamHandler
+        StreamInterface
+        StreamServer
+        Var
+        regex
+        scanf
+    
+    

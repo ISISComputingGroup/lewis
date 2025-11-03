@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.devices &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.exceptions" href="lewis.core.exceptions.html" />
+    <link rel="prev" title="lewis.core.control_server" href="lewis.core.control_server.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_client.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_server.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.simulation.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.statemachine.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.devices.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.devices">
+<span id="lewis-core-devices"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code><a class="headerlink" href="#module-lewis.core.devices" title="Link to this heading"></a></h1>
+<p>This module contains <a class="reference internal" href="#lewis.core.devices.DeviceBase" title="lewis.core.devices.DeviceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBase</span></code></a> as a base class for other device classes and
+infrastructure that can import devices from a module (<a class="reference internal" href="#lewis.core.devices.DeviceRegistry" title="lewis.core.devices.DeviceRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceRegistry</span></code></a>). The latter also
+produces factory-like objects that create device instances and interfaces based on setups
+(<a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a>).</p>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.devices.DeviceBase" title="lewis.core.devices.DeviceBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceBase</span></code></a></p></td>
+<td><p>This class is a common base for <a class="reference internal" href="lewis.devices.html#lewis.devices.Device" title="lewis.devices.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> and <a class="reference internal" href="lewis.devices.html#lewis.devices.StateMachineDevice" title="lewis.devices.StateMachineDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateMachineDevice</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a></p></td>
+<td><p>This class takes a module object (for example imported via importlib.import_module or via the <a class="reference internal" href="#lewis.core.devices.DeviceRegistry" title="lewis.core.devices.DeviceRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceRegistry</span></code></a>) and inspects it so that it's possible to construct devices and interfaces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.devices.DeviceRegistry" title="lewis.core.devices.DeviceRegistry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceRegistry</span></code></a></p></td>
+<td><p>This class takes the name of a module and constructs a <a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a> from each sub-module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a></p></td>
+<td><p>This class is a common base for protocol specific interfaces that are exposed by a subclass of <a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.devices.is_device" title="lewis.core.devices.is_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_device</span></code></a></p></td>
+<td><p>Returns True if obj is a device type (derived from DeviceBase), but not defined in <a class="reference internal" href="#module-lewis.core.devices" title="lewis.core.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a> or <a class="reference internal" href="lewis.devices.html#module-lewis.devices" title="lewis.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.devices</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.devices.is_interface" title="lewis.core.devices.is_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_interface</span></code></a></p></td>
+<td><p>Returns True if obj is an interface (derived from <a class="reference internal" href="#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a>), but not defined in <a class="reference internal" href="lewis.adapters.html#module-lewis.adapters" title="lewis.adapters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a>, where concrete interfaces for protocols are defined.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">DeviceBase</span></span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is a common base for <a class="reference internal" href="lewis.devices.html#lewis.devices.Device" title="lewis.devices.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> and
+<a class="reference internal" href="lewis.devices.html#lewis.devices.StateMachineDevice" title="lewis.devices.StateMachineDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateMachineDevice</span></code></a>. It is mainly used in the device
+discovery process.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">DeviceBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceBuilder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class takes a module object (for example imported via importlib.import_module or via the
+<a class="reference internal" href="#lewis.core.devices.DeviceRegistry" title="lewis.core.devices.DeviceRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceRegistry</span></code></a>) and inspects it so that it’s possible to construct devices and
+interfaces.</p>
+<p>In order for the class to work properly, the device module has to adhere to a few rules.
+Device types, which means classes inheriting from <a class="reference internal" href="#lewis.core.devices.DeviceBase" title="lewis.core.devices.DeviceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBase</span></code></a>, are imported directly
+from the device module, equivalent to the following:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">device_name</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulatedDeviceType</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">SimulatedDeviceType</span></code> is defined in the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, there’s nothing else to do. If
+the device class is defined elsewhere, it must be imported in the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file as
+written above. If there is only one device type (which is probably the most common case), it is
+assumed to be default device type.</p>
+<p>Setups are discovered in two locations, the first one is a dict called <code class="docutils literal notranslate"><span class="pre">setups</span></code> in the device
+module, which must contain setup names as keys and as values again a dict. This inner dict has
+one mandatory key called <code class="docutils literal notranslate"><span class="pre">device_type</span></code> and one optional key <code class="docutils literal notranslate"><span class="pre">parameters</span></code> containing the
+constructor arguments for the specified device type:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">setups</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">broken</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">device_type</span><span class="o">=</span><span class="n">SimulatedDeviceType</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">override_initial_state</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+            <span class="n">override_initial_data</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">target</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">position</span><span class="o">=-</span><span class="mf">20.0</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The other location is a sub-package called <cite>setups</cite>, which should in turn contain modules. Each
+module must contain a variable <code class="docutils literal notranslate"><span class="pre">device_type</span></code> and a variable <code class="docutils literal notranslate"><span class="pre">parameters</span></code> which are
+analogous to the keys in the dict described above. This allows for more complex setups which
+define additional classes and so on.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">default</span></code> setup is special, it is used when no setup is supplied to
+<a class="reference internal" href="#lewis.core.devices.DeviceBuilder.create_device" title="lewis.core.devices.DeviceBuilder.create_device"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_device()</span></code></a>. If the setup <code class="docutils literal notranslate"><span class="pre">default</span></code> is not defined, one is created with the default
+device type. This has two consequences, no setups need to be defined for very simple devices,
+but if multiple device types are defined, a <code class="docutils literal notranslate"><span class="pre">default</span></code> setup must be defined.</p>
+<p>A setup can be supplied to the <a class="reference internal" href="#lewis.core.devices.DeviceBuilder.create_device" title="lewis.core.devices.DeviceBuilder.create_device"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_device()</span></code></a>.</p>
+<p>Lastly, the builder tries to discover device interfaces, which are currently classes based on
+<code class="xref py py-class docutils literal notranslate"><span class="pre">lewis.adapters.InterfaceBase</span></code>. These are looked for in the module and in a sub-package
+called <code class="docutils literal notranslate"><span class="pre">interfaces</span></code> (which should contain modules with adapters like the <code class="docutils literal notranslate"><span class="pre">setups</span></code> package).</p>
+<p>Each interface has a protocol, if a protocol occurs more than once in a device module,
+a RuntimeError is raised.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.create_device">
+<span class="sig-name descname"><span class="pre">create_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceBuilder.create_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.create_device" title="Link to this definition"></a></dt>
+<dd><p>Creates a device object according to the provided setup. If no setup is provided,
+the default setup is used. If the setup can’t be found, a LewisException is raised.
+This can also happen if the device type specified in the setup is invalid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>setup</strong> – Name of the setup from which to create device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Device object initialized according to the provided setup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.create_interface">
+<span class="sig-name descname"><span class="pre">create_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceBuilder.create_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.create_interface" title="Link to this definition"></a></dt>
+<dd><p>Returns an interface that implements the provided protocol. If the protocol is not
+known, a LewisException is raised. All additional arguments are forwarded
+to the interface constructor (see <code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code> for details).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protocol</strong> – Protocol which the interface must implement.</p></li>
+<li><p><strong>args</strong> – Positional arguments that are passed on to the interface.</p></li>
+<li><p><strong>kwargs</strong> – Keyword arguments that are passed on to the interface.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Instance of the interface type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.default_device_type">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_device_type</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.default_device_type" title="Link to this definition"></a></dt>
+<dd><p>If the module only defines one device type, it is the default device type. It is used
+whenever a setup does not provide a <code class="docutils literal notranslate"><span class="pre">device_type</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.default_protocol">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_protocol</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.default_protocol" title="Link to this definition"></a></dt>
+<dd><p>In case only one protocol exists for the device, this is the default protocol.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.device_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_types</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.device_types" title="Link to this definition"></a></dt>
+<dd><p>This property contains a dict of all device types in the device module. The keys are
+type names, the values are the types themselves.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.interfaces">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interfaces</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.interfaces" title="Link to this definition"></a></dt>
+<dd><p>This property contains a map with protocols as keys and interface types as values.
+The types are imported from the <code class="docutils literal notranslate"><span class="pre">interfaces</span></code> sub-module and from the device module
+itself. If two interfaces with the same protocol are discovered, a RuntimeError is raiesed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the device, which is also the name of the device module.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.protocols">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocols</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.protocols" title="Link to this definition"></a></dt>
+<dd><p>All available protocols for this device.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceBuilder.setups">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setups</span></span><a class="headerlink" href="#lewis.core.devices.DeviceBuilder.setups" title="Link to this definition"></a></dt>
+<dd><p>A map with all available setups. Setups are imported from the <code class="docutils literal notranslate"><span class="pre">setups</span></code> dictionary
+in a device module and from the <code class="docutils literal notranslate"><span class="pre">setups</span></code> sub-module. If no <code class="docutils literal notranslate"><span class="pre">default</span></code>-setup exists,
+one is created using the default_device_type. If there are several device types in
+the module, the default setup must be provided explicitly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceRegistry">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">DeviceRegistry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceRegistry" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class takes the name of a module and constructs a <a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a> from
+each sub-module. The available devices can be queried and a DeviceBuilder can be
+obtained for each device:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeviceRegistry</span>
+
+<span class="n">registry</span> <span class="o">=</span> <span class="n">DeviceRegistry</span><span class="p">(</span><span class="s2">&quot;lewis.devices&quot;</span><span class="p">)</span>
+<span class="n">chopper_builder</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">device_builder</span><span class="p">(</span><span class="s2">&quot;chopper&quot;</span><span class="p">)</span>
+
+<span class="c1"># construct device, interface, ...</span>
+</pre></div>
+</div>
+<p>If the module can not be imported, a LewisException is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_module</strong> – Name of device module from which devices are loaded.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceRegistry.device_builder">
+<span class="sig-name descname"><span class="pre">device_builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#DeviceRegistry.device_builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.DeviceRegistry.device_builder" title="Link to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a> instance that can be used to create device objects
+based on setups, as well as device interfaces. If the device name is not stored
+in the internal map, a LewisException is raised.</p>
+<p>Each DeviceBuilder has a <code class="docutils literal notranslate"><span class="pre">framework_version</span></code>-member, which specifies the version
+of Lewis the device has been written for. If the version does not match the current
+framework version, it is only possible to obtain those device builders calling the
+method with <code class="docutils literal notranslate"><span class="pre">strict_versions</span></code> set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, otherwise a
+<a class="reference internal" href="lewis.core.exceptions.html#lewis.core.exceptions.LewisException" title="lewis.core.exceptions.LewisException"><code class="xref py py-class docutils literal notranslate"><span class="pre">LewisException</span></code></a> is raised. A warning message is logged
+in all cases. If <code class="docutils literal notranslate"><span class="pre">framework_version</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> (e.g. not specified at all), it
+is accepted unless <code class="docutils literal notranslate"><span class="pre">strict_versions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#lewis.core.devices.DeviceBuilder" title="lewis.core.devices.DeviceBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a>-object for requested device.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.DeviceRegistry.devices">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">devices</span></span><a class="headerlink" href="#lewis.core.devices.DeviceRegistry.devices" title="Link to this definition"></a></dt>
+<dd><p>All available device names.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.devices.InterfaceBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">InterfaceBase</span></span><a class="reference internal" href="../_modules/lewis/core/devices.html#InterfaceBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.InterfaceBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is a common base for protocol specific interfaces that are exposed by a subclass of
+<a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a>. This base class is not meant to be used directly in
+a device package - this is what the interfaces in <a class="reference internal" href="lewis.adapters.html#module-lewis.adapters" title="lewis.adapters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a> are for.</p>
+<p>There is a 1:1 correspondence between device and interface, where the interface holds a
+reference to the device. It can be changed through the <code class="docutils literal notranslate"><span class="pre">device</span></code>-property.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.InterfaceBase.adapter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adapter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NoReturn</span></em><a class="headerlink" href="#lewis.core.devices.InterfaceBase.adapter" title="Link to this definition"></a></dt>
+<dd><p>Adapter type that is required to process and expose interfaces of this type. Must be
+implemented in subclasses.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.devices.InterfaceBase.device">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#lewis.core.devices.InterfaceBase.device" title="Link to this definition"></a></dt>
+<dd><p>The device this interface is bound to. When a new device is set, <code class="xref py py-meth docutils literal notranslate"><span class="pre">_bind_device()</span></code> is
+called, where the interface can react to the device change if necessary.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lewis.core.devices.is_device">
+<span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">is_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#is_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.is_device" title="Link to this definition"></a></dt>
+<dd><p>Returns True if obj is a device type (derived from DeviceBase), but not defined in
+<a class="reference internal" href="#module-lewis.core.devices" title="lewis.core.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a> or <a class="reference internal" href="lewis.devices.html#module-lewis.devices" title="lewis.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.devices</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> – Object to test.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if obj is a device type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lewis.core.devices.is_interface">
+<span class="sig-prename descclassname"><span class="pre">lewis.core.devices.</span></span><span class="sig-name descname"><span class="pre">is_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/devices.html#is_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.devices.is_interface" title="Link to this definition"></a></dt>
+<dd><p>Returns True if obj is an interface (derived from <a class="reference internal" href="#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a>), but not defined in
+<a class="reference internal" href="lewis.adapters.html#module-lewis.adapters" title="lewis.adapters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a>, where concrete interfaces for protocols are defined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> – Object to test.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if obj is an interface type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.control_server.html" class="btn btn-neutral float-left" title="lewis.core.control_server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.exceptions.html" class="btn btn-neutral float-right" title="lewis.core.exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

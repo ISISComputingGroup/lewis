@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framework Details &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release Checklist" href="release_checklist.html" />
+    <link rel="prev" title="Developing Lewis" href="developing_lewis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Framework Details</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cycle-driven">Cycle-driven</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#statemachine">Statemachine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Framework Details</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/developer_guide/framework_details.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="framework-details">
+<h1>Framework Details<a class="headerlink" href="#framework-details" title="Link to this heading"></a></h1>
+<p>The Lewis framework is built around a cycle-driven core which in turn drives
+the device simulation, including an optional StateMachine, and shared protocol
+adapters that separate the communication layer from the simulated device.</p>
+<p><img alt="The simulation cycle diagram." src="../_images/SimulationCycles.png" /></p>
+<section id="cycle-driven">
+<h2>Cycle-driven<a class="headerlink" href="#cycle-driven" title="Link to this heading"></a></h2>
+<p>All processing in the framework occurs during “heartbeat” simulation ticks
+which propagate calls to <code class="docutils literal notranslate"><span class="pre">process</span></code> methods throughout the simulation,
+along with a Δt parameter that contains the time that has
+passed since the last tick. The device simulation is then responsible for
+updating its state based on how much time has passed and what input has
+been received during that time.</p>
+<p>The benefits of this approach include:</p>
+<ul class="simple">
+<li><p>This closely models real device behaviour, since processing in
+electronic devices naturally occurs on a cycle basis.</p></li>
+<li><p>As a side-effect of the above, certain quirks of real devices are
+often captured by the simulated device naturally, without additional
+effort.</p></li>
+<li><p>The simulation becomes deterministic: The same amount of process
+cycles, with the same Δt parameters along the way, and
+the same input via the device protocol, will always result in exactly
+the same device state.</p></li>
+<li><p>Simulation speed can be controlled by increasing (fast-forward) or
+decreasing (slow-motion) the Δt parameter by a given factor.</p></li>
+<li><p>Simulation fidelity can be controlled independently from speed by
+increasing or decreasing the number of cycles per second while
+adjusting the Δt parameter to compensate.</p></li>
+</ul>
+<p>The above traits are very desirable both for running automated tests
+against the simulation, and for debugging any issues that are
+identified.</p>
+</section>
+<section id="statemachine">
+<h2>Statemachine<a class="headerlink" href="#statemachine" title="Link to this heading"></a></h2>
+<p>A class designed for a cycle-driven approach is provided to allow modeling complex
+device behaviour in an event-driven fashion.</p>
+<p>A device may initialize a statemachine on construction, telling it what
+states the device can be in and what conditions should cause it to
+transition between them. The statemachine will automatically check
+eligible (exiting current state) transition conditions every cycle and
+perform transitions as necessary, triggering callbacks for any event
+that occurs. The following events are available for every state:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">on_exit</span></code> is triggered once just before exiting the state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on_entry</span></code> is triggered once when entering the state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in_state</span></code> is triggered every cycle that ends in the state</p></li>
+</ul>
+<p>Every cycle will trigger exactly one <code class="docutils literal notranslate"><span class="pre">in_state</span></code> event. This will
+always be the last event of the cycle. When no transition occurs, this
+is the only event. On the very first cycle of a simulation run,
+<code class="docutils literal notranslate"><span class="pre">on_entry</span></code> is raised against the initial state before raising an
+<code class="docutils literal notranslate"><span class="pre">in_state</span></code> against it. Any other cycles that involve a transition
+first raise <code class="docutils literal notranslate"><span class="pre">on_exit</span></code> against the current state, and then raise
+<code class="docutils literal notranslate"><span class="pre">on_entry</span></code> and <code class="docutils literal notranslate"><span class="pre">in_state</span></code> against the new state. Only one transition
+may occur per cycle.</p>
+<p>There are three ways to specify event handlers when initializing the
+statemachine:</p>
+<ul class="simple">
+<li><p>Object-Oriented: Implement one class per state, derived from
+<code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>, which optionally contains up to
+one of each event handler</p></li>
+<li><p>Function-Driven: Bind individual functions to individual events that
+need handling</p></li>
+<li><p>Implicit: Implement handlers in the device class, with standard names
+like <code class="docutils literal notranslate"><span class="pre">on_entry_init</span></code> for a state called “init”, and call
+<code class="docutils literal notranslate"><span class="pre">bindHandlersByName()</span></code></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="developing_lewis.html" class="btn btn-neutral float-left" title="Developing Lewis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release_checklist.html" class="btn btn-neutral float-right" title="Release Checklist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

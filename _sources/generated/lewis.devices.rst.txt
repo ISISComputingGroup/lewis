@@ -1,0 +1,37 @@
+
+
+``lewis.devices``
+=================
+        
+        
+
+.. automodule:: lewis.devices
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        chopper
+        julabo
+        linkam_t95
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        Device
+        StateMachineDevice
+    
+    

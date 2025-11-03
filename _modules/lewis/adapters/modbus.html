@@ -1,0 +1,806 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.modbus &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.adapters.modbus</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.adapters.modbus</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides components to expose a Device via a Modbus-interface. The following resources</span>
+<span class="sd">were used as guidelines and references for implementing the protocol:</span>
+
+<span class="sd"> - http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf</span>
+<span class="sd"> - http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf</span>
+<span class="sd"> - https://github.com/sourceperl/pyModbusTCP</span>
+<span class="sd"> - https://github.com/bashwork/pymodbus</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For an example how Modbus can be used in the current implementation, please look</span>
+<span class="sd">    at lewis/examples/modbus_device.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncore</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">ceil</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Adapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterfaceBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+
+
+<div class="viewcode-block" id="ModbusDataBank">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusDataBank">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusDataBank</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preliminary DataBank implementation for Modbus.</span>
+
+<span class="sd">    This is a very generic implementation of a databank for Modbus. It&#39;s meant to set the</span>
+<span class="sd">    groundwork for future implementations. Only derived classes should be instantiated, not</span>
+<span class="sd">    this class directly. The signature of this __init__ method is subject to change.</span>
+
+<span class="sd">    :param kwargs: Configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_addr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;start_addr&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ModbusDataBank.get">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusDataBank.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read list of ``count`` values at ``addr`` memory location in DataBank.</span>
+
+<span class="sd">        :param addr: Address to read from</span>
+<span class="sd">        :param count: Number of entries to retrieve</span>
+<span class="sd">        :return: list of entry values</span>
+<span class="sd">        :except IndexError: Raised if address range falls outside valid range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_addr</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">addr</span> <span class="p">:</span> <span class="n">addr</span> <span class="o">+</span> <span class="n">count</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="n">count</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_addr</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Invalid address range [</span><span class="si">{:#06x}</span><span class="s2"> - </span><span class="si">{:#06x}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">addr</span> <span class="o">+</span> <span class="n">count</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="ModbusDataBank.set">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusDataBank.set">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write list ``values`` to ``addr`` memory location in DataBank.</span>
+
+<span class="sd">        :param addr: Address to write to</span>
+<span class="sd">        :param values: list of values to write</span>
+<span class="sd">        :except IndexError: Raised if address range falls outside valid range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_addr</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">addr</span> <span class="o">&lt;=</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">):</span>
+            <span class="n">addr</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_addr</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid address range [</span><span class="si">{:#06x}</span><span class="s2"> - </span><span class="si">{:#06x}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">addr</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">addr</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ModbusBasicDataBank">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusBasicDataBank">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusBasicDataBank</span><span class="p">(</span><span class="n">ModbusDataBank</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A basic ModbusDataBank instance.</span>
+
+<span class="sd">    This type of DataBank simply serves as a memory space for Modbus requests to read from and</span>
+<span class="sd">    write to. It does not support binding addresses to attributes or functions of the device</span>
+<span class="sd">    or interface. Example usage:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        di = ModbusBasicDataBank(False, 0x1000, 0x1FFF)</span>
+
+<span class="sd">    :param default_value: Value to initialize memory with</span>
+<span class="sd">    :param start_addr: First valid address</span>
+<span class="sd">    :param last_addr: Last valid address</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_addr</span><span class="o">=</span><span class="mh">0x0000</span><span class="p">,</span> <span class="n">last_addr</span><span class="o">=</span><span class="mh">0xFFFF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ModbusBasicDataBank</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">start_addr</span><span class="o">=</span><span class="n">start_addr</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">default_value</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">last_addr</span> <span class="o">-</span> <span class="n">start_addr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ModbusDataStore">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusDataStore">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusDataStore</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience struct to hold the four types of DataBanks in Modbus&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">di</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">co</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hr</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">di</span> <span class="o">=</span> <span class="n">di</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">co</span> <span class="o">=</span> <span class="n">co</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ir</span> <span class="o">=</span> <span class="n">ir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hr</span> <span class="o">=</span> <span class="n">hr</span></div>
+
+
+
+<div class="viewcode-block" id="MBEX">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.MBEX">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MBEX</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modbus standard exception codes&quot;&quot;&quot;</span>
+
+    <span class="n">ILLEGAL_FUNCTION</span> <span class="o">=</span> <span class="mh">0x01</span>
+    <span class="n">DATA_ADDRESS</span> <span class="o">=</span> <span class="mh">0x02</span>
+    <span class="n">DATA_VALUE</span> <span class="o">=</span> <span class="mh">0x03</span>
+    <span class="n">SLAVE_DEVICE_FAILURE</span> <span class="o">=</span> <span class="mh">0x04</span>
+    <span class="n">ACKNOWLEDGE</span> <span class="o">=</span> <span class="mh">0x05</span>
+    <span class="n">SLAVE_DEVICE_BUSY</span> <span class="o">=</span> <span class="mh">0x06</span>
+    <span class="n">MEMORY_PARITY_ERROR</span> <span class="o">=</span> <span class="mh">0x08</span>
+    <span class="n">GATEWAY_PATH_UNAVAILABLE</span> <span class="o">=</span> <span class="mh">0x0A</span>
+    <span class="n">GATEWAY_TARGET_DEVICE_FAILED_TO_RESPOND</span> <span class="o">=</span> <span class="mh">0x0B</span></div>
+
+
+
+<div class="viewcode-block" id="ModbusTCPFrame">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusTCPFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class models a frame of the Modbus TCP protocol.</span>
+
+<span class="sd">    It may be a request, a response or an exception. Typically, requests are constructed using the</span>
+<span class="sd">    init method, while responses and exceptions are constructed by called create_request or</span>
+<span class="sd">    create_exception on an instance that is a request.</span>
+
+<span class="sd">    Note that data from the passed in bytearray stream is consumed. That is, bytes will be removed</span>
+<span class="sd">    from the front of the bytearray if construction is successful.</span>
+
+<span class="sd">    :param stream: bytearray to consume data from to construct this frame.</span>
+<span class="sd">    :except EOFError: Not enough data for complete frame; no data consumed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fcode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">from_bytearray</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModbusTCPFrame.from_bytearray">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame.from_bytearray">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_bytearray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs this frame from input data stream, consuming as many bytes as necessary from</span>
+<span class="sd">        the beginning of the stream.</span>
+
+<span class="sd">        If stream does not contain enough data to construct a complete modbus frame, an EOFError</span>
+<span class="sd">        is raised and no data is consumed.</span>
+
+<span class="sd">        :param stream: bytearray to consume data from to construct this frame.</span>
+<span class="sd">        :except EOFError: Not enough data for complete frame; no data consumed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;&gt;HHHBB&quot;</span>
+        <span class="n">size_header</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">size_header</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">EOFError</span>
+
+        <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transaction_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unit_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fcode</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">stream</span><span class="p">[:</span><span class="n">size_header</span><span class="p">]))</span>
+
+        <span class="n">size_total</span> <span class="o">=</span> <span class="n">size_header</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">size_total</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">EOFError</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="n">size_header</span><span class="p">:</span><span class="n">size_total</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">stream</span><span class="p">[:</span><span class="n">size_total</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ModbusTCPFrame.to_bytearray">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame.to_bytearray">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_bytearray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert this frame into its bytearray representation.</span>
+
+<span class="sd">        :return: bytearray representation of this frame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span>
+            <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+                <span class="s2">&quot;&gt;HHHBB&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transaction_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">protocol_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unit_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fcode</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">header</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="ModbusTCPFrame.is_valid">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame.is_valid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check integrity and validity of this frame.</span>
+
+<span class="sd">        :return: bool True if this frame is structurally valid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Modbus always uses protocol 0</span>
+            <span class="mi">2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=</span> <span class="mi">260</span><span class="p">,</span>  <span class="c1"># Absolute length limits</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Total length matches data length</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModbusTCPFrame.create_exception">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame.create_exception">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an exception frame based on this frame.</span>
+
+<span class="sd">        :param code: Modbus exception code to use for this exception</span>
+<span class="sd">        :return: ModbusTCPFrame instance that represents an exception</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">fcode</span> <span class="o">+=</span> <span class="mh">0x80</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">frame</span></div>
+
+
+<div class="viewcode-block" id="ModbusTCPFrame.create_response">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusTCPFrame.create_response">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a response frame based on this frame.</span>
+
+<span class="sd">        :param data: Data section of response as bytearray. If None, request data section is kept.</span>
+<span class="sd">        :return: ModbusTCPFrame instance that represents a response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">frame</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ModbusProtocol">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusProtocol">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusProtocol</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class implements the Modbus TCP Protocol.</span>
+
+<span class="sd">    The user of this class should provide a ModbusDataStore instance that will be used to</span>
+<span class="sd">    fulfill read and write requests, and a callable `sender` which accepts one bytearray</span>
+<span class="sd">    parameter. The `sender` will be called whenever a response frame is generated, with a</span>
+<span class="sd">    bytearray containing the response frame as the parameter.</span>
+
+<span class="sd">    Processing occurs when the user calls ModbusProtocol.process(), passing in the raw frame</span>
+<span class="sd">    data to process as a bytearray. The data may include multiple frames and partial frame</span>
+<span class="sd">    fragments. Any data that could not be processed (due to incomplete frames) is buffered for</span>
+<span class="sd">    the next call to process.</span>
+
+<span class="sd">    :param sender: callable that accepts one bytearray parameter, called to send responses.</span>
+<span class="sd">    :param datastore: ModbusDataStore instance to reference when processing requests</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">datastore</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span> <span class="o">=</span> <span class="n">datastore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">req</span><span class="p">:</span> <span class="n">sender</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">to_bytearray</span><span class="p">())</span>
+
+        <span class="c1"># Lookup table to handle requests as per Modbus Application Protocol v1.1b3, Section 6.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fcode_handler_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mh">0x01</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_read_coils</span><span class="p">,</span>
+            <span class="mh">0x02</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_read_discrete_inputs</span><span class="p">,</span>
+            <span class="mh">0x03</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_read_holding_registers</span><span class="p">,</span>
+            <span class="mh">0x04</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_read_input_registers</span><span class="p">,</span>
+            <span class="mh">0x05</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_write_single_coil</span><span class="p">,</span>
+            <span class="mh">0x06</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_write_single_register</span><span class="p">,</span>
+            <span class="mh">0x0F</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_write_multiple_coils</span><span class="p">,</span>
+            <span class="mh">0x10</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_write_multiple_registers</span><span class="p">,</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="ModbusProtocol.process">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusProtocol.process">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">device_lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process as much of given data as possible.</span>
+
+<span class="sd">        Any remainder, in case there is an incomplete frame at the end, is stored so that</span>
+<span class="sd">        processing may continue where it left off when more data is provided.</span>
+
+<span class="sd">        :param data: Incoming byte data. Must be compatible with bytearray.</span>
+<span class="sd">        :param device_lock: threading.Lock instance that is acquired for device interaction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="n">device_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_requests</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Request: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:#04x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">to_bytearray</span><span class="p">()]),</span>
+                <span class="p">)</span>
+
+                <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">fcode</span><span class="p">)</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Response: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:#04x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">to_bytearray</span><span class="p">()]),</span>
+                <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_buffered_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generator to yield all complete modbus requests in the internal buffer&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="c1"># ModbusTCPFrame constructor consumes bytes from front of buffer</span>
+                <span class="k">yield</span> <span class="n">ModbusTCPFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fcode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an appropriate handler function for given Function Code.</span>
+
+<span class="sd">        Will always return a valid handler function. But, if the Function Code is invalid or not</span>
+<span class="sd">        supported, the handler function will merely return an ILLEGAL_FUNCTION exception frame.</span>
+
+<span class="sd">        :param fcode: int Function Code which needs to be handled</span>
+<span class="sd">        :return: callable which takes one request frame parameter and returns a response frame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fcode_handler_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fcode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_illegal_function_exception</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_illegal_function_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log and return an illegal function code exception&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unsupported Function Code: </span><span class="si">{0}</span><span class="s2"> (</span><span class="si">{0:#04x}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">fcode</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">ILLEGAL_FUNCTION</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_read_coils</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.1 - (0x01) Read Coils</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_read_bits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">co</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_read_discrete_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.2 - (0x02) Read Discrete Inputs</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_read_bits</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">di</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_do_read_bits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">databank</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shared handler for FC 0x01 and FC 0x02.</span>
+
+<span class="sd">        :param databank: DataBank to execute against (di or co)</span>
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HH&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="mh">0x0001</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mh">0x07D0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_VALUE</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bits</span> <span class="o">=</span> <span class="n">databank</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+            <span class="n">bits</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bool</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span> <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">bits</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Bits to bytes: LSB -&gt; MSB, first byte -&gt; last byte</span>
+        <span class="n">byte_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="n">byte_list</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">byte_count</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bits</span><span class="p">):</span>
+            <span class="n">byte_list</span><span class="p">[</span><span class="n">i</span> <span class="o">//</span> <span class="mi">8</span><span class="p">]</span> <span class="o">|=</span> <span class="n">bit</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">8</span>
+
+        <span class="c1"># Construct response</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;B</span><span class="si">%d</span><span class="s2">B&quot;</span> <span class="o">%</span> <span class="n">byte_count</span><span class="p">,</span> <span class="n">byte_count</span><span class="p">,</span> <span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">byte_list</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_read_holding_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.3 - (0x03) Read Holding Registers</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_read_registers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">hr</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_read_input_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.4 - (0x04) Read Input Registers</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_read_registers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">ir</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_do_read_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">databank</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shared handler for FC 0x03 and FC 0x04.</span>
+
+<span class="sd">        :param databank: DataBank to execute against (ir or hr)</span>
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HH&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="mh">0x0001</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mh">0x007D</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_VALUE</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">databank</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Construct response</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;B</span><span class="si">%d</span><span class="s2">H&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="o">*</span><span class="n">words</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_write_single_coil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.5 - (0x05) Write Single Coil</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HH&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x0000</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="mh">0xFF00</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_VALUE</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Respond to confirm</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_write_single_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.6 - (0x06) Write Single Register</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HH&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">hr</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Respond to confirm</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_write_multiple_coils</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.11 - (0x0F) Write Multiple Coils</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">bit_count</span><span class="p">,</span> <span class="n">byte_count</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HHB&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="mh">0x0001</span> <span class="o">&lt;=</span> <span class="n">bit_count</span> <span class="o">&lt;=</span> <span class="mh">0x07B0</span> <span class="ow">or</span> <span class="n">byte_count</span> <span class="o">!=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">bit_count</span> <span class="o">/</span> <span class="mi">8</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_VALUE</span><span class="p">)</span>
+
+        <span class="c1"># Bytes to bits: first byte -&gt; last byte, LSB -&gt; MSB</span>
+        <span class="n">bits</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">bit_count</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bit_count</span><span class="p">):</span>
+            <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">//</span> <span class="mi">8</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">8</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">bits</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Respond to confirm</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_write_multiple_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle request as per Modbus Application Protocol v1.1b3:</span>
+<span class="sd">        Section 6.12 - (0x10) Write Multiple registers</span>
+
+<span class="sd">        :param request: ModbusTCPFrame containing the request</span>
+<span class="sd">        :return: ModbusTCPFrame response to the request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">addr</span><span class="p">,</span> <span class="n">reg_count</span><span class="p">,</span> <span class="n">byte_count</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HHB&quot;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="mh">0x0001</span> <span class="o">&lt;=</span> <span class="n">reg_count</span> <span class="o">&lt;=</span> <span class="mh">0x007B</span> <span class="ow">or</span> <span class="n">byte_count</span> <span class="o">!=</span> <span class="n">reg_count</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_VALUE</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;</span><span class="si">%d</span><span class="s2">H&quot;</span> <span class="o">%</span> <span class="n">reg_count</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="o">.</span><span class="n">hr</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">words</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_exception</span><span class="p">(</span><span class="n">MBEX</span><span class="o">.</span><span class="n">DATA_ADDRESS</span><span class="p">)</span>
+
+        <span class="c1"># Respond to confirm</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">create_response</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span></div>
+
+
+
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusHandler</span><span class="p">(</span><span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher_with_send</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">interface</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher_with_send</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="o">=</span><span class="n">sock</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span> <span class="o">=</span> <span class="n">ModbusDataStore</span><span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">di</span><span class="p">,</span> <span class="n">interface</span><span class="o">.</span><span class="n">co</span><span class="p">,</span> <span class="n">interface</span><span class="o">.</span><span class="n">ir</span><span class="p">,</span> <span class="n">interface</span><span class="o">.</span><span class="n">hr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modbus</span> <span class="o">=</span> <span class="n">ModbusProtocol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datastore</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_logging_context</span><span class="p">(</span><span class="n">interface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client connected from </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">sock</span><span class="o">.</span><span class="n">getpeername</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_read</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8192</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modbus</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">device_lock</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closing connection to client </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">getpeername</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusServer</span><span class="p">(</span><span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">interface</span><span class="p">,</span> <span class="n">device_lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span> <span class="o">=</span> <span class="n">device_lock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">interface</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_reuse_addr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_logging_context</span><span class="p">(</span><span class="n">interface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Listening on </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_accept</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sock</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pair</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">ModbusHandler</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Shutting down server, closing all remaining client connections.&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="p">:</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="ModbusAdapter">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusAdapter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusAdapter</span><span class="p">(</span><span class="n">Adapter</span><span class="p">):</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bind_address&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">502</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ModbusAdapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ModbusAdapter.start_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusAdapter.start_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">ModbusServer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">bind_address</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModbusAdapter.stop_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusAdapter.stop_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ModbusAdapter.handle">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusAdapter.handle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cycle_delay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="n">cycle_delay</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ModbusInterface">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.modbus.html#lewis.adapters.modbus.ModbusInterface">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModbusInterface</span><span class="p">(</span><span class="n">InterfaceBase</span><span class="p">):</span>
+    <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;modbus&quot;</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">co</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ir</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">hr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ModbusAdapter</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

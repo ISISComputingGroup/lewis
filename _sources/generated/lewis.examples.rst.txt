@@ -1,0 +1,29 @@
+
+
+``lewis.examples``
+==================
+
+.. automodule:: lewis.examples
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        dual_device
+        example_motor
+        modbus_device
+        simple_device
+        timeout_device
+    
+    
+
+    
+    
+    

@@ -1,0 +1,26 @@
+
+
+``lewis.examples.simple_device``
+================================
+        
+        
+
+.. automodule:: lewis.examples.simple_device
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        VerySimpleDevice
+        VerySimpleInterface
+    
+    

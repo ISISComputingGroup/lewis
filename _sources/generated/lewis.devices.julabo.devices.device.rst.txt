@@ -1,0 +1,24 @@
+
+
+``lewis.devices.julabo.devices.device``
+=======================================
+        
+
+.. automodule:: lewis.devices.julabo.devices.device
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        SimulatedJulabo
+    
+    

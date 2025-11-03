@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.core.control_server &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core.devices" href="lewis.core.devices.html" />
+    <link rel="prev" title="lewis.core.control_client" href="lewis.core.control_client.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.adapters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.approaches.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.control_client.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_client</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.devices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.exceptions.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.logging.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.processor.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.simulation.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.statemachine.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.core.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.core.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.core.control_server.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.core.control_server">
+<span id="lewis-core-control-server"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.core.control_server</span></code><a class="headerlink" href="#module-lewis.core.control_server" title="Link to this heading"></a></h1>
+<p>This module contains classes to expose objects via a JSON-RPC over ZMQ server. Lewis uses
+this infrastructure in <a class="reference internal" href="lewis.core.simulation.html#lewis.core.simulation.Simulation" title="lewis.core.simulation.Simulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simulation</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Client classes for the service defined in this module can be found in
+<a class="reference internal" href="lewis.core.control_client.html#module-lewis.core.control_client" title="lewis.core.control_client"><code class="xref py py-mod docutils literal notranslate"><span class="pre">control_client</span></code></a>.</p>
+</div>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.control_server.ControlServer" title="lewis.core.control_server.ControlServer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlServer</span></code></a></p></td>
+<td><p>This server opens a ZMQ REP-socket at the given host and port when start_server is called.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.core.control_server.ExposedObject" title="lewis.core.control_server.ExposedObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExposedObject</span></code></a></p></td>
+<td><p>ExposedObject is a class that makes it easy to expose an object via the JSONRPCResponseManager from the json-rpc package, where it can serve as a dispatcher.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.core.control_server.ExposedObjectCollection" title="lewis.core.control_server.ExposedObjectCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExposedObjectCollection</span></code></a></p></td>
+<td><p>This class helps expose a number of objects (plain or RPCObject) by exposing the methods of each object as</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.control_server.ControlServer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_server.</span></span><span class="sig-name descname"><span class="pre">ControlServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ControlServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ControlServer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This server opens a ZMQ REP-socket at the given host and port when start_server
+is called.</p>
+<p>The server constructs an <a class="reference internal" href="#lewis.core.control_server.ExposedObjectCollection" title="lewis.core.control_server.ExposedObjectCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExposedObjectCollection</span></code></a> from the supplied
+name: object-dictionary and uses that as a handler for JSON-RPC requests. If it is an
+instance of <a class="reference internal" href="#lewis.core.control_server.ExposedObject" title="lewis.core.control_server.ExposedObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExposedObject</span></code></a>, that is used directly.</p>
+<p>Each time process is called, the server tries to get request data and responds to that.
+If there is no data, the method does nothing.</p>
+<p>Please note that this RPC-service comes without any security, authentication, etc.
+Only use it to expose objects on a trusted network and be aware that anyone on that
+network can access the exposed objects without any restrictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object_map</strong> – Dictionary with name: object-pairs to construct an
+ExposedObjectCollection or ExposedObject</p></li>
+<li><p><strong>connection_string</strong> – String with host:port pair for binding control server.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.control_server.ControlServer.exposed_object">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exposed_object</span></span><a class="headerlink" href="#lewis.core.control_server.ControlServer.exposed_object" title="Link to this definition"></a></dt>
+<dd><p>The exposed object. This is a read only property.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.core.control_server.ControlServer.is_running">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><a class="headerlink" href="#lewis.core.control_server.ControlServer.is_running" title="Link to this definition"></a></dt>
+<dd><p>This property is <code class="docutils literal notranslate"><span class="pre">True</span></code> if the server is running.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ControlServer.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ControlServer.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ControlServer.process" title="Link to this definition"></a></dt>
+<dd><p>Each time this method is called, the socket tries to retrieve data and passes
+it to the JSONRPCResponseManager, which in turn passes the RPC to the
+ExposedObjectCollection.</p>
+<p>In case no data are available, the method does nothing. This behavior is required for
+Lewis where everything is running in one thread. The central loop can call process
+at some point to process remote calls, so the RPC-server does not introduce its own
+infinite processing loop.</p>
+<p>If the server has not been started yet (via <a class="reference internal" href="#lewis.core.control_server.ControlServer.start_server" title="lewis.core.control_server.ControlServer.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>), a RuntimeError
+is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>blocking</strong> – If True, this function will block until it has received data or a timeout
+is triggered. Default is False to preserve behavior of prior versions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ControlServer.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ControlServer.start_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ControlServer.start_server" title="Link to this definition"></a></dt>
+<dd><p>Binds the server to the configured host and port and starts listening.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObject">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_server.</span></span><span class="sig-name descname"><span class="pre">ExposedObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_inherited</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObject" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ExposedObject is a class that makes it easy to expose an object via the
+JSONRPCResponseManager from the json-rpc package, where it can serve as a dispatcher.
+For this purpose it exposes a read-only dict-like interface.</p>
+<p>The basic problem solved by this wrapper is that plain data members of an object are not
+really captured well by the RPC-approach, where a client performs function calls on a
+remote machine and gets the result back.</p>
+<p>The supplied object is inspected using dir(object) and all entries that do not start
+with a _ are exposed in a way that depends on whether the corresponding member
+is a method or a property (either in the Python-sense or the general OO-sense). Methods
+are stored directly, and stored in an internal dict where the method name is the key and
+the callable method object is the value. For properties, a getter- and a setter function
+are generated, which are then stored in the same dict. The names of these methods for
+a property called <code class="docutils literal notranslate"><span class="pre">a</span></code> are <code class="docutils literal notranslate"><span class="pre">a:get</span></code> and <code class="docutils literal notranslate"><span class="pre">a:set</span></code>. The separator has been chosen to be
+colon because it can’t be part of a valid Python identifier.</p>
+<p>If the second argument is not empty, it is interpreted to be the list of members
+to expose and only those are actually exposed. This can be used to explicitly expose
+members of an object that start with an underscore. If all but one or two members
+should be exposed, it’s also possible to use the exclude-argument to explicitly
+exclude a few members. Both parameters can be used in combination, the exclude-list
+takes precedence.</p>
+<p>In certain situations it is desirable to acquire a lock before accessing the exposed object,
+for example when multiple threads are accessing it on the server side. For this purpose,
+the <code class="docutils literal notranslate"><span class="pre">lock</span></code>-parameter can be used. If it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, the exposed methods are wrapped
+in a function that acquires the lock before accessing <code class="docutils literal notranslate"><span class="pre">obj</span></code>, and releases it afterwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – The object to expose.</p></li>
+<li><p><strong>members</strong> – This list of methods will be exposed. (defaults to all public members)</p></li>
+<li><p><strong>exclude</strong> – Members in this list will not be exposed.</p></li>
+<li><p><strong>exclude_inherited</strong> – Should inherited members be excluded? (defaults to False)</p></li>
+<li><p><strong>lock</strong> – <code class="docutils literal notranslate"><span class="pre">threading.Lock</span></code> that is used when accessing <code class="docutils literal notranslate"><span class="pre">obj</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObject.get_api">
+<span class="sig-name descname"><span class="pre">get_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObject.get_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObject.get_api" title="Link to this definition"></a></dt>
+<dd><p>This method returns the class name and a list of exposed methods.
+It is exposed to RPC-clients by an instance of ExposedObjectCollection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary describing the exposed API (consisting of a class name and methods).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObjectCollection">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.core.control_server.</span></span><span class="sig-name descname"><span class="pre">ExposedObjectCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">named_objects</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObjectCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObjectCollection" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.core.control_server.ExposedObject" title="lewis.core.control_server.ExposedObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExposedObject</span></code></a></p>
+<p>This class helps expose a number of objects (plain or RPCObject) by
+exposing the methods of each object as</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">.</span><span class="n">method</span>
+</pre></div>
+</div>
+<p>Furthermore it exposes each object’s API as a method with the following name:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">api</span>
+</pre></div>
+</div>
+<p>A list of exposed objects can be obtained by calling the following method from the client:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">objects</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>named_objects</strong> – Dictionary of of name: object pairs.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObjectCollection.add_object">
+<span class="sig-name descname"><span class="pre">add_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObjectCollection.add_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObjectCollection.add_object" title="Link to this definition"></a></dt>
+<dd><p>Adds the supplied object to the collection under the supplied name. If the name is already
+in use, a RuntimeError is raised. If the object is not an instance of
+<a class="reference internal" href="#lewis.core.control_server.ExposedObject" title="lewis.core.control_server.ExposedObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExposedObject</span></code></a>, the method automatically constructs one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – Object to add to the collection.</p></li>
+<li><p><strong>name</strong> – Name of the exposed object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObjectCollection.get_objects">
+<span class="sig-name descname"><span class="pre">get_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObjectCollection.get_objects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObjectCollection.get_objects" title="Link to this definition"></a></dt>
+<dd><p>Returns the names of the exposed objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.core.control_server.ExposedObjectCollection.remove_object">
+<span class="sig-name descname"><span class="pre">remove_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/core/control_server.html#ExposedObjectCollection.remove_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.core.control_server.ExposedObjectCollection.remove_object" title="Link to this definition"></a></dt>
+<dd><p>Remove the object exposed under that name. If no object is registered under the supplied
+name, a RuntimeError is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of object to be removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.core.control_client.html" class="btn btn-neutral float-left" title="lewis.core.control_client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.devices.html" class="btn btn-neutral float-right" title="lewis.core.devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

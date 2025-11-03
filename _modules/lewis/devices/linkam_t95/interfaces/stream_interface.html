@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.devices.linkam_t95.interfaces.stream_interface &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../../devices.html">lewis.devices</a></li>
+      <li class="breadcrumb-item active">lewis.devices.linkam_t95.interfaces.stream_interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.devices.linkam_t95.interfaces.stream_interface</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">StreamInterface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LinkamT95StreamInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Linkam T95 TCP stream interface.</span>
+
+<span class="sd">    This is the interface of a simulated Linkam T95 device. The device listens on a configured</span>
+<span class="sd">    host:port-combination, one option to connect to it is via telnet:</span>
+
+<span class="sd">        $ telnet host port</span>
+
+<span class="sd">    Once connected, it&#39;s possible to send the specified commands, described in the dynamically</span>
+<span class="sd">    generated documentation. Information about host, port and line terminators in the concrete</span>
+<span class="sd">    device instance are also generated dynamically.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">out_terminator</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span>
+
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;get_status&quot;</span><span class="p">,</span> <span class="s2">&quot;^T$&quot;</span><span class="p">,</span> <span class="n">return_mapping</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;set_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;^R1([0-9]+)$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;set_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;^L1([0-9]+)$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;^S$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;^E$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;hold&quot;</span><span class="p">,</span> <span class="s2">&quot;^O$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;heat&quot;</span><span class="p">,</span> <span class="s2">&quot;^H$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;cool&quot;</span><span class="p">,</span> <span class="s2">&quot;^C$&quot;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s2">&quot;pump_command&quot;</span><span class="p">,</span> <span class="s2">&quot;^P(a0|m0|[0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMN]</span><span class="si">{1}</span><span class="s2">)$&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.get_status">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.get_status">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;T Command&quot; functionality of device.</span>
+
+<span class="sd">        Returns all available status information about the device as single byte array.</span>
+
+<span class="sd">        :return: Byte array consisting of 10 status bytes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># &quot;The first command sent must be a &#39;T&#39; command&quot; from T95 manual</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">serial_command_mode</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">Tarray</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+
+        <span class="c1"># Status byte (SB1)</span>
+        <span class="n">Tarray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;stopped&quot;</span><span class="p">:</span> <span class="mh">0x01</span><span class="p">,</span>
+            <span class="s2">&quot;heat&quot;</span><span class="p">:</span> <span class="mh">0x10</span><span class="p">,</span>
+            <span class="s2">&quot;cool&quot;</span><span class="p">:</span> <span class="mh">0x20</span><span class="p">,</span>
+            <span class="s2">&quot;hold&quot;</span><span class="p">:</span> <span class="mh">0x30</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_csm</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">Tarray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x30</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">hold_commanded</span><span class="p">:</span>
+            <span class="n">Tarray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x50</span>
+
+        <span class="c1"># Error status byte (EB1)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">pump_overspeed</span><span class="p">:</span>
+            <span class="n">Tarray</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|=</span> <span class="mh">0x01</span>
+        <span class="c1"># TODO: Add support for other error conditions?</span>
+
+        <span class="c1"># Pump status byte (PB1)</span>
+        <span class="n">Tarray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x80</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">pump_speed</span>
+
+        <span class="c1"># Temperature</span>
+        <span class="n">Tarray</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s2">&quot;</span><span class="si">%04x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">temperature</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">Tarray</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.set_rate">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.set_rate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Rate Command&quot; functionality of device.</span>
+
+<span class="sd">        Sets the target rate of temperature change.</span>
+
+<span class="sd">        :param param: Rate of temperature change in C/min, multiplied by 100, as a string. Must be positive.</span>
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Is not having leading zeroes / 4 digits an error?</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">rate</span> <span class="o">&lt;=</span> <span class="mi">15000</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">temperature_rate</span> <span class="o">=</span> <span class="n">rate</span> <span class="o">/</span> <span class="mf">100.0</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.set_limit">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.set_limit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Limit Command&quot; functionality of device.</span>
+
+<span class="sd">        Sets the target temperate to be reached.</span>
+
+<span class="sd">        :param param: Target temperature in C, multiplied by 10, as a string. Can be negative.</span>
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Is not having leading zeroes / 4 digits an error?</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">if</span> <span class="o">-</span><span class="mi">2000</span> <span class="o">&lt;=</span> <span class="n">limit</span> <span class="o">&lt;=</span> <span class="mi">6000</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">temperature_limit</span> <span class="o">=</span> <span class="n">limit</span> <span class="o">/</span> <span class="mf">10.0</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.start">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.start">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Start Command&quot; functionality of device.</span>
+
+<span class="sd">        Tells the T95 unit to start heating or cooling at the rate specified by setRate and to a</span>
+<span class="sd">        limit set by setLimit.</span>
+
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">start_commanded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.stop">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Stop Command&quot; functionality of device.</span>
+
+<span class="sd">        Tells the T95 unit to stop heating or cooling.</span>
+
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">stop_commanded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.hold">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.hold">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hold</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Hold Command&quot; functionality of device.</span>
+
+<span class="sd">        Device will hold current temperature until a heat or cool command is issued.</span>
+
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">hold_commanded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.heat">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.heat">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Heat Command&quot; functionality of device.</span>
+
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Is this really all it does?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">hold_commanded</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.cool">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.cool">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cool</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;Cool Command&quot; functionality of device.</span>
+
+<span class="sd">        :return: Empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Is this really all it does?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">hold_commanded</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.pump_command">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.pump_command">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pump_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Models &quot;LNP Pump Commands&quot; functionality of device.</span>
+
+<span class="sd">        Switches between automatic or manual pump mode, and adjusts speed when in manual mode.</span>
+
+<span class="sd">        :param param: &#39;a0&#39; for auto, &#39;m0&#39; for manual, [0-N] for speed.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMN&quot;</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;a0&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">pump_manual_mode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">param</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;m0&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">pump_manual_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">lookup</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">manual_target_speed</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LinkamT95StreamInterface.handle_error">
+<a class="viewcode-back" href="../../../../../generated/lewis.devices.linkam_t95.interfaces.stream_interface.html#lewis.devices.linkam_t95.interfaces.stream_interface.LinkamT95StreamInterface.handle_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If command is not recognised print and error</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request: requested string</span>
+<span class="sd">            error: problem</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;An error occurred at request &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

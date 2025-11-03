@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.epics &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.adapters.modbus" href="lewis.adapters.modbus.html" />
+    <link rel="prev" title="lewis.adapters" href="lewis.adapters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.modbus.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.modbus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.stream.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.adapters.epics.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.adapters.epics">
+<span id="lewis-adapters-epics"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics</span></code><a class="headerlink" href="#module-lewis.adapters.epics" title="Link to this heading"></a></h1>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.epics.BoundPV" title="lewis.adapters.epics.BoundPV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundPV</span></code></a></p></td>
+<td><p>Class to represent PVs that are bound to an adapter</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter" title="lewis.adapters.epics.EpicsAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EpicsAdapter</span></code></a></p></td>
+<td><p>This adapter provides ChannelAccess server functionality through the pcaspy module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.epics.EpicsInterface" title="lewis.adapters.epics.EpicsInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EpicsInterface</span></code></a></p></td>
+<td><p>Inheriting from this class provides an EPICS-interface to a device for use with <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter" title="lewis.adapters.epics.EpicsAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpicsAdapter</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.epics.PV" title="lewis.adapters.epics.PV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PV</span></code></a></p></td>
+<td><p>The PV-class is used to declare the EPICS-interface exposed by a sub-class of EpicsAdapter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">PropertyExposingDriver</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.epics.</span></span><span class="sig-name descname"><span class="pre">BoundPV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#BoundPV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.BoundPV" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to represent PVs that are bound to an adapter</p>
+<p>This class is very similar to <a class="reference internal" href="lewis.adapters.stream.html#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a>, in that
+it is the result of a binding operation between a user-specified <a class="reference internal" href="#lewis.adapters.epics.PV" title="lewis.adapters.epics.PV"><code class="xref py py-class docutils literal notranslate"><span class="pre">PV</span></code></a>-object
+and a Device and/or Adapter object. Also, it should rarely be used directly. objects
+are generated automatically by <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter" title="lewis.adapters.epics.EpicsAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpicsAdapter</span></code></a>.</p>
+<p>The binding happens by supplying a <code class="docutils literal notranslate"><span class="pre">target</span></code>-object which has an attribute or a property
+named according to the property-name stored in the PV-object, and a <code class="docutils literal notranslate"><span class="pre">meta_target</span></code>-object
+which has an attribute named according to the meta_data_property in PV.</p>
+<p>The properties <code class="docutils literal notranslate"><span class="pre">read_only</span></code>, <code class="docutils literal notranslate"><span class="pre">config</span></code>,  and <code class="docutils literal notranslate"><span class="pre">poll_interval</span></code> simply forward the
+data of PV, while <code class="docutils literal notranslate"><span class="pre">doc</span></code> uses the target object to potentially obtain the property’s
+docstring.</p>
+<p>To get and set the value of the property on the target, the <code class="docutils literal notranslate"><span class="pre">value</span></code>-property of
+this class can be used, to get the meta data dict, there’s a <code class="docutils literal notranslate"><span class="pre">meta</span></code>-property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pv</strong> – PV object to bind to target and meta_target.</p></li>
+<li><p><strong>target</strong> – Object that has an attribute named pv.property.</p></li>
+<li><p><strong>meta_target</strong> – Object that has an attribute named pv.meta_data_property.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.config">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.config" title="Link to this definition"></a></dt>
+<dd><p>Config dict passed on to pcaspy-machinery.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.doc">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.doc" title="Link to this definition"></a></dt>
+<dd><p>Docstring of property on target or override specified on PV-object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.meta">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meta</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.meta" title="Link to this definition"></a></dt>
+<dd><p>Value of the bound meta-property on the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.poll_interval">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">poll_interval</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.poll_interval" title="Link to this definition"></a></dt>
+<dd><p>Interval at which to update PV in pcaspy.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.read_only">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_only</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.read_only" title="Link to this definition"></a></dt>
+<dd><p>True if the PV is read-only.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.BoundPV.value">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#lewis.adapters.epics.BoundPV.value" title="Link to this definition"></a></dt>
+<dd><p>Value of the bound property on the target.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.epics.</span></span><span class="sig-name descname"><span class="pre">EpicsAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#EpicsAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a></p>
+<p>This adapter provides ChannelAccess server functionality through the pcaspy module.</p>
+<p>It’s possible to configure the prefix for the PVs provided by this adapter. The
+corresponding key in the <code class="docutils literal notranslate"><span class="pre">options</span></code> dictionary is called <code class="docutils literal notranslate"><span class="pre">prefix</span></code>:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;PVPREFIX:&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>options</strong> – Dictionary with options.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter.documentation">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter.documentation" title="Link to this definition"></a></dt>
+<dd><p>This property can be overridden in a sub-class to provide protocol documentation to users
+at runtime. By default it returns the indentation cleaned-up docstring of the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#EpicsAdapter.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter.handle" title="Link to this definition"></a></dt>
+<dd><p>Call this method to spend about <code class="docutils literal notranslate"><span class="pre">cycle_delay</span></code> seconds processing
+requests in the pcaspy server. Under load, for example when running <code class="docutils literal notranslate"><span class="pre">caget</span></code> at a
+high frequency, the actual time spent in the method may be much shorter. This effect
+is not corrected for.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cycle_delay</strong> – Approximate time to be spent processing requests in pcaspy server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter.is_running">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter.is_running" title="Link to this definition"></a></dt>
+<dd><p>This property indicates whether the Adapter’s server is running and listening. The result
+of calls to <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter.start_server" title="lewis.adapters.epics.EpicsAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a> and <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter.stop_server" title="lewis.adapters.epics.EpicsAdapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> should be reflected as expected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#EpicsAdapter.start_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter.start_server" title="Link to this definition"></a></dt>
+<dd><p>Creates a pcaspy-server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The server does not process requests unless <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter.handle" title="lewis.adapters.epics.EpicsAdapter.handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> is called regularly.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsAdapter.stop_server">
+<span class="sig-name descname"><span class="pre">stop_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#EpicsAdapter.stop_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.EpicsAdapter.stop_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to stop and tear down anything that has been setup
+in <a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter.start_server" title="lewis.adapters.epics.EpicsAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>. This method should close all connections to clients that have
+been established since the adapter has been started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsInterface">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.epics.</span></span><span class="sig-name descname"><span class="pre">EpicsInterface</span></span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#EpicsInterface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.EpicsInterface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a></p>
+<p>Inheriting from this class provides an EPICS-interface to a device for use with
+<a class="reference internal" href="#lewis.adapters.epics.EpicsAdapter" title="lewis.adapters.epics.EpicsAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpicsAdapter</span></code></a>. In the simplest case all that is required is to inherit
+from this class and override the <code class="docutils literal notranslate"><span class="pre">pvs</span></code>-member. It should be a dictionary
+that contains PV-names (without prefix) as keys and instances of PV as
+values. The prefix is handled by <code class="docutils literal notranslate"><span class="pre">EpicsAdapter</span></code>.</p>
+<p>For a simple device with two properties, speed and position, the first of which
+should be read-only, it’s enough to define the following:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleDeviceEpicsInterface</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">):</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;VELO&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">lolo</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hihi</span><span class="o">=</span><span class="mi">100</span><span class="p">)}</span>
+</pre></div>
+</div>
+<p>For more complex behavior, the interface could contain properties that do not
+exist in the device itself. If the device should also have a PV called STOP
+that “stops the device”, the interface could look like this:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleDeviceEpicsInterface</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">):</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;VELO&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">lolo</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hihi</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+        <span class="s2">&quot;STOP&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="nd">@stop</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">halt</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Even though the device does <em>not</em> have a property called <code class="docutils literal notranslate"><span class="pre">stop</span></code> (but a method called
+<code class="docutils literal notranslate"><span class="pre">halt</span></code>), issuing the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ caput STOP 1
+</pre></div>
+</div>
+<p>will achieve the desired behavior, because <code class="docutils literal notranslate"><span class="pre">EpicsInterface</span></code> merges the properties
+of the device into <code class="docutils literal notranslate"><span class="pre">SimpleDeviceEpicsInterface</span></code> itself, so that it is does not
+matter whether the specified property in PV exists in the device or the adapter.</p>
+<p>The intention of this design is to keep device classes small and free of
+protocol specific stuff, such as in the case above where stopping a device
+via EPICS might involve writing a value to a PV, whereas other protocols may
+offer an RPC-way of achieving the same thing.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.epics.EpicsInterface.adapter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adapter</span></span><a class="headerlink" href="#lewis.adapters.epics.EpicsInterface.adapter" title="Link to this definition"></a></dt>
+<dd><p>Adapter type that is required to process and expose interfaces of this type. Must be
+implemented in subclasses.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.epics.PV">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.epics.</span></span><span class="sig-name descname"><span class="pre">PV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_property</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data_property</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#PV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.PV" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The PV-class is used to declare the EPICS-interface exposed by a sub-class of
+EpicsAdapter. The <code class="docutils literal notranslate"><span class="pre">target_property</span></code> argument specifies which property of the adapter
+the PV maps to. To make development easier it can also be a part of the exposed
+device. If the property exists on both the Adapter-subclass and the device, the former
+has precedence. This is useful for overriding behavior for protocol specific “quirks”.</p>
+<p>If the PV should be read only, this needs to be specified via
+the corresponding parameter. The information about the poll interval is used
+py EpicsAdapter to update the PV in regular intervals. All other named arguments
+are forwarded to the pcaspy server’s <cite>pvdb</cite>, so it’s possible to pass on
+limits, types, enum-values and so on.</p>
+<p>In case those arguments change at runtime, it’s possible to provide <code class="docutils literal notranslate"><span class="pre">meta_data_property</span></code>,
+which should contain the name of a property that returns a dict containing these values.
+For example if limits change:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">):</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="n">meta_data_property</span><span class="o">=</span><span class="s2">&quot;example_meta&quot;</span><span class="p">)}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">example_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;lolim&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_example_low_limit</span><span class="p">,</span>
+            <span class="s2">&quot;hilim&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_example_high_limit</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>The PV infos are then updated together with the value, determined by <code class="docutils literal notranslate"><span class="pre">poll_interval</span></code>.</p>
+<p>In cases where the device is accessed via properties alone, this class provides the possibility
+to expose methods as PVs. A common use case would be to model a getter:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SomeDevice</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">42</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">):</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">(</span><span class="s2">&quot;get_example&quot;</span><span class="p">)}</span>
+</pre></div>
+</div>
+<p>It is also possible to model a getter/setter pair, in this case a tuple has to be provided:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SomeDevice</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
+    <span class="n">_ex</span> <span class="o">=</span> <span class="mi">40</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_example</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ex</span> <span class="o">+</span> <span class="mi">2</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_example</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ex</span> <span class="o">=</span> <span class="n">new_example</span> <span class="o">-</span> <span class="mi">2</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">):</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="n">PV</span><span class="p">((</span><span class="s2">&quot;get_example&quot;</span><span class="p">,</span> <span class="s2">&quot;set_example&quot;</span><span class="p">))}</span>
+</pre></div>
+</div>
+<p>Any of the two members in the tuple can be substituted with <code class="docutils literal notranslate"><span class="pre">None</span></code> in case it does not apply.
+Besides method names it is also allowed to provide callables. Valid callables are for example
+bound methods and free functions, but also lambda expressions and partials.</p>
+<p>There are however restrictions for the supplied functions (be it as method names or directly
+as callables) with respect to their signature. Getter functions must be callable without any
+arguments, setter functions must be callable with exactly one argument. The <code class="docutils literal notranslate"><span class="pre">self</span></code> of
+methods does not count towards this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_property</strong> – Property or method name, getter function, tuple of getter/setter.</p></li>
+<li><p><strong>poll_interval</strong> – Update interval of the PV.</p></li>
+<li><p><strong>read_only</strong> – Should be True if the PV is read only. If not specified, the PV is
+read_only if only a getter is supplied.</p></li>
+<li><p><strong>meta_data_property</strong> – Property or method name, getter function, tuple of getter/setter.</p></li>
+<li><p><strong>doc</strong> – Description of the PV. If not supplied, docstring of mapped property is used.</p></li>
+<li><p><strong>kwargs</strong> – Arguments forwarded into pcaspy pvdb-dict.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.epics.PV.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/epics.html#PV.bind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.epics.PV.bind" title="Link to this definition"></a></dt>
+<dd><p>Tries to bind the PV to one of the supplied targets. Targets are inspected according to
+the order in which they are supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>targets</strong> – Objects to inspect from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BoundPV instance with the PV bound to the target property.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.adapters.html" class="btn btn-neutral float-left" title="lewis.adapters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.adapters.modbus.html" class="btn btn-neutral float-right" title="lewis.adapters.modbus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

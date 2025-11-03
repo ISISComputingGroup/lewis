@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.epics &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.adapters.epics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.adapters.epics</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Adapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterfaceBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AccessViolationException</span><span class="p">,</span>
+    <span class="n">LewisException</span><span class="p">,</span>
+    <span class="n">LimitViolationException</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">FromOptionalDependency</span><span class="p">,</span> <span class="n">format_doc_text</span><span class="p">,</span> <span class="n">seconds_since</span>
+
+<span class="c1"># pcaspy might not be available. To make EPICS-based adapters show up</span>
+<span class="c1"># in the listed adapters anyway dummy types are created in this case</span>
+<span class="c1"># and the failure is postponed to runtime, where a more appropriate</span>
+<span class="c1"># LewisException can be raised.</span>
+<span class="n">missing_pcaspy_exception</span> <span class="o">=</span> <span class="n">LewisException</span><span class="p">(</span>
+    <span class="s2">&quot;In order to use EPICS-interfaces, pcaspy must be installed:</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">pip install pcaspy</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;A fully working installation of EPICS-base is required for this package. &quot;</span>
+    <span class="s2">&quot;Please refer to the documentation for advice.&quot;</span>
+<span class="p">)</span>
+
+<span class="n">Driver</span><span class="p">,</span> <span class="n">SimpleServer</span> <span class="o">=</span> <span class="n">FromOptionalDependency</span><span class="p">(</span><span class="s2">&quot;pcaspy&quot;</span><span class="p">,</span> <span class="n">missing_pcaspy_exception</span><span class="p">)</span><span class="o">.</span><span class="n">do_import</span><span class="p">(</span>
+    <span class="s2">&quot;Driver&quot;</span><span class="p">,</span> <span class="s2">&quot;SimpleServer&quot;</span>
+<span class="p">)</span>
+
+<span class="n">pcaspy_manager</span> <span class="o">=</span> <span class="n">FromOptionalDependency</span><span class="p">(</span><span class="s2">&quot;pcaspy.driver&quot;</span><span class="p">,</span> <span class="n">missing_pcaspy_exception</span><span class="p">)</span><span class="o">.</span><span class="n">do_import</span><span class="p">(</span>
+    <span class="s2">&quot;manager&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="BoundPV">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.BoundPV">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BoundPV</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to represent PVs that are bound to an adapter</span>
+
+<span class="sd">    This class is very similar to :class:`~lewis.adapters.stream.Func`, in that</span>
+<span class="sd">    it is the result of a binding operation between a user-specified :class:`PV`-object</span>
+<span class="sd">    and a Device and/or Adapter object. Also, it should rarely be used directly. objects</span>
+<span class="sd">    are generated automatically by :class:`EpicsAdapter`.</span>
+
+<span class="sd">    The binding happens by supplying a ``target``-object which has an attribute or a property</span>
+<span class="sd">    named according to the property-name stored in the PV-object, and a ``meta_target``-object</span>
+<span class="sd">    which has an attribute named according to the meta_data_property in PV.</span>
+
+<span class="sd">    The properties ``read_only``, ``config``,  and ``poll_interval`` simply forward the</span>
+<span class="sd">    data of PV, while ``doc`` uses the target object to potentially obtain the property&#39;s</span>
+<span class="sd">    docstring.</span>
+
+<span class="sd">    To get and set the value of the property on the target, the ``value``-property of</span>
+<span class="sd">    this class can be used, to get the meta data dict, there&#39;s a ``meta``-property.</span>
+
+<span class="sd">    :param pv: PV object to bind to target and meta_target.</span>
+<span class="sd">    :param target: Object that has an attribute named pv.property.</span>
+<span class="sd">    :param meta_target: Object that has an attribute named pv.meta_data_property.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">meta_target</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_meta_target</span> <span class="o">=</span> <span class="n">meta_target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span> <span class="o">=</span> <span class="n">pv</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the bound property on the target.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">property</span><span class="p">)</span>
+
+    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">AccessViolationException</span><span class="p">(</span>
+                <span class="s2">&quot;The property </span><span class="si">{}</span><span class="s2"> is read only.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">property</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">meta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the bound meta-property on the target.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">meta_data_property</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta_target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_meta_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">meta_data_property</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if the PV is read-only.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">read_only</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Config dict passed on to pcaspy-machinery.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">config</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">poll_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interval at which to update PV in pcaspy.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">poll_interval</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Docstring of property on target or override specified on PV-object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">doc</span>
+            <span class="ow">or</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pv</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PV">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.PV">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PV</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The PV-class is used to declare the EPICS-interface exposed by a sub-class of</span>
+<span class="sd">    EpicsAdapter. The ``target_property`` argument specifies which property of the adapter</span>
+<span class="sd">    the PV maps to. To make development easier it can also be a part of the exposed</span>
+<span class="sd">    device. If the property exists on both the Adapter-subclass and the device, the former</span>
+<span class="sd">    has precedence. This is useful for overriding behavior for protocol specific &quot;quirks&quot;.</span>
+
+<span class="sd">    If the PV should be read only, this needs to be specified via</span>
+<span class="sd">    the corresponding parameter. The information about the poll interval is used</span>
+<span class="sd">    py EpicsAdapter to update the PV in regular intervals. All other named arguments</span>
+<span class="sd">    are forwarded to the pcaspy server&#39;s `pvdb`, so it&#39;s possible to pass on</span>
+<span class="sd">    limits, types, enum-values and so on.</span>
+
+<span class="sd">    In case those arguments change at runtime, it&#39;s possible to provide ``meta_data_property``,</span>
+<span class="sd">    which should contain the name of a property that returns a dict containing these values.</span>
+<span class="sd">    For example if limits change:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class Interface(EpicsInterface):</span>
+<span class="sd">            pvs = {&quot;example&quot;: PV(&quot;example&quot;, meta_data_property=&quot;example_meta&quot;)}</span>
+
+<span class="sd">            @property</span>
+<span class="sd">            def example_meta(self):</span>
+<span class="sd">                return {</span>
+<span class="sd">                    &quot;lolim&quot;: self.device._example_low_limit,</span>
+<span class="sd">                    &quot;hilim&quot;: self.device._example_high_limit,</span>
+<span class="sd">                }</span>
+
+<span class="sd">    The PV infos are then updated together with the value, determined by ``poll_interval``.</span>
+
+<span class="sd">    In cases where the device is accessed via properties alone, this class provides the possibility</span>
+<span class="sd">    to expose methods as PVs. A common use case would be to model a getter:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SomeDevice(Device):</span>
+<span class="sd">            def get_example(self):</span>
+<span class="sd">                return 42</span>
+
+
+<span class="sd">        class Interface(EpicsInterface):</span>
+<span class="sd">            pvs = {&quot;example&quot;: PV(&quot;get_example&quot;)}</span>
+
+<span class="sd">    It is also possible to model a getter/setter pair, in this case a tuple has to be provided:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SomeDevice(Device):</span>
+<span class="sd">            _ex = 40</span>
+
+<span class="sd">            def get_example(self):</span>
+<span class="sd">                return self._ex + 2</span>
+
+<span class="sd">            def set_example(self, new_example):</span>
+<span class="sd">                self._ex = new_example - 2</span>
+
+
+<span class="sd">        class Interface(EpicsInterface):</span>
+<span class="sd">            pvs = {&quot;example&quot;: PV((&quot;get_example&quot;, &quot;set_example&quot;))}</span>
+
+<span class="sd">    Any of the two members in the tuple can be substituted with ``None`` in case it does not apply.</span>
+<span class="sd">    Besides method names it is also allowed to provide callables. Valid callables are for example</span>
+<span class="sd">    bound methods and free functions, but also lambda expressions and partials.</span>
+
+<span class="sd">    There are however restrictions for the supplied functions (be it as method names or directly</span>
+<span class="sd">    as callables) with respect to their signature. Getter functions must be callable without any</span>
+<span class="sd">    arguments, setter functions must be callable with exactly one argument. The ``self`` of</span>
+<span class="sd">    methods does not count towards this.</span>
+
+
+<span class="sd">    :param target_property: Property or method name, getter function, tuple of getter/setter.</span>
+<span class="sd">    :param poll_interval: Update interval of the PV.</span>
+<span class="sd">    :param read_only: Should be True if the PV is read only. If not specified, the PV is</span>
+<span class="sd">                      read_only if only a getter is supplied.</span>
+<span class="sd">    :param meta_data_property: Property or method name, getter function, tuple of getter/setter.</span>
+<span class="sd">    :param doc: Description of the PV. If not supplied, docstring of mapped property is used.</span>
+<span class="sd">    :param kwargs: Arguments forwarded into pcaspy pvdb-dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_property</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">meta_data_property</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span> <span class="o">=</span> <span class="n">read_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_interval</span> <span class="o">=</span> <span class="n">poll_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_data_property</span> <span class="o">=</span> <span class="s2">&quot;meta&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_specification</span><span class="p">(</span><span class="n">target_property</span><span class="p">)</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_specification</span><span class="p">(</span><span class="n">meta_data_property</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_specifications</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">}</span>
+
+<div class="viewcode-block" id="PV.bind">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.PV.bind">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to bind the PV to one of the supplied targets. Targets are inspected according to</span>
+<span class="sd">        the order in which they are supplied.</span>
+
+<span class="sd">        :param targets: Objects to inspect from.</span>
+<span class="sd">        :return: BoundPV instance with the PV bound to the target property.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_data_property</span> <span class="o">=</span> <span class="s2">&quot;meta&quot;</span>
+
+        <span class="k">return</span> <span class="n">BoundPV</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_target</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_target</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta_data_property</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_specification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper method to create a homogeneous representation of a specified getter or</span>
+<span class="sd">        getter/setter pair.</span>
+
+<span class="sd">        :param spec: Function specification &#39;getter&#39;, (getter,) or (getter,setter)</span>
+<span class="sd">        :return:  Harmonized getter/setter specification, (getter, setter)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">callable</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="p">(</span><span class="n">spec</span><span class="p">,)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">spec</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The actual target methods are retrieved (possibly from the list of targets) and a</span>
+<span class="sd">        wrapper-property is installed on a throwaway type that is specifically created for</span>
+<span class="sd">        the purpose of holding this property if necessary. In that case, an instance of this type</span>
+<span class="sd">        (with the wrapper-property forwarding calls to the correct target) is returned so</span>
+<span class="sd">        that :class:`BoundPV` can do the right thing.</span>
+
+<span class="sd">        .. seealso:: :meth:`_create_getter`, :meth:`_create_setter`</span>
+
+<span class="sd">        :param prop: Property, is either &#39;value&#39; or &#39;meta&#39;.</span>
+<span class="sd">        :param targets: List of targets with decreasing priority for finding the wrapped method.</span>
+<span class="sd">        :return: Target object to be used by :class:`BoundPV`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">prop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">raw_getter</span><span class="p">,</span> <span class="n">raw_setter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_specifications</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+        <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_getter</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">obj</span>
+                    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">targets</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">raw_getter</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">property</span><span class="p">)</span>
+                    <span class="ow">or</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">raw_getter</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">True</span><span class="p">))</span>
+                <span class="p">),</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the property is an actual property and has no setter, read_only can be</span>
+            <span class="c1"># set to True at this point automatically.</span>
+            <span class="n">target_prop</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">raw_getter</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">prop</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_prop</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span> <span class="ow">and</span> <span class="n">target_prop</span><span class="o">.</span><span class="n">fset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Now the target does not need to be constructed, property or meta_data_property</span>
+            <span class="c1"># needs to change.</span>
+            <span class="nb">setattr</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s2">&quot;property&quot;</span> <span class="k">if</span> <span class="n">prop</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="k">else</span> <span class="s2">&quot;meta_data_property&quot;</span><span class="p">,</span>
+                <span class="n">raw_getter</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">target</span>
+
+        <span class="n">getter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_getter</span><span class="p">(</span><span class="n">raw_getter</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">)</span>
+        <span class="n">setter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_setter</span><span class="p">(</span><span class="n">raw_setter</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">getter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">setter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">prop</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="ow">and</span> <span class="n">setter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_only</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="n">prop</span><span class="p">:</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">)})()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a function wrapping the supplied function. The returned wrapper can be used as the</span>
+<span class="sd">        getter in a property definition. Raises a RuntimeError if the signature of the supplied</span>
+<span class="sd">        function is not compatible with the getter-concept (no arguments except self).</span>
+
+<span class="sd">        :param func: Callable or name of method on one object in targets.</span>
+<span class="sd">        :param targets: List of targets with decreasing priority for finding func.</span>
+<span class="sd">        :return: Getter function for constructing a wrapper-property.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">final_callable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_callable</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_function_has_n_args</span><span class="p">(</span><span class="n">final_callable</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The function &#39;</span><span class="si">{}</span><span class="s2">&#39; does not look like a getter function. A valid getter &quot;</span>
+                <span class="s2">&quot;function has no arguments that do not have a default. The self-argument of &quot;</span>
+                <span class="s2">&quot;methods does not count towards that number.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">final_callable</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">final_callable</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">getter</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">final_callable</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">getter</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_setter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a function wrapping the supplied function. The returned wrapper can be used as the</span>
+<span class="sd">        setter in a property definition. Raises a RuntimeError if the signature of the supplied</span>
+<span class="sd">        function is not compatible with the setter-concept (exactly one argument except self).</span>
+
+<span class="sd">        :param func: Callable or name of method on one object in targets.</span>
+<span class="sd">        :param targets: List of targets with decreasing priority for finding func.</span>
+<span class="sd">        :return: Setter function for constructing a wrapper-property or ``None``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_callable</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_function_has_n_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The function &#39;</span><span class="si">{}</span><span class="s2">&#39; does not look like a setter function. A valid setter &quot;</span>
+                <span class="s2">&quot;function has exactly one argument without a default. The self-argument of &quot;</span>
+                <span class="s2">&quot;methods does not count towards that number.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">setter</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">setter</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_callable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">targets</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If func is already a callable, it is returned directly. If it&#39;s a string, it is assumed</span>
+<span class="sd">        to be a method on one of the objects supplied in targets and that is returned. If no</span>
+<span class="sd">        method with the specified name is found, an AttributeError is raised.</span>
+
+<span class="sd">        :param func: Callable or name of method on one object in targets.</span>
+<span class="sd">        :param targets: List of targets with decreasing priority for finding func.</span>
+<span class="sd">        :return: Callable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="n">func_name</span> <span class="o">=</span> <span class="n">func</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">targets</span> <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">obj</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="s2">&quot;No method with the name &#39;</span><span class="si">{}</span><span class="s2">&#39; could be found on any of the target objects &quot;</span>
+                    <span class="s2">&quot;(device, interface). Please check the spelling.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_name</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">func</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_function_has_n_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if func has n arguments. Arguments with default and self for</span>
+<span class="sd">        methods are not considered.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">argspec</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="n">argspec</span><span class="o">.</span><span class="n">defaults</span> <span class="ow">or</span> <span class="p">()</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">argspec</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span></div>
+
+
+
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PropertyExposingDriver</span><span class="p">(</span><span class="n">Driver</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface</span><span class="p">,</span> <span class="n">device_lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PropertyExposingDriver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span> <span class="o">=</span> <span class="n">interface</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_lock</span> <span class="o">=</span> <span class="n">device_lock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_logging_context</span><span class="p">(</span><span class="n">interface</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timers</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_update_call</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;PV put request: </span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="n">pv_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pv_object</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_lock</span><span class="p">:</span>
+                <span class="n">pv_object</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">pv_object</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">LimitViolationException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Rejected writing value </span><span class="si">%s</span><span class="s2"> to PV </span><span class="si">%s</span><span class="s2"> due to limit &quot;</span> <span class="s2">&quot;violation. </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">value</span><span class="p">,</span>
+                <span class="n">pv</span><span class="p">,</span>
+                <span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">AccessViolationException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Rejected writing value </span><span class="si">%s</span><span class="s2"> to PV </span><span class="si">%s</span><span class="s2"> due to access &quot;</span> <span class="s2">&quot;violation, PV is read-only.&quot;</span><span class="p">,</span>
+                <span class="n">value</span><span class="p">,</span>
+                <span class="n">pv</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_param_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">meta_keys</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get PV info fields from pcaspy&#39;s &quot;manager&quot; object. This function returns a dictionary</span>
+<span class="sd">        with info/value pairs, where each entry of meta_keys results in a dictionary entry if</span>
+<span class="sd">        pcaspy&#39;s PVInfo-object has such an attribute. Attributes that do not exist are ignored.</span>
+<span class="sd">        Valid attributes are the same as specified in the ``pvdb``-argument that</span>
+
+<span class="sd">        :param pv: PV base name</span>
+<span class="sd">        :param meta_keys: List of keys for what information to obtain</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Submit upstream patch to make this method available in base class</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="n">pcaspy_manager</span><span class="o">.</span><span class="n">pvs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">][</span><span class="n">pv</span><span class="p">]</span>
+
+        <span class="n">info_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">meta_keys</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+                <span class="n">info_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">info_dict</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_pv_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update PV values that have changed for PVs that are due to update according to their</span>
+<span class="sd">        respective poll interval timers.</span>
+
+<span class="sd">        :param force: If True, will force updates to all PVs regardless of timers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">seconds_since</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_last_update_call</span> <span class="ow">or</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+
+        <span class="c1"># Cache details of PVs that need to update</span>
+        <span class="n">value_updates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">meta_updates</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pv</span><span class="p">,</span> <span class="n">pv_object</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_timers</span><span class="p">[</span><span class="n">pv</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">dt</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timers</span><span class="p">[</span><span class="n">pv</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">pv_object</span><span class="o">.</span><span class="n">poll_interval</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getParam</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pv_object</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+                            <span class="n">value_updates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pv</span><span class="p">,</span> <span class="n">pv_object</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+                        <span class="n">pv_meta</span> <span class="o">=</span> <span class="n">pv_object</span><span class="o">.</span><span class="n">meta</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_param_info</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">pv_meta</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="n">pv_meta</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+                            <span class="n">meta_updates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pv</span><span class="p">,</span> <span class="n">pv_meta</span><span class="p">))</span>
+
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;An error occurred while updating PV </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
+                    <span class="k">finally</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_timers</span><span class="p">[</span><span class="n">pv</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_value_updates</span><span class="p">(</span><span class="n">value_updates</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_meta_updates</span><span class="p">(</span><span class="n">meta_updates</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_update_call</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_value_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">updates</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">updates</span><span class="p">:</span>
+            <span class="n">update_log</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">pv</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">updates</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">update_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processed PV updates: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">update_log</span><span class="p">))</span>
+
+            <span class="c1"># Calling this manually is only required for values, not for meta</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updatePVs</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_meta_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">updates</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">updates</span><span class="p">:</span>
+            <span class="n">update_log</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">pv</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">updates</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setParamInfo</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+                <span class="n">update_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">info</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processed PV-info updates: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">update_log</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="EpicsAdapter">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.EpicsAdapter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EpicsAdapter</span><span class="p">(</span><span class="n">Adapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This adapter provides ChannelAccess server functionality through the pcaspy module.</span>
+
+<span class="sd">    It&#39;s possible to configure the prefix for the PVs provided by this adapter. The</span>
+<span class="sd">    corresponding key in the ``options`` dictionary is called ``prefix``:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        options = {&quot;prefix&quot;: &quot;PVPREFIX:&quot;}</span>
+
+<span class="sd">    :param options: Dictionary with options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EpicsAdapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pvs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">pv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">complete_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">name</span>
+
+            <span class="n">data_type</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)</span>
+            <span class="n">read_only_tag</span> <span class="o">=</span> <span class="s2">&quot;, read only&quot;</span> <span class="k">if</span> <span class="n">pv</span><span class="o">.</span><span class="n">read_only</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="n">pvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}{}</span><span class="s2">):</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">complete_name</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">read_only_tag</span><span class="p">,</span> <span class="n">format_doc_text</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">doc</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;PVs</span><span class="se">\n</span><span class="s2">===&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">pvs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EpicsAdapter.start_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.EpicsAdapter.start_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a pcaspy-server.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            The server does not process requests unless :meth:`handle` is called regularly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">SimpleServer</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">createPV</span><span class="p">(</span>
+                <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span>
+                <span class="n">pvdb</span><span class="o">=</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">config</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span> <span class="o">=</span> <span class="n">PropertyExposingDriver</span><span class="p">(</span>
+                <span class="n">interface</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="n">device_lock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">process_pv_updates</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Started serving PVs: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">pv</span> <span class="k">for</span> <span class="n">pv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">bound_pvs</span><span class="o">.</span><span class="n">keys</span><span class="p">())),</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EpicsAdapter.stop_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.EpicsAdapter.stop_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="EpicsAdapter.handle">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.EpicsAdapter.handle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cycle_delay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call this method to spend about ``cycle_delay`` seconds processing</span>
+<span class="sd">        requests in the pcaspy server. Under load, for example when running ``caget`` at a</span>
+<span class="sd">        high frequency, the actual time spent in the method may be much shorter. This effect</span>
+<span class="sd">        is not corrected for.</span>
+
+<span class="sd">        :param cycle_delay: Approximate time to be spent processing requests in pcaspy server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">cycle_delay</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">process_pv_updates</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="EpicsInterface">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.epics.html#lewis.adapters.epics.EpicsInterface">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EpicsInterface</span><span class="p">(</span><span class="n">InterfaceBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inheriting from this class provides an EPICS-interface to a device for use with</span>
+<span class="sd">    :class:`EpicsAdapter`. In the simplest case all that is required is to inherit</span>
+<span class="sd">    from this class and override the ``pvs``-member. It should be a dictionary</span>
+<span class="sd">    that contains PV-names (without prefix) as keys and instances of PV as</span>
+<span class="sd">    values. The prefix is handled by ``EpicsAdapter``.</span>
+
+<span class="sd">    For a simple device with two properties, speed and position, the first of which</span>
+<span class="sd">    should be read-only, it&#39;s enough to define the following:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SimpleDeviceEpicsInterface(EpicsInterface):</span>
+<span class="sd">            pvs = {&quot;VELO&quot;: PV(&quot;speed&quot;, read_only=True), &quot;POS&quot;: PV(&quot;position&quot;, lolo=0, hihi=100)}</span>
+
+<span class="sd">    For more complex behavior, the interface could contain properties that do not</span>
+<span class="sd">    exist in the device itself. If the device should also have a PV called STOP</span>
+<span class="sd">    that &quot;stops the device&quot;, the interface could look like this:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SimpleDeviceEpicsInterface(EpicsInterface):</span>
+<span class="sd">            pvs = {</span>
+<span class="sd">                &quot;VELO&quot;: PV(&quot;speed&quot;, read_only=True),</span>
+<span class="sd">                &quot;POS&quot;: PV(&quot;position&quot;, lolo=0, hihi=100),</span>
+<span class="sd">                &quot;STOP&quot;: PV(&quot;stop&quot;, type=&quot;int&quot;),</span>
+<span class="sd">            }</span>
+
+<span class="sd">            @property</span>
+<span class="sd">            def stop(self):</span>
+<span class="sd">                return 0</span>
+
+<span class="sd">            @stop.setter</span>
+<span class="sd">            def stop(self, value):</span>
+<span class="sd">                if value == 1:</span>
+<span class="sd">                    self.device.halt()</span>
+
+<span class="sd">    Even though the device does *not* have a property called ``stop`` (but a method called</span>
+<span class="sd">    ``halt``), issuing the command</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        $ caput STOP 1</span>
+
+<span class="sd">    will achieve the desired behavior, because ``EpicsInterface`` merges the properties</span>
+<span class="sd">    of the device into ``SimpleDeviceEpicsInterface`` itself, so that it is does not</span>
+<span class="sd">    matter whether the specified property in PV exists in the device or the adapter.</span>
+
+<span class="sd">    The intention of this design is to keep device classes small and free of</span>
+<span class="sd">    protocol specific stuff, such as in the case above where stopping a device</span>
+<span class="sd">    via EPICS might involve writing a value to a PV, whereas other protocols may</span>
+<span class="sd">    offer an RPC-way of achieving the same thing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;epics&quot;</span>
+    <span class="n">pvs</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EpicsInterface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bound_pvs</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">EpicsAdapter</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bind_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method transforms the ``self.pvs`` dict of :class:`PV` objects ``self.bound_pvs``,</span>
+<span class="sd">        a dict of :class:`BoundPV` objects, the keys are always the PV-names that are exposed</span>
+<span class="sd">        via ChannelAccess.</span>
+
+<span class="sd">        In the transformation process, the method tries to find whether the attribute specified by</span>
+<span class="sd">        PV&#39;s ``property`` (and ``meta_data_property``) is part of the internally stored device</span>
+<span class="sd">        or the interface and constructs a BoundPV, which acts as a forwarder to the appropriate</span>
+<span class="sd">        objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bound_pvs</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">pv_name</span><span class="p">,</span> <span class="n">pv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pvs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bound_pvs</span><span class="p">[</span><span class="n">pv_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;An exception was caught during the binding step of PV &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span><span class="p">,</span>
+                    <span class="n">pv_name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">raise</span> <span class="n">LewisException</span><span class="p">(</span>
+                    <span class="s2">&quot;The binding step for PV &#39;</span><span class="si">{}</span><span class="s2">&#39; failed, please check the interface-&quot;</span>
+                    <span class="s2">&quot;definition or contact the device author. More information is &quot;</span>
+                    <span class="s2">&quot;available with debug-level logging (-o debug).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pv_name</span><span class="p">)</span>
+                <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

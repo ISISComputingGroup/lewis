@@ -1,0 +1,28 @@
+
+
+``lewis.devices.chopper.devices.bearings``
+==========================================
+        
+        
+        
+
+.. automodule:: lewis.devices.chopper.devices.bearings
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        Bearings
+        MagneticBearings
+        MechanicalBearings
+    
+    

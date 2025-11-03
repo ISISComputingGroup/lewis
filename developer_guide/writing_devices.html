@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Device Simulators &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release notes" href="../release_notes/release_notes.html" />
+    <link rel="prev" title="Release Checklist" href="release_checklist.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Device Simulators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparations">Preparations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#device-analysis">Device analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-the-device-simulation">Implementing the device simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementing-the-device-interface">Implementing the device interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-facing-documentation">User facing documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-tests">Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-setups">Adding setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compatibility-with-framework-versions">Compatibility with framework versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-steps">Further steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-examples">More Examples</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Writing Device Simulators</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/developer_guide/writing_devices.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="writing-device-simulators">
+<h1>Writing Device Simulators<a class="headerlink" href="#writing-device-simulators" title="Link to this heading"></a></h1>
+<p>The following section describes how to write a new device simulator, what to
+consider, and how to get the changes upstream.</p>
+<section id="preparations">
+<h2>Preparations<a class="headerlink" href="#preparations" title="Link to this heading"></a></h2>
+<p>The Lewis framework provides all the infrastructure to run device
+simulations so that developing a new simulation requires little more
+than writing code for the actual device.</p>
+<p>The process of writing a new device simulator is best explained using
+the example of a stateful device.</p>
+<p>All that is required to develop a new device is to install Lewis, preferably
+in a fresh virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install lewis
+</pre></div>
+</div>
+</section>
+<section id="device-analysis">
+<h2>Device analysis<a class="headerlink" href="#device-analysis" title="Link to this heading"></a></h2>
+<p>The hypothetical device that is to be simulated is a simple controller
+that controls one motor and can be communicated with via a
+<code class="docutils literal notranslate"><span class="pre">TCP</span> <span class="pre">&lt;https://en.wikipedia.org/wiki/Transmission_Control_Protocol&gt;</span></code>__
+connection. The user can connect to the device using telnet and submit
+commands followed by <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> (automatically added by
+<code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">&lt;https://linux.die.net/man/1/telnet&gt;</span></code>__). Responses are followed
+by <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> as well. The following commands and responses are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S?</span></code>: Returns the status of the motor connected to the controller.
+Can be either <code class="docutils literal notranslate"><span class="pre">idle</span></code> or <code class="docutils literal notranslate"><span class="pre">moving</span></code>, is initially <code class="docutils literal notranslate"><span class="pre">idle</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P?</span></code>: Returns the current position of the motor in mm. Is initially 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T=10.0</span></code>: Sets the target position to <code class="docutils literal notranslate"><span class="pre">10.0</span></code> (accepts any
+floating point number) and starts a movement if the position is
+within the limits [0, 250] and returns <code class="docutils literal notranslate"><span class="pre">T=10.0</span></code>. If the motor is
+not in idle state, it returns <code class="docutils literal notranslate"><span class="pre">err:</span> <span class="pre">not</span> <span class="pre">idle</span></code>. If the value
+violates the limits, it returns <code class="docutils literal notranslate"><span class="pre">err:</span> <span class="pre">not</span> <span class="pre">0&lt;=T&lt;=250</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T?</span></code> Returns the current target of the motor in mm. Is initially 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">H</span></code>: Stops the movement by setting the target to the current
+position and returns <code class="docutils literal notranslate"><span class="pre">T=6.555,P=6.555</span></code>. If the motor is idle,
+nothing happens, but the values are returned anyway.</p></li>
+</ul>
+<p>In the simplest approach, the parameters that can describe the device
+are:</p>
+<ul class="simple">
+<li><p>position: Read only.</p></li>
+<li><p>target: Can be read and written by the user, but with certain
+restrictions.</p></li>
+</ul>
+<p>Additionally, the device is stateful in the sense that it can be in one
+of three states.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">idle</span></code>: The motor is powered on and ready to receive commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">moving</span></code>: The motor is moving towards the user supplied target.</p></li>
+</ul>
+<p>Between those three states, different transitions exist:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">idle</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">moving</span></code>: The target position is different from the
+current position, the motor starts moving.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">moving</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">idle</span></code>: The motor has reached the target position or
+the user has supplied a stop command, which sets the target position
+to the current position, causing the motor to stop.</p></li>
+</ul>
+<p>The states and transitions described above form a finite state machine
+with two states and two transitions. This state machine forms the heart
+of the simulated device, so it should be implemented using Lewis’
+cycle based <a class="reference external" href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state
+machine</a>, which
+will be explained below.</p>
+</section>
+<section id="implementing-the-device-simulation">
+<h2>Implementing the device simulation<a class="headerlink" href="#implementing-the-device-simulation" title="Link to this heading"></a></h2>
+<p>In many cases there may eventually be more than one device simulation, so the directory
+structure should be something like this, assuming your directory is <code class="docutils literal notranslate"><span class="pre">/some/path</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+    <span class="o">|</span>
+    <span class="o">+-</span> <span class="n">my_devices</span>
+        <span class="o">|</span>
+        <span class="o">+-</span> <span class="n">device_1</span>
+        <span class="o">|</span>
+        <span class="o">+-</span> <span class="n">device_2</span>
+        <span class="o">|</span>
+        <span class="o">+-</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="p">(</span><span class="n">Empty</span> <span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each device resides in the sub-package <code class="docutils literal notranslate"><span class="pre">my_devices</span></code> in the. The first step is to create a
+new directory in the <code class="docutils literal notranslate"><span class="pre">my_devices</span></code> directory called <code class="docutils literal notranslate"><span class="pre">example_motor</span></code>,
+which should contain a single file, <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>. For simple devices
+like this it’s acceptable to put everything into one file, but for more
+complex simulators it’s recommended to follow the structure of the
+devices that are already part of the Lewis distribution.</p>
+<p>Conceptually, in Lewis, devices are split in two Parts: a device
+model, which contains internal device state, as well as potentially a
+state machine, and an interface that exposes the device to the outside
+world via a communication protocol that is provided by an “adapter”. The
+adapter specifies the communication protocol (for example
+<a class="reference external" href="http://www.aps.anl.gov/epics/">EPICS</a> or TCP/IP), whereas the
+interface specifies the syntax and semantics of the actual command
+language of the device.</p>
+<p>For the actual device simulation there are two classes to choose between
+for sub-classing. The class <code class="docutils literal notranslate"><span class="pre">lewis.devices.Device</span></code> can be used for very simple
+devices that do not require a state machine to represent their
+operation. On each simulation cycle, the method <code class="docutils literal notranslate"><span class="pre">doProcess</span></code> is
+executed if it is implemented. This can be used to implement
+time-dependent behavior. For the majority of cases, such as in the
+example, it is more convenient to inherit from <code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice</span></code>.
+It provides an internal state machine and options to override
+characteristics of the state machine on initialization.</p>
+<p><code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice</span></code> has three methods that must be implemented by
+sub-classes: <code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice._get_state_handlers</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice._get_initial_state</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice._get_transition_handlers</span></code>. They are used to define
+the state machine. A fourth, optional method can be used to initialize internal device
+state, it’s calld <code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice._initialize_data</span></code>. In this case
+the device implementation should also go into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lewis.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateMachineDevice</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.statemachine</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">approaches</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DefaultMovingState</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">in_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="n">old_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">approaches</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">old_position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Moved position (</span><span class="si">%s</span><span class="s1"> -&gt; </span><span class="si">%s</span><span class="s1">), target=</span><span class="si">%s</span><span class="s1">, speed=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">old_position</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulatedExampleMotor</span><span class="p">(</span><span class="n">StateMachineDevice</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">2.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_state_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;idle&#39;</span><span class="p">:</span> <span class="n">State</span><span class="p">(),</span>
+            <span class="s1">&#39;moving&#39;</span><span class="p">:</span> <span class="n">DefaultMovingState</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_initial_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;idle&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_transition_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">((</span><span class="s1">&#39;idle&#39;</span><span class="p">,</span> <span class="s1">&#39;moving&#39;</span><span class="p">),</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+            <span class="p">((</span><span class="s1">&#39;moving&#39;</span><span class="p">,</span> <span class="s1">&#39;idle&#39;</span><span class="p">),</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csm</span><span class="o">.</span><span class="n">state</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span>
+
+    <span class="nd">@target</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_target</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;moving&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Can not set new target while moving.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">new_target</span> <span class="o">&lt;=</span> <span class="mi">250</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Target is out of range [0, 250]&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">new_target</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Stopping movement after user request.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+</pre></div>
+</div>
+<p>This defines the state machine according to the description at the top
+of the page and some internal state variables, for example <code class="docutils literal notranslate"><span class="pre">target</span></code>,
+which has some limits on when and to what values it can be set.</p>
+<p>Both states of the motor are described by a state handler. In case of
+the <code class="docutils literal notranslate"><span class="pre">idle</span></code>-state it is enough to use <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>,
+which simply does nothing. <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code> has three methods that
+can be overridden:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State.on_entry</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State.in_state</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State.on_exit</span></code>.</p></li>
+</ul>
+<p>For other ways to specify those state handlers, please consult the documentation of
+<code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.StateMachine</span></code>, where this is described in detail.
+The advantage of using the <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>-class is that it
+has a so called context, which is stored in the <code class="docutils literal notranslate"><span class="pre">_context</span></code>-member. In case of
+<code class="docutils literal notranslate"><span class="pre">lewis.devices.StateMachineDevice</span></code>, this context is the device object.
+This means that device data can be modified in a state handler.</p>
+<p>This is the case for the <code class="docutils literal notranslate"><span class="pre">moving</span></code>-state, where a state handler has
+been defined by sub-classing <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>.
+In its <code class="docutils literal notranslate"><span class="pre">in_state</span></code>-method it modifies the <code class="docutils literal notranslate"><span class="pre">position</span></code> member of the device until it has reached
+<code class="docutils literal notranslate"><span class="pre">target</span></code> with a rate that is stored in the <code class="docutils literal notranslate"><span class="pre">speed</span></code>-member. This
+linear change behavior is implemented in the <code class="docutils literal notranslate"><span class="pre">~lewis.core.approaches.linear</span></code>-function from
+<code class="docutils literal notranslate"><span class="pre">lewis.core.approaches</span></code>. It automatically makes sure that the target is
+always obtained even for very coarse <code class="docutils literal notranslate"><span class="pre">dt</span></code>-values.</p>
+<p>The transitions between states are defined using lambda-functions in
+this case, which simply check whether the current position is identical
+with the target or not.</p>
+<p>The device also provides a read-only property <code class="docutils literal notranslate"><span class="pre">state</span></code>, which forwards
+the state machine’s (in the device as member <code class="docutils literal notranslate"><span class="pre">_csm</span></code>) state. The speed
+of the motor is not part of the device specification, but it is added as
+a member so that it can be changed via the <code class="docutils literal notranslate"><span class="pre">lewis-control</span></code> script to test
+how the motor behaves at different speeds. The device is now fully
+functional, but it’s not possible to interact with it yet, because the
+interface is not specified yet.</p>
+<section id="implementing-the-device-interface">
+<h3>Implementing the device interface<a class="headerlink" href="#implementing-the-device-interface" title="Link to this heading"></a></h3>
+<p>Device interfaces are implemented by sub-classing an appropriate
+pre-written, protocol specific interface base class from the framework’s
+<code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code>-package and overriding a few members. In this case this
+base class is called <code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.StreamInterface</span></code>. The first step
+is to specify the available commands in terms of a collection of
+<code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.Cmd</span></code>-objects. These objects effectively bind
+commands specified in terms of regular expressions to the interface’s methods.
+According to the specifications above, the commands are defined like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">scanf</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ExampleMotorStreamInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;get_status&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^S\?$&#39;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;get_position&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^P\?$&#39;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;get_target&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^T\?$&#39;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;set_target&#39;</span><span class="p">,</span> <span class="n">scanf</span><span class="p">(</span><span class="s1">&#39;T=</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">argument_mappings</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">,)),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^H$&#39;</span><span class="p">,</span>
+            <span class="n">return_mapping</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;T=</span><span class="si">{}</span><span class="s1">,P=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+    <span class="p">}</span>
+
+    <span class="n">in_terminator</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+    <span class="n">out_terminator</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">state</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">position</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">target</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_target</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">new_target</span>
+            <span class="k">return</span> <span class="s1">&#39;T=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_target</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;err: not idle&#39;</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;err: not 0&lt;=T&lt;=250&#39;</span>
+</pre></div>
+</div>
+<p>The first argument to <code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.Cmd</span></code> specifies the method
+name the command is bound to, whereas the second argument is a pattern that a
+request coming in over the TCP stream must match. If the pattern is specified as a string,
+it is treated as a regular expression. In the above example, <code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.scanf</span></code>
+is used for one of the functions, it allows for <code class="docutils literal notranslate"><span class="pre">scanf</span></code>-like format specifiers. If a method has
+arguments (such as <code class="docutils literal notranslate"><span class="pre">set_target</span></code>), these need to be defined as capture
+groups in the regular expression. These groups are passed as strings to
+the bound method. If any sort of conversion is required for these
+arguments, the <code class="docutils literal notranslate"><span class="pre">argument_mapping</span></code>-parameter can be a tuple of
+conversion functions with the same lengths as the number of capture
+groups in the regular expression. In the case of <code class="docutils literal notranslate"><span class="pre">set_target</span></code> it’s
+enough to convert the string to float, but <code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.scanf</span></code> does that
+automatically, so it is not strictly required here. Return values (except <code class="docutils literal notranslate"><span class="pre">None</span></code>)
+are converted to strings automatically, but this conversion can be
+overridden by supplying a callable object to <code class="docutils literal notranslate"><span class="pre">return_mapping</span></code>, as it
+is the case for the <code class="docutils literal notranslate"><span class="pre">stop</span></code>-command.</p>
+<p>You may have noticed that <code class="docutils literal notranslate"><span class="pre">stop</span></code> is not a method of the interface.
+<code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.StreamInterface</span></code> tries to resolve the supplied method
+names in multiple ways. First it checks its own members, then it checks the members of the
+device it owns (accessible in the interface via the <code class="docutils literal notranslate"><span class="pre">device</span></code>-member)
+and binds to the appropriate method. If the method name can not be
+found in either the device or the interface, an error is produced, which
+minimizes the likelihood of typos. The definitions in the interface
+always have precedence, this is intentionally done so that device
+behavior can be overridden later on with minimal changes to the code.</p>
+<p>In case of the <code class="docutils literal notranslate"><span class="pre">stop</span></code>-method, which returns two floating point numbers
+(target and position), the <code class="docutils literal notranslate"><span class="pre">return_mapping</span></code> is used to format the
+device’s position and target as specified in the protocol definition at
+the top of the page.</p>
+<p>Finally, in- and out-terminators need to be specified. These are
+stripped from and appended to requests and replies respectively.</p>
+<p>This entire device can also be found in the <code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code> module. It can be
+started using the <code class="docutils literal notranslate"><span class="pre">-a</span></code> and <code class="docutils literal notranslate"><span class="pre">-k</span></code> parameters of <code class="docutils literal notranslate"><span class="pre">lewis.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lewis -a /some/path -k my_devices example_motor -p &quot;stream: {bind_address: 127.0.0.1, port: 9999}&quot;
+</pre></div>
+</div>
+<p>All functionality described in the
+<code class="docutils literal notranslate"><span class="pre">user_guide</span></code>, such as accessing the device and the simulation via the
+<code class="docutils literal notranslate"><span class="pre">lewis-control.py</span></code>-script are automatically available.</p>
+</section>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h2>
+<p>Both device and interface support logging, they supply a <code class="docutils literal notranslate"><span class="pre">log</span></code> member which is
+a logger configured with the right name. The adapter already logs all important actions
+that influence the device, so in the interface it should not be necessary to do too much
+logging, but it might be interesting for debugging purposes.</p>
+<p>Note that the simulation already produces one debug log message per simulation cycle logging
+the elapsed (real-)time, so it is not necessary to log the <code class="docutils literal notranslate"><span class="pre">dt</span></code> parameters in addition.
+<code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.StateMachine</span></code> also logs on each cycle which state it is in and
+which transitions are triggered (if any). In the <code class="docutils literal notranslate"><span class="pre">lewis.core.statemachine.State</span></code>-handlers
+that are device specific, any logging should focus on the behavior in that concrete state, as
+for example demonstrated in the example above.</p>
+<p>It is also important to consider the log level. Log messages that occur on each cycle must be
+strictly limited to the <code class="docutils literal notranslate"><span class="pre">debug</span></code>-level, because they potentially produce a lot of data.
+The <code class="docutils literal notranslate"><span class="pre">info</span></code>-level and above should be used for information that is relevant to anyone running
+the simulation, such as failures or other “virtual problems” that might otherwise go unnoticed.
+A good example would be a device that ignores faulty commands - a <code class="docutils literal notranslate"><span class="pre">warning</span></code> could be logged
+with details about the command and that it was ignored.</p>
+</section>
+<section id="user-facing-documentation">
+<h2>User facing documentation<a class="headerlink" href="#user-facing-documentation" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.StreamAdapter</span></code>-class has a property
+<code class="docutils literal notranslate"><span class="pre">documentation</span></code>, which generates user facing documentation from the
+<code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream.Cmd</span></code>-objects (it can be displayed via the <code class="docutils literal notranslate"><span class="pre">-i</span></code>-flag of
+<code class="docutils literal notranslate"><span class="pre">lewis</span></code> from the <code class="docutils literal notranslate"><span class="pre">interface</span></code> object via <code class="docutils literal notranslate"><span class="pre">lewis-control.py</span></code>). The regular expression of
+each command is listed, along with a documentation string. If the <code class="docutils literal notranslate"><span class="pre">doc</span></code>-parameter is provided
+to Cmd, it is used,otherwise the docstring of the wrapped method is used (it does not matter
+whether the method is part of the device or the interface for feature to work). The latter is the
+recommended way, because it avoids duplication. But in some cases, the user- and the
+developer facing documentation may be so different that it’s useful to override the docstring.</p>
+<p>This is also combined with the docstring of the interface (in this case
+<code class="docutils literal notranslate"><span class="pre">ExampleMotorStreamInterface</span></code>), and some information about the configured host/port,
+as well as terminators. The documentation has been left out from the above code samples for
+brevity, but in the <code class="docutils literal notranslate"><span class="pre">examples</span></code>-directory, the docs are present.</p>
+<p>All adapters offer similar functionality, the purpose is that the devices are documented in
+a way that makes them easy to use by non-developers. This is especially important if the
+protocol is non-obvious.</p>
+</section>
+<section id="unit-tests">
+<h2>Unit tests<a class="headerlink" href="#unit-tests" title="Link to this heading"></a></h2>
+<p>Unit tests should be added to the <code class="docutils literal notranslate"><span class="pre">test</span></code>-directory. While it would be
+best to have unit tests for device and interface separately, it is most
+important that the tests capture overall device behavior, so that it’s
+immediately noticed when a change to Lewis’ core parts breaks the
+simulation. It also makes it easier later on to refactor and change the
+device.</p>
+</section>
+<section id="adding-setups">
+<h2>Adding setups<a class="headerlink" href="#adding-setups" title="Link to this heading"></a></h2>
+<p>In order to test certain failure scenarios of a device, setups can be
+added to a device. The easiest way is to define a dictionary called
+<code class="docutils literal notranslate"><span class="pre">setups</span></code> in the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file. A setup consists of a device
+type and initialization parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setups</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">moving</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">device_type</span><span class="o">=</span><span class="n">SimulatedExampleMotor</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">override_initial_state</span><span class="o">=</span><span class="s1">&#39;moving&#39;</span><span class="p">,</span>
+            <span class="n">override_initial_data</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">_target</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mf">20.0</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case a <code class="docutils literal notranslate"><span class="pre">moving</span></code>-scenario is defined where the motor is already
+moving to a target when the simulation is started.</p>
+</section>
+<section id="compatibility-with-framework-versions">
+<h2>Compatibility with framework versions<a class="headerlink" href="#compatibility-with-framework-versions" title="Link to this heading"></a></h2>
+<p>To make sure that users have a good experience using the newly added device,
+it should specify what version of Lewis it works with. This is achieved by
+adding another variable to the top level of the device module which contains
+a version specification:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">framework_version</span> <span class="o">=</span> <span class="s1">&#39;1.0.1&#39;</span>
+</pre></div>
+</div>
+<p>This will make sure that older or newer versions of Lewis do not present odd exceptions
+or error messages to users trying to start the device. If Lewis detects a mismatch
+between the required version and the existing version, an error message is logged
+so that users know where the problem comes from. In the ideal case this variable
+would be updated with each release of Lewis after it has been made sure that the
+device is compatible.</p>
+</section>
+<section id="further-steps">
+<h2>Further steps<a class="headerlink" href="#further-steps" title="Link to this heading"></a></h2>
+<p>Once a device is developed far enough, it’s time to submit a pull
+request. As an external contributor, this happens via a fork on github.
+Members of the development team will review the code and may make
+suggestions for changes. Once the code is acceptable, it will be merged
+into Lewis’ main branch and become a part of the distribution.</p>
+<p>If a second interface is added to a device, either using a different
+interface type or the same but with different commands, the interface
+definitions should be moved out of the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file. Lewis
+will continue to work if the interfaces are moved to a sub-folder of the
+device called <code class="docutils literal notranslate"><span class="pre">interfaces</span></code>. This needs to have its own
+<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, where interface-classes can be imported from other
+files in that module. It’s best to look at the chopper and linkam_t95
+devices that are already in Lewis.</p>
+<p>The same is true for setups. For complex setups, these should be moved
+to a sub-module of the device called <code class="docutils literal notranslate"><span class="pre">setups</span></code>, where each setup can
+live in its own file. Please see the documentation of
+<code class="docutils literal notranslate"><span class="pre">lewis.devices.import_device</span></code> for reference.</p>
+</section>
+<section id="more-examples">
+<h2>More Examples<a class="headerlink" href="#more-examples" title="Link to this heading"></a></h2>
+<p>More example devices and interfaces are provided in the <code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code> directory.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="release_checklist.html" class="btn btn-neutral float-left" title="Release Checklist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../release_notes/release_notes.html" class="btn btn-neutral float-right" title="Release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

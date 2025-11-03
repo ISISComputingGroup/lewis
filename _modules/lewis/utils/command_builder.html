@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.utils.command_builder &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.utils.command_builder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.utils.command_builder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A fluent command builder for lewis.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyStr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">regex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.utils.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ACK</span><span class="p">,</span> <span class="n">ENQ</span><span class="p">,</span> <span class="n">EOT</span><span class="p">,</span> <span class="n">ETX</span><span class="p">,</span> <span class="n">STX</span>
+
+<span class="n">string_arg</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="CmdBuilder">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CmdBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a command for the stream adapter.</span>
+
+<span class="sd">    Do this by creating this object, adding the values and then building it (this uses a fluent interface).</span>
+
+<span class="sd">    For example to read a pressure the ioc might send &quot;pres?&quot; and when that happens this should call get_pres</span>
+<span class="sd">    command would be:</span>
+<span class="sd">    &gt;&gt;&gt; CmdBuilder(&quot;get_pres&quot;).escape(&quot;pres?&quot;).build()</span>
+<span class="sd">    This will generate the regex needed by Lewis. The escape is just making sure none of the characters are special</span>
+<span class="sd">    reg ex characters.</span>
+<span class="sd">    If you wanted to set a pressure the ioc might send &quot;pres &lt;pressure&gt;&quot; where &lt;pressure&gt; is a floating point number,</span>
+<span class="sd">    the interface should call set_pres with that number. Now use:</span>
+<span class="sd">    &gt;&gt;&gt; CmdBuilder(&quot;set_pres&quot;).escape(&quot;pres &quot;).float().build()</span>
+<span class="sd">    this add float as a regularly expression capture group for your argument. It is equivalent to:</span>
+<span class="sd">    &gt;&gt;&gt; Cmd(&quot;set_pres&quot;, &quot;pres ([+-]?\\d+\\.?\\d*)&quot;)</span>
+<span class="sd">    There are various arguments like int and digit. Finally some special characters are included so if your protocol</span>
+<span class="sd">    uses enquirey character ascii 5 you can match is using</span>
+<span class="sd">    &gt;&gt;&gt; CmdBuilder(&quot;set_pres&quot;).escape(&quot;pres?&quot;).enq().build()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_method</span><span class="p">,</span> <span class="n">arg_sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a builder. Use build to create the final object</span>
+
+<span class="sd">        :param target_method: name of the method target to call when the reg ex matches</span>
+<span class="sd">        :param arg_sep: separators between arguments which are next to each other</span>
+<span class="sd">        :param ignore: set of characters to ignore between text and arguments</span>
+<span class="sd">        :param ignore_case: ignore the case when matching command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_method</span> <span class="o">=</span> <span class="n">target_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_arg_sep</span> <span class="o">=</span> <span class="n">arg_sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sep</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">ignore</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ignore</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">]*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ignore</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_case</span> <span class="o">=</span> <span class="n">ignore_case</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_to_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="p">,</span> <span class="n">is_arg</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span> <span class="o">+=</span> <span class="n">regex</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_arg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_sep</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="CmdBuilder.optional">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.optional">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add some escaped text which does not necessarily need to be there. For commands with optional parameters</span>
+<span class="sd">        :param text: Text to add</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="s2">&quot;(?:&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)?&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.escape">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.escape">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">escape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add some text to the regex which is escaped.</span>
+
+<span class="sd">        :param text: text to add</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.regex">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.regex">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_regex</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a regex to match but not as an argument.</span>
+
+<span class="sd">        :param new_regex: regex to add</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="n">new_regex</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.enum">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.enum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">allowed_values</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Matches one of a set of specified strings.</span>
+
+<span class="sd">        :param allowed_values: the values this function is allowed to match</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span>
+            <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">allowed_values</span><span class="p">])),</span>
+            <span class="n">is_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string_arg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.spaces">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.spaces">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">at_least_one</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a regex for any number of spaces</span>
+
+<span class="sd">        :param at_least_one: true there must be at least one space; false there can be any number including zero</span>
+<span class="sd">        :return: builder</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wildcard</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="k">if</span> <span class="n">at_least_one</span> <span class="k">else</span> <span class="s2">&quot;*&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">wildcard</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.arg">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.arg">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg_regex</span><span class="p">,</span> <span class="n">argument_mapping</span><span class="p">:</span> <span class="n">partial</span> <span class="o">=</span> <span class="n">string_arg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an argument to the command.</span>
+
+<span class="sd">        :param arg_regex: regex for the argument (capture group will be added)</span>
+<span class="sd">        :param argument_mapping: the type mapping for the argument (default is str)</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_sep</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">arg_regex</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg_sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">argument_mapping</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.string">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an argument which is a string of a given length (if blank string is any length)</span>
+
+<span class="sd">        :param length: length of string; None for any length</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="s2">&quot;.+&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="s2">&quot;.{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.float">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.float">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ignore</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a float argument.</span>
+
+<span class="sd">        :param mapping: The type to cast the response to (default: float)</span>
+<span class="sd">        :param ignore: True to match with a float but ignore the returned value (default: False)</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[+-]?\d+\.?\d*&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="n">regex</span><span class="p">)</span> <span class="k">if</span> <span class="n">ignore</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.digit">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.digit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">digit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ignore</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a single digit argument.</span>
+
+<span class="sd">        :param mapping: The type to cast the response to (default: int)</span>
+<span class="sd">        :param ignore: True to match with a digit but ignore the returned value (default: False)</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">ignore</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.char">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.char">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">char</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">not_chars</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a single character argument.</span>
+
+<span class="sd">        :param not_chars: characters that the character can not be; None for can be anything</span>
+<span class="sd">        :param ignore: True to match with a char but ignore the returned value (default: False)</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;.&quot;</span> <span class="k">if</span> <span class="n">not_chars</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;[^</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">not_chars</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="n">_regex</span><span class="p">)</span> <span class="k">if</span> <span class="n">ignore</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="n">_regex</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.int">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ignore</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an integer argument.</span>
+
+<span class="sd">        :param mapping: The type to cast the response to (default: int)</span>
+<span class="sd">        :param ignore: True to match with a int but ignore the returned value (default: False)</span>
+<span class="sd">        :return:  builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[+-]?\d+&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="n">_regex</span><span class="p">)</span> <span class="k">if</span> <span class="n">ignore</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="n">_regex</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.any">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.any">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">any</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an argument that matches anything.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.any_except">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.any_except">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">any_except</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">char</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds an argument that matches anything other than a specified character (useful for commands containing</span>
+<span class="sd">        delimiters)</span>
+
+<span class="sd">        :param char: the character not to match</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^</span><span class="si">{}</span><span class="s2">]*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">char</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.build">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.build">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cmd</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds the CMd object based on the target and regular expression.</span>
+
+<span class="sd">        :param args: arguments to pass to Cmd constructor</span>
+<span class="sd">        :param kwargs: key word arguments to pass to Cmd constructor</span>
+<span class="sd">        :return: Cmd object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_case</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">regex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span><span class="p">)</span>
+            <span class="n">pattern</span><span class="o">.</span><span class="n">compiled_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span>
+        <span class="k">return</span> <span class="n">Cmd</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_target_method</span><span class="p">,</span>
+            <span class="n">pattern</span><span class="p">,</span>
+            <span class="n">argument_mappings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.add_ascii_character">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.add_ascii_character">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_ascii_character</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">char_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a single character based on its integer value, e.g. 49 is &#39;a&#39;.</span>
+
+<span class="sd">        :param char_number: character number</span>
+<span class="sd">        :return: self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_regex</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">char_number</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.stx">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.stx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the STX character (0x2) to the string.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">STX</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.etx">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.etx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">etx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the ETX character (0x3) to the string.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">ETX</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.eot">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.eot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the EOT character (0x4) to the string.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">EOT</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.enq">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.enq">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enq</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the ENQ character (0x5) to the string.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">ENQ</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.ack">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.ack">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ack</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the ACK character (0x6) to the string.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">ACK</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.eos">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.eos">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eos</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the regex end-of-string character to a command.</span>
+
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg_ex</span> <span class="o">+=</span> <span class="s2">&quot;$&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="CmdBuilder.get_multicommands">
+<a class="viewcode-back" href="../../../generated/lewis.utils.command_builder.html#lewis.utils.command_builder.CmdBuilder.get_multicommands">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_multicommands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_separator</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CmdBuilder&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows emulator to split multiple commands separated by a defined command separator, e.g. &quot;;&quot;.</span>
+<span class="sd">        Must be accompanied by stream device methods. See Keithley 2700 for examples</span>
+
+<span class="sd">        :param command_separator: Character(s) that separate commands</span>
+<span class="sd">        :return: builder</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="s2">&quot;[^&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">command_separator</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">command_separator</span><span class="p">)</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="s2">&quot;.*&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

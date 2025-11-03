@@ -1,0 +1,1040 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.stream &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.adapters.stream</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.adapters.stream</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asynchat</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncore</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scanf</span><span class="w"> </span><span class="kn">import</span> <span class="n">scanf_compile</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Adapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterfaceBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_doc_text</span>
+
+
+<div class="viewcode-block" id="StreamHandler">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamHandler">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StreamHandler</span><span class="p">(</span><span class="n">asynchat</span><span class="o">.</span><span class="n">async_chat</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">stream_server</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">asynchat</span><span class="o">.</span><span class="n">async_chat</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="o">=</span><span class="n">sock</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_terminator</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">in_terminator</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readtimeout</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">readtimeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_server</span> <span class="o">=</span> <span class="n">stream_server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_logging_context</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client connected from </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">sock</span><span class="o">.</span><span class="n">getpeername</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readtimeout</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readtimeout</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_terminator</span><span class="p">():</span>
+                <span class="c1"># If no terminator is set, this timeout is the terminator</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">found_terminator</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_request</span><span class="p">()</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream_server</span><span class="o">.</span><span class="n">device_lock</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;ReadTimeout while waiting for command terminator.&quot;</span><span class="p">)</span>
+                    <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">+=</span> <span class="n">msec</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">collect_incoming_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Got request </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reply</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">reply</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+            <span class="n">out_terminator</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">out_terminator</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">out_terminator</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">out_terminator</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">reply</span> <span class="o">+</span> <span class="n">out_terminator</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem creating reply, type error </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_send_reply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reply</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Sending reply </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">reply</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Error while processing request&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">handle_error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">found_terminator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readtimer</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_request</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream_server</span><span class="o">.</span><span class="n">device_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cmd</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">cmd</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">bound_commands</span> <span class="k">if</span> <span class="n">cmd</span><span class="o">.</span><span class="n">can_process</span><span class="p">(</span><span class="n">request</span><span class="p">)),</span>
+                    <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">cmd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;None of the device&#39;s commands matched.&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Processing request </span><span class="si">%s</span><span class="s2"> using command </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">request</span><span class="p">,</span>
+                    <span class="n">cmd</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">reply</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">process_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">unsolicited_reply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reply</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Sending unsolicited reply </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">reply</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closing connection to client </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">getpeername</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_server</span><span class="o">.</span><span class="n">remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">asynchat</span><span class="o">.</span><span class="n">async_chat</span><span class="o">.</span><span class="n">handle_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+
+<span class="nd">@has_log</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StreamServer</span><span class="p">(</span><span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">device_lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span> <span class="o">=</span> <span class="n">device_lock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_reuse_addr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_logging_context</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Listening on </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_accept</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sock</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">pair</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">StreamHandler</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># As this is an old style class, the base class method must</span>
+        <span class="c1"># be called directly. This is important to still perform all</span>
+        <span class="c1"># the teardown-work that asyncore.dispatcher does.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Shutting down server, closing all remaining client connections.&quot;</span><span class="p">)</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># But in addition, close all open sockets and clear the connection list.</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="p">:</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accepted_connections</span><span class="p">:</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">msec</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PatternMatcher">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.PatternMatcher">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PatternMatcher</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class defines an interface for general command-matchers that use any kind of</span>
+<span class="sd">    technique to match a certain request in string form. It is used by :class:`Func` to check</span>
+<span class="sd">    whether a request can be processed using a function and to extract any function arguments.</span>
+
+<span class="sd">    Sub-classes must implement all defined abstract methods/properties.</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        :class:`regex`, :class:`scanf` are concrete implementations of this class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span> <span class="o">=</span> <span class="n">pattern</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The pattern definition used for matching a request.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">arg_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of arguments that are matched in a request.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The arg_count property must be implemented.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">argument_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mapping functions that can be applied to the arguments returned by :meth:`match`.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The argument_mappings property must be implemented.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PatternMatcher.match">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.PatternMatcher.match">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to match the request against the internally stored pattern. Returns any matched</span>
+<span class="sd">        function arguments.</span>
+
+<span class="sd">        :param request: Request to attempt matching.</span>
+<span class="sd">        :return: List of matched argument values (possibly empty) or None if not matching.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The match-method must be implemented.&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="regex">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.regex">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">regex</span><span class="p">(</span><span class="n">PatternMatcher</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of :class:`PatternMatcher` that compiles the specified pattern into a regular</span>
+<span class="sd">    expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">compiled_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">arg_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiled_pattern</span><span class="o">.</span><span class="n">groups</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">argument_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="regex.match">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.regex.match">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiled_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="scanf">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.scanf">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">scanf</span><span class="p">(</span><span class="n">regex</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interprets the specified pattern as a scanf format. Internally, the scanf_ package is used</span>
+<span class="sd">    to transform the format into a regular expression. Please consult the documentation of scanf_</span>
+<span class="sd">    for valid pattern specifications.</span>
+
+<span class="sd">    By default, the resulting regular expression matches exactly. Consider this example:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        exact = scanf(&quot;T=%f&quot;)</span>
+<span class="sd">        not_exact = scanf(&quot;T=%f&quot;, exact_match=False)</span>
+
+<span class="sd">    The first pattern only matches the string ``T=4.0``, whereas the second would also match</span>
+<span class="sd">    ``T=4.0garbage``. Please note that the specifiers like ``%f`` are automatically turned into</span>
+<span class="sd">    groups in the generated regular expression.</span>
+
+<span class="sd">    :param pattern: Scanf format specification.</span>
+<span class="sd">    :param exact_match: Match only if the entire string matches.</span>
+
+<span class="sd">    .. _scanf: https://github.com/joshburnett/scanf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">exact_match</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scanf_pattern</span> <span class="o">=</span> <span class="n">pattern</span>
+
+        <span class="n">generated_regex</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_mappings</span> <span class="o">=</span> <span class="n">scanf_compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="n">regex_pattern</span> <span class="o">=</span> <span class="n">generated_regex</span><span class="o">.</span><span class="n">pattern</span>
+
+        <span class="k">if</span> <span class="n">exact_match</span><span class="p">:</span>
+            <span class="n">regex_pattern</span> <span class="o">=</span> <span class="s2">&quot;^</span><span class="si">{}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regex_pattern</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">scanf</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">regex_pattern</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scanf_pattern</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">argument_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_mappings</span></div>
+
+
+
+<div class="viewcode-block" id="Func">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.Func">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Func</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Objects of this type connect a callable object to a pattern matcher (:class:`PatternMatcher`),</span>
+<span class="sd">    which currently comprises :class:`regex` and :class:`scanf`. Strings are also</span>
+<span class="sd">    accepted, they are treated like a regular expression internally. This preserves default</span>
+<span class="sd">    behavior from older versions of Lewis.</span>
+
+<span class="sd">    In general, Func-objects should not be created directly, instead they are created by one of</span>
+<span class="sd">    the sub-classes of :class:`CommandBase` using :meth:`~CommandBase.bind`.</span>
+
+<span class="sd">    Function arguments are indicated by groups in the regular expression. The number of</span>
+<span class="sd">    groups has to match the number of arguments of the function. In earlier versions of Lewis it</span>
+<span class="sd">    was possible to pass flags to ``re.compile``, this has been removed for consistency issues</span>
+<span class="sd">    in :class:`Var`. It is however still possible to use the exact same flags as part of the</span>
+<span class="sd">    regular expression. In the documentation of re_, this is outlined, simply add a group to the</span>
+<span class="sd">    expression that contains the flags, for example ``(?i)`` to make the expression case</span>
+<span class="sd">    insensitive. This special group does not count towards the matching groups used for argument</span>
+<span class="sd">    capture.</span>
+
+<span class="sd">    The optional argument_mappings can be an iterable of callables with one parameter of the</span>
+<span class="sd">    same length as the number of arguments of the function. The first parameter will be</span>
+<span class="sd">    transformed using the first function, the second using the second function and so on.</span>
+<span class="sd">    This can be useful to automatically transform strings provided by the adapter into a proper</span>
+<span class="sd">    data type such as ``int`` or ``float`` before they are passed to the function. In case the</span>
+<span class="sd">    pattern is of type :class:`scanf`, this is optional (but will override the mappings</span>
+<span class="sd">    provided by the matcher).</span>
+
+<span class="sd">    The return_mapping argument is similar, it should map the return value of the function</span>
+<span class="sd">    to a string. The default map function only does that when the supplied value</span>
+<span class="sd">    is not None. It can also be set to a numeric value or a string constant so that the</span>
+<span class="sd">    command always returns the same value. If it is ``None``, the return value is not</span>
+<span class="sd">    modified at all.</span>
+
+<span class="sd">    Finally, documentation can be provided by passing the doc-argument. If it is omitted,</span>
+<span class="sd">    the docstring of the bound function is used and if that is not present, left empty.</span>
+
+<span class="sd">    :param func: Function to be called when pattern matches or member of device/interface.</span>
+<span class="sd">    :param pattern: :class:`regex`, :class:`scanf` object or string.</span>
+<span class="sd">    :param argument_mappings: Iterable with mapping functions from string to some type.</span>
+<span class="sd">    :param return_mapping: Mapping function for return value of method.</span>
+<span class="sd">    :param doc: Description of the command. If not supplied, the docstring is used.</span>
+
+<span class="sd">    :raises: RuntimeError: If the function cannot be mapped for any reason.</span>
+
+<span class="sd">    .. _re: https://docs.python.org/2/library/re.html#regular-expression-syntax</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">argument_mappings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can not construct a Func-object from a non callable object.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+
+        <span class="n">func_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pattern</span> <span class="o">=</span> <span class="n">regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">re</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The pattern &#39;</span><span class="si">{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">&#39; for function &#39;</span><span class="si">{</span><span class="n">func_name</span><span class="si">}</span><span class="s2">&#39; is invalid regex: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span>
+
+        <span class="k">if</span> <span class="n">argument_mappings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">argument_mappings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">argument_mappings</span> <span class="ow">or</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inspect</span><span class="o">.</span><span class="n">getcallargs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">arg_count</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The number of arguments for function &#39;</span><span class="si">{}</span><span class="s2">&#39; matched by pattern &quot;</span>
+                <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; is not compatible with number of defined &quot;</span>
+                <span class="s2">&quot;groups in pattern (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">func_name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">arg_count</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">argument_mappings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">arg_count</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">argument_mappings</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Supplied argument mappings for function matched by pattern &#39;</span><span class="si">{}</span><span class="s2">&#39; specify </span><span class="si">{}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot;argument(s), but the function has </span><span class="si">{}</span><span class="s2"> arguments.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">argument_mappings</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">arg_count</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span> <span class="o">=</span> <span class="n">argument_mappings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span> <span class="o">=</span> <span class="n">return_mapping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span> <span class="ow">or</span> <span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Request can not be processed.&quot;</span><span class="p">)</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_arguments</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_return_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Func.map_arguments">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.Func.map_arguments">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the mapped function arguments. If no mapping functions are defined, the arguments</span>
+<span class="sd">        are returned as they were supplied.</span>
+
+<span class="sd">        :param arguments: List of arguments for bound function as strings.</span>
+<span class="sd">        :return: Mapped arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">arguments</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="Func.map_return_value">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.Func.map_return_value">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_return_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the mapped return_value of a processed request. If no return_mapping has been</span>
+<span class="sd">        defined, the value is returned as is. If return_mapping is a static value, that value</span>
+<span class="sd">        is returned, ignoring return_value completely.</span>
+
+<span class="sd">        :param return_value: Value to map.</span>
+<span class="sd">        :return: Mapped return value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span><span class="p">(</span><span class="n">return_value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span>
+
+        <span class="k">return</span> <span class="n">return_value</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CommandBase">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.CommandBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CommandBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the common base class of :class:`Cmd` and :class:`Var`. The concept of commands for</span>
+<span class="sd">    the stream adapter is based on connecting a callable object to a pattern that matches an</span>
+<span class="sd">    inbound request.</span>
+
+<span class="sd">    The type of pattern can be either an implementation of :class:`PatternMatcher`</span>
+<span class="sd">    (regex or scanf format specification) or a plain string (which is treated as a regular</span>
+<span class="sd">    expression).</span>
+
+<span class="sd">    For free function and lambda expressions this is straightforward: the function object can</span>
+<span class="sd">    simply be stored together with the pattern. Most often however, the callable</span>
+<span class="sd">    is a method of the device or interface object - these do not exist when the commands are</span>
+<span class="sd">    defined.</span>
+
+<span class="sd">    This problem is solved by introducing a &quot;bind&quot;-step in :class:`StreamAdapter`. So instead</span>
+<span class="sd">    of a function object, both :class:`Cmd` and :class:`Var` store the name of a member of device</span>
+<span class="sd">    or interface. At &quot;bind-time&quot;, this is translated into the correct callable.</span>
+
+<span class="sd">    So instead of using :class:`Cmd` or :class:`Var` directly, both classes&#39; :meth:`bind`-methods</span>
+<span class="sd">    return an iterable of :class:`Func`-objects which can be used for processing requests.</span>
+<span class="sd">    :class:`StreamAdapter` performs this bind-step when it&#39;s constructed. For details regarding</span>
+<span class="sd">    the implementations, please see the corresponding classes.</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        Please take a look at :class:`Cmd` for exposing callable objects or methods of</span>
+<span class="sd">        device/interface and :class:`Var` for exposing attributes and properties.</span>
+
+<span class="sd">        To see how argument_mappings, return_mapping and doc are applied, please look at</span>
+<span class="sd">        :class:`Func`.</span>
+
+<span class="sd">    :param func: Function to be called when pattern matches or member of device/interface.</span>
+<span class="sd">    :param pattern: Pattern to match (:class:`PatternMatcher` or string).</span>
+<span class="sd">    :param argument_mappings: Iterable with mapping functions from string to some type.</span>
+<span class="sd">    :param return_mapping: Mapping function for return value of method.</span>
+<span class="sd">    :param doc: Description of the command. If not supplied, the docstring is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">argument_mappings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span> <span class="o">=</span> <span class="n">argument_mappings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span> <span class="o">=</span> <span class="n">return_mapping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Binders need to implement the bind method.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Cmd">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.Cmd">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cmd</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is an implementation of :class:`CommandBase` that can expose a callable object</span>
+<span class="sd">    or a named method of the device/interface controlled by :class:`StreamAdapter`.</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        def random():</span>
+<span class="sd">            return 6</span>
+
+<span class="sd">        SomeInterface(StreamInterface):</span>
+<span class="sd">            commands = {</span>
+<span class="sd">                Cmd(lambda: 4, pattern=&#39;^R$&#39;, doc=&#39;Returns a random number.&#39;),</span>
+<span class="sd">                Cmd(&#39;random&#39;, pattern=&#39;^RR$&#39;, doc=&#39;Better random number.&#39;),</span>
+<span class="sd">                Cmd(random, pattern=&#39;^RRR$&#39;, doc=&#39;The best random number.&#39;),</span>
+<span class="sd">            }</span>
+
+<span class="sd">            def random(self):</span>
+<span class="sd">                return 5</span>
+
+<span class="sd">    The interface defined by the above example has three commands, ``R`` which calls a lambda</span>
+<span class="sd">    function that always returns 4, ``RR``, which calls ``SomeInterface.random`` and returns 5 and</span>
+<span class="sd">    lastly ``RRR`` which calls the free function defined above and returns the best random number.</span>
+
+<span class="sd">    For a detailed explanation of requirements to the constructor arguments, please refer to the</span>
+<span class="sd">    documentation of :class:`Func`, to which the arguments are forwarded.</span>
+
+<span class="sd">    .. seealso ::</span>
+
+<span class="sd">        :class:`Var` exposes attributes and properties of a device object. The documentation</span>
+<span class="sd">        of :class:`Func` provides more information about the common constructor arguments.</span>
+
+<span class="sd">    :param func: Function to be called when pattern matches or member of device/interface.</span>
+<span class="sd">    :param pattern: Pattern to match (:class:`PatternMatcher` or string).</span>
+<span class="sd">    :param argument_mappings: Iterable with mapping functions from string to some type.</span>
+<span class="sd">    :param return_mapping: Mapping function for return value of method.</span>
+<span class="sd">    :param doc: Description of the command. If not supplied, the docstring is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">func</span><span class="p">,</span>
+        <span class="n">pattern</span><span class="p">,</span>
+        <span class="n">argument_mappings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">return_mapping</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+        <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cmd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">argument_mappings</span><span class="p">,</span> <span class="n">return_mapping</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Func</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="Var">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.Var">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Var</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    With this implementation of :class:`CommandBase` it&#39;s possible to expose plain data attributes</span>
+<span class="sd">    or properties of device or interface. Getting and setting a value are separate procedures</span>
+<span class="sd">    which both have their own pattern, read_pattern and write_pattern to match a command each.</span>
+<span class="sd">    Please note that write_pattern has to have exactly one group defined to match a parameter.</span>
+
+<span class="sd">    Due to this separation, parameters can be made read-only, write-only or read-write in the</span>
+<span class="sd">    interface:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SomeInterface(StreamInterface):</span>
+<span class="sd">            commands = {</span>
+<span class="sd">                Var(&#39;foo&#39;, read_pattern=&#39;^F$&#39;, write_pattern=r&#39;^F=(\d+)$&#39;,</span>
+<span class="sd">                    argument_mappings=(int,), doc=&#39;An integer attribute.&#39;),</span>
+<span class="sd">                Var(&#39;bar&#39; read_pattern=&#39;^B$&#39;)</span>
+<span class="sd">            }</span>
+
+<span class="sd">            foo = 10</span>
+
+<span class="sd">            @property</span>
+<span class="sd">            def bar(self):</span>
+<span class="sd">                return self.foo + 5</span>
+
+<span class="sd">            @bar.setter</span>
+<span class="sd">            def bar(self, new_bar):</span>
+<span class="sd">                self.foo = new_bar - 5</span>
+
+<span class="sd">    In the above example, the foo attribute can be read and written, it&#39;s automatically converted</span>
+<span class="sd">    to an integer, while bar is a property that can only be read via the stream protocol.</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        For exposing methods and free functions, there&#39;s the :class:`Cmd`-class.</span>
+
+<span class="sd">    :param target_member: Attribute or property of device/interface to expose.</span>
+<span class="sd">    :param read_pattern: Pattern to match for getter (:class:`PatternMatcher` or string).</span>
+<span class="sd">    :param write_pattern: Pattern to match for setter (:class:`PatternMatcher` or string).</span>
+<span class="sd">    :param argument_mappings: Iterable with mapping functions from string to some type,</span>
+<span class="sd">                              only applied to setter.</span>
+<span class="sd">    :param return_mapping: Mapping function for return value of method,</span>
+<span class="sd">                           applied to getter and setter.</span>
+<span class="sd">    :param doc: Description of the command. If not supplied, the docstring is used. For plain data</span>
+<span class="sd">                attributes the only way to get docs is to supply this argument.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_member</span><span class="p">,</span>
+        <span class="n">read_pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">write_pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">argument_mappings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">return_mapping</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+        <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_member</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">argument_mappings</span><span class="p">,</span> <span class="n">return_mapping</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_pattern</span> <span class="o">=</span> <span class="n">read_pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_pattern</span> <span class="o">=</span> <span class="n">write_pattern</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">funcs</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_pattern</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">getter</span><span class="p">():</span>
+                <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+
+            <span class="c1"># Copy docstring if target is a @property</span>
+            <span class="n">prop</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prop</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isdatadescriptor</span><span class="p">(</span><span class="n">prop</span><span class="p">):</span>
+                <span class="n">getter</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;Getter: &quot;</span> <span class="o">+</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+            <span class="n">funcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Func</span><span class="p">(</span>
+                    <span class="n">getter</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">read_pattern</span><span class="p">,</span>
+                    <span class="n">return_mapping</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span><span class="p">,</span>
+                    <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_pattern</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">setter</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
+
+            <span class="c1"># Copy docstring if target is a @property</span>
+            <span class="n">prop</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prop</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isdatadescriptor</span><span class="p">(</span><span class="n">prop</span><span class="p">):</span>
+                <span class="n">setter</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;Setter: &quot;</span> <span class="o">+</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+            <span class="n">funcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Func</span><span class="p">(</span>
+                    <span class="n">setter</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">write_pattern</span><span class="p">,</span>
+                    <span class="n">argument_mappings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">argument_mappings</span><span class="p">,</span>
+                    <span class="n">return_mapping</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_mapping</span><span class="p">,</span>
+                    <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">funcs</span></div>
+
+
+
+<div class="viewcode-block" id="StreamAdapter">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamAdapter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StreamAdapter</span><span class="p">(</span><span class="n">Adapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The StreamAdapter is the bridge between the Device Interface and the TCP Stream networking</span>
+<span class="sd">    backend implementation.</span>
+
+<span class="sd">    Available adapter options are:</span>
+
+<span class="sd">     - bind_address: IP of network adapter to bind on (defaults to 0.0.0.0, or all adapters)</span>
+<span class="sd">     - port: Port to listen on (defaults to 9999)</span>
+<span class="sd">     - telnet_mode: When True, overrides in- and out-terminator for CRNL (defaults to False)</span>
+
+<span class="sd">    :param options: Dictionary with options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;telnet_mode&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;bind_address&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">9999</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamAdapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">cmd</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span>
+                <span class="n">format_doc_text</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">doc</span> <span class="ow">or</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">func</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">bound_commands</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">format_doc_text</span><span class="p">(</span>
+            <span class="s2">&quot;Listening on: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Port: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Request terminator: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Reply terminator: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">bind_address</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">in_terminator</span><span class="p">),</span>
+                <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">out_terminator</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Parameters</span><span class="se">\n</span><span class="s2">==========&quot;</span><span class="p">,</span>
+                <span class="n">options</span><span class="p">,</span>
+                <span class="s2">&quot;Commands</span><span class="se">\n</span><span class="s2">========&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="o">+</span> <span class="n">commands</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="StreamAdapter.start_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamAdapter.start_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the TCP stream server, binding to the configured host and port.</span>
+<span class="sd">        Host and port are configured via the command line arguments.</span>
+
+<span class="sd">        .. note:: The server does not process requests unless</span>
+<span class="sd">                  :meth:`handle` is called in regular intervals.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">telnet_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">in_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">out_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">StreamServer</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">bind_address</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">device_lock</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StreamAdapter.stop_server">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamAdapter.stop_server">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="StreamAdapter.handle">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamAdapter.handle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cycle_delay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spend approximately ``cycle_delay`` seconds to process requests to the server.</span>
+
+<span class="sd">        :param cycle_delay: S</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">asyncore</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="n">cycle_delay</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">cycle_delay</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="StreamInterface">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamInterface">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StreamInterface</span><span class="p">(</span><span class="n">InterfaceBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is used to provide a TCP-stream based interface to a device.</span>
+
+<span class="sd">    Many hardware devices use a protocol that is based on exchanging text with a client via</span>
+<span class="sd">    a TCP stream. Sometimes RS232-based devices are also exposed this way via an adapter-box.</span>
+<span class="sd">    This adapter makes it easy to mimic such a protocol.</span>
+
+<span class="sd">    This class has the following attributes which may be overridden by subclasses:</span>
+
+<span class="sd">     - protocol: What this interface is called for purposes of the -p commandline option.</span>
+<span class="sd">       Defaults to &quot;stream&quot;.</span>
+<span class="sd">     - in_terminator, out_terminator: These define how lines are terminated when transferred</span>
+<span class="sd">       to and from the device respectively. They are stripped/added automatically.</span>
+<span class="sd">       Inverse of protocol file InTerminator and OutTerminator. The default is ``\\r``.</span>
+<span class="sd">     - readtimeout: How many msec to wait for additional data between packets, once transmission</span>
+<span class="sd">       of an incoming command has begun. Inverse of ReadTimeout in protocol files.</span>
+<span class="sd">       Defaults to 100 (ms). Set to 0 to disable timeout completely.</span>
+<span class="sd">     - commands: A list of :class:`~CommandBase`-objects that define mappings between protocol</span>
+<span class="sd">       and device/interface methods/attributes.</span>
+
+<span class="sd">    By default, commands are expressed as regular expressions, a simple example may look like this:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        class SimpleDeviceStreamInterface(StreamInterface):</span>
+<span class="sd">            commands = [</span>
+<span class="sd">                Cmd(&#39;set_speed&#39;, r&#39;^S=([0-9]+)$&#39;, argument_mappings=[int]),</span>
+<span class="sd">                Cmd(&#39;get_speed&#39;, r&#39;^S\?$&#39;)</span>
+<span class="sd">                Var(&#39;speed&#39;, read_pattern=r&#39;^V\?$&#39;, write_pattern=r&#39;^V=([0-9]+)$&#39;)</span>
+<span class="sd">            ]</span>
+
+<span class="sd">            def set_speed(self, new_speed):</span>
+<span class="sd">                self.device.speed = new_speed</span>
+
+<span class="sd">            def get_speed(self):</span>
+<span class="sd">                return self.device.speed</span>
+
+<span class="sd">    The interface has two commands, ``S?`` to return the speed and ``S=10`` to set the speed</span>
+<span class="sd">    to an integer value. It also exposes the same speed attribute as a variable, using auto-</span>
+<span class="sd">    generated ``V?`` and ``V=10`` commands.</span>
+
+<span class="sd">    As in the :class:`lewis.adapters.epics.EpicsInterface`, it does not matter whether the</span>
+<span class="sd">    wrapped method is a part of the device or of the interface, this is handled automatically when</span>
+<span class="sd">    a new device is assigned to the ``device``-property.</span>
+
+<span class="sd">    In addition, the :meth:`handle_error`-method can be overridden. It is called when an exception</span>
+<span class="sd">    is raised while handling commands.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;stream&quot;</span>
+
+    <span class="n">in_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span>
+    <span class="n">out_terminator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span>
+
+    <span class="n">readtimeout</span> <span class="o">=</span> <span class="mi">100</span>
+
+    <span class="n">commands</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bound_commands</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adapter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">StreamAdapter</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bind_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method implements ``_bind_device`` from :class:`~lewis.core.devices.InterfaceBase`.</span>
+<span class="sd">        It binds Cmd and Var definitions to implementations in Interface and Device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bound_commands</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">:</span>
+            <span class="n">bound</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cmd</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">bound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to produce callable object for non-existing member &#39;</span><span class="si">{}</span><span class="s2">&#39; &quot;</span>
+                    <span class="s2">&quot;of device or interface.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">bound_cmd</span> <span class="ow">in</span> <span class="n">bound</span><span class="p">:</span>
+                <span class="n">pattern</span> <span class="o">=</span> <span class="n">bound_cmd</span><span class="o">.</span><span class="n">matcher</span><span class="o">.</span><span class="n">pattern</span>
+                <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;The regular expression </span><span class="si">{}</span><span class="s2"> is &quot;</span> <span class="s2">&quot;associated with multiple commands.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">pattern</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="n">patterns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">bound_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bound_cmd</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StreamInterface.handle_error">
+<a class="viewcode-back" href="../../../generated/lewis.adapters.stream.html#lewis.adapters.stream.StreamInterface.handle_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override this method to handle exceptions that are raised during command processing.</span>
+<span class="sd">        The default implementation does nothing, so that any errors are silently ignored.</span>
+
+<span class="sd">        :param request: The request that resulted in the error.</span>
+<span class="sd">        :param error: The exception that was raised.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

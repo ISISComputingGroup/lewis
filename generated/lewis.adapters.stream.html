@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.adapters.stream &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lewis.core" href="lewis.core.html" />
+    <link rel="prev" title="lewis.adapters.modbus" href="lewis.adapters.modbus.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lewis
+              <img src="../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../_api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.epics.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.epics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lewis.adapters.modbus.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.modbus</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.core.html"><code class="docutils literal notranslate"><span class="pre">lewis.core</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.devices.html"><code class="docutils literal notranslate"><span class="pre">lewis.devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.examples.html"><code class="docutils literal notranslate"><span class="pre">lewis.examples</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.scripts.html"><code class="docutils literal notranslate"><span class="pre">lewis.scripts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lewis.utils.html"><code class="docutils literal notranslate"><span class="pre">lewis.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../_api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="lewis.html"><code class="docutils literal notranslate"><span class="pre">lewis</span></code></a></li>
+          <li class="breadcrumb-item"><a href="lewis.adapters.html"><code class="docutils literal notranslate"><span class="pre">lewis.adapters</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ISISComputingGroup/lewis/blob/main/doc/generated/lewis.adapters.stream.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lewis.adapters.stream">
+<span id="lewis-adapters-stream"></span><h1><code class="docutils literal notranslate"><span class="pre">lewis.adapters.stream</span></code><a class="headerlink" href="#module-lewis.adapters.stream" title="Link to this heading"></a></h1>
+<p class="rubric">Members</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cmd</span></code></a></p></td>
+<td><p>This class is an implementation of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a> that can expose a callable object or a named method of the device/interface controlled by <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommandBase</span></code></a></p></td>
+<td><p>This is the common base class of <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Func</span></code></a></p></td>
+<td><p>Objects of this type connect a callable object to a pattern matcher (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a>), which currently comprises <a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-class docutils literal notranslate"><span class="pre">regex</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-class docutils literal notranslate"><span class="pre">scanf</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a></p></td>
+<td><p>This class defines an interface for general command-matchers that use any kind of technique to match a certain request in string form.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a></p></td>
+<td><p>The StreamAdapter is the bridge between the Device Interface and the TCP Stream networking backend implementation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.stream.StreamHandler" title="lewis.adapters.stream.StreamHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamHandler</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.StreamInterface" title="lewis.adapters.stream.StreamInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamInterface</span></code></a></p></td>
+<td><p>This class is used to provide a TCP-stream based interface to a device.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamServer</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var</span></code></a></p></td>
+<td><p>With this implementation of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a> it's possible to expose plain data attributes or properties of device or interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex</span></code></a></p></td>
+<td><p>Implementation of <a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> that compiles the specified pattern into a regular expression.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scanf</span></code></a></p></td>
+<td><p>Interprets the specified pattern as a scanf format.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.Cmd">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">Cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_mappings=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mapping=&lt;function</span> <span class="pre">Cmd.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#Cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.Cmd" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a></p>
+<p>This class is an implementation of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a> that can expose a callable object
+or a named method of the device/interface controlled by <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">random</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">6</span>
+
+<span class="n">SomeInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;^R$&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Returns a random number.&#39;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;^RR$&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Better random number.&#39;</span><span class="p">),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="n">random</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;^RRR$&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The best random number.&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">random</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>The interface defined by the above example has three commands, <code class="docutils literal notranslate"><span class="pre">R</span></code> which calls a lambda
+function that always returns 4, <code class="docutils literal notranslate"><span class="pre">RR</span></code>, which calls <code class="docutils literal notranslate"><span class="pre">SomeInterface.random</span></code> and returns 5 and
+lastly <code class="docutils literal notranslate"><span class="pre">RRR</span></code> which calls the free function defined above and returns the best random number.</p>
+<p>For a detailed explanation of requirements to the constructor arguments, please refer to the
+documentation of <a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a>, to which the arguments are forwarded.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> exposes attributes and properties of a device object. The documentation
+of <a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a> provides more information about the common constructor arguments.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called when pattern matches or member of device/interface.</p></li>
+<li><p><strong>pattern</strong> – Pattern to match (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> or string).</p></li>
+<li><p><strong>argument_mappings</strong> – Iterable with mapping functions from string to some type.</p></li>
+<li><p><strong>return_mapping</strong> – Mapping function for return value of method.</p></li>
+<li><p><strong>doc</strong> – Description of the command. If not supplied, the docstring is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.CommandBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">CommandBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_mappings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#CommandBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.CommandBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the common base class of <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>. The concept of commands for
+the stream adapter is based on connecting a callable object to a pattern that matches an
+inbound request.</p>
+<p>The type of pattern can be either an implementation of <a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a>
+(regex or scanf format specification) or a plain string (which is treated as a regular
+expression).</p>
+<p>For free function and lambda expressions this is straightforward: the function object can
+simply be stored together with the pattern. Most often however, the callable
+is a method of the device or interface object - these do not exist when the commands are
+defined.</p>
+<p>This problem is solved by introducing a “bind”-step in <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a>. So instead
+of a function object, both <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> store the name of a member of device
+or interface. At “bind-time”, this is translated into the correct callable.</p>
+<p>So instead of using <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a> or <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> directly, both classes’ <code class="xref py py-meth docutils literal notranslate"><span class="pre">bind()</span></code>-methods
+return an iterable of <a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a>-objects which can be used for processing requests.
+<a class="reference internal" href="#lewis.adapters.stream.StreamAdapter" title="lewis.adapters.stream.StreamAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">StreamAdapter</span></code></a> performs this bind-step when it’s constructed. For details regarding
+the implementations, please see the corresponding classes.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please take a look at <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a> for exposing callable objects or methods of
+device/interface and <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> for exposing attributes and properties.</p>
+<p>To see how argument_mappings, return_mapping and doc are applied, please look at
+<a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called when pattern matches or member of device/interface.</p></li>
+<li><p><strong>pattern</strong> – Pattern to match (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> or string).</p></li>
+<li><p><strong>argument_mappings</strong> – Iterable with mapping functions from string to some type.</p></li>
+<li><p><strong>return_mapping</strong> – Mapping function for return value of method.</p></li>
+<li><p><strong>doc</strong> – Description of the command. If not supplied, the docstring is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.Func">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">Func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_mappings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#Func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.Func" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Objects of this type connect a callable object to a pattern matcher (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a>),
+which currently comprises <a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-class docutils literal notranslate"><span class="pre">regex</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-class docutils literal notranslate"><span class="pre">scanf</span></code></a>. Strings are also
+accepted, they are treated like a regular expression internally. This preserves default
+behavior from older versions of Lewis.</p>
+<p>In general, Func-objects should not be created directly, instead they are created by one of
+the sub-classes of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a> using <code class="xref py py-meth docutils literal notranslate"><span class="pre">bind()</span></code>.</p>
+<p>Function arguments are indicated by groups in the regular expression. The number of
+groups has to match the number of arguments of the function. In earlier versions of Lewis it
+was possible to pass flags to <code class="docutils literal notranslate"><span class="pre">re.compile</span></code>, this has been removed for consistency issues
+in <a class="reference internal" href="#lewis.adapters.stream.Var" title="lewis.adapters.stream.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>. It is however still possible to use the exact same flags as part of the
+regular expression. In the documentation of <a class="reference external" href="https://docs.python.org/2/library/re.html#regular-expression-syntax">re</a>, this is outlined, simply add a group to the
+expression that contains the flags, for example <code class="docutils literal notranslate"><span class="pre">(?i)</span></code> to make the expression case
+insensitive. This special group does not count towards the matching groups used for argument
+capture.</p>
+<p>The optional argument_mappings can be an iterable of callables with one parameter of the
+same length as the number of arguments of the function. The first parameter will be
+transformed using the first function, the second using the second function and so on.
+This can be useful to automatically transform strings provided by the adapter into a proper
+data type such as <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code> before they are passed to the function. In case the
+pattern is of type <a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-class docutils literal notranslate"><span class="pre">scanf</span></code></a>, this is optional (but will override the mappings
+provided by the matcher).</p>
+<p>The return_mapping argument is similar, it should map the return value of the function
+to a string. The default map function only does that when the supplied value
+is not None. It can also be set to a numeric value or a string constant so that the
+command always returns the same value. If it is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the return value is not
+modified at all.</p>
+<p>Finally, documentation can be provided by passing the doc-argument. If it is omitted,
+the docstring of the bound function is used and if that is not present, left empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called when pattern matches or member of device/interface.</p></li>
+<li><p><strong>pattern</strong> – <a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-class docutils literal notranslate"><span class="pre">regex</span></code></a>, <a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-class docutils literal notranslate"><span class="pre">scanf</span></code></a> object or string.</p></li>
+<li><p><strong>argument_mappings</strong> – Iterable with mapping functions from string to some type.</p></li>
+<li><p><strong>return_mapping</strong> – Mapping function for return value of method.</p></li>
+<li><p><strong>doc</strong> – Description of the command. If not supplied, the docstring is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError: If the function cannot be mapped for any reason.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.Func.map_arguments">
+<span class="sig-name descname"><span class="pre">map_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#Func.map_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.Func.map_arguments" title="Link to this definition"></a></dt>
+<dd><p>Returns the mapped function arguments. If no mapping functions are defined, the arguments
+are returned as they were supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> – List of arguments for bound function as strings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapped arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.Func.map_return_value">
+<span class="sig-name descname"><span class="pre">map_return_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#Func.map_return_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.Func.map_return_value" title="Link to this definition"></a></dt>
+<dd><p>Returns the mapped return_value of a processed request. If no return_mapping has been
+defined, the value is returned as is. If return_mapping is a static value, that value
+is returned, ignoring return_value completely.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>return_value</strong> – Value to map.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapped return value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.PatternMatcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">PatternMatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#PatternMatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.PatternMatcher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class defines an interface for general command-matchers that use any kind of
+technique to match a certain request in string form. It is used by <a class="reference internal" href="#lewis.adapters.stream.Func" title="lewis.adapters.stream.Func"><code class="xref py py-class docutils literal notranslate"><span class="pre">Func</span></code></a> to check
+whether a request can be processed using a function and to extract any function arguments.</p>
+<p>Sub-classes must implement all defined abstract methods/properties.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-class docutils literal notranslate"><span class="pre">regex</span></code></a>, <a class="reference internal" href="#lewis.adapters.stream.scanf" title="lewis.adapters.stream.scanf"><code class="xref py py-class docutils literal notranslate"><span class="pre">scanf</span></code></a> are concrete implementations of this class.</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.PatternMatcher.arg_count">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arg_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NoReturn</span></em><a class="headerlink" href="#lewis.adapters.stream.PatternMatcher.arg_count" title="Link to this definition"></a></dt>
+<dd><p>Number of arguments that are matched in a request.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.PatternMatcher.argument_mappings">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">argument_mappings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">NoReturn</span></em><a class="headerlink" href="#lewis.adapters.stream.PatternMatcher.argument_mappings" title="Link to this definition"></a></dt>
+<dd><p>Mapping functions that can be applied to the arguments returned by <a class="reference internal" href="#lewis.adapters.stream.PatternMatcher.match" title="lewis.adapters.stream.PatternMatcher.match"><code class="xref py py-meth docutils literal notranslate"><span class="pre">match()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.PatternMatcher.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#PatternMatcher.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.PatternMatcher.match" title="Link to this definition"></a></dt>
+<dd><p>Tries to match the request against the internally stored pattern. Returns any matched
+function arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Request to attempt matching.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of matched argument values (possibly empty) or None if not matching.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.PatternMatcher.pattern">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pattern</span></span><a class="headerlink" href="#lewis.adapters.stream.PatternMatcher.pattern" title="Link to this definition"></a></dt>
+<dd><p>The pattern definition used for matching a request.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">StreamAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.adapters.html#lewis.core.adapters.Adapter" title="lewis.core.adapters.Adapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adapter</span></code></a></p>
+<p>The StreamAdapter is the bridge between the Device Interface and the TCP Stream networking
+backend implementation.</p>
+<p>Available adapter options are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>bind_address: IP of network adapter to bind on (defaults to 0.0.0.0, or all adapters)</p></li>
+<li><p>port: Port to listen on (defaults to 9999)</p></li>
+<li><p>telnet_mode: When True, overrides in- and out-terminator for CRNL (defaults to False)</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>options</strong> – Dictionary with options.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter.documentation">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter.documentation" title="Link to this definition"></a></dt>
+<dd><p>This property can be overridden in a sub-class to provide protocol documentation to users
+at runtime. By default it returns the indentation cleaned-up docstring of the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamAdapter.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter.handle" title="Link to this definition"></a></dt>
+<dd><p>Spend approximately <code class="docutils literal notranslate"><span class="pre">cycle_delay</span></code> seconds to process requests to the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cycle_delay</strong> – S</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter.is_running">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter.is_running" title="Link to this definition"></a></dt>
+<dd><p>This property indicates whether the Adapter’s server is running and listening. The result
+of calls to <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter.start_server" title="lewis.adapters.stream.StreamAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a> and <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter.stop_server" title="lewis.adapters.stream.StreamAdapter.stop_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop_server()</span></code></a> should be reflected as expected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamAdapter.start_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter.start_server" title="Link to this definition"></a></dt>
+<dd><p>Starts the TCP stream server, binding to the configured host and port.
+Host and port are configured via the command line arguments.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The server does not process requests unless
+<a class="reference internal" href="#lewis.adapters.stream.StreamAdapter.handle" title="lewis.adapters.stream.StreamAdapter.handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> is called in regular intervals.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamAdapter.stop_server">
+<span class="sig-name descname"><span class="pre">stop_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamAdapter.stop_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamAdapter.stop_server" title="Link to this definition"></a></dt>
+<dd><p>This method must be re-implemented to stop and tear down anything that has been setup
+in <a class="reference internal" href="#lewis.adapters.stream.StreamAdapter.start_server" title="lewis.adapters.stream.StreamAdapter.start_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_server()</span></code></a>. This method should close all connections to clients that have
+been established since the adapter has been started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method may be called multiple times over the lifetime of the Adapter, so it is
+important to make sure that this does not cause problems.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">StreamHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_server</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">async_chat</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamInterface">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">StreamInterface</span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamInterface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamInterface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="lewis.core.devices.html#lewis.core.devices.InterfaceBase" title="lewis.core.devices.InterfaceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceBase</span></code></a></p>
+<p>This class is used to provide a TCP-stream based interface to a device.</p>
+<p>Many hardware devices use a protocol that is based on exchanging text with a client via
+a TCP stream. Sometimes RS232-based devices are also exposed this way via an adapter-box.
+This adapter makes it easy to mimic such a protocol.</p>
+<p>This class has the following attributes which may be overridden by subclasses:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>protocol: What this interface is called for purposes of the -p commandline option.
+Defaults to “stream”.</p></li>
+<li><p>in_terminator, out_terminator: These define how lines are terminated when transferred
+to and from the device respectively. They are stripped/added automatically.
+Inverse of protocol file InTerminator and OutTerminator. The default is <code class="docutils literal notranslate"><span class="pre">\\r</span></code>.</p></li>
+<li><p>readtimeout: How many msec to wait for additional data between packets, once transmission
+of an incoming command has begun. Inverse of ReadTimeout in protocol files.
+Defaults to 100 (ms). Set to 0 to disable timeout completely.</p></li>
+<li><p>commands: A list of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a>-objects that define mappings between protocol
+and device/interface methods/attributes.</p></li>
+</ul>
+</div></blockquote>
+<p>By default, commands are expressed as regular expressions, a simple example may look like this:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleDeviceStreamInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;set_speed&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^S=([0-9]+)$&#39;</span><span class="p">,</span> <span class="n">argument_mappings</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">]),</span>
+        <span class="n">Cmd</span><span class="p">(</span><span class="s1">&#39;get_speed&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^S\?$&#39;</span><span class="p">)</span>
+        <span class="n">Var</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="n">read_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^V\?$&#39;</span><span class="p">,</span> <span class="n">write_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^V=([0-9]+)$&#39;</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_speed</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">new_speed</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">speed</span>
+</pre></div>
+</div>
+<p>The interface has two commands, <code class="docutils literal notranslate"><span class="pre">S?</span></code> to return the speed and <code class="docutils literal notranslate"><span class="pre">S=10</span></code> to set the speed
+to an integer value. It also exposes the same speed attribute as a variable, using auto-
+generated <code class="docutils literal notranslate"><span class="pre">V?</span></code> and <code class="docutils literal notranslate"><span class="pre">V=10</span></code> commands.</p>
+<p>As in the <a class="reference internal" href="lewis.adapters.epics.html#lewis.adapters.epics.EpicsInterface" title="lewis.adapters.epics.EpicsInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">lewis.adapters.epics.EpicsInterface</span></code></a>, it does not matter whether the
+wrapped method is a part of the device or of the interface, this is handled automatically when
+a new device is assigned to the <code class="docutils literal notranslate"><span class="pre">device</span></code>-property.</p>
+<p>In addition, the <a class="reference internal" href="#lewis.adapters.stream.StreamInterface.handle_error" title="lewis.adapters.stream.StreamInterface.handle_error"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle_error()</span></code></a>-method can be overridden. It is called when an exception
+is raised while handling commands.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamInterface.adapter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adapter</span></span><a class="headerlink" href="#lewis.adapters.stream.StreamInterface.adapter" title="Link to this definition"></a></dt>
+<dd><p>Adapter type that is required to process and expose interfaces of this type. Must be
+implemented in subclasses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.StreamInterface.handle_error">
+<span class="sig-name descname"><span class="pre">handle_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#StreamInterface.handle_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.StreamInterface.handle_error" title="Link to this definition"></a></dt>
+<dd><p>Override this method to handle exceptions that are raised during command processing.
+The default implementation does nothing, so that any errors are silently ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The request that resulted in the error.</p></li>
+<li><p><strong>error</strong> – The exception that was raised.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.Var">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">Var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_pattern=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_pattern=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument_mappings=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mapping=&lt;function</span> <span class="pre">Var.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#Var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.Var" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a></p>
+<p>With this implementation of <a class="reference internal" href="#lewis.adapters.stream.CommandBase" title="lewis.adapters.stream.CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandBase</span></code></a> it’s possible to expose plain data attributes
+or properties of device or interface. Getting and setting a value are separate procedures
+which both have their own pattern, read_pattern and write_pattern to match a command each.
+Please note that write_pattern has to have exactly one group defined to match a parameter.</p>
+<p>Due to this separation, parameters can be made read-only, write-only or read-write in the
+interface:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SomeInterface</span><span class="p">(</span><span class="n">StreamInterface</span><span class="p">):</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Var</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">read_pattern</span><span class="o">=</span><span class="s1">&#39;^F$&#39;</span><span class="p">,</span> <span class="n">write_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^F=(\d+)$&#39;</span><span class="p">,</span>
+            <span class="n">argument_mappings</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">,),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;An integer attribute.&#39;</span><span class="p">),</span>
+        <span class="n">Var</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span> <span class="n">read_pattern</span><span class="o">=</span><span class="s1">&#39;^B$&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">foo</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">foo</span> <span class="o">+</span> <span class="mi">5</span>
+
+    <span class="nd">@bar</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bar</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="n">new_bar</span> <span class="o">-</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>In the above example, the foo attribute can be read and written, it’s automatically converted
+to an integer, while bar is a property that can only be read via the stream protocol.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For exposing methods and free functions, there’s the <a class="reference internal" href="#lewis.adapters.stream.Cmd" title="lewis.adapters.stream.Cmd"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cmd</span></code></a>-class.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_member</strong> – Attribute or property of device/interface to expose.</p></li>
+<li><p><strong>read_pattern</strong> – Pattern to match for getter (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> or string).</p></li>
+<li><p><strong>write_pattern</strong> – Pattern to match for setter (<a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> or string).</p></li>
+<li><p><strong>argument_mappings</strong> – Iterable with mapping functions from string to some type,
+only applied to setter.</p></li>
+<li><p><strong>return_mapping</strong> – Mapping function for return value of method,
+applied to getter and setter.</p></li>
+<li><p><strong>doc</strong> – Description of the command. If not supplied, the docstring is used. For plain data
+attributes the only way to get docs is to supply this argument.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.regex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#regex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.regex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a></p>
+<p>Implementation of <a class="reference internal" href="#lewis.adapters.stream.PatternMatcher" title="lewis.adapters.stream.PatternMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternMatcher</span></code></a> that compiles the specified pattern into a regular
+expression.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.regex.arg_count">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arg_count</span></span><a class="headerlink" href="#lewis.adapters.stream.regex.arg_count" title="Link to this definition"></a></dt>
+<dd><p>Number of arguments that are matched in a request.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.regex.argument_mappings">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">argument_mappings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lewis.adapters.stream.regex.argument_mappings" title="Link to this definition"></a></dt>
+<dd><p>Mapping functions that can be applied to the arguments returned by <a class="reference internal" href="#lewis.adapters.stream.regex.match" title="lewis.adapters.stream.regex.match"><code class="xref py py-meth docutils literal notranslate"><span class="pre">match()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lewis.adapters.stream.regex.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#regex.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.regex.match" title="Link to this definition"></a></dt>
+<dd><p>Tries to match the request against the internally stored pattern. Returns any matched
+function arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Request to attempt matching.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of matched argument values (possibly empty) or None if not matching.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lewis.adapters.stream.scanf">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lewis.adapters.stream.</span></span><span class="sig-name descname"><span class="pre">scanf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lewis/adapters/stream.html#scanf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lewis.adapters.stream.scanf" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lewis.adapters.stream.regex" title="lewis.adapters.stream.regex"><code class="xref py py-class docutils literal notranslate"><span class="pre">regex</span></code></a></p>
+<p>Interprets the specified pattern as a scanf format. Internally, the <a class="reference external" href="https://github.com/joshburnett/scanf">scanf</a> package is used
+to transform the format into a regular expression. Please consult the documentation of <a class="reference external" href="https://github.com/joshburnett/scanf">scanf</a>
+for valid pattern specifications.</p>
+<p>By default, the resulting regular expression matches exactly. Consider this example:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">exact</span> <span class="o">=</span> <span class="n">scanf</span><span class="p">(</span><span class="s2">&quot;T=</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">not_exact</span> <span class="o">=</span> <span class="n">scanf</span><span class="p">(</span><span class="s2">&quot;T=</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exact_match</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first pattern only matches the string <code class="docutils literal notranslate"><span class="pre">T=4.0</span></code>, whereas the second would also match
+<code class="docutils literal notranslate"><span class="pre">T=4.0garbage</span></code>. Please note that the specifiers like <code class="docutils literal notranslate"><span class="pre">%f</span></code> are automatically turned into
+groups in the generated regular expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> – Scanf format specification.</p></li>
+<li><p><strong>exact_match</strong> – Match only if the entire string matches.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.scanf.argument_mappings">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">argument_mappings</span></span><a class="headerlink" href="#lewis.adapters.stream.scanf.argument_mappings" title="Link to this definition"></a></dt>
+<dd><p>Mapping functions that can be applied to the arguments returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">match()</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lewis.adapters.stream.scanf.pattern">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pattern</span></span><a class="headerlink" href="#lewis.adapters.stream.scanf.pattern" title="Link to this definition"></a></dt>
+<dd><p>The pattern definition used for matching a request.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lewis.adapters.modbus.html" class="btn btn-neutral float-left" title="lewis.adapters.modbus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lewis.core.html" class="btn btn-neutral float-right" title="lewis.core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

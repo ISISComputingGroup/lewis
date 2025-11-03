@@ -1,0 +1,26 @@
+
+
+``lewis.core.processor``
+========================
+        
+        
+
+.. automodule:: lewis.core.processor
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        CanProcess
+        CanProcessComposite
+    
+    

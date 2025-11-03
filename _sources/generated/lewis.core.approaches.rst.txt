@@ -1,0 +1,24 @@
+
+
+``lewis.core.approaches``
+=========================
+        
+
+.. automodule:: lewis.core.approaches
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        linear
+    
+    

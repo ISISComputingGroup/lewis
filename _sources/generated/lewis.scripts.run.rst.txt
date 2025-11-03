@@ -1,0 +1,26 @@
+
+
+``lewis.scripts.run``
+=====================
+        
+        
+
+.. automodule:: lewis.scripts.run
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        parse_adapter_options
+        run_simulation
+    
+    

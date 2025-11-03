@@ -1,0 +1,38 @@
+
+
+``lewis.core.utils``
+====================
+        
+        
+        
+        
+        
+        
+        
+        
+
+.. automodule:: lewis.core.utils
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        FromOptionalDependency
+        check_limits
+        dict_strict_update
+        extract_module_name
+        format_doc_text
+        get_members
+        get_submodules
+        seconds_since
+    
+    

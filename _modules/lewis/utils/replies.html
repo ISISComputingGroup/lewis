@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lewis.utils.replies &mdash; lewis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lewis
+              <img src="../../../_static/lewis-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/adapter_specifics.html">Adapter Specifics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/command_line_tools.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_devices.html">Remote Access to Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/remote_access_simulation.html">Remote Access to Simulation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/usage_with_python.html">Usage with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/developing_lewis.html">Developing Lewis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/framework_details.html">Framework Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/release_checklist.html">Release Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/writing_devices.html">Writing Device Simulators</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_notes/release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lewis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lewis.utils.replies</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lewis.utils.replies</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># *********************************************************************</span>
+<span class="c1"># lewis - a library for creating hardware device simulators</span>
+<span class="c1"># Copyright (C) 2016-2021 European Spallation Source ERIC</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># *********************************************************************</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ParamSpec</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.adapters.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamInterface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lewis.core.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_log</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_device_from</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">StreamInterface</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">device</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">_device</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="s2">&quot;Expected device to be accessible as either self.device or self._device&quot;</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">device</span>
+
+
+<div class="viewcode-block" id="conditional_reply">
+<a class="viewcode-back" href="../../../generated/lewis.utils.replies.html#lewis.utils.replies.conditional_reply">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">conditional_reply</span><span class="p">(</span>
+    <span class="n">property_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">reply</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator that executes the command and replies if the device has a member called</span>
+<span class="sd">    &#39;property name&#39; and it is True in a boolean context.</span>
+
+<span class="sd">    Example usage:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        @conditional_reply(&quot;connected&quot;)</span>
+<span class="sd">        def acknowledge_pressure(channel):</span>
+<span class="sd">            return ACK</span>
+
+<span class="sd">    :param property_name: The name of the property to look for on the device</span>
+<span class="sd">    :param reply: Desired output reply string when condition is false</span>
+
+<span class="sd">    :return: The function returns as normal if property is true.</span>
+<span class="sd">     The command is not executed and there is no reply if property is false</span>
+
+<span class="sd">    :except AttributeError if the first argument of the decorated function (self)</span>
+<span class="sd">    does not contain .device or ._device</span>
+<span class="sd">    :except AttributeError if the device does not contain a property called property_name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">_get_device_from</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">do_reply</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">property_name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Expected device to contain an attribute called &#39;</span><span class="si">{</span><span class="n">property_name</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;but it wasn&#39;t found.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">do_reply</span> <span class="k">else</span> <span class="n">reply</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_LastInput</span><span class="p">:</span>
+    <span class="n">last_input_time</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<div class="viewcode-block" id="timed_reply">
+<a class="viewcode-back" href="../../../generated/lewis.utils.replies.html#lewis.utils.replies.timed_reply">[docs]</a>
+<span class="nd">@has_log</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">timed_reply</span><span class="p">(</span>
+    <span class="n">action</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">reply</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">minimum_time_delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator that inhibits a command and performs an action if call time is less than</span>
+<span class="sd">    some minimum time delay between the current and last input.</span>
+
+<span class="sd">    Example usage:</span>
+
+<span class="sd">    .. sourcecode:: Python</span>
+
+<span class="sd">        @timed_reply(action=&quot;crash_pump&quot;, reply=&quot;WARNING: Input too quick&quot;, minimum_time_delay=150)</span>
+<span class="sd">        def acknowledge_pressure(channel):</span>
+<span class="sd">            return ACK</span>
+
+<span class="sd">    :param action: The name of the method to execute for on the device</span>
+<span class="sd">    :param reply: Desired output reply string when input time delay is less than the minimum</span>
+<span class="sd">    :param minimum_time_delay: The minimum time (ms) between commands sent to the device</span>
+
+<span class="sd">    :return: The function returns as normal if minimum delay exceeded.</span>
+<span class="sd">      The command is not executed and the action method is called on the device instead</span>
+
+<span class="sd">    :except AttributeError if the first argument of the decorated function (self)</span>
+<span class="sd">      does not contain .device or ._device</span>
+
+<span class="sd">    :except AttributeError if the device does not contain a property called action</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">StreamInterface</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">new_input_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+                <span class="n">time_since_last_request</span> <span class="o">=</span> <span class="n">new_input_time</span> <span class="o">-</span> <span class="n">_LastInput</span><span class="o">.</span><span class="n">last_input_time</span>
+                <span class="n">valid_input</span> <span class="o">=</span> <span class="n">time_since_last_request</span> <span class="o">&gt;</span> <span class="n">minimum_time_delay</span>
+                <span class="k">if</span> <span class="n">valid_input</span><span class="p">:</span>
+                    <span class="n">_LastInput</span><span class="o">.</span><span class="n">last_input_time</span> <span class="o">=</span> <span class="n">new_input_time</span>
+                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Violated time tolerance (</span><span class="si">{</span><span class="n">minimum_time_delay</span><span class="si">}</span><span class="s2">ms) was&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">time_since_last_request</span><span class="si">}</span><span class="s2">ms.&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot; Calling action (</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">) on device&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">device</span> <span class="o">=</span> <span class="n">_get_device_from</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                    <span class="n">action_function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+                    <span class="n">action_function</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">reply</span>
+
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Expected device to contain an attribute called &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s2">&#39; but it&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; wasn&#39;t found.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
