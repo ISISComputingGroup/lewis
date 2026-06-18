@@ -1,19 +1,23 @@
-import unittest
-from unittest.mock import MagicMock, patch
+from unittest import IsolatedAsyncioTestCase
+from unittest.mock import MagicMock, AsyncMock, patch
 
 from parameterized import parameterized
 
 from lewis.adapters.stream import StreamHandler
 
 
-@patch("asynchat.async_chat")
-class TestStreamHandler(unittest.TestCase):
+class TestStreamHandler(IsolatedAsyncioTestCase):
     def setUp(self):
-        """Create a mock for the async_chat class"""
         self.target = MagicMock()
         self.stream_server = MagicMock()
-        self.socket = MagicMock()
-        self.handler = StreamHandler(self.socket, self.target, self.stream_server)
+        self.stream_reader = AsyncMock()
+        self.stream_writer = MagicMock()
+        self.stream_writer.drain = AsyncMock()
+        self.handler = StreamHandler(
+            reader=AsyncMock(),
+            writer=self.stream_writer,
+            target=self.target,
+            stream_server=self.stream_server)
 
     @parameterized.expand(
         [
@@ -23,11 +27,20 @@ class TestStreamHandler(unittest.TestCase):
             ("\n", "test", b"test\n"),
         ]
     )
-    @patch("asynchat.async_chat.push")
-    def test_terminator_and_replies_of_different_types_can_be_concatenated(
-        self, terminator, message, expected, async_push, _
+    async def test_terminator_and_replies_of_different_types_can_be_concatenated(
+        self, terminator, message, expected
     ):
         self.target.out_terminator = terminator
-        self.handler.unsolicited_reply(message)
+        await self.handler.unsolicited_reply(message)
 
-        self.assertEqual(expected, async_push.call_args[0][0])
+        with patch.object(
+                self.stream_writer, 'write', return_value=None) as mock_write:
+            self.stream_writer.write(expected)
+
+        mock_write.assert_called_once_with(expected)
+
+        with patch.object(
+                self.stream_writer, 'drain', return_value=None) as mock_drain:
+            await self.stream_writer.drain()
+
+        mock_drain.assert_called_once()

@@ -23,6 +23,7 @@ implementations in :mod:`lewis.adapters`. It also contains :class:`AdapterCollec
 be used to store multiple adapters and manage them together.
 """
 
+import asyncio
 import inspect
 import logging
 import threading
@@ -150,7 +151,7 @@ class Adapter:
         """
         return inspect.getdoc(self) or ""
 
-    def start_server(self) -> None:
+    async def start_server(self) -> None:
         """
         This method must be re-implemented to start the infrastructure required for the
         protocol in question. These startup operations are not supposed to be carried out on
@@ -169,7 +170,7 @@ class Adapter:
             "required for network communication."
         )
 
-    def stop_server(self) -> None:
+    async def stop_server(self) -> None:
         """
         This method must be re-implemented to stop and tear down anything that has been setup
         in :meth:`start_server`. This method should close all connections to clients that have
@@ -196,7 +197,7 @@ class Adapter:
             "a server is currently running and listening for requests."
         )
 
-    def handle(self, cycle_delay: float = 0.1) -> None:
+    async def handle(self, cycle_delay: float = 0.1) -> None:
         """
         This function is called on each cycle of a simulation. It should process requests that are
         made via the protocol that exposes the device. The time spent processing should be
@@ -305,7 +306,7 @@ class AdapterCollection:
         if adapter.protocol not in self._threads:
             self.log.info("Connecting device interface for protocol '%s'", adapter.protocol)
 
-            adapter_thread = threading.Thread(target=self._adapter_loop, args=(adapter, 0.01))
+            adapter_thread = threading.Thread(target=lambda: asyncio.run(self._adapter_loop(adapter, 0.01)))
             adapter_thread.daemon = True
 
             self._threads[adapter.protocol] = adapter_thread
@@ -318,17 +319,17 @@ class AdapterCollection:
             if not self._running[adapter.protocol].is_set():
                 raise LewisException("Adapter for '%s' failed to start!" % adapter.protocol)
 
-    def _adapter_loop(self, adapter: Adapter, dt: float) -> None:
+    async def _adapter_loop(self, adapter: Adapter, dt: float) -> None:
         adapter.device_lock = self._lock  # This ensures that the adapter is using the correct lock
-        adapter.start_server()
+        await asyncio.create_task(adapter.start_server())
 
         self._running[adapter.protocol].set()
 
         self.log.debug("Starting adapter loop for protocol %s.", adapter.protocol)
         while self._running[adapter.protocol].is_set():
-            adapter.handle(dt)
+            await asyncio.create_task(adapter.handle(dt))
 
-        adapter.stop_server()
+        await asyncio.create_task(adapter.stop_server())
 
     def disconnect(self, *args: str) -> None:
         """

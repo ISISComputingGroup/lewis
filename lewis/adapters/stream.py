@@ -17,11 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # *********************************************************************
 
-import asynchat
-import asyncore
+import asyncio
 import inspect
 import re
-import socket
 from typing import NoReturn
 
 from scanf import scanf_compile
@@ -33,10 +31,9 @@ from lewis.core.utils import format_doc_text
 
 
 @has_log
-class StreamHandler(asynchat.async_chat):
-    def __init__(self, sock, target, stream_server) -> None:
-        asynchat.async_chat.__init__(self, sock=sock)
-        self.set_terminator(target.in_terminator.encode())
+class StreamHandler():
+    def __init__(self, reader, writer, target, stream_server) -> None:
+        self._in_terminator = target.in_terminator.encode()
         self._readtimeout = target.readtimeout
         self._readtimer = 0
         self._target = target
@@ -44,25 +41,38 @@ class StreamHandler(asynchat.async_chat):
 
         self._stream_server = stream_server
         self._target.handler = self
+        self._reader = reader
+        self._writer = writer
 
         self._set_logging_context(target)
-        self.log.info("Client connected from %s:%s", *sock.getpeername())
 
-    def process(self, msec) -> None:
+    async def handle_client(self):
+        while True:
+            try:
+                msg = await self._reader.readuntil(self._in_terminator)
+            except asyncio.IncompleteReadError:
+                break
+
+            self.collect_incoming_data(msg)
+            await self.found_terminator()
+
+        await self.handle_close()
+
+    async def process(self, msec) -> None:
         if not self._buffer:
             return
 
         if self._readtimer >= self._readtimeout and self._readtimeout != 0:
-            if not self.get_terminator():
+            if not self._in_terminator:
                 # If no terminator is set, this timeout is the terminator
-                self.found_terminator()
+                await self.found_terminator()
             else:
                 self._readtimer = 0
                 request = self._get_request()
                 with self._stream_server.device_lock:
                     error = RuntimeError("ReadTimeout while waiting for command terminator.")
                     reply = self._handle_error(request, error)
-                self._send_reply(reply)
+                await self._send_reply(reply)
 
         if self._buffer:
             self._readtimer += msec
@@ -73,11 +83,12 @@ class StreamHandler(asynchat.async_chat):
 
     def _get_request(self):
         request = b"".join(self._buffer)
+        request = request.rstrip(self._in_terminator)
         self._buffer = []
         self.log.debug("Got request %s", request)
         return request
 
-    def _push(self, reply) -> None:
+    async def _push(self, reply) -> None:
         try:
             if isinstance(reply, str):
                 reply = reply.encode()
@@ -86,20 +97,21 @@ class StreamHandler(asynchat.async_chat):
                 if isinstance(self._target.out_terminator, str)
                 else self._target.out_terminator
             )
-            self.push(reply + out_terminator)
+            self._writer.write(reply + out_terminator)
+            await self._writer.drain()
         except TypeError as e:
             self.log.error("Problem creating reply, type error {}!".format(e))
 
-    def _send_reply(self, reply) -> None:
+    async def _send_reply(self, reply) -> None:
         if reply is not None:
             self.log.debug("Sending reply %s", reply)
-            self._push(reply)
+            await self._push(reply)
 
     def _handle_error(self, request, error):
         self.log.debug("Error while processing request", exc_info=error)
         return self._target.handle_error(request, error)
 
-    def found_terminator(self) -> None:
+    async def found_terminator(self) -> None:
         self._readtimer = 0
 
         request = self._get_request()
@@ -124,61 +136,70 @@ class StreamHandler(asynchat.async_chat):
             except Exception as error:
                 reply = self._handle_error(request, error)
 
-        self._send_reply(reply)
+        await self._send_reply(reply)
 
-    def unsolicited_reply(self, reply) -> None:
+    async def unsolicited_reply(self, reply) -> None:
         self.log.debug("Sending unsolicited reply %s", reply)
-        self._push(reply)
+        await self._push(reply)
 
-    def handle_close(self) -> None:
-        self.log.info("Closing connection to client %s:%s", *self.socket.getpeername())
-        self._stream_server.remove_handler(self)
-        asynchat.async_chat.handle_close(self)
+    async def handle_close(self) -> None:
+        sock = self._writer.get_extra_info('socket')
+        if sock is not None and not self._writer.is_closing():
+            self.log.info("Closing connection to client %s:%s", *sock.getpeername())
+            self._writer.close()
+            await self._writer.wait_closed()
+            self._stream_server.remove_handler(self)
 
 
 @has_log
-class StreamServer(asyncore.dispatcher):
+class StreamServer():
     def __init__(self, host, port, target, device_lock) -> None:
-        asyncore.dispatcher.__init__(self)
+        self.host = host
+        self.port = port
         self.target = target
         self.device_lock = device_lock
-        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.set_reuse_addr()
-        self.bind((host, port))
-        self.listen(5)
+        self._server = None
 
         self._set_logging_context(target)
-        self.log.info("Listening on %s:%s", host, port)
 
         self._accepted_connections = []
 
-    def handle_accept(self) -> None:
-        pair = self.accept()
-        if pair is not None:
-            sock, addr = pair
-            handler = StreamHandler(sock, self.target, self)
+    async def start(self):
+        self._server = await asyncio.start_server(
+            self.handle_accept,
+            host=self.host,
+            port=self.port,
+            backlog=5,
+            reuse_address=True,
+            start_serving=True)
+        self.log.info("Listening on %s:%s", self.host, self.port)
 
-            self._accepted_connections.append(handler)
+    async def handle_accept(self, reader, writer) -> None:
+        sock = writer.get_extra_info('socket')
+        if sock is not None:
+            self.log.info("Client connected from %s:%s", *sock.getpeername())
+        handler = StreamHandler(reader, writer, self.target, self)
+        self._accepted_connections.append(handler)
+        await handler.handle_client()
 
     def remove_handler(self, handler) -> None:
         self._accepted_connections.remove(handler)
 
-    def close(self) -> None:
-        # As this is an old style class, the base class method must
-        # be called directly. This is important to still perform all
-        # the teardown-work that asyncore.dispatcher does.
-        self.log.info("Shutting down server, closing all remaining client connections.")
-        asyncore.dispatcher.close(self)
+    async def close(self) -> None:
+        if self._server is not None:
+            self.log.info("Shutting down server, closing all remaining client connections.")
+            self._server.close()
 
-        # But in addition, close all open sockets and clear the connection list.
+            # Close all open sockets and clear the connection list.
+            for handler in self._accepted_connections:
+                await handler.handle_close()
+
+            self._accepted_connections = []
+            await self._server.wait_closed()
+
+    async def process(self, msec) -> None:
         for handler in self._accepted_connections:
-            handler.close()
-
-        self._accepted_connections = []
-
-    def process(self, msec) -> None:
-        for handler in self._accepted_connections:
-            handler.process(msec)
+            await handler.process(msec)
 
 
 class PatternMatcher:
@@ -713,7 +734,7 @@ class StreamAdapter(Adapter):
             + commands
         )
 
-    def start_server(self) -> None:
+    async def start_server(self) -> None:
         """
         Starts the TCP stream server, binding to the configured host and port.
         Host and port are configured via the command line arguments.
@@ -734,23 +755,25 @@ class StreamAdapter(Adapter):
                 self.device_lock,
             )
 
-    def stop_server(self) -> None:
+            await self._server.start()
+
+    async def stop_server(self) -> None:
         if self._server is not None:
-            self._server.close()
+            await self._server.close()
             self._server = None
 
     @property
     def is_running(self):
         return self._server is not None
 
-    def handle(self, cycle_delay=0.1) -> None:
+    async def handle(self, cycle_delay=0.1) -> None:
         """
         Spend approximately ``cycle_delay`` seconds to process requests to the server.
 
         :param cycle_delay: S
         """
-        asyncore.loop(cycle_delay, count=1)
-        self._server.process(int(cycle_delay * 1000))
+        await asyncio.sleep(cycle_delay)
+        await self._server.process(int(cycle_delay * 1000))
 
 
 class StreamInterface(InterfaceBase):
