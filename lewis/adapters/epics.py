@@ -441,14 +441,14 @@ class PropertyExposingDriver(Driver):
                 return True
         except LimitViolationException as e:
             self.log.warning(
-                "Rejected writing value %s to PV %s due to limit " "violation. %s",
+                "Rejected writing value %s to PV %s due to limit violation. %s",
                 value,
                 pv,
                 e,
             )
         except AccessViolationException:
             self.log.warning(
-                "Rejected writing value %s to PV %s due to access " "violation, PV is read-only.",
+                "Rejected writing value %s to PV %s due to access violation, PV is read-only.",
                 value,
                 pv,
             )
