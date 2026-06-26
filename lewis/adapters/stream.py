@@ -64,25 +64,25 @@ class StreamHandler():
                     if pos == -1:
                         break
 
-                    await self.found_terminator()
+                    self.found_terminator()
 
         await self.handle_close()
 
-    async def process(self, msec) -> None:
+    def process(self, msec) -> None:
         if not self._buffer:
             return
 
         if self._readtimer >= self._readtimeout and self._readtimeout != 0:
             if not self._in_terminator:
                 # If no terminator is set, this timeout is the terminator
-                await self.found_terminator()
+                self.found_terminator()
             else:
                 self._readtimer = 0
                 request = self._get_request()
                 with self._stream_server.device_lock:
                     error = RuntimeError("ReadTimeout while waiting for command terminator.")
                     reply = self._handle_error(request, error)
-                await self._send_reply(reply)
+                self._send_reply(reply)
 
         if self._buffer:
             self._readtimer += msec
@@ -99,7 +99,7 @@ class StreamHandler():
         self.log.debug("Got request %s", request)
         return request
 
-    async def _push(self, reply) -> None:
+    def _push(self, reply) -> None:
         try:
             if isinstance(reply, str):
                 reply = reply.encode()
@@ -108,21 +108,20 @@ class StreamHandler():
                 if isinstance(self._target.out_terminator, str)
                 else self._target.out_terminator
             )
-            self._writer.write(reply + out_terminator)
-            await self._writer.drain()
+            self._writer.transport.write(reply + out_terminator)
         except TypeError as e:
             self.log.error("Problem creating reply, type error {}!".format(e))
 
-    async def _send_reply(self, reply) -> None:
+    def _send_reply(self, reply) -> None:
         if reply is not None:
             self.log.debug("Sending reply %s", reply)
-            await self._push(reply)
+            self._push(reply)
 
     def _handle_error(self, request, error):
         self.log.debug("Error while processing request", exc_info=error)
         return self._target.handle_error(request, error)
 
-    async def found_terminator(self) -> None:
+    def found_terminator(self) -> None:
         self._readtimer = 0
 
         request = self._get_request()
@@ -147,11 +146,11 @@ class StreamHandler():
             except Exception as error:
                 reply = self._handle_error(request, error)
 
-        await self._send_reply(reply)
+        self._send_reply(reply)
 
-    async def unsolicited_reply(self, reply) -> None:
+    def unsolicited_reply(self, reply) -> None:
         self.log.debug("Sending unsolicited reply %s", reply)
-        await self._push(reply)
+        self._push(reply)
 
     async def handle_close(self) -> None:
         sock = self._writer.get_extra_info('socket')
@@ -208,9 +207,9 @@ class StreamServer():
             self._accepted_connections = []
             await self._server.wait_closed()
 
-    async def process(self, msec) -> None:
+    def process(self, msec) -> None:
         for handler in self._accepted_connections:
-            await handler.process(msec)
+            handler.process(msec)
 
 
 class PatternMatcher:
@@ -784,7 +783,7 @@ class StreamAdapter(Adapter):
         :param cycle_delay: S
         """
         await asyncio.sleep(cycle_delay)
-        await self._server.process(int(cycle_delay * 1000))
+        self._server.process(int(cycle_delay * 1000))
 
 
 class StreamInterface(InterfaceBase):

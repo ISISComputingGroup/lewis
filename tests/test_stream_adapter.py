@@ -31,16 +31,10 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         self, terminator, message, expected
     ):
         self.target.out_terminator = terminator
-        await self.handler.unsolicited_reply(message)
+        self.handler.unsolicited_reply(message)
 
         with patch.object(
-                self.stream_writer, 'write', return_value=None) as mock_write:
-            self.stream_writer.write(expected)
+                self.stream_writer.transport, 'write', return_value=None) as mock_write:
+            self.stream_writer.transport.write(expected)
 
         mock_write.assert_called_once_with(expected)
-
-        with patch.object(
-                self.stream_writer, 'drain', return_value=None) as mock_drain:
-            await self.stream_writer.drain()
-
-        mock_drain.assert_called_once()
