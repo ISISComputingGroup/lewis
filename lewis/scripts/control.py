@@ -117,7 +117,7 @@ positional_args.add_argument(
 positional_args.add_argument(
     "arguments",
     nargs="*",
-    help="Arguments to method call. For setting a property, " "supply the property value. ",
+    help="Arguments to method call. For setting a property, supply the property value. ",
 )
 
 optional_args = parser.add_argument_group("Optional arguments")

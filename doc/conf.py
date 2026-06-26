@@ -4,6 +4,7 @@
 # sphinx-quickstart on Wed Nov  9 16:42:53 2016.
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath("../lewis"))
 
 
@@ -22,11 +23,11 @@ extensions = [
 ]
 templates_path = ["_templates"]
 # General information about the project.
-project = u"lewis"
-language = 'en'
+project = "lewis"
+language = "en"
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # -- Options for HTML output ---------------------------------------------
-suppress_warnings =["docutils"]
+suppress_warnings = ["docutils"]
 html_theme = "sphinx_rtd_theme"
 html_logo = "resources/logo/lewis-logo.png"
 html_context = {

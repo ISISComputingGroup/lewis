@@ -46,8 +46,7 @@ class NoLock:
 
     def __enter__(self) -> None:
         raise RuntimeError(
-            "The attempted action requires a proper threading.Lock-object, "
-            "but none was available."
+            "The attempted action requires a proper threading.Lock-object, but none was available."
         )
 
     def __exit__(

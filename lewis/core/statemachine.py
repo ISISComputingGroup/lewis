@@ -191,7 +191,7 @@ class StateMachine(CanProcess):
         # Specifying an initial state is not optional
         if "initial" not in cfg:
             raise StateMachineException(
-                "StateMachine configuration must include " "'initial' to specify starting state."
+                "StateMachine configuration must include 'initial' to specify starting state."
             )
         self._initial = cfg["initial"]
         self._set_handlers(self._initial)

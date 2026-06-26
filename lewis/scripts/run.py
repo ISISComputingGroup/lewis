@@ -160,8 +160,7 @@ version_handling.add_argument(
     "-I",
     "--ignore-versions",
     action="store_true",
-    help="Ignore version mismatches between device and framework. A warning will still "
-    "be logged.",
+    help="Ignore version mismatches between device and framework. A warning will still be logged.",
 )
 other_args.add_argument(
     "-v", "--version", action="store_true", help="Prints the version and exits."

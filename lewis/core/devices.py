@@ -349,8 +349,7 @@ class DeviceBuilder:
 
         if setup_name not in self.setups:
             raise LewisException(
-                "Failed to find setup '{}' for device '{}'. "
-                "Available setups are:\n    {}".format(
+                "Failed to find setup '{}' for device '{}'. Available setups are:\n    {}".format(
                     setup, self.name, "\n    ".join(self.setups.keys())
                 )
             )

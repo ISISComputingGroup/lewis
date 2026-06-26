@@ -930,7 +930,7 @@ class StreamInterface(InterfaceBase):
                 pattern = bound_cmd.matcher.pattern
                 if pattern in patterns:
                     raise RuntimeError(
-                        "The regular expression {} is " "associated with multiple commands.".format(
+                        "The regular expression {} is associated with multiple commands.".format(
                             pattern
                         )
                     )
