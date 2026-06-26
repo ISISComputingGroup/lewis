@@ -48,13 +48,23 @@ class StreamHandler():
 
     async def handle_client(self):
         while True:
-            try:
-                msg = await self._reader.readuntil(self._in_terminator)
-            except asyncio.IncompleteReadError:
+            chunk = await self._reader.read(4096)
+            if not chunk:
                 break
 
-            self.collect_incoming_data(msg)
-            await self.found_terminator()
+            self.collect_incoming_data(chunk)   
+
+            # If no terminator is set, just keep collecting data
+            # and let the process method handle the timeout
+            if not self._in_terminator:
+                continue
+            else:
+                while True:
+                    pos = b"".join(self._buffer).find(self._in_terminator)
+                    if pos == -1:
+                        break
+
+                    await self.found_terminator()
 
         await self.handle_close()
 
@@ -83,7 +93,8 @@ class StreamHandler():
 
     def _get_request(self):
         request = b"".join(self._buffer)
-        request = request.rstrip(self._in_terminator)
+        if self._in_terminator:
+            request = request.removesuffix(self._in_terminator)
         self._buffer = []
         self.log.debug("Got request %s", request)
         return request
