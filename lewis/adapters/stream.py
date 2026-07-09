@@ -201,14 +201,14 @@ class StreamServer():
             self._server.close()
 
             # Close all open sockets and clear the connection list.
-            for handler in self._accepted_connections:
+            for handler in list(self._accepted_connections):
                 await handler.handle_close()
 
             self._accepted_connections = []
             await self._server.wait_closed()
 
     def process(self, msec) -> None:
-        for handler in self._accepted_connections:
+        for handler in list(self._accepted_connections):
             handler.process(msec)
 
 

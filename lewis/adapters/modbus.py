@@ -600,7 +600,7 @@ class ModbusServer():
             self.log.info("Shutting down server, closing all remaining client connections.")
             self._server.close()
 
-            for handler in self._accepted_connections:
+            for handler in list(self._accepted_connections):
                 await handler.handle_close()
 
             self._accepted_connections = []
