@@ -558,7 +558,7 @@ class ModbusHandler():
             self.log.info("Closing connection to client %s:%s", *sock.getpeername())
             self._writer.close()
             await self._writer.wait_closed()
-            self._server.remove_handler(self)
+        self._server.remove_handler(self)
 
 
 @has_log
