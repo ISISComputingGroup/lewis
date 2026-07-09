@@ -37,6 +37,7 @@ dependencies=[
     "PyYAML",
     "scanf",
     "pyasynchat;python_version >= '3.12'",
+    "asyncua"
 ]
 
 [project.optional-dependencies]
