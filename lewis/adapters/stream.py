@@ -108,7 +108,7 @@ class StreamHandler():
                 if isinstance(self._target.out_terminator, str)
                 else self._target.out_terminator
             )
-            self._writer.transport.write(reply + out_terminator)
+            self._writer.write(reply + out_terminator)
         except TypeError as e:
             self.log.error("Problem creating reply, type error {}!".format(e))
 
