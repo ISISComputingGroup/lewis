@@ -32,7 +32,7 @@ from lewis.core.utils import format_doc_text
 
 @has_log
 class StreamHandler():
-    def __init__(self, reader, writer, target, stream_server) -> None:
+    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, target, stream_server) -> None:
         self._in_terminator = target.in_terminator.encode()
         self._readtimeout = target.readtimeout
         self._readtimer = 0
@@ -176,7 +176,7 @@ class StreamServer():
 
     async def start(self):
         self._server = await asyncio.start_server(
-            self.handle_accept,
+            self._handle_accept,
             host=self.host,
             port=self.port,
             backlog=5,
@@ -184,7 +184,7 @@ class StreamServer():
             start_serving=True)
         self.log.info("Listening on %s:%s", self.host, self.port)
 
-    async def handle_accept(self, reader, writer) -> None:
+    async def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         sock = writer.get_extra_info('socket')
         if sock is not None:
             self.log.info("Client connected from %s:%s", *sock.getpeername())
