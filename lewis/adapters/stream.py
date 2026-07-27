@@ -173,7 +173,10 @@ class StreamHandler():
         self._pending_read = None
         sock = self._writer.get_extra_info('socket')
         if sock is not None and not self._writer.is_closing():
-            self.log.info("Closing connection to client %s:%s", *sock.getpeername())
+            try:
+                self.log.info("Closing connection to client %s:%s", *sock.getpeername())
+            except OSError:
+                self.log.info("Closing connection to client (peer address unavailable)")
             self._writer.close()
             await self._writer.wait_closed()
         self._stream_server.remove_handler(self)
@@ -205,7 +208,10 @@ class StreamServer():
     def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         sock = writer.get_extra_info('socket')
         if sock is not None:
-            self.log.info("Client connected from %s:%s", *sock.getpeername())
+            try:
+                self.log.info("Client connected from %s:%s", *sock.getpeername())
+            except OSError:
+                self.log.info("Client connected (peer address unavailable)")
         handler = StreamHandler(reader, writer, self.target, self)
         self._accepted_connections.append(handler)
 
