@@ -43,32 +43,37 @@ class StreamHandler():
         self._target.handler = self
         self._reader = reader
         self._writer = writer
+        self._pending_read: asyncio.Task | None = None
 
         self._set_logging_context(target)
 
-    async def handle_client(self):
-        while True:
-            chunk = await self._reader.read(4096)
-            if not chunk:
-                break
+    async def process(self, msec) -> None:
+        # Start a read operation if none is in flight
+        if self._pending_read is None:
+            self._pending_read = asyncio.ensure_future(self._reader.read(4096))
 
-            self.collect_incoming_data(chunk)   
+        # Process data if the read completed since the last tick
+        if self._pending_read.done():
+            try:
+                chunk = self._pending_read.result()
+            except Exception as e:
+                self._pending_read = None
+                self.log.error("Error reading from client: %s", e)
+                await self.handle_close()
+                return
+            self._pending_read = None
 
-            # If no terminator is set, just keep collecting data
-            # and let the process method handle the timeout
-            if not self._in_terminator:
-                continue
-            else:
-                while True:
-                    pos = b"".join(self._buffer).find(self._in_terminator)
-                    if pos == -1:
-                        break
+            if not chunk:  # EOF - client disconnected
+                await self.handle_close()
+                return
 
+            self.collect_incoming_data(chunk)
+
+            if self._in_terminator:
+                while b"".join(self._buffer).find(self._in_terminator) != -1:
                     self.found_terminator()
 
-        await self.handle_close()
-
-    def process(self, msec) -> None:
+        # Timeout processing
         if not self._buffer:
             return
 
@@ -91,11 +96,20 @@ class StreamHandler():
         self._buffer.append(data)
         self._readtimer = 0
 
-    def _get_request(self):
-        request = b"".join(self._buffer)
+    def _get_request(self) -> bytes:
+        data = b"".join(self._buffer)
         if self._in_terminator:
-            request = request.removesuffix(self._in_terminator)
-        self._buffer = []
+            term_pos = data.find(self._in_terminator)
+            if term_pos != -1:
+                request = data[:term_pos]
+                remainder = data[term_pos + len(self._in_terminator):]
+                self._buffer = [remainder] if remainder else []
+            else:
+                request = data
+                self._buffer = []
+        else:
+            request = data
+            self._buffer = []
         self.log.debug("Got request %s", request)
         return request
 
@@ -153,6 +167,9 @@ class StreamHandler():
         self._push(reply)
 
     async def handle_close(self) -> None:
+        if self._pending_read is not None and not self._pending_read.done():
+            self._pending_read.cancel()
+        self._pending_read = None
         sock = self._writer.get_extra_info('socket')
         if sock is not None and not self._writer.is_closing():
             self.log.info("Closing connection to client %s:%s", *sock.getpeername())
@@ -172,7 +189,7 @@ class StreamServer():
 
         self._set_logging_context(target)
 
-        self._accepted_connections = []
+        self._accepted_connections: list[StreamHandler] = []
 
     async def start(self):
         self._server = await asyncio.start_server(
@@ -184,13 +201,12 @@ class StreamServer():
             start_serving=True)
         self.log.info("Listening on %s:%s", self.host, self.port)
 
-    async def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+    def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         sock = writer.get_extra_info('socket')
         if sock is not None:
             self.log.info("Client connected from %s:%s", *sock.getpeername())
         handler = StreamHandler(reader, writer, self.target, self)
         self._accepted_connections.append(handler)
-        await handler.handle_client()
 
     def remove_handler(self, handler) -> None:
         self._accepted_connections.remove(handler)
@@ -207,9 +223,9 @@ class StreamServer():
             self._accepted_connections = []
             await self._server.wait_closed()
 
-    def process(self, msec) -> None:
+    async def process(self, msec) -> None:
         for handler in list(self._accepted_connections):
-            handler.process(msec)
+            await handler.process(msec)
 
 
 class PatternMatcher:
@@ -783,7 +799,7 @@ class StreamAdapter(Adapter):
         :param cycle_delay: S
         """
         await asyncio.sleep(cycle_delay)
-        self._server.process(int(cycle_delay * 1000))
+        await self._server.process(int(cycle_delay * 1000))
 
 
 class StreamInterface(InterfaceBase):
