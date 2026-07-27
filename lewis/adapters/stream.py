@@ -71,7 +71,7 @@ class StreamHandler():
 
             if self._in_terminator:
                 while b"".join(self._buffer).find(self._in_terminator) != -1:
-                    self.found_terminator()
+                    await self.found_terminator()
 
         # Timeout processing
         if not self._buffer:
@@ -80,14 +80,14 @@ class StreamHandler():
         if self._readtimer >= self._readtimeout and self._readtimeout != 0:
             if not self._in_terminator:
                 # If no terminator is set, this timeout is the terminator
-                self.found_terminator()
+                await self.found_terminator()
             else:
                 self._readtimer = 0
                 request = self._get_request()
                 with self._stream_server.device_lock:
                     error = RuntimeError("ReadTimeout while waiting for command terminator.")
                     reply = self._handle_error(request, error)
-                self._send_reply(reply)
+                await self._send_reply(reply)
 
         if self._buffer:
             self._readtimer += msec
@@ -113,7 +113,7 @@ class StreamHandler():
         self.log.debug("Got request %s", request)
         return request
 
-    def _push(self, reply) -> None:
+    async def _push(self, reply) -> None:
         try:
             if isinstance(reply, str):
                 reply = reply.encode()
@@ -123,19 +123,20 @@ class StreamHandler():
                 else self._target.out_terminator
             )
             self._writer.write(reply + out_terminator)
+            await self._writer.drain()
         except TypeError as e:
             self.log.error("Problem creating reply, type error {}!".format(e))
 
-    def _send_reply(self, reply) -> None:
+    async def _send_reply(self, reply) -> None:
         if reply is not None:
             self.log.debug("Sending reply %s", reply)
-            self._push(reply)
+            await self._push(reply)
 
     def _handle_error(self, request, error):
         self.log.debug("Error while processing request", exc_info=error)
         return self._target.handle_error(request, error)
 
-    def found_terminator(self) -> None:
+    async def found_terminator(self) -> None:
         self._readtimer = 0
 
         request = self._get_request()
@@ -160,11 +161,11 @@ class StreamHandler():
             except Exception as error:
                 reply = self._handle_error(request, error)
 
-        self._send_reply(reply)
+        await self._send_reply(reply)
 
-    def unsolicited_reply(self, reply) -> None:
+    async def unsolicited_reply(self, reply) -> None:
         self.log.debug("Sending unsolicited reply %s", reply)
-        self._push(reply)
+        await self._push(reply)
 
     async def handle_close(self) -> None:
         if self._pending_read is not None and not self._pending_read.done():

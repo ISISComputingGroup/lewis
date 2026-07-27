@@ -1,5 +1,5 @@
 from unittest import IsolatedAsyncioTestCase
-from unittest.mock import MagicMock, AsyncMock, patch
+from unittest.mock import MagicMock, AsyncMock
 
 from parameterized import parameterized
 
@@ -24,17 +24,13 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
             (b"\n", "test", b"test\n"),
             (b"\n", b"test", b"test\n"),
             ("\n", "test", b"test\n"),
-            ("\n", "test", b"test\n"),
+            ("\r\n", "test", b"test\r\n"),
         ]
     )
     async def test_terminator_and_replies_of_different_types_can_be_concatenated(
         self, terminator, message, expected
     ):
         self.target.out_terminator = terminator
-        self.handler.unsolicited_reply(message)
+        await self.handler.unsolicited_reply(message)
 
-        with patch.object(
-                self.stream_writer.transport, 'write', return_value=None) as mock_write:
-            self.stream_writer.transport.write(expected)
-
-        mock_write.assert_called_once_with(expected)
+        self.stream_writer.write.assert_called_once_with(expected)
