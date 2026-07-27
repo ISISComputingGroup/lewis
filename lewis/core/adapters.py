@@ -321,15 +321,15 @@ class AdapterCollection:
 
     async def _adapter_loop(self, adapter: Adapter, dt: float) -> None:
         adapter.device_lock = self._lock  # This ensures that the adapter is using the correct lock
-        await asyncio.create_task(adapter.start_server())
+        await adapter.start_server()
 
         self._running[adapter.protocol].set()
 
         self.log.debug("Starting adapter loop for protocol %s.", adapter.protocol)
         while self._running[adapter.protocol].is_set():
-            await asyncio.create_task(adapter.handle(dt))
+            await adapter.handle(dt)
 
-        await asyncio.create_task(adapter.stop_server())
+        await adapter.stop_server()
 
     def disconnect(self, *args: str) -> None:
         """
