@@ -304,22 +304,22 @@ class ModbusProtocol:
         """
         self._buffer.extend(bytearray(data))
 
+        responses = []
         with device_lock:
             for request in self._buffered_requests():
-                self.log.debug(
-                    "Request: %s",
-                    str(["{:#04x}".format(c) for c in request.to_bytearray()]),
-                )
-
                 handler = self._get_handler(request.fcode)
-                response = handler(request)
+                responses.append((request, handler(request)))
 
-                self.log.debug(
-                    "Response: %s",
-                    str(["{:#04x}".format(c) for c in response.to_bytearray()]),
-                )
-
-                await self._send(response)
+        for request, response in responses:
+            self.log.debug(
+                "Request: %s",
+                str(["{:#04x}".format(c) for c in request.to_bytearray()]),
+            )
+            self.log.debug(
+                "Response: %s",
+                str(["{:#04x}".format(c) for c in response.to_bytearray()]),
+            )
+            await self._send(response)
 
     def _buffered_requests(self):
         """Generator to yield all complete modbus requests in the internal buffer"""
