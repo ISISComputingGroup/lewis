@@ -186,6 +186,10 @@ class StreamHandler():
         self._target.handler = _NullStreamHandler()
         if self._pending_read is not None and not self._pending_read.done():
             self._pending_read.cancel()
+            try:
+                await self._pending_read
+            except asyncio.CancelledError:
+                pass
         self._pending_read = None
         sock = self._writer.get_extra_info('socket')
         if sock is not None and not self._writer.is_closing():
