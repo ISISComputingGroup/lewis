@@ -233,7 +233,10 @@ class StreamServer():
         self._accepted_connections.append(handler)
 
     def remove_handler(self, handler) -> None:
-        self._accepted_connections.remove(handler)
+        try:
+            self._accepted_connections.remove(handler)
+        except ValueError:
+            pass
 
     async def close(self) -> None:
         if self._server is not None:
