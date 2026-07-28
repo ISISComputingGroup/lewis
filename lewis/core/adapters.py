@@ -326,10 +326,15 @@ class AdapterCollection:
         self._running[adapter.protocol].set()
 
         self.log.debug("Starting adapter loop for protocol %s.", adapter.protocol)
-        while self._running[adapter.protocol].is_set():
-            await adapter.handle(dt)
-
-        await adapter.stop_server()
+        try:
+            while self._running[adapter.protocol].is_set():
+                await adapter.handle(dt)
+        except Exception:
+            self.log.exception("Adapter loop for protocol '%s' crashed.", adapter.protocol)
+            self._running[adapter.protocol].clear()
+            raise
+        finally:
+            await adapter.stop_server()
 
     def disconnect(self, *args: str) -> None:
         """
