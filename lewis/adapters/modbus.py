@@ -560,13 +560,14 @@ class ModbusHandler():
             return
         self._closing = True
         sock = self._writer.get_extra_info('socket')
-        if sock is not None and not self._writer.is_closing():
+        if sock is not None:
             try:
                 self.log.info("Closing connection to client %s:%s", *sock.getpeername())
             except OSError:
                 self.log.info("Closing connection to client (peer address unavailable)")
+        if not self._writer.is_closing():
             self._writer.close()
-            await self._writer.wait_closed()
+        await self._writer.wait_closed()
         self._server.remove_handler(self)
 
 
