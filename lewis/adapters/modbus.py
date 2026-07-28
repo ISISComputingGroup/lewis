@@ -236,7 +236,7 @@ class ModbusTCPFrame:
         frame = deepcopy(self)
         frame.length = 3
         frame.fcode += 0x80
-        frame.data = bytearray(chr(code))
+        frame.data = bytearray([code])
         return frame
 
     def create_response(self, data=None):
