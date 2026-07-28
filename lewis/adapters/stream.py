@@ -805,8 +805,8 @@ class StreamAdapter(Adapter):
 
         :param cycle_delay: S
         """
-        await asyncio.sleep(cycle_delay)
         await self._server.process(int(cycle_delay * 1000))
+        await asyncio.sleep(cycle_delay)
 
 
 class StreamInterface(InterfaceBase):
