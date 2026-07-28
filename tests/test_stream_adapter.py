@@ -14,6 +14,8 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         self.stream_reader = AsyncMock()
         self.stream_writer = MagicMock()
         self.stream_writer.drain = AsyncMock()
+        self.stream_writer.wait_closed = AsyncMock()
+        self.stream_writer.is_closing.return_value = False
         self.handler = StreamHandler(
             reader=self.stream_reader,
             writer=self.stream_writer,

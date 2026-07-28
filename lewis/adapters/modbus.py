@@ -538,20 +538,27 @@ class ModbusHandler():
         self._server = server
         self._reader = reader
         self._writer = writer
+        self._closing = False
 
         self._set_logging_context(interface)
 
     async def handle_client(self) -> None:
-        while True:
-            data = await self._reader.read(8192)
-            if data:
-                await self._modbus.process(data, self._server.device_lock)
-            else:
-                break
-
-        await self.handle_close()
+        try:
+            while True:
+                data = await self._reader.read(8192)
+                if data:
+                    await self._modbus.process(data, self._server.device_lock)
+                else:
+                    break
+        except OSError as e:
+            self.log.error("Connection error: %s", e)
+        finally:
+            await self.handle_close()
 
     async def handle_close(self) -> None:
+        if self._closing:
+            return
+        self._closing = True
         sock = self._writer.get_extra_info('socket')
         if sock is not None and not self._writer.is_closing():
             try:

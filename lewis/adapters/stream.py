@@ -44,6 +44,7 @@ class StreamHandler():
         self._reader = reader
         self._writer = writer
         self._pending_read: asyncio.Task | None = None
+        self._closing = False
 
         self._set_logging_context(target)
 
@@ -70,7 +71,7 @@ class StreamHandler():
             self.collect_incoming_data(chunk)
 
             if self._in_terminator:
-                while b"".join(self._buffer).find(self._in_terminator) != -1:
+                while not self._closing and b"".join(self._buffer).find(self._in_terminator) != -1:
                     await self.found_terminator()
 
         # Timeout processing
@@ -114,6 +115,8 @@ class StreamHandler():
         return request
 
     async def _push(self, reply) -> None:
+        if self._closing:
+            return
         try:
             if isinstance(reply, str):
                 reply = reply.encode()
@@ -126,6 +129,9 @@ class StreamHandler():
             await self._writer.drain()
         except TypeError as e:
             self.log.error("Problem creating reply, type error {}!".format(e))
+        except OSError as e:
+            self.log.error("Connection error while sending reply: %s", e)
+            await self.handle_close()
 
     async def _send_reply(self, reply) -> None:
         if reply is not None:
@@ -164,12 +170,20 @@ class StreamHandler():
         await self._send_reply(reply)
 
     def unsolicited_reply(self, reply) -> None:
+        if self._closing:
+            return
         self.log.debug("Sending unsolicited reply %s", reply)
         if self._stream_server._loop is None:
             raise RuntimeError("Cannot send unsolicited reply: server not started.")
         asyncio.run_coroutine_threadsafe(self._push(reply), self._stream_server._loop).result(timeout=5.0)
 
     async def handle_close(self) -> None:
+        if self._closing:
+            return
+        self._closing = True
+        # Setting the target.handler to None breaks client code, so
+        # rather set it to a dummy handler that does nothing.
+        self._target.handler = _NullStreamHandler()
         if self._pending_read is not None and not self._pending_read.done():
             self._pending_read.cancel()
         self._pending_read = None
@@ -813,6 +827,11 @@ class StreamAdapter(Adapter):
         await asyncio.sleep(cycle_delay)
 
 
+class _NullStreamHandler:
+    def unsolicited_reply(self, reply) -> None:
+        pass
+
+
 class StreamInterface(InterfaceBase):
     r"""
     This class is used to provide a TCP-stream based interface to a device.
@@ -875,6 +894,7 @@ class StreamInterface(InterfaceBase):
     def __init__(self) -> None:
         super(StreamInterface, self).__init__()
         self.bound_commands = None
+        self.handler = _NullStreamHandler()
 
     @property
     def adapter(self):
