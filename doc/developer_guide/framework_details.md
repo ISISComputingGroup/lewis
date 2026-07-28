@@ -82,7 +82,7 @@ library.
 -  Lewis is a multi-threaded application, each adapter is moved on its own
    dedicated thread, which is isolated from the main simulation thread. 
 -  The main thread uses the following two synchronization tools:
-   -  device lock: ensures that that the device is only accessed from one 
+   -  device lock: ensures that the device is only accessed from one 
        thread at a time
    -  is_running event: sends stop request to the adapter thread
 -  Adapters have to implement the following three 
