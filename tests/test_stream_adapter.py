@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, AsyncMock
 
 from parameterized import parameterized
 
-from lewis.adapters.stream import StreamHandler
+from lewis.adapters.stream import StreamHandler, StreamInterface, _NullStreamHandler
 
 
 class TestStreamHandler(IsolatedAsyncioTestCase):
@@ -117,3 +117,73 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
 
         self.target.handle_error.assert_called_once()
         self.stream_writer.write.assert_called_once()
+
+    async def test_handle_close_is_idempotent(self):
+        await self.handler.handle_close()
+        await self.handler.handle_close()
+
+        self.stream_server.remove_handler.assert_called_once_with(self.handler)
+
+    async def test_handle_close_clears_target_handler(self):
+        await self.handler.handle_close()
+
+        self.assertIsInstance(self.target.handler, _NullStreamHandler)
+
+    async def test_unsolicited_reply_is_silent_noop_after_close(self):
+        await self.handler.handle_close()
+
+        self.stream_server._loop = asyncio.get_running_loop()
+        # unsolicited_reply must be called from a worker thread (it calls .result() internally)
+        await asyncio.get_running_loop().run_in_executor(
+            None, self.handler.unsolicited_reply, "hello"
+        )
+
+        self.stream_writer.write.assert_not_called()
+        self.stream_server.remove_handler.assert_called_once_with(self.handler)
+
+    async def test_push_does_not_write_after_close(self):
+        await self.handler.handle_close()
+        self.stream_writer.write.reset_mock()
+
+        await self.handler._push("hello")
+
+        self.stream_writer.write.assert_not_called()
+
+    async def test_push_oserror_triggers_handle_close(self):
+        cmd_mock = self._create_mock_command()
+        self.target.bound_commands = [cmd_mock]
+        self.handler._reader.read.return_value = b"CMD\r\n"
+        self.stream_writer.drain.side_effect = OSError("connection broken")
+
+        await self.handler.process(10)
+        await asyncio.sleep(0)
+        await self.handler.process(10)
+
+        self.stream_server.remove_handler.assert_called_once_with(self.handler)
+
+    async def test_process_stops_dispatching_on_broken_connection(self):
+        cmd1_mock = self._create_mock_command(
+            can_process=lambda x: x == b"CMD1",
+            response="OK1")
+        cmd2_mock = self._create_mock_command(
+            can_process=lambda x: x == b"CMD2",
+            response="OK2")
+        self.target.bound_commands = [cmd1_mock, cmd2_mock]
+        self.handler._reader.read.return_value = b"CMD1\r\nCMD2\r\n"
+        self.stream_writer.drain.side_effect = OSError("connection broken")
+
+        await self.handler.process(10)
+        await asyncio.sleep(0)
+        await self.handler.process(10)
+
+        cmd1_mock.process_request.assert_called_once_with(b"CMD1")
+        cmd2_mock.process_request.assert_not_called()
+        self.stream_server.remove_handler.assert_called_once_with(self.handler)
+
+    def test_handler_initialised_to_null_object(self):
+        class MinimalInterface(StreamInterface):
+            commands = []
+
+        interface = MinimalInterface()
+
+        self.assertIsInstance(interface.handler, _NullStreamHandler)
