@@ -163,9 +163,11 @@ class StreamHandler():
 
         await self._send_reply(reply)
 
-    async def unsolicited_reply(self, reply) -> None:
+    def unsolicited_reply(self, reply) -> None:
         self.log.debug("Sending unsolicited reply %s", reply)
-        await self._push(reply)
+        if self._stream_server._loop is None:
+            raise RuntimeError("Cannot send unsolicited reply: server not started.")
+        asyncio.run_coroutine_threadsafe(self._push(reply), self._stream_server._loop).result(timeout=5.0)
 
     async def handle_close(self) -> None:
         if self._pending_read is not None and not self._pending_read.done():
@@ -189,13 +191,14 @@ class StreamServer():
         self.port = port
         self.target = target
         self.device_lock = device_lock
+        self._loop: asyncio.AbstractEventLoop | None = None
         self._server = None
+        self._accepted_connections: list[StreamHandler] = []
 
         self._set_logging_context(target)
 
-        self._accepted_connections: list[StreamHandler] = []
-
     async def start(self):
+        self._loop = asyncio.get_running_loop()
         self._server = await asyncio.start_server(
             self._handle_accept,
             host=self.host,
@@ -229,6 +232,7 @@ class StreamServer():
 
             self._accepted_connections = []
             await self._server.wait_closed()
+            self._loop = None
 
     async def process(self, msec) -> None:
         for handler in list(self._accepted_connections):

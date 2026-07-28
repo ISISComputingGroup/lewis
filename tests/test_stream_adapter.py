@@ -41,7 +41,12 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         self, terminator, message, expected
     ):
         self.target.out_terminator = terminator
-        await self.handler.unsolicited_reply(message)
+        # unsolicited_reply is sync and uses run_coroutine_threadsafe; it must be called
+        # from a worker thread so that .result() does not block the running event loop.
+        self.stream_server._loop = asyncio.get_running_loop()
+        await asyncio.get_running_loop().run_in_executor(
+            None, self.handler.unsolicited_reply, message
+        )
 
         self.stream_writer.write.assert_called_once_with(expected)
 
