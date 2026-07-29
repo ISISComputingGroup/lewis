@@ -259,20 +259,19 @@ class ModbusProtocol:
     This class implements the Modbus TCP Protocol.
 
     The user of this class should provide a ModbusDataStore instance that will be used to
-    fulfill read and write requests, and a callable `sender` which accepts one bytearray
-    parameter. The `sender` will be called whenever a response frame is generated, with a
-    bytearray containing the response frame as the parameter.
+    fulfill read and write requests. The `writer` will be called whenever a response frame
+    is generated, with a bytearray containing the response frame as the parameter.
 
     Processing occurs when the user calls ModbusProtocol.process(), passing in the raw frame
     data to process as a bytearray. The data may include multiple frames and partial frame
     fragments. Any data that could not be processed (due to incomplete frames) is buffered for
     the next call to process.
 
-    :param sender: callable that accepts one bytearray parameter, called to send responses.
+    :param writer: asyncio.StreamWriter, called to send responses.
     :param datastore: ModbusDataStore instance to reference when processing requests
     """
 
-    def __init__(self, writer, datastore) -> None:
+    def __init__(self, writer: asyncio.StreamWriter, datastore: ModbusDataStore) -> None:
         self._buffer = bytearray()
         self._datastore = datastore
         self._writer = writer
@@ -533,7 +532,7 @@ class ModbusProtocol:
 
 @has_log
 class ModbusHandler():
-    def __init__(self, reader, writer, interface, server) -> None:
+    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, interface, server) -> None:
         self._datastore = ModbusDataStore(interface.di, interface.co, interface.ir, interface.hr)
         self._modbus = ModbusProtocol(writer, self._datastore)
         self._server = server
@@ -576,7 +575,7 @@ class ModbusServer():
 
     async def start(self):
         self._server = await asyncio.start_server(
-            self.handle_accept,
+            self._handle_accept,
             host=self.host,
             port=self.port,
             backlog=5,
@@ -584,7 +583,7 @@ class ModbusServer():
             start_serving=True)
         self.log.info("Listening on %s:%s", self.host, self.port)
 
-    async def handle_accept(self, reader, writer) -> None:
+    async def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         sock = writer.get_extra_info('socket')
         if sock is not None:
             self.log.info("Client connected from %s:%s", *sock.getpeername())
