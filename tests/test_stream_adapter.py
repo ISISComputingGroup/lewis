@@ -20,7 +20,8 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
             reader=self.stream_reader,
             writer=self.stream_writer,
             target=self.target,
-            stream_server=self.stream_server)
+            stream_server=self.stream_server,
+        )
         self.handler._readtimeout = 0
         self.handler._in_terminator = b"\r\n"
         self.target.out_terminator = "\r\n"
@@ -81,12 +82,8 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         self.stream_writer.write.assert_called_once_with(b"OK\r\n")
 
     async def test_process_dispatches_two_commands_in_one_chunk(self):
-        cmd1_mock = self._create_mock_command(
-            can_process=lambda x: x == b"CMD1",
-            response="OK1")
-        cmd2_mock = self._create_mock_command(
-            can_process=lambda x: x == b"CMD2",
-            response="OK2")
+        cmd1_mock = self._create_mock_command(can_process=lambda x: x == b"CMD1", response="OK1")
+        cmd2_mock = self._create_mock_command(can_process=lambda x: x == b"CMD2", response="OK2")
         self.target.bound_commands = [cmd1_mock, cmd2_mock]
         self.handler._reader.read.return_value = b"CMD1\r\nCMD2\r\n"
 
@@ -162,12 +159,8 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         self.stream_server.remove_handler.assert_called_once_with(self.handler)
 
     async def test_process_stops_dispatching_on_broken_connection(self):
-        cmd1_mock = self._create_mock_command(
-            can_process=lambda x: x == b"CMD1",
-            response="OK1")
-        cmd2_mock = self._create_mock_command(
-            can_process=lambda x: x == b"CMD2",
-            response="OK2")
+        cmd1_mock = self._create_mock_command(can_process=lambda x: x == b"CMD1", response="OK1")
+        cmd2_mock = self._create_mock_command(can_process=lambda x: x == b"CMD2", response="OK2")
         self.target.bound_commands = [cmd1_mock, cmd2_mock]
         self.handler._reader.read.return_value = b"CMD1\r\nCMD2\r\n"
         self.stream_writer.drain.side_effect = OSError("connection broken")

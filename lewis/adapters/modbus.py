@@ -531,8 +531,10 @@ class ModbusProtocol:
 
 
 @has_log
-class ModbusHandler():
-    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, interface, server) -> None:
+class ModbusHandler:
+    def __init__(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, interface, server
+    ) -> None:
         self._datastore = ModbusDataStore(interface.di, interface.co, interface.ir, interface.hr)
         self._modbus = ModbusProtocol(writer, self._datastore)
         self._server = server
@@ -559,7 +561,7 @@ class ModbusHandler():
         if self._closing:
             return
         self._closing = True
-        sock = self._writer.get_extra_info('socket')
+        sock = self._writer.get_extra_info("socket")
         if sock is not None:
             try:
                 self.log.info("Closing connection to client %s:%s", *sock.getpeername())
@@ -572,7 +574,7 @@ class ModbusHandler():
 
 
 @has_log
-class ModbusServer():
+class ModbusServer:
     def __init__(self, host, port, interface, device_lock) -> None:
         self.host = host
         self.port = port
@@ -591,11 +593,14 @@ class ModbusServer():
             port=self.port,
             backlog=5,
             reuse_address=True,
-            start_serving=True)
+            start_serving=True,
+        )
         self.log.info("Listening on %s:%s", self.host, self.port)
 
-    async def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
-        sock = writer.get_extra_info('socket')
+    async def _handle_accept(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter
+    ) -> None:
+        sock = writer.get_extra_info("socket")
         if sock is not None:
             try:
                 self.log.info("Client connected from %s:%s", *sock.getpeername())

@@ -31,8 +31,10 @@ from lewis.core.utils import format_doc_text
 
 
 @has_log
-class StreamHandler():
-    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, target, stream_server) -> None:
+class StreamHandler:
+    def __init__(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, target, stream_server
+    ) -> None:
         self._in_terminator = target.in_terminator.encode()
         self._readtimeout = target.readtimeout
         self._readtimer = 0
@@ -103,7 +105,7 @@ class StreamHandler():
             term_pos = data.find(self._in_terminator)
             if term_pos != -1:
                 request = data[:term_pos]
-                remainder = data[term_pos + len(self._in_terminator):]
+                remainder = data[term_pos + len(self._in_terminator) :]
                 self._buffer = [remainder] if remainder else []
             else:
                 request = data
@@ -175,7 +177,9 @@ class StreamHandler():
         self.log.debug("Sending unsolicited reply %s", reply)
         if self._stream_server._loop is None:
             raise RuntimeError("Cannot send unsolicited reply: server not started.")
-        asyncio.run_coroutine_threadsafe(self._push(reply), self._stream_server._loop).result(timeout=5.0)
+        asyncio.run_coroutine_threadsafe(self._push(reply), self._stream_server._loop).result(
+            timeout=5.0
+        )
 
     async def handle_close(self) -> None:
         if self._closing:
@@ -191,7 +195,7 @@ class StreamHandler():
             except asyncio.CancelledError:
                 pass
         self._pending_read = None
-        sock = self._writer.get_extra_info('socket')
+        sock = self._writer.get_extra_info("socket")
         if sock is not None:
             try:
                 self.log.info("Closing connection to client %s:%s", *sock.getpeername())
@@ -204,7 +208,7 @@ class StreamHandler():
 
 
 @has_log
-class StreamServer():
+class StreamServer:
     def __init__(self, host, port, target, device_lock) -> None:
         self.host = host
         self.port = port
@@ -224,11 +228,12 @@ class StreamServer():
             port=self.port,
             backlog=5,
             reuse_address=True,
-            start_serving=True)
+            start_serving=True,
+        )
         self.log.info("Listening on %s:%s", self.host, self.port)
 
     def _handle_accept(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
-        sock = writer.get_extra_info('socket')
+        sock = writer.get_extra_info("socket")
         if sock is not None:
             try:
                 self.log.info("Client connected from %s:%s", *sock.getpeername())

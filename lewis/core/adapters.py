@@ -305,7 +305,9 @@ class AdapterCollection:
         if adapter.protocol not in self._threads:
             self.log.info("Connecting device interface for protocol '%s'", adapter.protocol)
 
-            adapter_thread = threading.Thread(target=lambda: asyncio.run(self._adapter_loop(adapter, 0.01)))
+            adapter_thread = threading.Thread(
+                target=lambda: asyncio.run(self._adapter_loop(adapter, 0.01))
+            )
             adapter_thread.daemon = True
 
             self._threads[adapter.protocol] = adapter_thread
