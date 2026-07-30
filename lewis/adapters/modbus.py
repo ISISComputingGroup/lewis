@@ -614,7 +614,7 @@ class ModbusServer:
         try:
             self._accepted_connections.remove(handler)
         except ValueError:
-            pass
+            pass  # Removed from another path
 
     async def close(self) -> None:
         if self._server is not None:

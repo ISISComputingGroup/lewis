@@ -193,7 +193,7 @@ class StreamHandler:
             try:
                 await self._pending_read
             except asyncio.CancelledError:
-                pass
+                pass  # Suppress RuntimeWarning for not awaiting a cancelled task
         self._pending_read = None
         sock = self._writer.get_extra_info("socket")
         if sock is not None:
@@ -246,7 +246,7 @@ class StreamServer:
         try:
             self._accepted_connections.remove(handler)
         except ValueError:
-            pass
+            pass  # Removed from another path
 
     async def close(self) -> None:
         if self._server is not None:
