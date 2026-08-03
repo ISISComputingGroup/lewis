@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, AsyncMock
 
 from parameterized import parameterized
 
-from lewis.adapters.stream import StreamHandler, StreamInterface, _NullStreamHandler
+from lewis.adapters.stream import StreamHandler
 
 
 class TestStreamHandler(IsolatedAsyncioTestCase):
@@ -121,11 +121,6 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
 
         self.stream_server.remove_handler.assert_called_once_with(self.handler)
 
-    async def test_handle_close_clears_target_handler(self):
-        await self.handler.handle_close()
-
-        self.assertIsInstance(self.target.handler, _NullStreamHandler)
-
     async def test_unsolicited_reply_is_silent_noop_after_close(self):
         await self.handler.handle_close()
 
@@ -172,11 +167,3 @@ class TestStreamHandler(IsolatedAsyncioTestCase):
         cmd1_mock.process_request.assert_called_once_with(b"CMD1")
         cmd2_mock.process_request.assert_not_called()
         self.stream_server.remove_handler.assert_called_once_with(self.handler)
-
-    def test_handler_initialised_to_null_object(self):
-        class MinimalInterface(StreamInterface):
-            commands = []
-
-        interface = MinimalInterface()
-
-        self.assertIsInstance(interface.handler, _NullStreamHandler)

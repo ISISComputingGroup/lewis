@@ -185,9 +185,8 @@ class StreamHandler:
         if self._closing:
             return
         self._closing = True
-        # Setting the target.handler to None breaks client code, so
-        # rather set it to a dummy handler that does nothing.
-        self._target.handler = _NullStreamHandler()
+        if self._target.handler is self:
+            del self._target.handler
         if self._pending_read is not None and not self._pending_read.done():
             self._pending_read.cancel()
             try:
@@ -840,11 +839,6 @@ class StreamAdapter(Adapter):
         await asyncio.sleep(cycle_delay)
 
 
-class _NullStreamHandler:
-    def unsolicited_reply(self, reply) -> None:
-        pass
-
-
 class StreamInterface(InterfaceBase):
     r"""
     This class is used to provide a TCP-stream based interface to a device.
@@ -907,7 +901,6 @@ class StreamInterface(InterfaceBase):
     def __init__(self) -> None:
         super(StreamInterface, self).__init__()
         self.bound_commands = None
-        self.handler = _NullStreamHandler()
 
     @property
     def adapter(self):
