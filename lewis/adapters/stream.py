@@ -202,7 +202,10 @@ class StreamHandler:
                 self.log.info("Closing connection to client (peer address unavailable)")
         if not self._writer.is_closing():
             self._writer.close()
-        await self._writer.wait_closed()
+        try:
+            await self._writer.wait_closed()
+        except OSError:
+            self.log.debug("Connection reset by peer while waiting for close")
         self._stream_server.remove_handler(self)
 
 
