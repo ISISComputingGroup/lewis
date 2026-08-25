@@ -573,7 +573,7 @@ class EpicsAdapter(Adapter):
 
         return "\n\n".join([inspect.getdoc(self.interface) or "", "PVs\n==="] + pvs)
 
-    def start_server(self) -> None:
+    async def start_server(self) -> None:
         """
         Creates a pcaspy-server.
 
@@ -597,7 +597,7 @@ class EpicsAdapter(Adapter):
                 ", ".join((self._options.prefix + pv for pv in self.interface.bound_pvs.keys())),
             )
 
-    def stop_server(self) -> None:
+    async def stop_server(self) -> None:
         self._driver = None
         self._server = None
 
@@ -605,7 +605,7 @@ class EpicsAdapter(Adapter):
     def is_running(self):
         return self._server is not None
 
-    def handle(self, cycle_delay=0.1) -> None:
+    async def handle(self, cycle_delay=0.1) -> None:
         """
         Call this method to spend about ``cycle_delay`` seconds processing
         requests in the pcaspy server. Under load, for example when running ``caget`` at a

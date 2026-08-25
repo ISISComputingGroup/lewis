@@ -72,3 +72,24 @@ statemachine:
 -  Implicit: Implement handlers in the device class, with standard names
    like `on_entry_init` for a state called "init", and call
    `bindHandlersByName()`
+
+## Adapter Concurrency
+
+Adapters performing network I/O for communicating with client applications
+make use of python's [asyncio](https://docs.python.org/3/library/asyncio.html)
+library.
+
+-  Lewis is a multi-threaded application, each adapter is moved on its own
+   dedicated thread, which is isolated from the main simulation thread. 
+-  The main thread uses the following two synchronization tools:
+   -  device lock: ensures that the device is only accessed from one 
+       thread at a time
+   -  is_running event: sends stop request to the adapter thread
+-  Adapters have to implement the following three 
+   [async coroutines](https://docs.python.org/3/library/asyncio-task.html), 
+   which will be scheduled as tasks by their respective async event loops:
+   -  start_server: starts the server, handles client connections
+   -  stop_server: gracefully closes client connections and stops the server
+   -  handle: synchronizes with the simulation steps
+
+![The adapter concurrency diagram.](../resources/diagrams/AdapterConcurrency.drawio.png)

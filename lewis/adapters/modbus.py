@@ -32,8 +32,7 @@ were used as guidelines and references for implementing the protocol:
     at lewis/examples/modbus_device.
 """
 
-import asyncore
-import socket
+import asyncio
 import struct
 from copy import deepcopy
 from math import ceil
@@ -237,7 +236,7 @@ class ModbusTCPFrame:
         frame = deepcopy(self)
         frame.length = 3
         frame.fcode += 0x80
-        frame.data = bytearray(chr(code))
+        frame.data = bytearray([code])
         return frame
 
     def create_response(self, data=None):
@@ -260,23 +259,22 @@ class ModbusProtocol:
     This class implements the Modbus TCP Protocol.
 
     The user of this class should provide a ModbusDataStore instance that will be used to
-    fulfill read and write requests, and a callable `sender` which accepts one bytearray
-    parameter. The `sender` will be called whenever a response frame is generated, with a
-    bytearray containing the response frame as the parameter.
+    fulfill read and write requests. The `writer` will be called whenever a response frame
+    is generated, with a bytearray containing the response frame as the parameter.
 
     Processing occurs when the user calls ModbusProtocol.process(), passing in the raw frame
     data to process as a bytearray. The data may include multiple frames and partial frame
     fragments. Any data that could not be processed (due to incomplete frames) is buffered for
     the next call to process.
 
-    :param sender: callable that accepts one bytearray parameter, called to send responses.
+    :param writer: asyncio.StreamWriter, called to send responses.
     :param datastore: ModbusDataStore instance to reference when processing requests
     """
 
-    def __init__(self, sender, datastore) -> None:
+    def __init__(self, writer: asyncio.StreamWriter, datastore: ModbusDataStore) -> None:
         self._buffer = bytearray()
         self._datastore = datastore
-        self._send = lambda req: sender(req.to_bytearray())
+        self._writer = writer
 
         # Lookup table to handle requests as per Modbus Application Protocol v1.1b3, Section 6.
         self._fcode_handler_map = {
@@ -290,7 +288,11 @@ class ModbusProtocol:
             0x10: self._handle_write_multiple_registers,
         }
 
-    def process(self, data, device_lock) -> None:
+    async def _send(self, response) -> None:
+        self._writer.write(response.to_bytearray())
+        await self._writer.drain()
+
+    async def process(self, data, device_lock) -> None:
         """
         Process as much of given data as possible.
 
@@ -302,22 +304,22 @@ class ModbusProtocol:
         """
         self._buffer.extend(bytearray(data))
 
+        responses = []
         with device_lock:
             for request in self._buffered_requests():
-                self.log.debug(
-                    "Request: %s",
-                    str(["{:#04x}".format(c) for c in request.to_bytearray()]),
-                )
-
                 handler = self._get_handler(request.fcode)
-                response = handler(request)
+                responses.append((request, handler(request)))
 
-                self.log.debug(
-                    "Response: %s",
-                    str(["{:#04x}".format(c) for c in response.to_bytearray()]),
-                )
-
-                self._send(response)
+        for request, response in responses:
+            self.log.debug(
+                "Request: %s",
+                str(["{:#04x}".format(c) for c in request.to_bytearray()]),
+            )
+            self.log.debug(
+                "Response: %s",
+                str(["{:#04x}".format(c) for c in response.to_bytearray()]),
+            )
+            await self._send(response)
 
     def _buffered_requests(self):
         """Generator to yield all complete modbus requests in the internal buffer"""
@@ -529,59 +531,104 @@ class ModbusProtocol:
 
 
 @has_log
-class ModbusHandler(asyncore.dispatcher_with_send):
-    def __init__(self, sock, interface, server) -> None:
-        asyncore.dispatcher_with_send.__init__(self, sock=sock)
+class ModbusHandler:
+    def __init__(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, interface, server
+    ) -> None:
         self._datastore = ModbusDataStore(interface.di, interface.co, interface.ir, interface.hr)
-        self._modbus = ModbusProtocol(self.send, self._datastore)
+        self._modbus = ModbusProtocol(writer, self._datastore)
         self._server = server
+        self._reader = reader
+        self._writer = writer
+        self._closing = False
 
         self._set_logging_context(interface)
-        self.log.info("Client connected from %s:%s", *sock.getpeername())
 
-    def handle_read(self) -> None:
-        data = self.recv(8192)
-        self._modbus.process(data, self._server.device_lock)
+    async def handle_client(self) -> None:
+        try:
+            while True:
+                data = await self._reader.read(8192)
+                if data:
+                    await self._modbus.process(data, self._server.device_lock)
+                else:
+                    break
+        except OSError as e:
+            self.log.error("Connection error: %s", e)
+        finally:
+            await self.handle_close()
 
-    def handle_close(self) -> None:
-        self.log.info("Closing connection to client %s:%s", *self.socket.getpeername())
+    async def handle_close(self) -> None:
+        if self._closing:
+            return
+        self._closing = True
+        sock = self._writer.get_extra_info("socket")
+        if sock is not None:
+            try:
+                self.log.info("Closing connection to client %s:%s", *sock.getpeername())
+            except OSError:
+                self.log.info("Closing connection to client (peer address unavailable)")
+        if not self._writer.is_closing():
+            self._writer.close()
+        try:
+            await self._writer.wait_closed()
+        except OSError:
+            self.log.debug("Connection reset by peer while waiting for close")
         self._server.remove_handler(self)
-        self.close()
 
 
 @has_log
-class ModbusServer(asyncore.dispatcher):
+class ModbusServer:
     def __init__(self, host, port, interface, device_lock) -> None:
-        asyncore.dispatcher.__init__(self)
+        self.host = host
+        self.port = port
         self.device_lock = device_lock
         self.interface = interface
-        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.set_reuse_addr()
-        self.bind((host, port))
-        self.listen(5)
+        self._server = None
 
         self._set_logging_context(interface)
-        self.log.info("Listening on %s:%s", host, port)
 
         self._accepted_connections = []
 
-    def handle_accept(self) -> None:
-        pair = self.accept()
-        if pair is not None:
-            sock, _ = pair
-            handler = ModbusHandler(sock, self.interface, self)
-            self._accepted_connections.append(handler)
+    async def start(self):
+        self._server = await asyncio.start_server(
+            self._handle_accept,
+            host=self.host,
+            port=self.port,
+            backlog=5,
+            reuse_address=True,
+            start_serving=True,
+        )
+        self.log.info("Listening on %s:%s", self.host, self.port)
+
+    async def _handle_accept(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter
+    ) -> None:
+        sock = writer.get_extra_info("socket")
+        if sock is not None:
+            try:
+                self.log.info("Client connected from %s:%s", *sock.getpeername())
+            except OSError:
+                self.log.info("Client connected (peer address unavailable)")
+        handler = ModbusHandler(reader, writer, self.interface, self)
+        self._accepted_connections.append(handler)
+        await handler.handle_client()
 
     def remove_handler(self, handler) -> None:
-        self._accepted_connections.remove(handler)
+        try:
+            self._accepted_connections.remove(handler)
+        except ValueError:
+            pass  # Removed from another path
 
-    def handle_close(self) -> None:
-        self.log.info("Shutting down server, closing all remaining client connections.")
+    async def close(self) -> None:
+        if self._server is not None:
+            self.log.info("Shutting down server, closing all remaining client connections.")
+            self._server.close()
 
-        for handler in self._accepted_connections:
-            handler.close()
-        self._accepted_connections = []
-        self.close()
+            for handler in list(self._accepted_connections):
+                await handler.handle_close()
+
+            self._accepted_connections = []
+            await self._server.wait_closed()
 
 
 class ModbusAdapter(Adapter):
@@ -591,7 +638,7 @@ class ModbusAdapter(Adapter):
         super(ModbusAdapter, self).__init__(options)
         self._server = None
 
-    def start_server(self) -> None:
+    async def start_server(self) -> None:
         self._server = ModbusServer(
             self._options.bind_address,
             self._options.port,
@@ -599,17 +646,19 @@ class ModbusAdapter(Adapter):
             self.device_lock,
         )
 
-    def stop_server(self) -> None:
+        await self._server.start()
+
+    async def stop_server(self) -> None:
         if self._server is not None:
-            self._server.close()
+            await self._server.close()
             self._server = None
 
     @property
     def is_running(self):
         return self._server is not None
 
-    def handle(self, cycle_delay=0.1) -> None:
-        asyncore.loop(cycle_delay, count=1)
+    async def handle(self, cycle_delay=0.1) -> None:
+        await asyncio.sleep(cycle_delay)
 
 
 class ModbusInterface(InterfaceBase):

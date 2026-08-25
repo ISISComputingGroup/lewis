@@ -27,10 +27,10 @@ class DummyAdapter(Adapter):
     def protocol(self):
         return self._protocol
 
-    def start_server(self):
+    async def start_server(self):
         self._running = True
 
-    def stop_server(self):
+    async def stop_server(self):
         self._running = False
 
     @property
@@ -47,19 +47,28 @@ class TestNoLock(unittest.TestCase):
         self.assertRaises(RuntimeError, failing_function)
 
 
-class TestAdapter(unittest.TestCase):
+class TestAdapter(unittest.IsolatedAsyncioTestCase):
     def test_documentation(self):
         adapter = DummyAdapter("foo")
 
         self.assertEqual(inspect.cleandoc(adapter.__doc__), adapter.documentation)
 
-    def test_not_implemented_errors(self):
+    async def test_not_implemented_errors(self):
         adapter = Adapter()
 
-        self.assertRaises(NotImplementedError, adapter.start_server)
-        self.assertRaises(NotImplementedError, adapter.stop_server)
+        with self.assertRaises(NotImplementedError):
+            await adapter.start_server()
+        with self.assertRaises(NotImplementedError):
+            await adapter.stop_server()
         self.assertRaises(NotImplementedError, getattr, adapter, "is_running")
-        assertRaisesNothing(self, adapter.handle, 0)
+
+        try:
+            await adapter.handle(0)
+        except Exception as exc:
+            self.fail(
+                "Assertion error. An exception was caught where none "
+                "was expected in %s. Message: %s" % (adapter.handle.__name__, str(exc))
+            )
 
     def test_interface_property(self):
         adapter = Adapter()
