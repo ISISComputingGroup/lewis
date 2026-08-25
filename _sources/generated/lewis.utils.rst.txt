@@ -1,0 +1,28 @@
+
+
+``lewis.utils``
+===============
+
+.. automodule:: lewis.utils
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        byte_conversions
+        command_builder
+        constants
+        replies
+    
+    
+
+    
+    
+    

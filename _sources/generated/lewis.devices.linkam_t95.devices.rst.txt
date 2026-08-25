@@ -1,0 +1,26 @@
+
+
+``lewis.devices.linkam_t95.devices``
+====================================
+
+.. automodule:: lewis.devices.linkam_t95.devices
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        device
+        states
+    
+    
+
+    
+    
+    

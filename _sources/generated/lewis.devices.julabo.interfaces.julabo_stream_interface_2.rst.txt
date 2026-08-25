@@ -1,0 +1,24 @@
+
+
+``lewis.devices.julabo.interfaces.julabo_stream_interface_2``
+=============================================================
+        
+
+.. automodule:: lewis.devices.julabo.interfaces.julabo_stream_interface_2
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        JulaboStreamInterfaceV2
+    
+    

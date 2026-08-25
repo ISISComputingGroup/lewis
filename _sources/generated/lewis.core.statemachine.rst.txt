@@ -1,0 +1,32 @@
+
+
+``lewis.core.statemachine``
+===========================
+        
+        
+        
+        
+        
+
+.. automodule:: lewis.core.statemachine
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        HasContext
+        State
+        StateMachine
+        StateMachineException
+        Transition
+    
+    

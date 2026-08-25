@@ -1,0 +1,28 @@
+
+
+``lewis.examples.dual_device``
+==============================
+        
+        
+        
+
+.. automodule:: lewis.examples.dual_device
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        VerySimpleDevice
+        VerySimpleInterface
+        VerySimpleStreamInterface
+    
+    

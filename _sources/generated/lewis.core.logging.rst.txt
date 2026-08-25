@@ -1,0 +1,26 @@
+
+
+``lewis.core.logging``
+======================
+        
+        
+
+.. automodule:: lewis.core.logging
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        HasLog
+        has_log
+    
+    

@@ -1,0 +1,28 @@
+
+
+``lewis.core.adapters``
+=======================
+        
+        
+        
+
+.. automodule:: lewis.core.adapters
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        Adapter
+        AdapterCollection
+        NoLock
+    
+    

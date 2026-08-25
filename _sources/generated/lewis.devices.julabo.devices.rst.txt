@@ -1,0 +1,26 @@
+
+
+``lewis.devices.julabo.devices``
+================================
+
+.. automodule:: lewis.devices.julabo.devices
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        device
+        states
+    
+    
+
+    
+    
+    

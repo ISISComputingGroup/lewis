@@ -1,0 +1,34 @@
+
+
+``lewis.core.devices``
+======================
+        
+        
+        
+        
+        
+        
+
+.. automodule:: lewis.core.devices
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        DeviceBase
+        DeviceBuilder
+        DeviceRegistry
+        InterfaceBase
+        is_device
+        is_interface
+    
+    

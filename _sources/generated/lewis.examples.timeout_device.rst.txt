@@ -1,0 +1,26 @@
+
+
+``lewis.examples.timeout_device``
+=================================
+        
+        
+
+.. automodule:: lewis.examples.timeout_device
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        TimeTerminatedDevice
+        TimeTerminatedInterface
+    
+    

@@ -1,0 +1,30 @@
+
+
+``lewis.core.control_client``
+=============================
+        
+        
+        
+        
+
+.. automodule:: lewis.core.control_client
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        ControlClient
+        ObjectProxy
+        ProtocolException
+        RemoteException
+    
+    

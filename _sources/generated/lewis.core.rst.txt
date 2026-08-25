@@ -1,0 +1,35 @@
+
+
+``lewis.core``
+==============
+
+.. automodule:: lewis.core
+    :members:
+    :show-inheritance:
+
+    
+    
+    .. rubric:: Submodules
+
+    .. autosummary::
+        :toctree:
+        :template: custom-module-template.rst
+        :recursive:
+    
+        adapters
+        approaches
+        control_client
+        control_server
+        devices
+        exceptions
+        logging
+        processor
+        simulation
+        statemachine
+        utils
+    
+    
+
+    
+    
+    

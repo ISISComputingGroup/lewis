@@ -1,0 +1,28 @@
+
+
+``lewis.core.exceptions``
+=========================
+        
+        
+        
+
+.. automodule:: lewis.core.exceptions
+    :members:
+    :show-inheritance:
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Members
+
+    .. autosummary::
+        :nosignatures:
+    
+        AccessViolationException
+        LewisException
+        LimitViolationException
+    
+    
